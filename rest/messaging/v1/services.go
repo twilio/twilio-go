@@ -49,7 +49,7 @@ type CreateServiceParams struct {
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
-	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
+	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 	// Reserved.
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
@@ -161,7 +161,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
 	}
 	if params != nil && params.FallbackToLongCode != nil {
 		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
@@ -406,7 +406,7 @@ type UpdateServiceParams struct {
 	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
 	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
 	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
-	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
+	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `36,000`. Default value is `36,000`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 	// Reserved.
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
@@ -519,7 +519,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
 	}
 	if params != nil && params.ScanMessageContent != nil {
-		data.Set("ScanMessageContent", *params.ScanMessageContent)
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
 	}
 	if params != nil && params.FallbackToLongCode != nil {
 		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))

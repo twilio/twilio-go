@@ -4,8 +4,8 @@ All URIs are relative to *https://bulkexports.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchDay**](ExportsDaysApi.md#FetchDay) | **Get** /v1/Exports/{ResourceType}/Days/{Day} | 
-[**ListDay**](ExportsDaysApi.md#ListDay) | **Get** /v1/Exports/{ResourceType}/Days | 
+[**FetchDay**](ExportsDaysApi.md#FetchDay) | **Get** /v1/Exports/{ResourceType}/Days/{Day} | Fetch a specific Day.
+[**ListDay**](ExportsDaysApi.md#ListDay) | **Get** /v1/Exports/{ResourceType}/Days | Retrieve a list of all Days for a resource.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > BulkexportsV1DayInstance FetchDay(ctx, ResourceTypeDay)
 
-
+Fetch a specific Day.
 
 Fetch a specific Day.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []BulkexportsV1Day ListDay(ctx, ResourceTypeoptional)
 
-
+Retrieve a list of all Days for a resource.
 
 Retrieve a list of all Days for a resource.
 
@@ -75,7 +75,7 @@ Other parameters are passed through a pointer to a ListDayParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 400.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

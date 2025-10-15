@@ -4,7 +4,7 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMedia**](TranscriptsMediaApi.md#FetchMedia) | **Get** /v2/Transcripts/{Sid}/Media | 
+[**FetchMedia**](TranscriptsMediaApi.md#FetchMedia) | **Get** /v2/Transcripts/{Sid}/Media | Get download URLs for media if possible
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2Media FetchMedia(ctx, Sidoptional)
 
-
+Get download URLs for media if possible
 
 Get download URLs for media if possible
 

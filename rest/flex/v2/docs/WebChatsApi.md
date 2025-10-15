@@ -32,6 +32,7 @@ Name | Type | Description
 **ChatFriendlyName** | **string** | The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
 **CustomerFriendlyName** | **string** | The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
 **PreEngagementData** | **string** | The pre-engagement data.
+**Identity** | **string** | The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
 
 ### Return type
 

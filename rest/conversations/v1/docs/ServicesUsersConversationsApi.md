@@ -4,10 +4,10 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteServiceUserConversation**](ServicesUsersConversationsApi.md#DeleteServiceUserConversation) | **Delete** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
-[**FetchServiceUserConversation**](ServicesUsersConversationsApi.md#FetchServiceUserConversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
-[**ListServiceUserConversation**](ServicesUsersConversationsApi.md#ListServiceUserConversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations | 
-[**UpdateServiceUserConversation**](ServicesUsersConversationsApi.md#UpdateServiceUserConversation) | **Post** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
+[**DeleteServiceUserConversation**](ServicesUsersConversationsApi.md#DeleteServiceUserConversation) | **Delete** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Delete a specific User Conversation.
+[**FetchServiceUserConversation**](ServicesUsersConversationsApi.md#FetchServiceUserConversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Fetch a specific User Conversation.
+[**ListServiceUserConversation**](ServicesUsersConversationsApi.md#ListServiceUserConversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations | Retrieve a list of all User Conversations for the User.
+[**UpdateServiceUserConversation**](ServicesUsersConversationsApi.md#UpdateServiceUserConversation) | **Post** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Update a specific User Conversation.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteServiceUserConversation(ctx, ChatServiceSidUserSidConversationSid)
 
-
+Delete a specific User Conversation.
 
 Delete a specific User Conversation.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceUserConversation FetchServiceUserConversation(ctx, ChatServiceSidUserSidConversationSid)
 
-
+Fetch a specific User Conversation.
 
 Fetch a specific User Conversation.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceUserConversation ListServiceUserConversation(ctx, ChatServiceSidUserSidoptional)
 
-
+Retrieve a list of all User Conversations for the User.
 
 Retrieve a list of all User Conversations for the User.
 
@@ -123,7 +123,7 @@ Other parameters are passed through a pointer to a ListServiceUserConversationPa
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 50.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceUserConversation UpdateServiceUserConversation(ctx, ChatServiceSidUserSidConversationSidoptional)
 
-
+Update a specific User Conversation.
 
 Update a specific User Conversation.
 
@@ -169,7 +169,7 @@ Other parameters are passed through a pointer to a UpdateServiceUserConversation
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**NotificationLevel** | **string** | 
+**NotificationLevel** | [**string**](string.md) | 
 **LastReadTimestamp** | **time.Time** | The date of the last message read in conversation by the user, given in ISO 8601 format.
 **LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
 

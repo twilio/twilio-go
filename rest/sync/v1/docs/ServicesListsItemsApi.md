@@ -172,10 +172,10 @@ Other parameters are passed through a pointer to a ListSyncListItemParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
+**Order** | [**string**](stringstring.md) | How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
 **From** | **string** | The `index` of the first Sync List Item resource to read. See also `bounds`.
-**Bounds** | **string** | Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Bounds** | [**string**](stringstring.md) | Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

@@ -4,8 +4,8 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchNetwork**](NetworksApi.md#FetchNetwork) | **Get** /v1/Networks/{Sid} | 
-[**ListNetwork**](NetworksApi.md#ListNetwork) | **Get** /v1/Networks | 
+[**FetchNetwork**](NetworksApi.md#FetchNetwork) | **Get** /v1/Networks/{Sid} | Fetch a Network resource.
+[**ListNetwork**](NetworksApi.md#ListNetwork) | **Get** /v1/Networks | Retrieve a list of Network resources.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > SupersimV1Network FetchNetwork(ctx, Sid)
 
-
+Fetch a Network resource.
 
 Fetch a Network resource.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []SupersimV1Network ListNetwork(ctx, optional)
 
-
+Retrieve a list of Network resources.
 
 Retrieve a list of Network resources.
 

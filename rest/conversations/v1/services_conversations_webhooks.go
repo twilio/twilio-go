@@ -82,13 +82,13 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 	}
 
 	if params != nil && params.Target != nil {
-		data.Set("Target", *params.Target)
+		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("Configuration.Method", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
 	}
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {
@@ -173,7 +173,7 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 
 // Optional parameters for the method 'ListServiceConversationScopedWebhook'
 type ListServiceConversationScopedWebhookParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 5, and the maximum is 5.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
@@ -363,7 +363,7 @@ func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
 	if params != nil && params.ConfigurationMethod != nil {
-		data.Set("Configuration.Method", *params.ConfigurationMethod)
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
 	}
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {

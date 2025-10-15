@@ -25,5 +25,5 @@ type IamV1Key struct {
 	// The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateUpdated *string `json:"date_updated,omitempty"`
 	// The \\`Policy\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
-	Policy *interface{} `json:"policy,omitempty"`
+	Policy *map[string]interface{} `json:"policy,omitempty"`
 }

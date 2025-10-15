@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#CreateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-[**DeleteServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#DeleteServiceConversationParticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**FetchServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#FetchServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-[**ListServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#ListServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-[**UpdateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#UpdateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
+[**CreateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#CreateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation in a specific service
+[**DeleteServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#DeleteServiceConversationParticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+[**FetchServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#FetchServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+[**ListServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#ListServiceConversationParticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+[**UpdateServiceConversationParticipant**](ServicesConversationsParticipantsApi.md#UpdateServiceConversationParticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversationParticipant CreateServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
 
-
+Add a new participant to the conversation in a specific service
 
 Add a new participant to the conversation in a specific service
 
@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.
 **MessagingBindingAddress** | **string** | The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with `proxy_address`) is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
 **MessagingBindingProxyAddress** | **string** | The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the `identity` field).
@@ -68,7 +68,7 @@ Name | Type | Description
 
 > DeleteServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Remove a participant from the conversation
 
 Remove a participant from the conversation
 
@@ -89,7 +89,7 @@ Other parameters are passed through a pointer to a DeleteServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 
@@ -113,7 +113,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationParticipant FetchServiceConversationParticipant(ctx, ChatServiceSidConversationSidSid)
 
-
+Fetch a participant of the conversation
 
 Fetch a participant of the conversation
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversationParticipant ListServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
 
-
+Retrieve a list of all participants of the conversation
 
 Retrieve a list of all participants of the conversation
 
@@ -177,7 +177,7 @@ Other parameters are passed through a pointer to a ListServiceConversationPartic
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -202,7 +202,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationParticipant UpdateServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Update an existing participant in the conversation
 
 Update an existing participant in the conversation
 
@@ -223,7 +223,7 @@ Other parameters are passed through a pointer to a UpdateServiceConversationPart
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **DateCreated** | **time.Time** | The date on which this resource was created.
 **DateUpdated** | **time.Time** | The date on which this resource was last updated.
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the [Conversation SDK](https://www.twilio.com/docs/conversations/sdk-overview) to communicate. Limited to 256 characters.

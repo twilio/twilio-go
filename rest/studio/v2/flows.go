@@ -65,7 +65,7 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Definition != nil {
 		v, err := json.Marshal(params.Definition)
@@ -318,7 +318,7 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

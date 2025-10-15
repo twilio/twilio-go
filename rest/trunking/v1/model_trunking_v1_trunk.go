@@ -40,6 +40,8 @@ type TrunkingV1Trunk struct {
 	CnamLookupEnabled *bool `json:"cnam_lookup_enabled,omitempty"`
 	// The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
 	AuthType *string `json:"auth_type,omitempty"`
+	// Whether Symmetric RTP is enabled for the trunk. When Symmetric RTP is disabled, Twilio will send RTP to the destination negotiated in the SDP. Disabling Symmetric RTP is considered to be more secure and therefore recommended. See [Symmetric RTP](https://www.twilio.com/docs/sip-trunking#symmetric-rtp) for more information.
+	SymmetricRtpEnabled *bool `json:"symmetric_rtp_enabled,omitempty"`
 	// Reserved.
 	AuthTypeSet *[]string `json:"auth_type_set,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

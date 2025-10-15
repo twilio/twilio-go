@@ -68,7 +68,7 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 		data.Set("SinkConfiguration", string(v))
 	}
 	if params != nil && params.SinkType != nil {
-		data.Set("SinkType", *params.SinkType)
+		data.Set("SinkType", fmt.Sprint(*params.SinkType))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

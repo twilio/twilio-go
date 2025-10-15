@@ -4,10 +4,10 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteDocumentPermission**](ServicesDocumentsPermissionsApi.md#DeleteDocumentPermission) | **Delete** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
-[**FetchDocumentPermission**](ServicesDocumentsPermissionsApi.md#FetchDocumentPermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
-[**ListDocumentPermission**](ServicesDocumentsPermissionsApi.md#ListDocumentPermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions | 
-[**UpdateDocumentPermission**](ServicesDocumentsPermissionsApi.md#UpdateDocumentPermission) | **Post** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
+[**DeleteDocumentPermission**](ServicesDocumentsPermissionsApi.md#DeleteDocumentPermission) | **Delete** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | Delete a specific Sync Document Permission.
+[**FetchDocumentPermission**](ServicesDocumentsPermissionsApi.md#FetchDocumentPermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | Fetch a specific Sync Document Permission.
+[**ListDocumentPermission**](ServicesDocumentsPermissionsApi.md#ListDocumentPermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions | Retrieve a list of all Permissions applying to a Sync Document.
+[**UpdateDocumentPermission**](ServicesDocumentsPermissionsApi.md#UpdateDocumentPermission) | **Post** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | Update an identity&#39;s access to a specific Sync Document.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
 
-
+Delete a specific Sync Document Permission.
 
 Delete a specific Sync Document Permission.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > SyncV1DocumentPermission FetchDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
 
-
+Fetch a specific Sync Document Permission.
 
 Fetch a specific Sync Document Permission.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []SyncV1DocumentPermission ListDocumentPermission(ctx, ServiceSidDocumentSidoptional)
 
-
+Retrieve a list of all Permissions applying to a Sync Document.
 
 Retrieve a list of all Permissions applying to a Sync Document.
 
@@ -123,7 +123,7 @@ Other parameters are passed through a pointer to a ListDocumentPermissionParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > SyncV1DocumentPermission UpdateDocumentPermission(ctx, ServiceSidDocumentSidIdentityoptional)
 
-
+Update an identity's access to a specific Sync Document.
 
 Update an identity's access to a specific Sync Document.
 

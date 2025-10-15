@@ -5,10 +5,10 @@ All URIs are relative to *https://api.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateParticipant**](AccountsConferencesParticipantsApi.md#CreateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | 
-[**DeleteParticipant**](AccountsConferencesParticipantsApi.md#DeleteParticipant) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
-[**FetchParticipant**](AccountsConferencesParticipantsApi.md#FetchParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
-[**ListParticipant**](AccountsConferencesParticipantsApi.md#ListParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | 
-[**UpdateParticipant**](AccountsConferencesParticipantsApi.md#UpdateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | 
+[**DeleteParticipant**](AccountsConferencesParticipantsApi.md#DeleteParticipant) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Kick a participant from a given conference
+[**FetchParticipant**](AccountsConferencesParticipantsApi.md#FetchParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Fetch an instance of a participant
+[**ListParticipant**](AccountsConferencesParticipantsApi.md#ListParticipant) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json | Retrieve a list of participants belonging to the account used to make the request
+[**UpdateParticipant**](AccountsConferencesParticipantsApi.md#UpdateParticipant) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json | Update the properties of the participant
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 **From** | **string** | The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
-**To** | **string** | The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+**To** | **string** | The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application.
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
 **StatusCallbackEvent** | **[]string** | The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
@@ -48,7 +48,7 @@ Name | Type | Description
 **Beep** | **string** | Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
 **StartConferenceOnEnter** | **bool** | Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
 **EndConferenceOnExit** | **bool** | Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-**WaitUrl** | **string** | The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+**WaitUrl** | **string** | The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
 **WaitMethod** | **string** | The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
 **EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
 **MaxParticipants** | **int** | The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
@@ -62,7 +62,7 @@ Name | Type | Description
 **RecordingStatusCallbackMethod** | **string** | The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **SipAuthUsername** | **string** | The SIP username used for authentication.
 **SipAuthPassword** | **string** | The SIP password for authentication.
-**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+**Region** | **string** | The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 **ConferenceRecordingStatusCallback** | **string** | The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 **ConferenceRecordingStatusCallbackMethod** | **string** | The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 **RecordingStatusCallbackEvent** | **[]string** | The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
@@ -84,6 +84,7 @@ Name | Type | Description
 **AmdStatusCallbackMethod** | **string** | The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 **Trim** | **string** | Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
 **CallToken** | **string** | A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+**CallerDisplayName** | **string** | The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
 
 ### Return type
 
@@ -107,7 +108,7 @@ Name | Type | Description
 
 > DeleteParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Kick a participant from a given conference
 
 Kick a participant from a given conference
 
@@ -151,7 +152,7 @@ Name | Type | Description
 
 > ApiV2010Participant FetchParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Fetch an instance of a participant
 
 Fetch an instance of a participant
 
@@ -195,7 +196,7 @@ Name | Type | Description
 
 > []ApiV2010Participant ListParticipant(ctx, ConferenceSidoptional)
 
-
+Retrieve a list of participants belonging to the account used to make the request
 
 Retrieve a list of participants belonging to the account used to make the request
 
@@ -243,7 +244,7 @@ Name | Type | Description
 
 > ApiV2010Participant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
 
-
+Update the properties of the participant
 
 Update the properties of the participant
 
@@ -270,7 +271,7 @@ Name | Type | Description
 **HoldMethod** | **string** | The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
 **AnnounceUrl** | **string** | The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
 **AnnounceMethod** | **string** | The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-**WaitUrl** | **string** | The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+**WaitUrl** | **string** | The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
 **WaitMethod** | **string** | The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
 **BeepOnExit** | **bool** | Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
 **EndConferenceOnExit** | **bool** | Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.

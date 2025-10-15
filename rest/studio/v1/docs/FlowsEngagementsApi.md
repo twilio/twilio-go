@@ -4,10 +4,10 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEngagement**](FlowsEngagementsApi.md#CreateEngagement) | **Post** /v1/Flows/{FlowSid}/Engagements | 
-[**DeleteEngagement**](FlowsEngagementsApi.md#DeleteEngagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-[**FetchEngagement**](FlowsEngagementsApi.md#FetchEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-[**ListEngagement**](FlowsEngagementsApi.md#ListEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements | 
+[**CreateEngagement**](FlowsEngagementsApi.md#CreateEngagement) | **Post** /v1/Flows/{FlowSid}/Engagements | Triggers a new Engagement for the Flow
+[**DeleteEngagement**](FlowsEngagementsApi.md#DeleteEngagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | Delete this Engagement and all Steps relating to it.
+[**FetchEngagement**](FlowsEngagementsApi.md#FetchEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | Retrieve an Engagement
+[**ListEngagement**](FlowsEngagementsApi.md#ListEngagement) | **Get** /v1/Flows/{FlowSid}/Engagements | Retrieve a list of all Engagements for the Flow.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > StudioV1Engagement CreateEngagement(ctx, FlowSidoptional)
 
-
+Triggers a new Engagement for the Flow
 
 Triggers a new Engagement for the Flow
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteEngagement(ctx, FlowSidSid)
 
-
+Delete this Engagement and all Steps relating to it.
 
 Delete this Engagement and all Steps relating to it.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > StudioV1Engagement FetchEngagement(ctx, FlowSidSid)
 
-
+Retrieve an Engagement
 
 Retrieve an Engagement
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []StudioV1Engagement ListEngagement(ctx, FlowSidoptional)
 
-
+Retrieve a list of all Engagements for the Flow.
 
 Retrieve a list of all Engagements for the Flow.
 

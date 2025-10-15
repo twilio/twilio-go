@@ -38,7 +38,7 @@ Name | Type | Description
 **FriendlyName** | **string** | 
 **UniqueName** | **string** | 
 **Attributes** | **string** | 
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 
 ### Return type
 

@@ -80,7 +80,7 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Cr
 	}
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

@@ -28,6 +28,8 @@ type StudioV1ExecutionStep struct {
 	FlowSid *string `json:"flow_sid,omitempty"`
 	// The SID of the Step's Execution resource.
 	ExecutionSid *string `json:"execution_sid,omitempty"`
+	// This field shows the Step SID of the Widget in the parent Flow that started the Subflow. If this Step is not part of a Subflow execution, the value is null.
+	ParentStepSid *string `json:"parent_step_sid,omitempty"`
 	// The event that caused the Flow to transition to the Step.
 	Name *string `json:"name,omitempty"`
 	// The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
@@ -36,6 +38,8 @@ type StudioV1ExecutionStep struct {
 	TransitionedFrom *string `json:"transitioned_from,omitempty"`
 	// The Widget that will follow the Widget for the Step.
 	TransitionedTo *string `json:"transitioned_to,omitempty"`
+	// The type of the widget that was executed.
+	Type *string `json:"type,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

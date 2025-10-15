@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage. |
 **ApiVersion** | Pointer to **string** | The API version used to create the resource. |
 **AsOf** | Pointer to **string** | Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT |
-**Category** | Pointer to [**string**](UsageRecordAllTimeEnumCategory.md) |  |
+**Category** | Pointer to **string** | The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories). |
 **Count** | Pointer to **string** | The number of usage events, such as the number of calls. |
 **CountUnit** | Pointer to **string** | The units in which `count` is measured, such as `calls` for calls or `messages` for SMS. |
 **Description** | Pointer to **string** | A plain-language description of the usage category. |

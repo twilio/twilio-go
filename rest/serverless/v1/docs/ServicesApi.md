@@ -4,11 +4,11 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | Create a new Service resource.
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | Delete a Service resource.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | Retrieve a specific Service resource.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | Retrieve a list of all Services.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | Update a specific Service resource.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Service CreateService(ctx, optional)
 
-
+Create a new Service resource.
 
 Create a new Service resource.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a Service resource.
 
 Delete a Service resource.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > ServerlessV1Service FetchService(ctx, Sid)
 
-
+Retrieve a specific Service resource.
 
 Retrieve a specific Service resource.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []ServerlessV1Service ListService(ctx, optional)
 
-
+Retrieve a list of all Services.
 
 Retrieve a list of all Services.
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 > ServerlessV1Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Service resource.
 
 Update a specific Service resource.
 

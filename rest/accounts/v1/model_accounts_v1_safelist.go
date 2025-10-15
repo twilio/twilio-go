@@ -18,6 +18,6 @@ package openapi
 type AccountsV1Safelist struct {
 	// The unique string that we created to identify the SafeList resource.
 	Sid *string `json:"sid,omitempty"`
-	// The phone number in SafeList.
+	// The phone number or phone number 1k prefix in SafeList.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }

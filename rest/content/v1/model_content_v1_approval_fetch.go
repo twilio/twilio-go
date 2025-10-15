@@ -21,7 +21,7 @@ type ContentV1ApprovalFetch struct {
 	// The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Contains the whatsapp approval information for the Content resource, with fields such as approval status, rejection reason, and category, amongst others.
-	Whatsapp *interface{} `json:"whatsapp,omitempty"`
+	Whatsapp *map[string]interface{} `json:"whatsapp,omitempty"`
 	// The URL of the resource, relative to `https://content.twilio.com`.
 	Url *string `json:"url,omitempty"`
 }

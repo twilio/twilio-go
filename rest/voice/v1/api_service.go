@@ -23,6 +23,10 @@ type ApiService struct {
 	requestHandler *twilio.RequestHandler
 }
 
+func (c *ApiService) RequestHandler() *twilio.RequestHandler {
+	return c.requestHandler
+}
+
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
 	return &ApiService{
 		requestHandler: requestHandler,

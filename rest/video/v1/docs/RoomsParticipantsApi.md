@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a ListRoomParticipantParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+**Status** | [**string**](stringstring.md) | Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
 **Identity** | **string** | Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
 **DateCreatedAfter** | **time.Time** | Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 **DateCreatedBefore** | **time.Time** | Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -125,7 +125,7 @@ Other parameters are passed through a pointer to a UpdateRoomParticipantParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

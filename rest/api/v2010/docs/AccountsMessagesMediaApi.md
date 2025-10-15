@@ -4,9 +4,9 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteMedia**](AccountsMessagesMediaApi.md#DeleteMedia) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json | 
-[**FetchMedia**](AccountsMessagesMediaApi.md#FetchMedia) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json | 
-[**ListMedia**](AccountsMessagesMediaApi.md#ListMedia) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json | 
+[**DeleteMedia**](AccountsMessagesMediaApi.md#DeleteMedia) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json | Delete the Media resource.
+[**FetchMedia**](AccountsMessagesMediaApi.md#FetchMedia) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json | Fetch a single Media resource associated with a specific Message resource
+[**ListMedia**](AccountsMessagesMediaApi.md#ListMedia) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json | Read a list of Media resources associated with a specific Message resource
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteMedia(ctx, MessageSidSidoptional)
 
-
+Delete the Media resource.
 
 Delete the Media resource.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > ApiV2010Media FetchMedia(ctx, MessageSidSidoptional)
 
-
+Fetch a single Media resource associated with a specific Message resource
 
 Fetch a single Media resource associated with a specific Message resource
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > []ApiV2010Media ListMedia(ctx, MessageSidoptional)
 
-
+Read a list of Media resources associated with a specific Message resource
 
 Read a list of Media resources associated with a specific Message resource
 

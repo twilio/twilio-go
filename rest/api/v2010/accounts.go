@@ -129,7 +129,7 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumbe
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -274,7 +274,7 @@ func (c *ApiService) UpdateAccount(Sid string, params *UpdateAccountParams) (*Ap
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

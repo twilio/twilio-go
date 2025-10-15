@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -67,7 +68,7 @@ func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebh
 // Allows the client to delete a webhook configuration.
 func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string) error {
 	path := "/v1/Porting/Configuration/Webhook/{WebhookType}"
-	path = strings.Replace(path, "{"+"WebhookType"+"}", WebhookType, -1)
+	path = strings.Replace(path, "{"+"WebhookType"+"}", fmt.Sprint(WebhookType), -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

@@ -1361,6 +1361,48 @@ func (m VoiceDial) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceWhatsApp <WhatsApp> TwiML Noun
+type VoiceWhatsApp struct {
+	// phone_number: WhatsApp Phone Number to dial
+	// url: TwiML URL
+	// method: TwiML URL Method
+	// status_callback_event: Events to trigger status callback
+	// status_callback: Status Callback URL
+	// status_callback_method: Status Callback URL Method
+	// OptionalAttributes: additional attributes
+	PhoneNumber          string
+	Url                  string
+	Method               string
+	StatusCallbackEvent  string
+	StatusCallback       string
+	StatusCallbackMethod string
+	InnerElements        []Element
+	OptionalAttributes   map[string]string
+}
+
+func (m VoiceWhatsApp) GetName() string {
+	return "WhatsApp"
+}
+
+func (m VoiceWhatsApp) GetText() string {
+	return m.PhoneNumber
+}
+
+func (m VoiceWhatsApp) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Url":                  m.Url,
+		"Method":               m.Method,
+		"StatusCallbackEvent":  m.StatusCallbackEvent,
+		"StatusCallback":       m.StatusCallback,
+		"StatusCallbackMethod": m.StatusCallbackMethod,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceWhatsApp) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoiceApplication <Application> TwiML Noun
 type VoiceApplication struct {
 	// application_sid: Application sid
@@ -1782,6 +1824,37 @@ func (m VoiceConnect) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceAiSession <AiSession> TwiML Noun
+type VoiceAiSession struct {
+	// ai_connector: The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector
+	// ai_session_configuration: The unique name or id of the AiSession Configuration resource.
+	// OptionalAttributes: additional attributes
+	AiConnector            string
+	AiSessionConfiguration string
+	InnerElements          []Element
+	OptionalAttributes     map[string]string
+}
+
+func (m VoiceAiSession) GetName() string {
+	return "AiSession"
+}
+
+func (m VoiceAiSession) GetText() string {
+	return ""
+}
+
+func (m VoiceAiSession) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"AiConnector":            m.AiConnector,
+		"AiSessionConfiguration": m.AiSessionConfiguration,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceAiSession) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoiceAssistant <Assistant> TwiML Noun
 type VoiceAssistant struct {
 	// id: The assistant ID of the AI Assistant
@@ -1796,10 +1869,15 @@ type VoiceAssistant struct {
 	// dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
 	// welcome_greeting: The sentence to be played automatically when the session is connected
 	// partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-	// interruptible: Whether caller's speaking can interrupt the play of text-to-speech
-	// interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
-	// welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
-	// debug: Whether debugging on the session is enabled
+	// welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
+	// interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
+	// preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
+	// hints: Phrases to help better accuracy in speech recognition of these pharases
+	// intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
+	// report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
+	// elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
+	// interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
+	// debug: Multiple debug options to be used for troubleshooting
 	// OptionalAttributes: additional attributes
 	Id                           string
 	Language                     string
@@ -1813,9 +1891,14 @@ type VoiceAssistant struct {
 	DtmfDetection                string
 	WelcomeGreeting              string
 	PartialPrompts               string
-	Interruptible                string
-	InterruptByDtmf              string
 	WelcomeGreetingInterruptible string
+	Interruptible                string
+	Preemptible                  string
+	Hints                        string
+	IntelligenceService          string
+	ReportInputDuringAgentSpeech string
+	ElevenlabsTextNormalization  string
+	InterruptSensitivity         string
 	Debug                        string
 	InnerElements                []Element
 	OptionalAttributes           map[string]string
@@ -1843,9 +1926,14 @@ func (m VoiceAssistant) GetAttr() (map[string]string, map[string]string) {
 		"DtmfDetection":                m.DtmfDetection,
 		"WelcomeGreeting":              m.WelcomeGreeting,
 		"PartialPrompts":               m.PartialPrompts,
-		"Interruptible":                m.Interruptible,
-		"InterruptByDtmf":              m.InterruptByDtmf,
 		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
+		"Interruptible":                m.Interruptible,
+		"Preemptible":                  m.Preemptible,
+		"Hints":                        m.Hints,
+		"IntelligenceService":          m.IntelligenceService,
+		"ReportInputDuringAgentSpeech": m.ReportInputDuringAgentSpeech,
+		"ElevenlabsTextNormalization":  m.ElevenlabsTextNormalization,
+		"InterruptSensitivity":         m.InterruptSensitivity,
 		"Debug":                        m.Debug,
 	}
 	return m.OptionalAttributes, paramsAttr
@@ -1909,10 +1997,15 @@ type VoiceConversationRelay struct {
 	// dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
 	// welcome_greeting: The sentence to be played automatically when the session is connected
 	// partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-	// interruptible: Whether caller's speaking can interrupt the play of text-to-speech
-	// interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
-	// welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
-	// debug: Whether debugging on the session is enabled
+	// welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
+	// interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
+	// preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
+	// hints: Phrases to help better accuracy in speech recognition of these pharases
+	// intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
+	// report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
+	// elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
+	// interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
+	// debug: Multiple debug options to be used for troubleshooting
 	// OptionalAttributes: additional attributes
 	Url                          string
 	Language                     string
@@ -1926,9 +2019,14 @@ type VoiceConversationRelay struct {
 	DtmfDetection                string
 	WelcomeGreeting              string
 	PartialPrompts               string
-	Interruptible                string
-	InterruptByDtmf              string
 	WelcomeGreetingInterruptible string
+	Interruptible                string
+	Preemptible                  string
+	Hints                        string
+	IntelligenceService          string
+	ReportInputDuringAgentSpeech string
+	ElevenlabsTextNormalization  string
+	InterruptSensitivity         string
 	Debug                        string
 	InnerElements                []Element
 	OptionalAttributes           map[string]string
@@ -1956,9 +2054,14 @@ func (m VoiceConversationRelay) GetAttr() (map[string]string, map[string]string)
 		"DtmfDetection":                m.DtmfDetection,
 		"WelcomeGreeting":              m.WelcomeGreeting,
 		"PartialPrompts":               m.PartialPrompts,
-		"Interruptible":                m.Interruptible,
-		"InterruptByDtmf":              m.InterruptByDtmf,
 		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
+		"Interruptible":                m.Interruptible,
+		"Preemptible":                  m.Preemptible,
+		"Hints":                        m.Hints,
+		"IntelligenceService":          m.IntelligenceService,
+		"ReportInputDuringAgentSpeech": m.ReportInputDuringAgentSpeech,
+		"ElevenlabsTextNormalization":  m.ElevenlabsTextNormalization,
+		"InterruptSensitivity":         m.InterruptSensitivity,
 		"Debug":                        m.Debug,
 	}
 	return m.OptionalAttributes, paramsAttr

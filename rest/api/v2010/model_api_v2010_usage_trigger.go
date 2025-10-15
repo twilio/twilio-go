@@ -41,7 +41,8 @@ type ApiV2010UsageTrigger struct {
 	// The value at which the trigger will fire.  Must be a positive, numeric value.
 	TriggerValue *string `json:"trigger_value,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`.
-	Uri           *string `json:"uri,omitempty"`
+	Uri *string `json:"uri,omitempty"`
+	// The usage category the trigger watches. Must be one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
 	UsageCategory *string `json:"usage_category,omitempty"`
 	// The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
 	UsageRecordUri *string `json:"usage_record_uri,omitempty"`

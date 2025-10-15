@@ -4,9 +4,9 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDeployment**](ServicesEnvironmentsDeploymentsApi.md#CreateDeployment) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
-[**FetchDeployment**](ServicesEnvironmentsDeploymentsApi.md#FetchDeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid} | 
-[**ListDeployment**](ServicesEnvironmentsDeploymentsApi.md#ListDeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
+[**CreateDeployment**](ServicesEnvironmentsDeploymentsApi.md#CreateDeployment) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | Create a new Deployment.
+[**FetchDeployment**](ServicesEnvironmentsDeploymentsApi.md#FetchDeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid} | Retrieve a specific Deployment.
+[**ListDeployment**](ServicesEnvironmentsDeploymentsApi.md#ListDeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | Retrieve a list of all Deployments.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Deployment CreateDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
-
+Create a new Deployment.
 
 Create a new Deployment.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > ServerlessV1Deployment FetchDeployment(ctx, ServiceSidEnvironmentSidSid)
 
-
+Retrieve a specific Deployment.
 
 Retrieve a specific Deployment.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []ServerlessV1Deployment ListDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
-
+Retrieve a list of all Deployments.
 
 Retrieve a list of all Deployments.
 

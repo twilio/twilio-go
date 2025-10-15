@@ -92,7 +92,7 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
 	if params != nil && params.CommandMode != nil {
-		data.Set("CommandMode", *params.CommandMode)
+		data.Set("CommandMode", fmt.Sprint(*params.CommandMode))
 	}
 	if params != nil && params.IncludeSid != nil {
 		data.Set("IncludeSid", *params.IncludeSid)
@@ -215,13 +215,13 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumbe
 		data.Set("Sim", *params.Sim)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		data.Set("Direction", fmt.Sprint(*params.Direction))
 	}
 	if params != nil && params.Transport != nil {
-		data.Set("Transport", *params.Transport)
+		data.Set("Transport", fmt.Sprint(*params.Transport))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

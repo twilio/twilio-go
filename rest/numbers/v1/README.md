@@ -31,35 +31,50 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | 
-*HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | 
-*HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | 
-*PortingConfigurationWebhookApi* | [**CreatePortingWebhookConfiguration**](docs/PortingConfigurationWebhookApi.md#createportingwebhookconfiguration) | **Post** /v1/Porting/Configuration/Webhook | 
-*PortingConfigurationWebhookApi* | [**DeletePortingWebhookConfigurationDelete**](docs/PortingConfigurationWebhookApi.md#deleteportingwebhookconfigurationdelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | 
-*PortingConfigurationWebhookApi* | [**FetchPortingWebhookConfigurationFetch**](docs/PortingConfigurationWebhookApi.md#fetchportingwebhookconfigurationfetch) | **Get** /v1/Porting/Configuration/Webhook | 
-*PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | 
-*PortingPortInApi* | [**DeletePortingPortIn**](docs/PortingPortInApi.md#deleteportingportin) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | 
-*PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | 
-*PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-*PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | 
-*PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | 
-*SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | 
-*SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | 
+*HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | Create an eligibility check for a number that you want to host in Twilio.
+*HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
+*HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | Fetch an eligibility bulk check that you requested to host in Twilio.
+*PortingConfigurationWebhookApi* | [**CreatePortingWebhookConfiguration**](docs/PortingConfigurationWebhookApi.md#createportingwebhookconfiguration) | **Post** /v1/Porting/Configuration/Webhook | Create a Webhook Configuration
+*PortingConfigurationWebhookApi* | [**DeletePortingWebhookConfigurationDelete**](docs/PortingConfigurationWebhookApi.md#deleteportingwebhookconfigurationdelete) | **Delete** /v1/Porting/Configuration/Webhook/{WebhookType} | Allows the client to delete a webhook configuration.
+*PortingConfigurationWebhookApi* | [**FetchPortingWebhookConfigurationFetch**](docs/PortingConfigurationWebhookApi.md#fetchportingwebhookconfigurationfetch) | **Get** /v1/Porting/Configuration/Webhook | Allows to fetch the webhook configuration
+*PortingPortInApi* | [**CreatePortingPortIn**](docs/PortingPortInApi.md#createportingportin) | **Post** /v1/Porting/PortIn | Allows to create a new port in request
+*PortingPortInApi* | [**DeletePortingPortIn**](docs/PortingPortInApi.md#deleteportingportin) | **Delete** /v1/Porting/PortIn/{PortInRequestSid} | Allows to cancel a port in request by SID
+*PortingPortInApi* | [**FetchPortingPortIn**](docs/PortingPortInApi.md#fetchportingportin) | **Get** /v1/Porting/PortIn/{PortInRequestSid} | Fetch a port in request by SID
+*PortingPortInPhoneNumberApi* | [**DeletePortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#deleteportingportinphonenumber) | **Delete** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Allows to cancel a port in request phone number by SID
+*PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Fetch a phone number by port in request SID and phone number SID
+*PortingPortInPortInRequestsApi* | [**ListPortInRequests**](docs/PortingPortInPortInRequestsApi.md#listportinrequests) | **Get** /v1/Porting/PortIn/PortInRequests | Fetch all PortInRequests for a user
+*PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | Check if a single phone number can be ported to Twilio
+*SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | Synchronous operation to insert or update a configuration for the customer.
+*SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | Synchronous operation to retrieve configurations for the customer.
 
 
 ## Documentation For Models
 
- - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
+ - [NumbersV1PortInRequestListMeta](docs/NumbersV1PortInRequestListMeta.md)
+ - [NumbersV1PortingPortInPhoneNumberResult](docs/NumbersV1PortingPortInPhoneNumberResult.md)
+ - [NumbersV1AvailablePhoneNumberCapabilities](docs/NumbersV1AvailablePhoneNumberCapabilities.md)
+ - [NumbersV1AvailablePhoneNumber](docs/NumbersV1AvailablePhoneNumber.md)
+ - [NumbersV1PortingPortInCreate](docs/NumbersV1PortingPortInCreate.md)
+ - [NumbersV1AvailablePhoneNumberGeography](docs/NumbersV1AvailablePhoneNumberGeography.md)
+ - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
+ - [NumbersV1PortingPortInCreatePhoneNumbers](docs/NumbersV1PortingPortInCreatePhoneNumbers.md)
  - [NumbersV1PortingPortability](docs/NumbersV1PortingPortability.md)
- - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
- - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
+ - [ListPortInRequestsResponse](docs/ListPortInRequestsResponse.md)
+ - [NumbersV1PortingLosingCarrierInformation](docs/NumbersV1PortingLosingCarrierInformation.md)
+ - [NumbersV1PortInRequestList](docs/NumbersV1PortInRequestList.md)
  - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
+ - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
+ - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
+ - [NumbersV1AvailablePhoneNumberCertifications](docs/NumbersV1AvailablePhoneNumberCertifications.md)
+ - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
+ - [NumbersV1PortingAddress](docs/NumbersV1PortingAddress.md)
+ - [NumbersV1AvailablePhoneNumberFlags](docs/NumbersV1AvailablePhoneNumberFlags.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
  - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
+ - [NumbersV1AvailablePhoneNumberBilling](docs/NumbersV1AvailablePhoneNumberBilling.md)
  - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)
- - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
 
 
 ## Documentation For Authorization

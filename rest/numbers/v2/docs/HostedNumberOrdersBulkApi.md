@@ -4,8 +4,8 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#CreateBulkHostedNumberOrder) | **Post** /v2/HostedNumber/Orders/Bulk | 
-[**FetchBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#FetchBulkHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/Bulk/{BulkHostingSid} | 
+[**CreateBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#CreateBulkHostedNumberOrder) | **Post** /v2/HostedNumber/Orders/Bulk | Host multiple phone numbers on Twilio&#39;s platform.
+[**FetchBulkHostedNumberOrder**](HostedNumberOrdersBulkApi.md#FetchBulkHostedNumberOrder) | **Get** /v2/HostedNumber/Orders/Bulk/{BulkHostingSid} | Fetch a specific BulkHostedNumberOrder.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > NumbersV2BulkHostedNumberOrder CreateBulkHostedNumberOrder(ctx, optional)
 
-
+Host multiple phone numbers on Twilio's platform.
 
 Host multiple phone numbers on Twilio's platform.
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 > NumbersV2BulkHostedNumberOrder FetchBulkHostedNumberOrder(ctx, BulkHostingSidoptional)
 
-
+Fetch a specific BulkHostedNumberOrder.
 
 Fetch a specific BulkHostedNumberOrder.
 

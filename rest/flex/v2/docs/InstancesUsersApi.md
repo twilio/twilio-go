@@ -4,8 +4,8 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchFlexUser**](InstancesUsersApi.md#FetchFlexUser) | **Get** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | 
-[**UpdateFlexUser**](InstancesUsersApi.md#UpdateFlexUser) | **Post** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | 
+[**FetchFlexUser**](InstancesUsersApi.md#FetchFlexUser) | **Get** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | Fetch flex user for the given flex user sid
+[**UpdateFlexUser**](InstancesUsersApi.md#UpdateFlexUser) | **Post** /v2/Instances/{InstanceSid}/Users/{FlexUserSid} | Update flex user for the given flex user sid
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > FlexV2FlexUser FetchFlexUser(ctx, InstanceSidFlexUserSid)
 
-
+Fetch flex user for the given flex user sid
 
 Fetch flex user for the given flex user sid
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > FlexV2FlexUser UpdateFlexUser(ctx, InstanceSidFlexUserSidoptional)
 
-
+Update flex user for the given flex user sid
 
 Update flex user for the given flex user sid
 
@@ -76,10 +76,7 @@ Other parameters are passed through a pointer to a UpdateFlexUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**FirstName** | **string** | First name of the User.
-**LastName** | **string** | Last name of the User.
 **Email** | **string** | Email of the User.
-**FriendlyName** | **string** | Friendly name of the User.
 **UserSid** | **string** | The unique SID identifier of the Twilio Unified User.
 **Locale** | **string** | The locale preference of the user.
 

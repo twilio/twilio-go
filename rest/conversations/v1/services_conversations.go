@@ -130,7 +130,7 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.TimersInactive != nil {
 		data.Set("Timers.Inactive", *params.TimersInactive)
@@ -232,7 +232,7 @@ type ListServiceConversationParams struct {
 	EndDate *string `json:"EndDate,omitempty"`
 	// State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
 	State *string `json:"State,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 100.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
@@ -277,7 +277,7 @@ func (c *ApiService) PageServiceConversation(ChatServiceSid string, params *List
 		data.Set("EndDate", *params.EndDate)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -495,7 +495,7 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.TimersInactive != nil {
 		data.Set("Timers.Inactive", *params.TimersInactive)

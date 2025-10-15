@@ -173,10 +173,10 @@ Other parameters are passed through a pointer to a ListSyncMapItemParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Order** | **string** | How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+**Order** | [**string**](stringstring.md) | How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
 **From** | **string** | The `key` of the first Sync Map Item resource to read. See also `bounds`.
-**Bounds** | **string** | Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Bounds** | [**string**](stringstring.md) | Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

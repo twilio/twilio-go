@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
-[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | 
-[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | 
+[**CreateCall**](AccountsCallsApi.md#CreateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls.json | Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
+[**DeleteCall**](AccountsCallsApi.md#DeleteCall) | **Delete** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
+[**FetchCall**](AccountsCallsApi.md#FetchCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Fetch the call specified by the provided Call SID
+[**ListCall**](AccountsCallsApi.md#ListCall) | **Get** /2010-04-01/Accounts/{AccountSid}/Calls.json | Retrieves a collection of calls made to and from your account
+[**UpdateCall**](AccountsCallsApi.md#UpdateCall) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json | Initiates a call redirect or terminates a call
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Call CreateCall(ctx, optional)
 
-
+Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
 Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 
@@ -40,7 +40,7 @@ Name | Type | Description
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
 **StatusCallbackEvent** | **[]string** | The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
 **StatusCallbackMethod** | **string** | The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-**SendDigits** | **string** | A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
+**SendDigits** | **string** | The string of keys to dial after connecting to the number, with a maximum length of 32 digits. Valid digits in the string include any digit (`0`-`9`), '`A`', '`B`', '`C`', '`D`', '`#`', and '`*`'. You can also use '`w`' to insert a half-second pause and '`W`' to insert a one-second pause. For example, to pause for one second after connecting and then dial extension 1234 followed by the # key, set this parameter to `W1234#`. Be sure to URL-encode this string because the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
 **Timeout** | **int** | The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
 **Record** | **bool** | Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
 **RecordingChannels** | **string** | The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
@@ -90,7 +90,7 @@ Name | Type | Description
 
 > DeleteCall(ctx, Sidoptional)
 
-
+Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
 Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 
@@ -133,7 +133,7 @@ Name | Type | Description
 
 > ApiV2010Call FetchCall(ctx, Sidoptional)
 
-
+Fetch the call specified by the provided Call SID
 
 Fetch the call specified by the provided Call SID
 
@@ -176,7 +176,7 @@ Name | Type | Description
 
 > []ApiV2010Call ListCall(ctx, optional)
 
-
+Retrieves a collection of calls made to and from your account
 
 Retrieves a collection of calls made to and from your account
 
@@ -195,7 +195,7 @@ Name | Type | Description
 **To** | **string** | Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
 **From** | **string** | Only include calls from this phone number, SIP address, Client identifier or SIM SID.
 **ParentCallSid** | **string** | Only include calls spawned by calls with this SID.
-**Status** | **string** | The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+**Status** | [**string**](stringstring.md) | The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
 **StartTime** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 **StartTimeBefore** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 **StartTimeAfter** | **time.Time** | Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
@@ -227,7 +227,7 @@ Name | Type | Description
 
 > ApiV2010Call UpdateCall(ctx, Sidoptional)
 
-
+Initiates a call redirect or terminates a call
 
 Initiates a call redirect or terminates a call
 
@@ -249,7 +249,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
 **Url** | **string** | The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
 **Method** | **string** | The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **FallbackUrl** | **string** | The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
 **FallbackMethod** | **string** | The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).

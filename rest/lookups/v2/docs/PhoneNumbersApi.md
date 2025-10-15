@@ -4,17 +4,17 @@ All URIs are relative to *https://lookups.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
+[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | Full API documentation: https://www.twilio.com/docs/lookup/v2-api
 
 
 
 ## FetchPhoneNumber
 
-> LookupsV2PhoneNumber FetchPhoneNumber(ctx, PhoneNumberoptional)
+> LookupResponse FetchPhoneNumber(ctx, PhoneNumberoptional)
 
+Full API documentation: https://www.twilio.com/docs/lookup/v2-api
 
-
-
+The Lookup API allows you to query information on a phone number so that you can make a trusted interaction with your user
 
 ### Path Parameters
 
@@ -45,10 +45,11 @@ Name | Type | Description
 **DateOfBirth** | **string** | User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
 **LastVerifiedDate** | **string** | The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
 **VerificationSid** | **string** | The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+**PartnerSubId** | **string** | The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
 
 ### Return type
 
-[**LookupsV2PhoneNumber**](LookupsV2PhoneNumber.md)
+[**LookupResponse**](LookupResponse.md)
 
 ### Authorization
 

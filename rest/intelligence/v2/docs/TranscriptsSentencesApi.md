@@ -4,7 +4,7 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListSentence**](TranscriptsSentencesApi.md#ListSentence) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences | 
+[**ListSentence**](TranscriptsSentencesApi.md#ListSentence) | **Get** /v2/Transcripts/{TranscriptSid}/Sentences | Get all Transcript Sentences by TranscriptSid
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []IntelligenceV2Sentence ListSentence(ctx, TranscriptSidoptional)
 
-
+Get all Transcript Sentences by TranscriptSid
 
 Get all Transcript Sentences by TranscriptSid
 
@@ -33,7 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Redacted** | **bool** | Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
 **WordTimestamps** | **bool** | Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 5000.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

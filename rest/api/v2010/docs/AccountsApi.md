@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccount**](AccountsApi.md#CreateAccount) | **Post** /2010-04-01/Accounts.json | 
-[**FetchAccount**](AccountsApi.md#FetchAccount) | **Get** /2010-04-01/Accounts/{Sid}.json | 
-[**ListAccount**](AccountsApi.md#ListAccount) | **Get** /2010-04-01/Accounts.json | 
-[**UpdateAccount**](AccountsApi.md#UpdateAccount) | **Post** /2010-04-01/Accounts/{Sid}.json | 
+[**CreateAccount**](AccountsApi.md#CreateAccount) | **Post** /2010-04-01/Accounts.json | Create a new Twilio Subaccount from the account making the request
+[**FetchAccount**](AccountsApi.md#FetchAccount) | **Get** /2010-04-01/Accounts/{Sid}.json | Fetch the account specified by the provided Account Sid
+[**ListAccount**](AccountsApi.md#ListAccount) | **Get** /2010-04-01/Accounts.json | Retrieves a collection of Accounts belonging to the account used to make the request
+[**UpdateAccount**](AccountsApi.md#UpdateAccount) | **Post** /2010-04-01/Accounts/{Sid}.json | Modify the properties of a given Account
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ApiV2010Account CreateAccount(ctx, optional)
 
-
+Create a new Twilio Subaccount from the account making the request
 
 Create a new Twilio Subaccount from the account making the request
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 > ApiV2010Account FetchAccount(ctx, Sid)
 
-
+Fetch the account specified by the provided Account Sid
 
 Fetch the account specified by the provided Account Sid
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 > []ApiV2010Account ListAccount(ctx, optional)
 
-
+Retrieves a collection of Accounts belonging to the account used to make the request
 
 Retrieves a collection of Accounts belonging to the account used to make the request
 
@@ -112,7 +112,7 @@ Other parameters are passed through a pointer to a ListAccountParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Only return the Account resources with friendly names that exactly match this name.
-**Status** | **string** | Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+**Status** | [**string**](stringstring.md) | Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 
@@ -138,7 +138,7 @@ Name | Type | Description
 
 > ApiV2010Account UpdateAccount(ctx, Sidoptional)
 
-
+Modify the properties of a given Account
 
 Modify the properties of a given Account
 
@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to a UpdateAccountParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Update the human-readable description of this Account
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

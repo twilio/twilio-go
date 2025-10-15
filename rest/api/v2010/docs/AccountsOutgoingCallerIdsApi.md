@@ -5,10 +5,10 @@ All URIs are relative to *https://api.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateValidationRequest**](AccountsOutgoingCallerIdsApi.md#CreateValidationRequest) | **Post** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json | 
-[**DeleteOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#DeleteOutgoingCallerId) | **Delete** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | 
-[**FetchOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#FetchOutgoingCallerId) | **Get** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | 
-[**ListOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#ListOutgoingCallerId) | **Get** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json | 
-[**UpdateOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#UpdateOutgoingCallerId) | **Post** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | 
+[**DeleteOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#DeleteOutgoingCallerId) | **Delete** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | Delete the caller-id specified from the account
+[**FetchOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#FetchOutgoingCallerId) | **Get** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | Fetch an outgoing-caller-id belonging to the account used to make the request
+[**ListOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#ListOutgoingCallerId) | **Get** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json | Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
+[**UpdateOutgoingCallerId**](AccountsOutgoingCallerIdsApi.md#UpdateOutgoingCallerId) | **Post** /2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json | Updates the caller-id
 
 
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteOutgoingCallerId(ctx, Sidoptional)
 
-
+Delete the caller-id specified from the account
 
 Delete the caller-id specified from the account
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ApiV2010OutgoingCallerId FetchOutgoingCallerId(ctx, Sidoptional)
 
-
+Fetch an outgoing-caller-id belonging to the account used to make the request
 
 Fetch an outgoing-caller-id belonging to the account used to make the request
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ApiV2010OutgoingCallerId ListOutgoingCallerId(ctx, optional)
 
-
+Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
 
 Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > ApiV2010OutgoingCallerId UpdateOutgoingCallerId(ctx, Sidoptional)
 
-
+Updates the caller-id
 
 Updates the caller-id
 

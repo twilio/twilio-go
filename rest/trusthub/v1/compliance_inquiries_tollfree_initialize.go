@@ -201,7 +201,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		}
 	}
 	if params != nil && params.OptInType != nil {
-		data.Set("OptInType", *params.OptInType)
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
 	}
 	if params != nil && params.MessageVolume != nil {
 		data.Set("MessageVolume", *params.MessageVolume)

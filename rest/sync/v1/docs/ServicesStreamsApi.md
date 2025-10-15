@@ -4,11 +4,11 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSyncStream**](ServicesStreamsApi.md#CreateSyncStream) | **Post** /v1/Services/{ServiceSid}/Streams | 
-[**DeleteSyncStream**](ServicesStreamsApi.md#DeleteSyncStream) | **Delete** /v1/Services/{ServiceSid}/Streams/{Sid} | 
-[**FetchSyncStream**](ServicesStreamsApi.md#FetchSyncStream) | **Get** /v1/Services/{ServiceSid}/Streams/{Sid} | 
-[**ListSyncStream**](ServicesStreamsApi.md#ListSyncStream) | **Get** /v1/Services/{ServiceSid}/Streams | 
-[**UpdateSyncStream**](ServicesStreamsApi.md#UpdateSyncStream) | **Post** /v1/Services/{ServiceSid}/Streams/{Sid} | 
+[**CreateSyncStream**](ServicesStreamsApi.md#CreateSyncStream) | **Post** /v1/Services/{ServiceSid}/Streams | Create a new Stream.
+[**DeleteSyncStream**](ServicesStreamsApi.md#DeleteSyncStream) | **Delete** /v1/Services/{ServiceSid}/Streams/{Sid} | Delete a specific Stream.
+[**FetchSyncStream**](ServicesStreamsApi.md#FetchSyncStream) | **Get** /v1/Services/{ServiceSid}/Streams/{Sid} | Fetch a specific Stream.
+[**ListSyncStream**](ServicesStreamsApi.md#ListSyncStream) | **Get** /v1/Services/{ServiceSid}/Streams | Retrieve a list of all Streams in a Service Instance.
+[**UpdateSyncStream**](ServicesStreamsApi.md#UpdateSyncStream) | **Post** /v1/Services/{ServiceSid}/Streams/{Sid} | Update a specific Stream.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > SyncV1SyncStream CreateSyncStream(ctx, ServiceSidoptional)
 
-
+Create a new Stream.
 
 Create a new Stream.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteSyncStream(ctx, ServiceSidSid)
 
-
+Delete a specific Stream.
 
 Delete a specific Stream.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > SyncV1SyncStream FetchSyncStream(ctx, ServiceSidSid)
 
-
+Fetch a specific Stream.
 
 Fetch a specific Stream.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []SyncV1SyncStream ListSyncStream(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Streams in a Service Instance.
 
 Retrieve a list of all Streams in a Service Instance.
 
@@ -165,7 +165,7 @@ Other parameters are passed through a pointer to a ListSyncStreamParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > SyncV1SyncStream UpdateSyncStream(ctx, ServiceSidSidoptional)
 
-
+Update a specific Stream.
 
 Update a specific Stream.
 

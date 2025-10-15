@@ -4,7 +4,7 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchSchema**](SchemasApi.md#FetchSchema) | **Get** /v1/Schemas/{Id} | 
+[**FetchSchema**](SchemasApi.md#FetchSchema) | **Get** /v1/Schemas/{Id} | Fetch a specific schema with its nested versions.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > EventsV1Schema FetchSchema(ctx, Id)
 
-
+Fetch a specific schema with its nested versions.
 
 Fetch a specific schema with its nested versions.
 

@@ -4,11 +4,11 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTrustProduct**](TrustProductsApi.md#CreateTrustProduct) | **Post** /v1/TrustProducts | 
-[**DeleteTrustProduct**](TrustProductsApi.md#DeleteTrustProduct) | **Delete** /v1/TrustProducts/{Sid} | 
-[**FetchTrustProduct**](TrustProductsApi.md#FetchTrustProduct) | **Get** /v1/TrustProducts/{Sid} | 
-[**ListTrustProduct**](TrustProductsApi.md#ListTrustProduct) | **Get** /v1/TrustProducts | 
-[**UpdateTrustProduct**](TrustProductsApi.md#UpdateTrustProduct) | **Post** /v1/TrustProducts/{Sid} | 
+[**CreateTrustProduct**](TrustProductsApi.md#CreateTrustProduct) | **Post** /v1/TrustProducts | Create a new Trust Product.
+[**DeleteTrustProduct**](TrustProductsApi.md#DeleteTrustProduct) | **Delete** /v1/TrustProducts/{Sid} | Delete a specific Trust Product.
+[**FetchTrustProduct**](TrustProductsApi.md#FetchTrustProduct) | **Get** /v1/TrustProducts/{Sid} | Fetch a specific Trust Product instance.
+[**ListTrustProduct**](TrustProductsApi.md#ListTrustProduct) | **Get** /v1/TrustProducts | Retrieve a list of all Trust Products for an account.
+[**UpdateTrustProduct**](TrustProductsApi.md#UpdateTrustProduct) | **Post** /v1/TrustProducts/{Sid} | Updates a Trust Product in an account.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > TrusthubV1TrustProduct CreateTrustProduct(ctx, optional)
 
-
+Create a new Trust Product.
 
 Create a new Trust Product.
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 > DeleteTrustProduct(ctx, Sid)
 
-
+Delete a specific Trust Product.
 
 Delete a specific Trust Product.
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > TrusthubV1TrustProduct FetchTrustProduct(ctx, Sid)
 
-
+Fetch a specific Trust Product instance.
 
 Fetch a specific Trust Product instance.
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []TrusthubV1TrustProduct ListTrustProduct(ctx, optional)
 
-
+Retrieve a list of all Trust Products for an account.
 
 Retrieve a list of all Trust Products for an account.
 
@@ -157,7 +157,7 @@ Other parameters are passed through a pointer to a ListTrustProductParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Trust Product resource.
+**Status** | [**string**](stringstring.md) | The verification status of the Trust Product resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Trust Product resource.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -185,7 +185,7 @@ Name | Type | Description
 
 > TrusthubV1TrustProduct UpdateTrustProduct(ctx, Sidoptional)
 
-
+Updates a Trust Product in an account.
 
 Updates a Trust Product in an account.
 
@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a UpdateTrustProductParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **Email** | **string** | The email address that will receive updates when the Trust Product resource changes status.

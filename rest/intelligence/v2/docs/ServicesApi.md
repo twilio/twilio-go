@@ -4,11 +4,11 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v2/Services | Create a new Service for the given Account
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v2/Services/{Sid} | Delete a specific Service.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v2/Services/{Sid} | Fetch a specific Service.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v2/Services | Retrieves a list of all Services for an account.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v2/Services/{Sid} | Update a specific Service.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2Service CreateService(ctx, optional)
 
-
+Create a new Service for the given Account
 
 Create a new Service for the given Account
 
@@ -39,7 +39,8 @@ Name | Type | Description
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
+**EncryptionCredentialSid** | **string** | The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
 ### Return type
 
@@ -63,7 +64,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a specific Service.
 
 Delete a specific Service.
 
@@ -105,7 +106,7 @@ Name | Type | Description
 
 > IntelligenceV2Service FetchService(ctx, Sid)
 
-
+Fetch a specific Service.
 
 Fetch a specific Service.
 
@@ -147,7 +148,7 @@ Name | Type | Description
 
 > []IntelligenceV2Service ListService(ctx, optional)
 
-
+Retrieves a list of all Services for an account.
 
 Retrieves a list of all Services for an account.
 
@@ -187,7 +188,7 @@ Name | Type | Description
 
 > IntelligenceV2Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Service.
 
 Update a specific Service.
 
@@ -214,7 +215,8 @@ Name | Type | Description
 **AutoRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
 **MediaRedaction** | **bool** | Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
 **WebhookUrl** | **string** | The URL Twilio will request when executing the Webhook.
-**WebhookHttpMethod** | **string** | 
+**WebhookHttpMethod** | [**string**](string.md) | 
+**EncryptionCredentialSid** | **string** | The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
 ### Return type
 

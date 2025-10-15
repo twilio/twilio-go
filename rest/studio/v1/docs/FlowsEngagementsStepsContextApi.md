@@ -4,7 +4,7 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchStepContext**](FlowsEngagementsStepsContextApi.md#FetchStepContext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context | 
+[**FetchStepContext**](FlowsEngagementsStepsContextApi.md#FetchStepContext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context | Retrieve the context for an Engagement Step.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > StudioV1StepContext FetchStepContext(ctx, FlowSidEngagementSidStepSid)
 
-
+Retrieve the context for an Engagement Step.
 
 Retrieve the context for an Engagement Step.
 

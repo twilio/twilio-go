@@ -31,59 +31,63 @@ All URIs are relative to *https://verify.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AttemptsApi* | [**FetchVerificationAttempt**](docs/AttemptsApi.md#fetchverificationattempt) | **Get** /v2/Attempts/{Sid} | 
-*AttemptsApi* | [**ListVerificationAttempt**](docs/AttemptsApi.md#listverificationattempt) | **Get** /v2/Attempts | 
-*AttemptsSummaryApi* | [**FetchVerificationAttemptsSummary**](docs/AttemptsSummaryApi.md#fetchverificationattemptssummary) | **Get** /v2/Attempts/Summary | 
-*FormsApi* | [**FetchForm**](docs/FormsApi.md#fetchform) | **Get** /v2/Forms/{FormType} | 
-*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v2/SafeList/Numbers | 
-*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v2/SafeList/Numbers/{PhoneNumber} | 
-*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v2/SafeList/Numbers/{PhoneNumber} | 
-*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v2/Services | 
-*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
-*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
-*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v2/Services | 
-*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
-*ServicesAccessTokensApi* | [**CreateAccessToken**](docs/ServicesAccessTokensApi.md#createaccesstoken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | 
-*ServicesAccessTokensApi* | [**FetchAccessToken**](docs/ServicesAccessTokensApi.md#fetchaccesstoken) | **Get** /v2/Services/{ServiceSid}/AccessTokens/{Sid} | 
-*ServicesEntitiesApi* | [**CreateEntity**](docs/ServicesEntitiesApi.md#createentity) | **Post** /v2/Services/{ServiceSid}/Entities | 
-*ServicesEntitiesApi* | [**DeleteEntity**](docs/ServicesEntitiesApi.md#deleteentity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-*ServicesEntitiesApi* | [**FetchEntity**](docs/ServicesEntitiesApi.md#fetchentity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-*ServicesEntitiesApi* | [**ListEntity**](docs/ServicesEntitiesApi.md#listentity) | **Get** /v2/Services/{ServiceSid}/Entities | 
-*ServicesEntitiesChallengesApi* | [**CreateChallenge**](docs/ServicesEntitiesChallengesApi.md#createchallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
-*ServicesEntitiesChallengesApi* | [**FetchChallenge**](docs/ServicesEntitiesChallengesApi.md#fetchchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
-*ServicesEntitiesChallengesApi* | [**ListChallenge**](docs/ServicesEntitiesChallengesApi.md#listchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
-*ServicesEntitiesChallengesApi* | [**UpdateChallenge**](docs/ServicesEntitiesChallengesApi.md#updatechallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
-*ServicesEntitiesChallengesNotificationsApi* | [**CreateNotification**](docs/ServicesEntitiesChallengesNotificationsApi.md#createnotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | 
-*ServicesEntitiesFactorsApi* | [**CreateNewFactor**](docs/ServicesEntitiesFactorsApi.md#createnewfactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-*ServicesEntitiesFactorsApi* | [**DeleteFactor**](docs/ServicesEntitiesFactorsApi.md#deletefactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*ServicesEntitiesFactorsApi* | [**FetchFactor**](docs/ServicesEntitiesFactorsApi.md#fetchfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*ServicesEntitiesFactorsApi* | [**ListFactor**](docs/ServicesEntitiesFactorsApi.md#listfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-*ServicesEntitiesFactorsApi* | [**UpdateFactor**](docs/ServicesEntitiesFactorsApi.md#updatefactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*ServicesMessagingConfigurationsApi* | [**CreateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#createmessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-*ServicesMessagingConfigurationsApi* | [**DeleteMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#deletemessagingconfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*ServicesMessagingConfigurationsApi* | [**FetchMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*ServicesMessagingConfigurationsApi* | [**ListMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-*ServicesMessagingConfigurationsApi* | [**UpdateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*ServicesRateLimitsApi* | [**CreateRateLimit**](docs/ServicesRateLimitsApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
-*ServicesRateLimitsApi* | [**DeleteRateLimit**](docs/ServicesRateLimitsApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*ServicesRateLimitsApi* | [**FetchRateLimit**](docs/ServicesRateLimitsApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*ServicesRateLimitsApi* | [**ListRateLimit**](docs/ServicesRateLimitsApi.md#listratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | 
-*ServicesRateLimitsApi* | [**UpdateRateLimit**](docs/ServicesRateLimitsApi.md#updateratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*ServicesRateLimitsBucketsApi* | [**CreateBucket**](docs/ServicesRateLimitsBucketsApi.md#createbucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-*ServicesRateLimitsBucketsApi* | [**DeleteBucket**](docs/ServicesRateLimitsBucketsApi.md#deletebucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*ServicesRateLimitsBucketsApi* | [**FetchBucket**](docs/ServicesRateLimitsBucketsApi.md#fetchbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*ServicesRateLimitsBucketsApi* | [**ListBucket**](docs/ServicesRateLimitsBucketsApi.md#listbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-*ServicesRateLimitsBucketsApi* | [**UpdateBucket**](docs/ServicesRateLimitsBucketsApi.md#updatebucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*ServicesVerificationCheckApi* | [**CreateVerificationCheck**](docs/ServicesVerificationCheckApi.md#createverificationcheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | 
-*ServicesVerificationsApi* | [**CreateVerification**](docs/ServicesVerificationsApi.md#createverification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
-*ServicesVerificationsApi* | [**FetchVerification**](docs/ServicesVerificationsApi.md#fetchverification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
-*ServicesVerificationsApi* | [**UpdateVerification**](docs/ServicesVerificationsApi.md#updateverification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
-*ServicesWebhooksApi* | [**CreateWebhook**](docs/ServicesWebhooksApi.md#createwebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | 
-*ServicesWebhooksApi* | [**DeleteWebhook**](docs/ServicesWebhooksApi.md#deletewebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-*ServicesWebhooksApi* | [**FetchWebhook**](docs/ServicesWebhooksApi.md#fetchwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-*ServicesWebhooksApi* | [**ListWebhook**](docs/ServicesWebhooksApi.md#listwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | 
+*AttemptsApi* | [**FetchVerificationAttempt**](docs/AttemptsApi.md#fetchverificationattempt) | **Get** /v2/Attempts/{Sid} | Fetch a specific verification attempt.
+*AttemptsApi* | [**ListVerificationAttempt**](docs/AttemptsApi.md#listverificationattempt) | **Get** /v2/Attempts | List all the verification attempts for a given Account.
+*AttemptsSummaryApi* | [**FetchVerificationAttemptsSummary**](docs/AttemptsSummaryApi.md#fetchverificationattemptssummary) | **Get** /v2/Attempts/Summary | Get a summary of how many attempts were made and how many were converted.
+*FormsApi* | [**FetchForm**](docs/FormsApi.md#fetchform) | **Get** /v2/Forms/{FormType} | Fetch the forms for a specific Form Type.
+*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v2/SafeList/Numbers | Add a new phone number to SafeList.
+*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v2/SafeList/Numbers/{PhoneNumber} | Remove a phone number from SafeList.
+*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v2/SafeList/Numbers/{PhoneNumber} | Check if a phone number exists in SafeList.
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v2/Services | Create a new Verification Service.
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | Delete a specific Verification Service Instance.
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v2/Services/{Sid} | Fetch specific Verification Service Instance.
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v2/Services | Retrieve a list of all Verification Services for an account.
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v2/Services/{Sid} | Update a specific Verification Service.
+*ServicesAccessTokensApi* | [**CreateAccessToken**](docs/ServicesAccessTokensApi.md#createaccesstoken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | Create a new enrollment Access Token for the Entity
+*ServicesAccessTokensApi* | [**FetchAccessToken**](docs/ServicesAccessTokensApi.md#fetchaccesstoken) | **Get** /v2/Services/{ServiceSid}/AccessTokens/{Sid} | Fetch an Access Token for the Entity
+*ServicesEntitiesApi* | [**CreateEntity**](docs/ServicesEntitiesApi.md#createentity) | **Post** /v2/Services/{ServiceSid}/Entities | Create a new Entity for the Service
+*ServicesEntitiesApi* | [**DeleteEntity**](docs/ServicesEntitiesApi.md#deleteentity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | Delete a specific Entity.
+*ServicesEntitiesApi* | [**FetchEntity**](docs/ServicesEntitiesApi.md#fetchentity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | Fetch a specific Entity.
+*ServicesEntitiesApi* | [**ListEntity**](docs/ServicesEntitiesApi.md#listentity) | **Get** /v2/Services/{ServiceSid}/Entities | Retrieve a list of all Entities for a Service.
+*ServicesEntitiesChallengesApi* | [**CreateChallenge**](docs/ServicesEntitiesChallengesApi.md#createchallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | Create a new Challenge for the Factor
+*ServicesEntitiesChallengesApi* | [**FetchChallenge**](docs/ServicesEntitiesChallengesApi.md#fetchchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | Fetch a specific Challenge.
+*ServicesEntitiesChallengesApi* | [**ListChallenge**](docs/ServicesEntitiesChallengesApi.md#listchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | Retrieve a list of all Challenges for a Factor.
+*ServicesEntitiesChallengesApi* | [**UpdateChallenge**](docs/ServicesEntitiesChallengesApi.md#updatechallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | Verify a specific Challenge.
+*ServicesEntitiesChallengesNotificationsApi* | [**CreateNotification**](docs/ServicesEntitiesChallengesNotificationsApi.md#createnotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | Create a new Notification for the corresponding Challenge
+*ServicesEntitiesFactorsApi* | [**CreateNewFactor**](docs/ServicesEntitiesFactorsApi.md#createnewfactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | Create a new Factor for the Entity
+*ServicesEntitiesFactorsApi* | [**DeleteFactor**](docs/ServicesEntitiesFactorsApi.md#deletefactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Delete a specific Factor.
+*ServicesEntitiesFactorsApi* | [**FetchFactor**](docs/ServicesEntitiesFactorsApi.md#fetchfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Fetch a specific Factor.
+*ServicesEntitiesFactorsApi* | [**ListFactor**](docs/ServicesEntitiesFactorsApi.md#listfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | Retrieve a list of all Factors for an Entity.
+*ServicesEntitiesFactorsApi* | [**UpdateFactor**](docs/ServicesEntitiesFactorsApi.md#updatefactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
+*ServicesMessagingConfigurationsApi* | [**CreateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#createmessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | Create a new MessagingConfiguration for a service.
+*ServicesMessagingConfigurationsApi* | [**DeleteMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#deletemessagingconfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Delete a specific MessagingConfiguration.
+*ServicesMessagingConfigurationsApi* | [**FetchMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Fetch a specific MessagingConfiguration.
+*ServicesMessagingConfigurationsApi* | [**ListMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | Retrieve a list of all Messaging Configurations for a Service.
+*ServicesMessagingConfigurationsApi* | [**UpdateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | Update a specific MessagingConfiguration
+*ServicesPasskeysApproveChallengeApi* | [**UpdateChallengePasskeys**](docs/ServicesPasskeysApproveChallengeApi.md#updatechallengepasskeys) | **Post** /v2/Services/{ServiceSid}/Passkeys/ApproveChallenge | Approve a Passkeys Challenge
+*ServicesPasskeysChallengesApi* | [**CreateChallengePasskeys**](docs/ServicesPasskeysChallengesApi.md#createchallengepasskeys) | **Post** /v2/Services/{ServiceSid}/Passkeys/Challenges | Create a Passkeys Challenge
+*ServicesPasskeysFactorsApi* | [**CreateNewFactorPasskey**](docs/ServicesPasskeysFactorsApi.md#createnewfactorpasskey) | **Post** /v2/Services/{ServiceSid}/Passkeys/Factors | Create a new Passkeys Factor for the Entity
+*ServicesPasskeysVerifyFactorApi* | [**UpdatePasskeysFactor**](docs/ServicesPasskeysVerifyFactorApi.md#updatepasskeysfactor) | **Post** /v2/Services/{ServiceSid}/Passkeys/VerifyFactor | Verify a Passkeys Factor
+*ServicesRateLimitsApi* | [**CreateRateLimit**](docs/ServicesRateLimitsApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | Create a new Rate Limit for a Service
+*ServicesRateLimitsApi* | [**DeleteRateLimit**](docs/ServicesRateLimitsApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Delete a specific Rate Limit.
+*ServicesRateLimitsApi* | [**FetchRateLimit**](docs/ServicesRateLimitsApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Fetch a specific Rate Limit.
+*ServicesRateLimitsApi* | [**ListRateLimit**](docs/ServicesRateLimitsApi.md#listratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | Retrieve a list of all Rate Limits for a service.
+*ServicesRateLimitsApi* | [**UpdateRateLimit**](docs/ServicesRateLimitsApi.md#updateratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | Update a specific Rate Limit.
+*ServicesRateLimitsBucketsApi* | [**CreateBucket**](docs/ServicesRateLimitsBucketsApi.md#createbucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | Create a new Bucket for a Rate Limit
+*ServicesRateLimitsBucketsApi* | [**DeleteBucket**](docs/ServicesRateLimitsBucketsApi.md#deletebucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Delete a specific Bucket.
+*ServicesRateLimitsBucketsApi* | [**FetchBucket**](docs/ServicesRateLimitsBucketsApi.md#fetchbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Fetch a specific Bucket.
+*ServicesRateLimitsBucketsApi* | [**ListBucket**](docs/ServicesRateLimitsBucketsApi.md#listbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | Retrieve a list of all Buckets for a Rate Limit.
+*ServicesRateLimitsBucketsApi* | [**UpdateBucket**](docs/ServicesRateLimitsBucketsApi.md#updatebucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | Update a specific Bucket.
+*ServicesVerificationCheckApi* | [**CreateVerificationCheck**](docs/ServicesVerificationCheckApi.md#createverificationcheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | challenge a specific Verification Check.
+*ServicesVerificationsApi* | [**CreateVerification**](docs/ServicesVerificationsApi.md#createverification) | **Post** /v2/Services/{ServiceSid}/Verifications | Create a new Verification using a Service
+*ServicesVerificationsApi* | [**FetchVerification**](docs/ServicesVerificationsApi.md#fetchverification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | Fetch a specific Verification
+*ServicesVerificationsApi* | [**UpdateVerification**](docs/ServicesVerificationsApi.md#updateverification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | Update a Verification status
+*ServicesWebhooksApi* | [**CreateWebhook**](docs/ServicesWebhooksApi.md#createwebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | Create a new Webhook for the Service
+*ServicesWebhooksApi* | [**DeleteWebhook**](docs/ServicesWebhooksApi.md#deletewebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | Delete a specific Webhook.
+*ServicesWebhooksApi* | [**FetchWebhook**](docs/ServicesWebhooksApi.md#fetchwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | Fetch a specific Webhook.
+*ServicesWebhooksApi* | [**ListWebhook**](docs/ServicesWebhooksApi.md#listwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | Retrieve a list of all Webhooks for a Service.
 *ServicesWebhooksApi* | [**UpdateWebhook**](docs/ServicesWebhooksApi.md#updatewebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-*TemplatesApi* | [**ListVerificationTemplate**](docs/TemplatesApi.md#listverificationtemplate) | **Get** /v2/Templates | 
+*TemplatesApi* | [**ListVerificationTemplate**](docs/TemplatesApi.md#listverificationtemplate) | **Get** /v2/Templates | List all the available templates for a given Account.
 
 
 ## Documentation For Models
@@ -92,25 +96,37 @@ Class | Method | HTTP request | Description
  - [VerifyV2RateLimit](docs/VerifyV2RateLimit.md)
  - [VerifyV2AccessToken](docs/VerifyV2AccessToken.md)
  - [VerifyV2Webhook](docs/VerifyV2Webhook.md)
+ - [UpdatePasskeysFactorResponse](docs/UpdatePasskeysFactorResponse.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
  - [VerifyV2Notification](docs/VerifyV2Notification.md)
  - [VerifyV2Factor](docs/VerifyV2Factor.md)
  - [VerifyV2Form](docs/VerifyV2Form.md)
+ - [CreateNewFactorPasskeyResponse](docs/CreateNewFactorPasskeyResponse.md)
  - [VerifyV2VerificationAttempt](docs/VerifyV2VerificationAttempt.md)
+ - [CreateNewPasskeysFactorRequestConfig](docs/CreateNewPasskeysFactorRequestConfig.md)
  - [VerifyV2Safelist](docs/VerifyV2Safelist.md)
  - [VerifyV2Challenge](docs/VerifyV2Challenge.md)
+ - [ApprovePasskeysChallengeRequest](docs/ApprovePasskeysChallengeRequest.md)
  - [ListEntityResponse](docs/ListEntityResponse.md)
  - [ListWebhookResponse](docs/ListWebhookResponse.md)
  - [ListRateLimitResponse](docs/ListRateLimitResponse.md)
  - [ListFactorResponse](docs/ListFactorResponse.md)
  - [ListVerificationTemplateResponse](docs/ListVerificationTemplateResponse.md)
+ - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
+ - [VerifyPasskeysFactorRequest](docs/VerifyPasskeysFactorRequest.md)
+ - [CreatePasskeysChallengeRequest](docs/CreatePasskeysChallengeRequest.md)
  - [VerifyV2MessagingConfiguration](docs/VerifyV2MessagingConfiguration.md)
  - [VerifyV2Service](docs/VerifyV2Service.md)
  - [ListBucketResponseMeta](docs/ListBucketResponseMeta.md)
  - [VerifyV2VerificationTemplate](docs/VerifyV2VerificationTemplate.md)
  - [VerifyV2VerificationCheck](docs/VerifyV2VerificationCheck.md)
  - [ListVerificationAttemptResponse](docs/ListVerificationAttemptResponse.md)
+ - [VerifyPasskeysFactorRequestResponse](docs/VerifyPasskeysFactorRequestResponse.md)
+ - [CreateNewPasskeysFactorRequest](docs/CreateNewPasskeysFactorRequest.md)
  - [VerifyV2NewFactor](docs/VerifyV2NewFactor.md)
+ - [CreateChallengePasskeysResponse](docs/CreateChallengePasskeysResponse.md)
+ - [ApprovePasskeysChallengeRequestResponse](docs/ApprovePasskeysChallengeRequestResponse.md)
+ - [CreateNewPasskeysFactorRequestConfigRelyingParty](docs/CreateNewPasskeysFactorRequestConfigRelyingParty.md)
  - [VerifyV2VerificationAttemptsSummary](docs/VerifyV2VerificationAttemptsSummary.md)
  - [VerifyV2Verification](docs/VerifyV2Verification.md)
  - [ListBucketResponse](docs/ListBucketResponse.md)

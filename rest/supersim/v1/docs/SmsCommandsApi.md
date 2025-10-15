@@ -4,9 +4,9 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSmsCommand**](SmsCommandsApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | 
-[**FetchSmsCommand**](SmsCommandsApi.md#FetchSmsCommand) | **Get** /v1/SmsCommands/{Sid} | 
-[**ListSmsCommand**](SmsCommandsApi.md#ListSmsCommand) | **Get** /v1/SmsCommands | 
+[**CreateSmsCommand**](SmsCommandsApi.md#CreateSmsCommand) | **Post** /v1/SmsCommands | Send SMS Command to a Sim.
+[**FetchSmsCommand**](SmsCommandsApi.md#FetchSmsCommand) | **Get** /v1/SmsCommands/{Sid} | Fetch SMS Command instance from your account.
+[**ListSmsCommand**](SmsCommandsApi.md#ListSmsCommand) | **Get** /v1/SmsCommands | Retrieve a list of SMS Commands from your account.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > SupersimV1SmsCommand CreateSmsCommand(ctx, optional)
 
-
+Send SMS Command to a Sim.
 
 Send SMS Command to a Sim.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > SupersimV1SmsCommand FetchSmsCommand(ctx, Sid)
 
-
+Fetch SMS Command instance from your account.
 
 Fetch SMS Command instance from your account.
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 > []SupersimV1SmsCommand ListSmsCommand(ctx, optional)
 
-
+Retrieve a list of SMS Commands from your account.
 
 Retrieve a list of SMS Commands from your account.
 
@@ -114,8 +114,8 @@ Other parameters are passed through a pointer to a ListSmsCommandParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | The SID or unique name of the Sim resource that SMS Command was sent to or from.
-**Status** | **string** | The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-**Direction** | **string** | The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+**Status** | [**string**](stringstring.md) | The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+**Direction** | [**string**](stringstring.md) | The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

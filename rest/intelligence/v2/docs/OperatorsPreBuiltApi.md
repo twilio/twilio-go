@@ -4,8 +4,8 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPrebuiltOperator**](OperatorsPreBuiltApi.md#FetchPrebuiltOperator) | **Get** /v2/Operators/PreBuilt/{Sid} | 
-[**ListPrebuiltOperator**](OperatorsPreBuiltApi.md#ListPrebuiltOperator) | **Get** /v2/Operators/PreBuilt | 
+[**FetchPrebuiltOperator**](OperatorsPreBuiltApi.md#FetchPrebuiltOperator) | **Get** /v2/Operators/PreBuilt/{Sid} | Fetch a specific Pre-built Operator.
+[**ListPrebuiltOperator**](OperatorsPreBuiltApi.md#ListPrebuiltOperator) | **Get** /v2/Operators/PreBuilt | Retrieves a list of all Pre-built Operators for an account.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2PrebuiltOperator FetchPrebuiltOperator(ctx, Sid)
 
-
+Fetch a specific Pre-built Operator.
 
 Fetch a specific Pre-built Operator.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []IntelligenceV2PrebuiltOperator ListPrebuiltOperator(ctx, optional)
 
-
+Retrieves a list of all Pre-built Operators for an account.
 
 Retrieves a list of all Pre-built Operators for an account.
 
@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a ListPrebuiltOperatorParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Availability** | **string** | Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired.
+**Availability** | [**string**](stringstring.md) | Returns Pre-built Operators with the provided availability type. Possible values: internal, beta, public, retired.
 **LanguageCode** | **string** | Returns Pre-built Operators that support the provided language code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

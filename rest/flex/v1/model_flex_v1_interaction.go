@@ -25,4 +25,5 @@ type FlexV1Interaction struct {
 	Url                   *string                 `json:"url,omitempty"`
 	Links                 *map[string]interface{} `json:"links,omitempty"`
 	InteractionContextSid *string                 `json:"interaction_context_sid,omitempty"`
+	WebhookTtid           *string                 `json:"webhook_ttid,omitempty"`
 }

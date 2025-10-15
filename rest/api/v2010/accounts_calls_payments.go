@@ -150,7 +150,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.BankAccountType != nil {
-		data.Set("BankAccountType", *params.BankAccountType)
+		data.Set("BankAccountType", fmt.Sprint(*params.BankAccountType))
 	}
 	if params != nil && params.ChargeAmount != nil {
 		data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
@@ -180,7 +180,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("PaymentConnector", *params.PaymentConnector)
 	}
 	if params != nil && params.PaymentMethod != nil {
-		data.Set("PaymentMethod", *params.PaymentMethod)
+		data.Set("PaymentMethod", fmt.Sprint(*params.PaymentMethod))
 	}
 	if params != nil && params.PostalCode != nil {
 		data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
@@ -192,7 +192,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
 	if params != nil && params.TokenType != nil {
-		data.Set("TokenType", *params.TokenType)
+		data.Set("TokenType", fmt.Sprint(*params.TokenType))
 	}
 	if params != nil && params.ValidCardTypes != nil {
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
@@ -271,10 +271,10 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.Capture != nil {
-		data.Set("Capture", *params.Capture)
+		data.Set("Capture", fmt.Sprint(*params.Capture))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

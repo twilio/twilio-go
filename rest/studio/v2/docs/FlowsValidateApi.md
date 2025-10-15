@@ -4,7 +4,7 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UpdateFlowValidate**](FlowsValidateApi.md#UpdateFlowValidate) | **Post** /v2/Flows/Validate | 
+[**UpdateFlowValidate**](FlowsValidateApi.md#UpdateFlowValidate) | **Post** /v2/Flows/Validate | Validate flow JSON definition
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > StudioV2FlowValidate UpdateFlowValidate(ctx, optional)
 
-
+Validate flow JSON definition
 
 Validate flow JSON definition
 
@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a UpdateFlowValidateParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
 

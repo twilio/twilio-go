@@ -4,8 +4,8 @@ All URIs are relative to *https://voice.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchDialingPermissionsCountry**](DialingPermissionsCountriesApi.md#FetchDialingPermissionsCountry) | **Get** /v1/DialingPermissions/Countries/{IsoCode} | 
-[**ListDialingPermissionsCountry**](DialingPermissionsCountriesApi.md#ListDialingPermissionsCountry) | **Get** /v1/DialingPermissions/Countries | 
+[**FetchDialingPermissionsCountry**](DialingPermissionsCountriesApi.md#FetchDialingPermissionsCountry) | **Get** /v1/DialingPermissions/Countries/{IsoCode} | Retrieve voice dialing country permissions identified by the given ISO country code
+[**ListDialingPermissionsCountry**](DialingPermissionsCountriesApi.md#ListDialingPermissionsCountry) | **Get** /v1/DialingPermissions/Countries | Retrieve all voice dialing country permissions for this account
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VoiceV1DialingPermissionsCountryInstance FetchDialingPermissionsCountry(ctx, IsoCode)
 
-
+Retrieve voice dialing country permissions identified by the given ISO country code
 
 Retrieve voice dialing country permissions identified by the given ISO country code
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []VoiceV1DialingPermissionsCountry ListDialingPermissionsCountry(ctx, optional)
 
-
+Retrieve all voice dialing country permissions for this account
 
 Retrieve all voice dialing country permissions for this account
 

@@ -86,7 +86,7 @@ func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string
 	}
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", fmt.Sprint(*params.ReservationStatus))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -292,7 +292,7 @@ type UpdateWorkerReservationParams struct {
 	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
 	// The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 	Region *string `json:"Region,omitempty"`
 	// The SIP username used for authentication.
 	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
@@ -536,7 +536,7 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 	}
 
 	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
+		data.Set("ReservationStatus", fmt.Sprint(*params.ReservationStatus))
 	}
 	if params != nil && params.WorkerActivitySid != nil {
 		data.Set("WorkerActivitySid", *params.WorkerActivitySid)

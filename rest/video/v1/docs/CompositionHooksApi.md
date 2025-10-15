@@ -5,9 +5,9 @@ All URIs are relative to *https://video.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateCompositionHook**](CompositionHooksApi.md#CreateCompositionHook) | **Post** /v1/CompositionHooks | 
-[**DeleteCompositionHook**](CompositionHooksApi.md#DeleteCompositionHook) | **Delete** /v1/CompositionHooks/{Sid} | 
-[**FetchCompositionHook**](CompositionHooksApi.md#FetchCompositionHook) | **Get** /v1/CompositionHooks/{Sid} | 
-[**ListCompositionHook**](CompositionHooksApi.md#ListCompositionHook) | **Get** /v1/CompositionHooks | 
+[**DeleteCompositionHook**](CompositionHooksApi.md#DeleteCompositionHook) | **Delete** /v1/CompositionHooks/{Sid} | Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.
+[**FetchCompositionHook**](CompositionHooksApi.md#FetchCompositionHook) | **Get** /v1/CompositionHooks/{Sid} | Returns a single CompositionHook resource identified by a CompositionHook SID.
+[**ListCompositionHook**](CompositionHooksApi.md#ListCompositionHook) | **Get** /v1/CompositionHooks | List of all Recording CompositionHook resources.
 [**UpdateCompositionHook**](CompositionHooksApi.md#UpdateCompositionHook) | **Post** /v1/CompositionHooks/{Sid} | 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 **AudioSources** | **[]string** | An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 **AudioSourcesExcluded** | **[]string** | An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 **Resolution** | **string** | A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-**Format** | **string** | 
+**Format** | [**string**](string.md) | 
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 **Trim** | **bool** | Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
@@ -64,7 +64,7 @@ Name | Type | Description
 
 > DeleteCompositionHook(ctx, Sid)
 
-
+Delete a Recording CompositionHook resource identified by a `CompositionHook SID`.
 
 Delete a Recording CompositionHook resource identified by a `CompositionHook SID`.
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 > VideoV1CompositionHook FetchCompositionHook(ctx, Sid)
 
-
+Returns a single CompositionHook resource identified by a CompositionHook SID.
 
 Returns a single CompositionHook resource identified by a CompositionHook SID.
 
@@ -148,7 +148,7 @@ Name | Type | Description
 
 > []VideoV1CompositionHook ListCompositionHook(ctx, optional)
 
-
+List of all Recording CompositionHook resources.
 
 List of all Recording CompositionHook resources.
 
@@ -217,7 +217,7 @@ Name | Type | Description
 **AudioSources** | **[]string** | An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 **AudioSourcesExcluded** | **[]string** | An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 **Trim** | **bool** | Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-**Format** | **string** | 
+**Format** | [**string**](string.md) | 
 **Resolution** | **string** | A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 **StatusCallback** | **string** | The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.

@@ -238,7 +238,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", fmt.Sprint(*params.EmergencyStatus))
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
 		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
@@ -253,7 +253,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 		data.Set("AddressSid", *params.AddressSid)
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", fmt.Sprint(*params.VoiceReceiveMode))
 	}
 	if params != nil && params.BundleSid != nil {
 		data.Set("BundleSid", *params.BundleSid)
@@ -756,7 +756,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 	if params != nil && params.EmergencyStatus != nil {
-		data.Set("EmergencyStatus", *params.EmergencyStatus)
+		data.Set("EmergencyStatus", fmt.Sprint(*params.EmergencyStatus))
 	}
 	if params != nil && params.EmergencyAddressSid != nil {
 		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
@@ -765,7 +765,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 		data.Set("TrunkSid", *params.TrunkSid)
 	}
 	if params != nil && params.VoiceReceiveMode != nil {
-		data.Set("VoiceReceiveMode", *params.VoiceReceiveMode)
+		data.Set("VoiceReceiveMode", fmt.Sprint(*params.VoiceReceiveMode))
 	}
 	if params != nil && params.IdentitySid != nil {
 		data.Set("IdentitySid", *params.IdentitySid)

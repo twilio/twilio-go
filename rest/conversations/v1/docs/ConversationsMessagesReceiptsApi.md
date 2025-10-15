@@ -4,8 +4,8 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchConversationMessageReceipt**](ConversationsMessagesReceiptsApi.md#FetchConversationMessageReceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | 
-[**ListConversationMessageReceipt**](ConversationsMessagesReceiptsApi.md#ListConversationMessageReceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | 
+[**FetchConversationMessageReceipt**](ConversationsMessagesReceiptsApi.md#FetchConversationMessageReceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | Fetch the delivery and read receipts of the conversation message
+[**ListConversationMessageReceipt**](ConversationsMessagesReceiptsApi.md#ListConversationMessageReceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | Retrieve a list of all delivery and read receipts of the conversation message
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ConversationMessageReceipt FetchConversationMessageReceipt(ctx, ConversationSidMessageSidSid)
 
-
+Fetch the delivery and read receipts of the conversation message
 
 Fetch the delivery and read receipts of the conversation message
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []ConversationsV1ConversationMessageReceipt ListConversationMessageReceipt(ctx, ConversationSidMessageSidoptional)
 
-
+Retrieve a list of all delivery and read receipts of the conversation message
 
 Retrieve a list of all delivery and read receipts of the conversation message
 
@@ -77,7 +77,7 @@ Other parameters are passed through a pointer to a ListConversationMessageReceip
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 50.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

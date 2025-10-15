@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSipCredentialList**](AccountsSIPCredentialListsApi.md#CreateSipCredentialList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json | 
-[**DeleteSipCredentialList**](AccountsSIPCredentialListsApi.md#DeleteSipCredentialList) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | 
-[**FetchSipCredentialList**](AccountsSIPCredentialListsApi.md#FetchSipCredentialList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | 
-[**ListSipCredentialList**](AccountsSIPCredentialListsApi.md#ListSipCredentialList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json | 
-[**UpdateSipCredentialList**](AccountsSIPCredentialListsApi.md#UpdateSipCredentialList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | 
+[**CreateSipCredentialList**](AccountsSIPCredentialListsApi.md#CreateSipCredentialList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json | Create a Credential List
+[**DeleteSipCredentialList**](AccountsSIPCredentialListsApi.md#DeleteSipCredentialList) | **Delete** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | Delete a Credential List
+[**FetchSipCredentialList**](AccountsSIPCredentialListsApi.md#FetchSipCredentialList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | Get a Credential List
+[**ListSipCredentialList**](AccountsSIPCredentialListsApi.md#ListSipCredentialList) | **Get** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json | Get All Credential Lists
+[**UpdateSipCredentialList**](AccountsSIPCredentialListsApi.md#UpdateSipCredentialList) | **Post** /2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json | Update a Credential List
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010SipCredentialList CreateSipCredentialList(ctx, optional)
 
-
+Create a Credential List
 
 Create a Credential List
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > DeleteSipCredentialList(ctx, Sidoptional)
 
-
+Delete a Credential List
 
 Delete a Credential List
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > ApiV2010SipCredentialList FetchSipCredentialList(ctx, Sidoptional)
 
-
+Get a Credential List
 
 Get a Credential List
 
@@ -142,7 +142,7 @@ Name | Type | Description
 
 > []ApiV2010SipCredentialList ListSipCredentialList(ctx, optional)
 
-
+Get All Credential Lists
 
 Get All Credential Lists
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 > ApiV2010SipCredentialList UpdateSipCredentialList(ctx, Sidoptional)
 
-
+Update a Credential List
 
 Update a Credential List
 

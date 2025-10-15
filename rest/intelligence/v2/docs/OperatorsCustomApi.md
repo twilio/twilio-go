@@ -4,11 +4,11 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCustomOperator**](OperatorsCustomApi.md#CreateCustomOperator) | **Post** /v2/Operators/Custom | 
-[**DeleteCustomOperator**](OperatorsCustomApi.md#DeleteCustomOperator) | **Delete** /v2/Operators/Custom/{Sid} | 
-[**FetchCustomOperator**](OperatorsCustomApi.md#FetchCustomOperator) | **Get** /v2/Operators/Custom/{Sid} | 
-[**ListCustomOperator**](OperatorsCustomApi.md#ListCustomOperator) | **Get** /v2/Operators/Custom | 
-[**UpdateCustomOperator**](OperatorsCustomApi.md#UpdateCustomOperator) | **Post** /v2/Operators/Custom/{Sid} | 
+[**CreateCustomOperator**](OperatorsCustomApi.md#CreateCustomOperator) | **Post** /v2/Operators/Custom | Create a new Custom Operator for the given Account
+[**DeleteCustomOperator**](OperatorsCustomApi.md#DeleteCustomOperator) | **Delete** /v2/Operators/Custom/{Sid} | Delete a specific Custom Operator.
+[**FetchCustomOperator**](OperatorsCustomApi.md#FetchCustomOperator) | **Get** /v2/Operators/Custom/{Sid} | Fetch a specific Custom Operator.
+[**ListCustomOperator**](OperatorsCustomApi.md#ListCustomOperator) | **Get** /v2/Operators/Custom | Retrieves a list of all Custom Operators for an Account.
+[**UpdateCustomOperator**](OperatorsCustomApi.md#UpdateCustomOperator) | **Post** /v2/Operators/Custom/{Sid} | Update a specific Custom Operator.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2CustomOperator CreateCustomOperator(ctx, optional)
 
-
+Create a new Custom Operator for the given Account
 
 Create a new Custom Operator for the given Account
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteCustomOperator(ctx, Sid)
 
-
+Delete a specific Custom Operator.
 
 Delete a specific Custom Operator.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > IntelligenceV2CustomOperator FetchCustomOperator(ctx, Sid)
 
-
+Fetch a specific Custom Operator.
 
 Fetch a specific Custom Operator.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []IntelligenceV2CustomOperator ListCustomOperator(ctx, optional)
 
-
+Retrieves a list of all Custom Operators for an Account.
 
 Retrieves a list of all Custom Operators for an Account.
 
@@ -156,7 +156,7 @@ Other parameters are passed through a pointer to a ListCustomOperatorParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Availability** | **string** | Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
+**Availability** | [**string**](stringstring.md) | Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
 **LanguageCode** | **string** | Returns Custom Operators that support the provided language code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
@@ -183,7 +183,7 @@ Name | Type | Description
 
 > IntelligenceV2CustomOperator UpdateCustomOperator(ctx, Sidoptional)
 
-
+Update a specific Custom Operator.
 
 Update a specific Custom Operator.
 

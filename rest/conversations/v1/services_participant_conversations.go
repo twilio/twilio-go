@@ -29,7 +29,7 @@ type ListServiceParticipantConversationParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	// A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
 	Address *string `json:"Address,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 50, and the maximum is 50.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

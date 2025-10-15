@@ -31,24 +31,26 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthTokensPromoteApi* | [**UpdateAuthTokenPromotion**](docs/AuthTokensPromoteApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | 
-*AuthTokensSecondaryApi* | [**CreateSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | 
-*AuthTokensSecondaryApi* | [**DeleteSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | 
+*AuthTokensPromoteApi* | [**UpdateAuthTokenPromotion**](docs/AuthTokensPromoteApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
+*AuthTokensSecondaryApi* | [**CreateSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | Create a new secondary Auth Token
+*AuthTokensSecondaryApi* | [**DeleteSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | Delete the secondary Auth Token from your account
 *ConsentsBulkApi* | [**CreateBulkConsents**](docs/ConsentsBulkApi.md#createbulkconsents) | **Post** /v1/Consents/Bulk | 
 *ContactsBulkApi* | [**CreateBulkContacts**](docs/ContactsBulkApi.md#createbulkcontacts) | **Post** /v1/Contacts/Bulk | 
-*CredentialsAWSApi* | [**CreateCredentialAws**](docs/CredentialsAWSApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | 
-*CredentialsAWSApi* | [**DeleteCredentialAws**](docs/CredentialsAWSApi.md#deletecredentialaws) | **Delete** /v1/Credentials/AWS/{Sid} | 
-*CredentialsAWSApi* | [**FetchCredentialAws**](docs/CredentialsAWSApi.md#fetchcredentialaws) | **Get** /v1/Credentials/AWS/{Sid} | 
-*CredentialsAWSApi* | [**ListCredentialAws**](docs/CredentialsAWSApi.md#listcredentialaws) | **Get** /v1/Credentials/AWS | 
-*CredentialsAWSApi* | [**UpdateCredentialAws**](docs/CredentialsAWSApi.md#updatecredentialaws) | **Post** /v1/Credentials/AWS/{Sid} | 
-*CredentialsPublicKeysApi* | [**CreateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#createcredentialpublickey) | **Post** /v1/Credentials/PublicKeys | 
-*CredentialsPublicKeysApi* | [**DeleteCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#deletecredentialpublickey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | 
-*CredentialsPublicKeysApi* | [**FetchCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | 
-*CredentialsPublicKeysApi* | [**ListCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | 
-*CredentialsPublicKeysApi* | [**UpdateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | 
-*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v1/SafeList/Numbers | 
-*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v1/SafeList/Numbers | 
-*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v1/SafeList/Numbers | 
+*CredentialsAWSApi* | [**CreateCredentialAws**](docs/CredentialsAWSApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | Create a new AWS Credential
+*CredentialsAWSApi* | [**DeleteCredentialAws**](docs/CredentialsAWSApi.md#deletecredentialaws) | **Delete** /v1/Credentials/AWS/{Sid} | Delete a Credential from your account
+*CredentialsAWSApi* | [**FetchCredentialAws**](docs/CredentialsAWSApi.md#fetchcredentialaws) | **Get** /v1/Credentials/AWS/{Sid} | Fetch the AWS credentials specified by the provided Credential Sid
+*CredentialsAWSApi* | [**ListCredentialAws**](docs/CredentialsAWSApi.md#listcredentialaws) | **Get** /v1/Credentials/AWS | Retrieves a collection of AWS Credentials belonging to the account used to make the request
+*CredentialsAWSApi* | [**UpdateCredentialAws**](docs/CredentialsAWSApi.md#updatecredentialaws) | **Post** /v1/Credentials/AWS/{Sid} | Modify the properties of a given Account
+*CredentialsPublicKeysApi* | [**CreateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#createcredentialpublickey) | **Post** /v1/Credentials/PublicKeys | Create a new Public Key Credential
+*CredentialsPublicKeysApi* | [**DeleteCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#deletecredentialpublickey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | Delete a Credential from your account
+*CredentialsPublicKeysApi* | [**FetchCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | Fetch the public key specified by the provided Credential Sid
+*CredentialsPublicKeysApi* | [**ListCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | Retrieves a collection of Public Key Credentials belonging to the account used to make the request
+*CredentialsPublicKeysApi* | [**UpdateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | Modify the properties of a given Account
+*MessagingGeoPermissionsApi* | [**FetchMessagingGeopermissions**](docs/MessagingGeoPermissionsApi.md#fetchmessaginggeopermissions) | **Get** /v1/Messaging/GeoPermissions | 
+*MessagingGeoPermissionsApi* | [**UpdateMessagingGeopermissions**](docs/MessagingGeoPermissionsApi.md#updatemessaginggeopermissions) | **Patch** /v1/Messaging/GeoPermissions | 
+*SafeListNumbersApi* | [**CreateSafelist**](docs/SafeListNumbersApi.md#createsafelist) | **Post** /v1/SafeList/Numbers | Add a new phone number or phone number 1k prefix to SafeList.
+*SafeListNumbersApi* | [**DeleteSafelist**](docs/SafeListNumbersApi.md#deletesafelist) | **Delete** /v1/SafeList/Numbers | Remove a phone number or phone number 1k prefix from SafeList.
+*SafeListNumbersApi* | [**FetchSafelist**](docs/SafeListNumbersApi.md#fetchsafelist) | **Get** /v1/SafeList/Numbers | Check if a phone number or phone number 1k prefix exists in SafeList.
 
 
 ## Documentation For Models
@@ -56,6 +58,7 @@ Class | Method | HTTP request | Description
  - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
  - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
+ - [AccountsV1MessagingGeopermissions](docs/AccountsV1MessagingGeopermissions.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
  - [AccountsV1AuthTokenPromotion](docs/AccountsV1AuthTokenPromotion.md)

@@ -40,10 +40,10 @@ Class | Method | HTTP request | Description
 *TrunksCredentialListsApi* | [**DeleteCredentialList**](docs/TrunksCredentialListsApi.md#deletecredentiallist) | **Delete** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
 *TrunksCredentialListsApi* | [**FetchCredentialList**](docs/TrunksCredentialListsApi.md#fetchcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
 *TrunksCredentialListsApi* | [**ListCredentialList**](docs/TrunksCredentialListsApi.md#listcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists | 
-*TrunksIpAccessControlListsApi* | [**CreateIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#createipaccesscontrollist) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
-*TrunksIpAccessControlListsApi* | [**DeleteIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#deleteipaccesscontrollist) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
+*TrunksIpAccessControlListsApi* | [**CreateIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#createipaccesscontrollist) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | Associate an IP Access Control List with a Trunk
+*TrunksIpAccessControlListsApi* | [**DeleteIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#deleteipaccesscontrollist) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | Remove an associated IP Access Control List from a Trunk
 *TrunksIpAccessControlListsApi* | [**FetchIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#fetchipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
-*TrunksIpAccessControlListsApi* | [**ListIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#listipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
+*TrunksIpAccessControlListsApi* | [**ListIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#listipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | List all IP Access Control Lists for a Trunk
 *TrunksOriginationUrlsApi* | [**CreateOriginationUrl**](docs/TrunksOriginationUrlsApi.md#createoriginationurl) | **Post** /v1/Trunks/{TrunkSid}/OriginationUrls | 
 *TrunksOriginationUrlsApi* | [**DeleteOriginationUrl**](docs/TrunksOriginationUrlsApi.md#deleteoriginationurl) | **Delete** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
 *TrunksOriginationUrlsApi* | [**FetchOriginationUrl**](docs/TrunksOriginationUrlsApi.md#fetchoriginationurl) | **Get** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 

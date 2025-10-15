@@ -4,10 +4,10 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBuild**](ServicesBuildsApi.md#CreateBuild) | **Post** /v1/Services/{ServiceSid}/Builds | 
-[**DeleteBuild**](ServicesBuildsApi.md#DeleteBuild) | **Delete** /v1/Services/{ServiceSid}/Builds/{Sid} | 
-[**FetchBuild**](ServicesBuildsApi.md#FetchBuild) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid} | 
-[**ListBuild**](ServicesBuildsApi.md#ListBuild) | **Get** /v1/Services/{ServiceSid}/Builds | 
+[**CreateBuild**](ServicesBuildsApi.md#CreateBuild) | **Post** /v1/Services/{ServiceSid}/Builds | Create a new Build resource. At least one function version or asset version is required.
+[**DeleteBuild**](ServicesBuildsApi.md#DeleteBuild) | **Delete** /v1/Services/{ServiceSid}/Builds/{Sid} | Delete a Build resource.
+[**FetchBuild**](ServicesBuildsApi.md#FetchBuild) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid} | Retrieve a specific Build resource.
+[**ListBuild**](ServicesBuildsApi.md#ListBuild) | **Get** /v1/Services/{ServiceSid}/Builds | Retrieve a list of all Builds.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Build CreateBuild(ctx, ServiceSidoptional)
 
-
+Create a new Build resource. At least one function version or asset version is required.
 
 Create a new Build resource. At least one function version or asset version is required.
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteBuild(ctx, ServiceSidSid)
 
-
+Delete a Build resource.
 
 Delete a Build resource.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ServerlessV1Build FetchBuild(ctx, ServiceSidSid)
 
-
+Retrieve a specific Build resource.
 
 Retrieve a specific Build resource.
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []ServerlessV1Build ListBuild(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Builds.
 
 Retrieve a list of all Builds.
 

@@ -4,11 +4,11 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTollfreeVerification**](TollfreeVerificationsApi.md#CreateTollfreeVerification) | **Post** /v1/Tollfree/Verifications | 
-[**DeleteTollfreeVerification**](TollfreeVerificationsApi.md#DeleteTollfreeVerification) | **Delete** /v1/Tollfree/Verifications/{Sid} | 
-[**FetchTollfreeVerification**](TollfreeVerificationsApi.md#FetchTollfreeVerification) | **Get** /v1/Tollfree/Verifications/{Sid} | 
-[**ListTollfreeVerification**](TollfreeVerificationsApi.md#ListTollfreeVerification) | **Get** /v1/Tollfree/Verifications | 
-[**UpdateTollfreeVerification**](TollfreeVerificationsApi.md#UpdateTollfreeVerification) | **Post** /v1/Tollfree/Verifications/{Sid} | 
+[**CreateTollfreeVerification**](TollfreeVerificationsApi.md#CreateTollfreeVerification) | **Post** /v1/Tollfree/Verifications | Create a tollfree verification
+[**DeleteTollfreeVerification**](TollfreeVerificationsApi.md#DeleteTollfreeVerification) | **Delete** /v1/Tollfree/Verifications/{Sid} | Delete a tollfree verification
+[**FetchTollfreeVerification**](TollfreeVerificationsApi.md#FetchTollfreeVerification) | **Get** /v1/Tollfree/Verifications/{Sid} | Retrieve a tollfree verification
+[**ListTollfreeVerification**](TollfreeVerificationsApi.md#ListTollfreeVerification) | **Get** /v1/Tollfree/Verifications | List tollfree verifications
+[**UpdateTollfreeVerification**](TollfreeVerificationsApi.md#UpdateTollfreeVerification) | **Post** /v1/Tollfree/Verifications/{Sid} | Create a tollfree verification
 
 
 
@@ -16,9 +16,9 @@ Method | HTTP request | Description
 
 > MessagingV1TollfreeVerification CreateTollfreeVerification(ctx, optional)
 
+Create a tollfree verification
 
-
-
+Create a tollfree verification
 
 ### Path Parameters
 
@@ -38,7 +38,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
 **CustomerProfileSid** | **string** | Customer's Profile Bundle BundleSid.
@@ -54,6 +54,18 @@ Name | Type | Description
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **ExternalReferenceId** | **string** | An optional external reference ID supplied by customer and echoed back on status retrieval.
+**BusinessRegistrationNumber** | **string** | A legally recognized business registration number
+**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations
+**BusinessRegistrationCountry** | **string** | Country business is registered in
+**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+**BusinessRegistrationPhoneNumber** | **string** | The E.164 formatted number associated with the business.
+**DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification
+**OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.
+**HelpMessageSample** | **string** | A sample help message provided to users.
+**PrivacyPolicyUrl** | **string** | The URL to the privacy policy for the business or organization.
+**TermsAndConditionsUrl** | **string** | The URL to the terms and conditions for the business or organization.
+**AgeGatedContent** | **bool** | Indicates if the content is age gated.
+**OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
 
 ### Return type
 
@@ -77,9 +89,9 @@ Name | Type | Description
 
 > DeleteTollfreeVerification(ctx, Sid)
 
+Delete a tollfree verification
 
-
-
+Delete a tollfree verification
 
 ### Path Parameters
 
@@ -119,9 +131,9 @@ Name | Type | Description
 
 > MessagingV1TollfreeVerification FetchTollfreeVerification(ctx, Sid)
 
+Retrieve a tollfree verification
 
-
-
+Retrieve a tollfree verification
 
 ### Path Parameters
 
@@ -161,9 +173,9 @@ Name | Type | Description
 
 > []MessagingV1TollfreeVerification ListTollfreeVerification(ctx, optional)
 
+List tollfree verifications
 
-
-
+List tollfree verifications
 
 ### Path Parameters
 
@@ -177,7 +189,7 @@ Other parameters are passed through a pointer to a ListTollfreeVerificationParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **TollfreePhoneNumberSid** | **string** | The SID of the Phone Number associated with the Tollfree Verification.
-**Status** | **string** | The compliance status of the Tollfree Verification record.
+**Status** | [**string**](stringstring.md) | The compliance status of the Tollfree Verification record.
 **ExternalReferenceId** | **string** | Customer supplied reference id for the Tollfree Verification record.
 **IncludeSubAccounts** | **bool** | Whether to include Tollfree Verifications from sub accounts in list response.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -205,9 +217,9 @@ Name | Type | Description
 
 > MessagingV1TollfreeVerification UpdateTollfreeVerification(ctx, Sidoptional)
 
+Create a tollfree verification
 
-
-
+Create a tollfree verification
 
 ### Path Parameters
 
@@ -231,7 +243,7 @@ Name | Type | Description
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-**OptInType** | **string** | 
+**OptInType** | [**string**](string.md) | 
 **MessageVolume** | **string** | Estimate monthly volume of messages from the Tollfree Number.
 **BusinessStreetAddress** | **string** | The address of the business or organization using the Tollfree number.
 **BusinessStreetAddress2** | **string** | The address of the business or organization using the Tollfree number.
@@ -245,6 +257,18 @@ Name | Type | Description
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **EditReason** | **string** | Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+**BusinessRegistrationNumber** | **string** | A legaly recognized business registration number
+**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations
+**BusinessRegistrationCountry** | **string** | Country business is registered in
+**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+**BusinessRegistrationPhoneNumber** | **string** | The E.164 formatted number associated with the business.
+**DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification
+**OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.
+**HelpMessageSample** | **string** | A sample help message provided to users.
+**PrivacyPolicyUrl** | **string** | The URL to the privacy policy for the business or organization.
+**TermsAndConditionsUrl** | **string** | The URL to the terms and conditions for the business or organization.
+**AgeGatedContent** | **bool** | Indicates if the content is age gated.
+**OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
 
 ### Return type
 

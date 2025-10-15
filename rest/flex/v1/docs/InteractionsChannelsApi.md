@@ -4,9 +4,9 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInteractionChannel**](InteractionsChannelsApi.md#FetchInteractionChannel) | **Get** /v1/Interactions/{InteractionSid}/Channels/{Sid} | 
-[**ListInteractionChannel**](InteractionsChannelsApi.md#ListInteractionChannel) | **Get** /v1/Interactions/{InteractionSid}/Channels | 
-[**UpdateInteractionChannel**](InteractionsChannelsApi.md#UpdateInteractionChannel) | **Post** /v1/Interactions/{InteractionSid}/Channels/{Sid} | 
+[**FetchInteractionChannel**](InteractionsChannelsApi.md#FetchInteractionChannel) | **Get** /v1/Interactions/{InteractionSid}/Channels/{Sid} | Fetch a Channel for an Interaction.
+[**ListInteractionChannel**](InteractionsChannelsApi.md#ListInteractionChannel) | **Get** /v1/Interactions/{InteractionSid}/Channels | List all Channels for an Interaction.
+[**UpdateInteractionChannel**](InteractionsChannelsApi.md#UpdateInteractionChannel) | **Post** /v1/Interactions/{InteractionSid}/Channels/{Sid} | Update an existing Interaction Channel.
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > FlexV1InteractionChannel FetchInteractionChannel(ctx, InteractionSidSid)
 
-
+Fetch a Channel for an Interaction.
 
 Fetch a Channel for an Interaction.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > []FlexV1InteractionChannel ListInteractionChannel(ctx, InteractionSidoptional)
 
-
+List all Channels for an Interaction.
 
 List all Channels for an Interaction.
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 > FlexV1InteractionChannel UpdateInteractionChannel(ctx, InteractionSidSidoptional)
 
-
+Update an existing Interaction Channel.
 
 Update an existing Interaction Channel.
 
@@ -121,7 +121,7 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **Routing** | [**interface{}**](interface{}.md) | It changes the state of associated tasks. Routing status is required, When the channel status is set to `inactive`. Allowed Value for routing status is `closed`. Otherwise Optional, if not specified, all tasks will be set to `wrapping`.
 
 ### Return type

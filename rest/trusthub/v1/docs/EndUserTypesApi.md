@@ -4,8 +4,8 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchEndUserType**](EndUserTypesApi.md#FetchEndUserType) | **Get** /v1/EndUserTypes/{Sid} | 
-[**ListEndUserType**](EndUserTypesApi.md#ListEndUserType) | **Get** /v1/EndUserTypes | 
+[**FetchEndUserType**](EndUserTypesApi.md#FetchEndUserType) | **Get** /v1/EndUserTypes/{Sid} | Fetch a specific End-User Type Instance.
+[**ListEndUserType**](EndUserTypesApi.md#ListEndUserType) | **Get** /v1/EndUserTypes | Retrieve a list of all End-User Types.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > TrusthubV1EndUserType FetchEndUserType(ctx, Sid)
 
-
+Fetch a specific End-User Type Instance.
 
 Fetch a specific End-User Type Instance.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []TrusthubV1EndUserType ListEndUserType(ctx, optional)
 
-
+Retrieve a list of all End-User Types.
 
 Retrieve a list of all End-User Types.
 

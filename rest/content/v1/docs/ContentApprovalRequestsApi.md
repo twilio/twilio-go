@@ -4,7 +4,7 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchApprovalFetch**](ContentApprovalRequestsApi.md#FetchApprovalFetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | 
+[**FetchApprovalFetch**](ContentApprovalRequestsApi.md#FetchApprovalFetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | Fetch Approval Status
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ContentV1ApprovalFetch FetchApprovalFetch(ctx, Sid)
 
-
+Fetch Approval Status
 
 Fetch a Content resource's approval status by its unique Content Sid
 

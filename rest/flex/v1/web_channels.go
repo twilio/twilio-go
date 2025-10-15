@@ -318,7 +318,7 @@ func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams
 	}
 
 	if params != nil && params.ChatStatus != nil {
-		data.Set("ChatStatus", *params.ChatStatus)
+		data.Set("ChatStatus", fmt.Sprint(*params.ChatStatus))
 	}
 	if params != nil && params.PostEngagementData != nil {
 		data.Set("PostEngagementData", *params.PostEngagementData)

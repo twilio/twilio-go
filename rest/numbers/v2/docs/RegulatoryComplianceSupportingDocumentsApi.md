@@ -4,11 +4,11 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#CreateSupportingDocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments | 
-[**DeleteSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#DeleteSupportingDocument) | **Delete** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
-[**FetchSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#FetchSupportingDocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
-[**ListSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#ListSupportingDocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments | 
-[**UpdateSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#UpdateSupportingDocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
+[**CreateSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#CreateSupportingDocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments | Create a new Supporting Document.
+[**DeleteSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#DeleteSupportingDocument) | **Delete** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | Delete a specific Supporting Document.
+[**FetchSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#FetchSupportingDocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | Fetch specific Supporting Document Instance.
+[**ListSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#ListSupportingDocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments | Retrieve a list of all Supporting Document for an account.
+[**UpdateSupportingDocument**](RegulatoryComplianceSupportingDocumentsApi.md#UpdateSupportingDocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | Update an existing Supporting Document.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > NumbersV2SupportingDocument CreateSupportingDocument(ctx, optional)
 
-
+Create a new Supporting Document.
 
 Create a new Supporting Document.
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > DeleteSupportingDocument(ctx, Sid)
 
-
+Delete a specific Supporting Document.
 
 Delete a specific Supporting Document.
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 > NumbersV2SupportingDocument FetchSupportingDocument(ctx, Sid)
 
-
+Fetch specific Supporting Document Instance.
 
 Fetch specific Supporting Document Instance.
 
@@ -141,7 +141,7 @@ Name | Type | Description
 
 > []NumbersV2SupportingDocument ListSupportingDocument(ctx, optional)
 
-
+Retrieve a list of all Supporting Document for an account.
 
 Retrieve a list of all Supporting Document for an account.
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 > NumbersV2SupportingDocument UpdateSupportingDocument(ctx, Sidoptional)
 
-
+Update an existing Supporting Document.
 
 Update an existing Supporting Document.
 

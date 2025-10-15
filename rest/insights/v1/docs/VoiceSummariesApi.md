@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListCallSummaries**](VoiceSummariesApi.md#ListCallSummaries) | **Get** /v1/Voice/Summaries | 
+[**ListCallSummaries**](VoiceSummariesApi.md#ListCallSummaries) | **Get** /v1/Voice/Summaries | Get a list of Call Summaries.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []InsightsV1CallSummaries ListCallSummaries(ctx, optional)
 
-
+Get a list of Call Summaries.
 
 Get a list of Call Summaries.
 
@@ -53,6 +53,10 @@ Name | Type | Description
 **BrandedEnabled** | **bool** | A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
 **VoiceIntegrityEnabled** | **bool** | A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
 **BrandedBundleSid** | **string** | A unique SID identifier of the Branded Call.
+**BrandedLogo** | **bool** | Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+**BrandedType** | **string** | Indicates whether the Branded Call is in_band vs out_of_band.
+**BrandedUseCase** | **string** | Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+**BrandedCallReason** | **string** | Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
 **VoiceIntegrityBundleSid** | **string** | A unique SID identifier of the Voice Integrity Profile.
 **VoiceIntegrityUseCase** | **string** | A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
 **BusinessProfileIdentity** | **string** | A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'. 

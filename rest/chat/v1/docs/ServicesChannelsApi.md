@@ -38,7 +38,7 @@ Name | Type | Description
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 
 ### Return type
 

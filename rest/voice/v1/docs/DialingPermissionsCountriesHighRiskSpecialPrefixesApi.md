@@ -4,7 +4,7 @@ All URIs are relative to *https://voice.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListDialingPermissionsHrsPrefixes**](DialingPermissionsCountriesHighRiskSpecialPrefixesApi.md#ListDialingPermissionsHrsPrefixes) | **Get** /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes | 
+[**ListDialingPermissionsHrsPrefixes**](DialingPermissionsCountriesHighRiskSpecialPrefixesApi.md#ListDialingPermissionsHrsPrefixes) | **Get** /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes | Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []VoiceV1DialingPermissionsHrsPrefixes ListDialingPermissionsHrsPrefixes(ctx, IsoCodeoptional)
 
-
+Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
 Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 

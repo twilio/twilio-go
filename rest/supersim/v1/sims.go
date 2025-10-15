@@ -141,7 +141,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Fleet != nil {
 		data.Set("Fleet", *params.Fleet)
@@ -316,7 +316,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Fleet != nil {
 		data.Set("Fleet", *params.Fleet)

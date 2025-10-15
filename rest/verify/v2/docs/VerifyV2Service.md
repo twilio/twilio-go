@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sid** | Pointer to **string** | The unique string that we created to identify the Service resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource. |
-**FriendlyName** | Pointer to **string** | The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. **This value should not contain PII.** |
+**FriendlyName** | Pointer to **string** | The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. It cannot contain more than 4 (consecutive or non-consecutive) digits. **This value should not contain PII.** |
 **CodeLength** | **int** | The length of the verification code to generate. |[optional] [default to 0]
 **LookupEnabled** | Pointer to **bool** | Whether to perform a lookup with each verification started and return info about the phone number. |
 **Psd2Enabled** | Pointer to **bool** | Whether to pass PSD2 transaction parameters when starting a verification. |
@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **Totp** | Pointer to **interface{}** | Configurations for the TOTP factors (channel) created under this Service. |
 **DefaultTemplateSid** | Pointer to **string** |  |
 **Whatsapp** | Pointer to **interface{}** |  |
+**Passkeys** | Pointer to **interface{}** |  |
 **VerifyEventSubscriptionEnabled** | Pointer to **bool** | Whether to allow verifications from the service to reach the stream-events sinks if configured |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |

@@ -4,8 +4,8 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchEventType**](TypesApi.md#FetchEventType) | **Get** /v1/Types/{Type} | 
-[**ListEventType**](TypesApi.md#ListEventType) | **Get** /v1/Types | 
+[**FetchEventType**](TypesApi.md#FetchEventType) | **Get** /v1/Types/{Type} | Fetch a specific Event Type.
+[**ListEventType**](TypesApi.md#ListEventType) | **Get** /v1/Types | Retrieve a paginated list of all the available Event Types.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > EventsV1EventType FetchEventType(ctx, Type)
 
-
+Fetch a specific Event Type.
 
 Fetch a specific Event Type.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []EventsV1EventType ListEventType(ctx, optional)
 
-
+Retrieve a paginated list of all the available Event Types.
 
 Retrieve a paginated list of all the available Event Types.
 

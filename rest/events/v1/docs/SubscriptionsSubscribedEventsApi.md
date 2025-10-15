@@ -4,11 +4,11 @@ All URIs are relative to *https://events.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#CreateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
-[**DeleteSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#DeleteSubscribedEvent) | **Delete** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
-[**FetchSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#FetchSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
-[**ListSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#ListSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
-[**UpdateSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#UpdateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
+[**CreateSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#CreateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | Add an event type to a Subscription.
+[**DeleteSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#DeleteSubscribedEvent) | **Delete** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | Remove an event type from a Subscription.
+[**FetchSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#FetchSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | Read an Event for a Subscription.
+[**ListSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#ListSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | Retrieve a list of all Subscribed Event types for a Subscription.
+[**UpdateSubscribedEvent**](SubscriptionsSubscribedEventsApi.md#UpdateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | Update an Event for a Subscription.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > EventsV1SubscribedEvent CreateSubscribedEvent(ctx, SubscriptionSidoptional)
 
-
+Add an event type to a Subscription.
 
 Add an event type to a Subscription.
 
@@ -60,7 +60,7 @@ Name | Type | Description
 
 > DeleteSubscribedEvent(ctx, SubscriptionSidType)
 
-
+Remove an event type from a Subscription.
 
 Remove an event type from a Subscription.
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > EventsV1SubscribedEvent FetchSubscribedEvent(ctx, SubscriptionSidType)
 
-
+Read an Event for a Subscription.
 
 Read an Event for a Subscription.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []EventsV1SubscribedEvent ListSubscribedEvent(ctx, SubscriptionSidoptional)
 
-
+Retrieve a list of all Subscribed Event types for a Subscription.
 
 Retrieve a list of all Subscribed Event types for a Subscription.
 
@@ -190,7 +190,7 @@ Name | Type | Description
 
 > EventsV1SubscribedEvent UpdateSubscribedEvent(ctx, SubscriptionSidTypeoptional)
 
-
+Update an Event for a Subscription.
 
 Update an Event for a Subscription.
 

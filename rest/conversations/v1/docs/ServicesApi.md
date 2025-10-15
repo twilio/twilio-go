@@ -4,10 +4,10 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | Create a new conversation service on your account
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | Remove a conversation service with all its nested resources from your account
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | Fetch a conversation service from your account
+[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | Retrieve a list of all conversation services on your account
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Service CreateService(ctx, optional)
 
-
+Create a new conversation service on your account
 
 Create a new conversation service on your account
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Remove a conversation service with all its nested resources from your account
 
 Remove a conversation service with all its nested resources from your account
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 > ConversationsV1Service FetchService(ctx, Sid)
 
-
+Fetch a conversation service from your account
 
 Fetch a conversation service from your account
 
@@ -138,7 +138,7 @@ Name | Type | Description
 
 > []ConversationsV1Service ListService(ctx, optional)
 
-
+Retrieve a list of all conversation services on your account
 
 Retrieve a list of all conversation services on your account
 
@@ -153,7 +153,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

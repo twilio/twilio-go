@@ -4,11 +4,11 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateExecution**](FlowsExecutionsApi.md#CreateExecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
-[**DeleteExecution**](FlowsExecutionsApi.md#DeleteExecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-[**FetchExecution**](FlowsExecutionsApi.md#FetchExecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-[**ListExecution**](FlowsExecutionsApi.md#ListExecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
-[**UpdateExecution**](FlowsExecutionsApi.md#UpdateExecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
+[**CreateExecution**](FlowsExecutionsApi.md#CreateExecution) | **Post** /v2/Flows/{FlowSid}/Executions | Triggers a new Execution for the Flow
+[**DeleteExecution**](FlowsExecutionsApi.md#DeleteExecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | Delete the Execution and all Steps relating to it.
+[**FetchExecution**](FlowsExecutionsApi.md#FetchExecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | Retrieve an Execution
+[**ListExecution**](FlowsExecutionsApi.md#ListExecution) | **Get** /v2/Flows/{FlowSid}/Executions | Retrieve a list of all Executions for the Flow.
+[**UpdateExecution**](FlowsExecutionsApi.md#UpdateExecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | Update the status of an Execution to &#x60;ended&#x60;.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > StudioV2Execution CreateExecution(ctx, FlowSidoptional)
 
-
+Triggers a new Execution for the Flow
 
 Triggers a new Execution for the Flow
 
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteExecution(ctx, FlowSidSid)
 
-
+Delete the Execution and all Steps relating to it.
 
 Delete the Execution and all Steps relating to it.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > StudioV2Execution FetchExecution(ctx, FlowSidSid)
 
-
+Retrieve an Execution
 
 Retrieve an Execution
 
@@ -147,7 +147,7 @@ Name | Type | Description
 
 > []StudioV2Execution ListExecution(ctx, FlowSidoptional)
 
-
+Retrieve a list of all Executions for the Flow.
 
 Retrieve a list of all Executions for the Flow.
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 > StudioV2Execution UpdateExecution(ctx, FlowSidSidoptional)
 
-
+Update the status of an Execution to `ended`.
 
 Update the status of an Execution to `ended`.
 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a UpdateExecutionParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

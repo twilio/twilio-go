@@ -124,7 +124,7 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.SourceSid != nil {
 		data.Set("SourceSid", *params.SourceSid)

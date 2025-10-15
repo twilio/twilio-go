@@ -40,12 +40,16 @@ type CreateRoomParams struct {
 	MaxParticipants *int `json:"MaxParticipants,omitempty"`
 	// Whether to start recording when Participants connect.
 	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
+	// Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used.
+	TranscribeParticipantsOnConnect *bool `json:"TranscribeParticipantsOnConnect,omitempty"`
 	// An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
 	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
 	// The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
 	MediaRegion *string `json:"MediaRegion,omitempty"`
 	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
 	RecordingRules *interface{} `json:"RecordingRules,omitempty"`
+	// A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used.
+	TranscriptionsConfiguration *map[string]interface{} `json:"TranscriptionsConfiguration,omitempty"`
 	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
 	AudioOnly *bool `json:"AudioOnly,omitempty"`
 	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
@@ -86,6 +90,10 @@ func (params *CreateRoomParams) SetRecordParticipantsOnConnect(RecordParticipant
 	params.RecordParticipantsOnConnect = &RecordParticipantsOnConnect
 	return params
 }
+func (params *CreateRoomParams) SetTranscribeParticipantsOnConnect(TranscribeParticipantsOnConnect bool) *CreateRoomParams {
+	params.TranscribeParticipantsOnConnect = &TranscribeParticipantsOnConnect
+	return params
+}
 func (params *CreateRoomParams) SetVideoCodecs(VideoCodecs []string) *CreateRoomParams {
 	params.VideoCodecs = &VideoCodecs
 	return params
@@ -96,6 +104,10 @@ func (params *CreateRoomParams) SetMediaRegion(MediaRegion string) *CreateRoomPa
 }
 func (params *CreateRoomParams) SetRecordingRules(RecordingRules interface{}) *CreateRoomParams {
 	params.RecordingRules = &RecordingRules
+	return params
+}
+func (params *CreateRoomParams) SetTranscriptionsConfiguration(TranscriptionsConfiguration map[string]interface{}) *CreateRoomParams {
+	params.TranscriptionsConfiguration = &TranscriptionsConfiguration
 	return params
 }
 func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
@@ -132,7 +144,7 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -148,6 +160,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	}
 	if params != nil && params.RecordParticipantsOnConnect != nil {
 		data.Set("RecordParticipantsOnConnect", fmt.Sprint(*params.RecordParticipantsOnConnect))
+	}
+	if params != nil && params.TranscribeParticipantsOnConnect != nil {
+		data.Set("TranscribeParticipantsOnConnect", fmt.Sprint(*params.TranscribeParticipantsOnConnect))
 	}
 	if params != nil && params.VideoCodecs != nil {
 		for _, item := range *params.VideoCodecs {
@@ -165,6 +180,15 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 		}
 
 		data.Set("RecordingRules", string(v))
+	}
+	if params != nil && params.TranscriptionsConfiguration != nil {
+		v, err := json.Marshal(params.TranscriptionsConfiguration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("TranscriptionsConfiguration", string(v))
 	}
 	if params != nil && params.AudioOnly != nil {
 		data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
@@ -273,7 +297,7 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber stri
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
@@ -418,7 +442,7 @@ func (c *ApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1R
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

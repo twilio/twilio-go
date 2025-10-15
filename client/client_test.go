@@ -1,6 +1,7 @@
 package client_test
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -314,4 +315,28 @@ func TestClient_UserAgentExtensionsHeaders(t *testing.T) {
 		}))
 	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+type MockOAuth struct{}
+
+func (m *MockOAuth) GetAccessToken(ctx context.Context) (string, error) {
+	return "mock_token", nil
+}
+
+func TestClient_SendRequestWithOAuth(t *testing.T) {
+	oauth := &MockOAuth{}
+	client := twilio.Client{
+		Credentials: twilio.NewCredentials("", ""),
+	}
+	client.SetOauth(oauth)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "Bearer mock_token", r.Header.Get("Authorization"))
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	resp, err := client.SendRequest("GET", server.URL, nil, nil)
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }

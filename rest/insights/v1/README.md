@@ -31,23 +31,23 @@ All URIs are relative to *https://insights.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ConferencesApi* | [**FetchConference**](docs/ConferencesApi.md#fetchconference) | **Get** /v1/Conferences/{ConferenceSid} | 
-*ConferencesApi* | [**ListConference**](docs/ConferencesApi.md#listconference) | **Get** /v1/Conferences | 
-*ConferencesParticipantsApi* | [**FetchConferenceParticipant**](docs/ConferencesParticipantsApi.md#fetchconferenceparticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid} | 
-*ConferencesParticipantsApi* | [**ListConferenceParticipant**](docs/ConferencesParticipantsApi.md#listconferenceparticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants | 
-*VideoRoomsApi* | [**FetchVideoRoomSummary**](docs/VideoRoomsApi.md#fetchvideoroomsummary) | **Get** /v1/Video/Rooms/{RoomSid} | 
-*VideoRoomsApi* | [**ListVideoRoomSummary**](docs/VideoRoomsApi.md#listvideoroomsummary) | **Get** /v1/Video/Rooms | 
-*VideoRoomsParticipantsApi* | [**FetchVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#fetchvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | 
-*VideoRoomsParticipantsApi* | [**ListVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#listvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | 
+*ConferencesApi* | [**FetchConference**](docs/ConferencesApi.md#fetchconference) | **Get** /v1/Conferences/{ConferenceSid} | Get a specific Conference Summary.
+*ConferencesApi* | [**ListConference**](docs/ConferencesApi.md#listconference) | **Get** /v1/Conferences | Get a list of Conference Summaries.
+*ConferencesParticipantsApi* | [**FetchConferenceParticipant**](docs/ConferencesParticipantsApi.md#fetchconferenceparticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid} | Get a specific Conference Participant Summary for a Conference.
+*ConferencesParticipantsApi* | [**ListConferenceParticipant**](docs/ConferencesParticipantsApi.md#listconferenceparticipant) | **Get** /v1/Conferences/{ConferenceSid}/Participants | Get a list of Conference Participants Summaries for a Conference.
+*VideoRoomsApi* | [**FetchVideoRoomSummary**](docs/VideoRoomsApi.md#fetchvideoroomsummary) | **Get** /v1/Video/Rooms/{RoomSid} | Get Video Log Analyzer data for a Room.
+*VideoRoomsApi* | [**ListVideoRoomSummary**](docs/VideoRoomsApi.md#listvideoroomsummary) | **Get** /v1/Video/Rooms | Get a list of Programmable Video Rooms.
+*VideoRoomsParticipantsApi* | [**FetchVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#fetchvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | Get Video Log Analyzer data for a Room Participant.
+*VideoRoomsParticipantsApi* | [**ListVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#listvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | Get a list of room participants.
 *VoiceApi* | [**FetchCall**](docs/VoiceApi.md#fetchcall) | **Get** /v1/Voice/{Sid} | 
-*VoiceAnnotationApi* | [**FetchAnnotation**](docs/VoiceAnnotationApi.md#fetchannotation) | **Get** /v1/Voice/{CallSid}/Annotation | 
-*VoiceAnnotationApi* | [**UpdateAnnotation**](docs/VoiceAnnotationApi.md#updateannotation) | **Post** /v1/Voice/{CallSid}/Annotation | 
-*VoiceEventsApi* | [**ListEvent**](docs/VoiceEventsApi.md#listevent) | **Get** /v1/Voice/{CallSid}/Events | 
-*VoiceMetricsApi* | [**ListMetric**](docs/VoiceMetricsApi.md#listmetric) | **Get** /v1/Voice/{CallSid}/Metrics | 
-*VoiceSettingsApi* | [**FetchAccountSettings**](docs/VoiceSettingsApi.md#fetchaccountsettings) | **Get** /v1/Voice/Settings | 
-*VoiceSettingsApi* | [**UpdateAccountSettings**](docs/VoiceSettingsApi.md#updateaccountsettings) | **Post** /v1/Voice/Settings | 
-*VoiceSummariesApi* | [**ListCallSummaries**](docs/VoiceSummariesApi.md#listcallsummaries) | **Get** /v1/Voice/Summaries | 
-*VoiceSummaryApi* | [**FetchSummary**](docs/VoiceSummaryApi.md#fetchsummary) | **Get** /v1/Voice/{CallSid}/Summary | 
+*VoiceAnnotationApi* | [**FetchAnnotation**](docs/VoiceAnnotationApi.md#fetchannotation) | **Get** /v1/Voice/{CallSid}/Annotation | Get the Annotation for a specific Call.
+*VoiceAnnotationApi* | [**UpdateAnnotation**](docs/VoiceAnnotationApi.md#updateannotation) | **Post** /v1/Voice/{CallSid}/Annotation | Update an Annotation for a specific Call.
+*VoiceEventsApi* | [**ListEvent**](docs/VoiceEventsApi.md#listevent) | **Get** /v1/Voice/{CallSid}/Events | Get a list of Call Insight Events for a Call.
+*VoiceMetricsApi* | [**ListMetric**](docs/VoiceMetricsApi.md#listmetric) | **Get** /v1/Voice/{CallSid}/Metrics | Get a list of Call Metrics for a Call.
+*VoiceSettingsApi* | [**FetchAccountSettings**](docs/VoiceSettingsApi.md#fetchaccountsettings) | **Get** /v1/Voice/Settings | Get the Voice Insights Settings.
+*VoiceSettingsApi* | [**UpdateAccountSettings**](docs/VoiceSettingsApi.md#updateaccountsettings) | **Post** /v1/Voice/Settings | Update a specific Voice Insights Setting.
+*VoiceSummariesApi* | [**ListCallSummaries**](docs/VoiceSummariesApi.md#listcallsummaries) | **Get** /v1/Voice/Summaries | Get a list of Call Summaries.
+*VoiceSummaryApi* | [**FetchSummary**](docs/VoiceSummaryApi.md#fetchsummary) | **Get** /v1/Voice/{CallSid}/Summary | Get a specific Call Summary.
 
 
 ## Documentation For Models

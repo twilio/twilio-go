@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchBalance**](AccountsBalanceApi.md#FetchBalance) | **Get** /2010-04-01/Accounts/{AccountSid}/Balance.json | 
+[**FetchBalance**](AccountsBalanceApi.md#FetchBalance) | **Get** /2010-04-01/Accounts/{AccountSid}/Balance.json | Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ApiV2010Balance FetchBalance(ctx, optional)
 
-
+Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 
 Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 

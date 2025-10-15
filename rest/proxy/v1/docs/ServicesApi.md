@@ -4,11 +4,11 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | 
-[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
-[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
-[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | 
-[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | 
+[**CreateService**](ServicesApi.md#CreateService) | **Post** /v1/Services | Create a new Service for Twilio Proxy
+[**DeleteService**](ServicesApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | Delete a specific Service.
+[**FetchService**](ServicesApi.md#FetchService) | **Get** /v1/Services/{Sid} | Fetch a specific Service.
+[**ListService**](ServicesApi.md#ListService) | **Get** /v1/Services | Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
+[**UpdateService**](ServicesApi.md#UpdateService) | **Post** /v1/Services/{Sid} | Update a specific Service.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ProxyV1Service CreateService(ctx, optional)
 
-
+Create a new Service for Twilio Proxy
 
 Create a new Service for Twilio Proxy
 
@@ -34,8 +34,8 @@ Name | Type | Description
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 **DefaultTtl** | **int** | The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
 **CallbackUrl** | **string** | The URL we should call when the interaction status changes.
-**GeoMatchLevel** | **string** | 
-**NumberSelectionBehavior** | **string** | 
+**GeoMatchLevel** | [**string**](string.md) | 
+**NumberSelectionBehavior** | [**string**](string.md) | 
 **InterceptCallbackUrl** | **string** | The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
 **OutOfSessionCallbackUrl** | **string** | The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/en-us/serverless/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
 **ChatInstanceSid** | **string** | The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
@@ -62,7 +62,7 @@ Name | Type | Description
 
 > DeleteService(ctx, Sid)
 
-
+Delete a specific Service.
 
 Delete a specific Service.
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 > ProxyV1Service FetchService(ctx, Sid)
 
-
+Fetch a specific Service.
 
 Fetch a specific Service.
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 > []ProxyV1Service ListService(ctx, optional)
 
-
+Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
 
 Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 > ProxyV1Service UpdateService(ctx, Sidoptional)
 
-
+Update a specific Service.
 
 Update a specific Service.
 
@@ -208,8 +208,8 @@ Name | Type | Description
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 **DefaultTtl** | **int** | The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
 **CallbackUrl** | **string** | The URL we should call when the interaction status changes.
-**GeoMatchLevel** | **string** | 
-**NumberSelectionBehavior** | **string** | 
+**GeoMatchLevel** | [**string**](string.md) | 
+**NumberSelectionBehavior** | [**string**](string.md) | 
 **InterceptCallbackUrl** | **string** | The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
 **OutOfSessionCallbackUrl** | **string** | The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/en-us/serverless/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
 **ChatInstanceSid** | **string** | The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.

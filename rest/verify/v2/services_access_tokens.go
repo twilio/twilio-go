@@ -64,7 +64,7 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.FactorType != nil {
-		data.Set("FactorType", *params.FactorType)
+		data.Set("FactorType", fmt.Sprint(*params.FactorType))
 	}
 	if params != nil && params.FactorFriendlyName != nil {
 		data.Set("FactorFriendlyName", *params.FactorFriendlyName)

@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchVideoParticipantSummary**](VideoRoomsParticipantsApi.md#FetchVideoParticipantSummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | 
-[**ListVideoParticipantSummary**](VideoRoomsParticipantsApi.md#ListVideoParticipantSummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | 
+[**FetchVideoParticipantSummary**](VideoRoomsParticipantsApi.md#FetchVideoParticipantSummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | Get Video Log Analyzer data for a Room Participant.
+[**ListVideoParticipantSummary**](VideoRoomsParticipantsApi.md#ListVideoParticipantSummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | Get a list of room participants.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > InsightsV1VideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSidParticipantSid)
 
-
+Get Video Log Analyzer data for a Room Participant.
 
 Get Video Log Analyzer data for a Room Participant.
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 > []InsightsV1VideoParticipantSummary ListVideoParticipantSummary(ctx, RoomSidoptional)
 
-
+Get a list of room participants.
 
 Get a list of room participants.
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchExecutionContext**](FlowsExecutionsContextApi.md#FetchExecutionContext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
+[**FetchExecutionContext**](FlowsExecutionsContextApi.md#FetchExecutionContext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | Retrieve the most recent context for an Execution.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > StudioV1ExecutionContext FetchExecutionContext(ctx, FlowSidExecutionSid)
 
-
+Retrieve the most recent context for an Execution.
 
 Retrieve the most recent context for an Execution.
 

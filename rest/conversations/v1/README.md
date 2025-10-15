@@ -31,109 +31,109 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ConfigurationApi* | [**FetchConfiguration**](docs/ConfigurationApi.md#fetchconfiguration) | **Get** /v1/Configuration | 
-*ConfigurationApi* | [**UpdateConfiguration**](docs/ConfigurationApi.md#updateconfiguration) | **Post** /v1/Configuration | 
-*ConfigurationAddressesApi* | [**CreateConfigurationAddress**](docs/ConfigurationAddressesApi.md#createconfigurationaddress) | **Post** /v1/Configuration/Addresses | 
-*ConfigurationAddressesApi* | [**DeleteConfigurationAddress**](docs/ConfigurationAddressesApi.md#deleteconfigurationaddress) | **Delete** /v1/Configuration/Addresses/{Sid} | 
-*ConfigurationAddressesApi* | [**FetchConfigurationAddress**](docs/ConfigurationAddressesApi.md#fetchconfigurationaddress) | **Get** /v1/Configuration/Addresses/{Sid} | 
-*ConfigurationAddressesApi* | [**ListConfigurationAddress**](docs/ConfigurationAddressesApi.md#listconfigurationaddress) | **Get** /v1/Configuration/Addresses | 
-*ConfigurationAddressesApi* | [**UpdateConfigurationAddress**](docs/ConfigurationAddressesApi.md#updateconfigurationaddress) | **Post** /v1/Configuration/Addresses/{Sid} | 
+*ConfigurationApi* | [**FetchConfiguration**](docs/ConfigurationApi.md#fetchconfiguration) | **Get** /v1/Configuration | Fetch the global configuration of conversations on your account
+*ConfigurationApi* | [**UpdateConfiguration**](docs/ConfigurationApi.md#updateconfiguration) | **Post** /v1/Configuration | Update the global configuration of conversations on your account
+*ConfigurationAddressesApi* | [**CreateConfigurationAddress**](docs/ConfigurationAddressesApi.md#createconfigurationaddress) | **Post** /v1/Configuration/Addresses | Create a new address configuration
+*ConfigurationAddressesApi* | [**DeleteConfigurationAddress**](docs/ConfigurationAddressesApi.md#deleteconfigurationaddress) | **Delete** /v1/Configuration/Addresses/{Sid} | Remove an existing address configuration
+*ConfigurationAddressesApi* | [**FetchConfigurationAddress**](docs/ConfigurationAddressesApi.md#fetchconfigurationaddress) | **Get** /v1/Configuration/Addresses/{Sid} | Fetch an address configuration 
+*ConfigurationAddressesApi* | [**ListConfigurationAddress**](docs/ConfigurationAddressesApi.md#listconfigurationaddress) | **Get** /v1/Configuration/Addresses | Retrieve a list of address configurations for an account
+*ConfigurationAddressesApi* | [**UpdateConfigurationAddress**](docs/ConfigurationAddressesApi.md#updateconfigurationaddress) | **Post** /v1/Configuration/Addresses/{Sid} | Update an existing address configuration
 *ConfigurationWebhooksApi* | [**FetchConfigurationWebhook**](docs/ConfigurationWebhooksApi.md#fetchconfigurationwebhook) | **Get** /v1/Configuration/Webhooks | 
 *ConfigurationWebhooksApi* | [**UpdateConfigurationWebhook**](docs/ConfigurationWebhooksApi.md#updateconfigurationwebhook) | **Post** /v1/Configuration/Webhooks | 
-*ConversationWithParticipantsApi* | [**CreateConversationWithParticipants**](docs/ConversationWithParticipantsApi.md#createconversationwithparticipants) | **Post** /v1/ConversationWithParticipants | 
-*ConversationsApi* | [**CreateConversation**](docs/ConversationsApi.md#createconversation) | **Post** /v1/Conversations | 
-*ConversationsApi* | [**DeleteConversation**](docs/ConversationsApi.md#deleteconversation) | **Delete** /v1/Conversations/{Sid} | 
-*ConversationsApi* | [**FetchConversation**](docs/ConversationsApi.md#fetchconversation) | **Get** /v1/Conversations/{Sid} | 
-*ConversationsApi* | [**ListConversation**](docs/ConversationsApi.md#listconversation) | **Get** /v1/Conversations | 
-*ConversationsApi* | [**UpdateConversation**](docs/ConversationsApi.md#updateconversation) | **Post** /v1/Conversations/{Sid} | 
-*ConversationsMessagesApi* | [**CreateConversationMessage**](docs/ConversationsMessagesApi.md#createconversationmessage) | **Post** /v1/Conversations/{ConversationSid}/Messages | 
-*ConversationsMessagesApi* | [**DeleteConversationMessage**](docs/ConversationsMessagesApi.md#deleteconversationmessage) | **Delete** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ConversationsMessagesApi* | [**FetchConversationMessage**](docs/ConversationsMessagesApi.md#fetchconversationmessage) | **Get** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ConversationsMessagesApi* | [**ListConversationMessage**](docs/ConversationsMessagesApi.md#listconversationmessage) | **Get** /v1/Conversations/{ConversationSid}/Messages | 
-*ConversationsMessagesApi* | [**UpdateConversationMessage**](docs/ConversationsMessagesApi.md#updateconversationmessage) | **Post** /v1/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ConversationsMessagesReceiptsApi* | [**FetchConversationMessageReceipt**](docs/ConversationsMessagesReceiptsApi.md#fetchconversationmessagereceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | 
-*ConversationsMessagesReceiptsApi* | [**ListConversationMessageReceipt**](docs/ConversationsMessagesReceiptsApi.md#listconversationmessagereceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | 
-*ConversationsParticipantsApi* | [**CreateConversationParticipant**](docs/ConversationsParticipantsApi.md#createconversationparticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | 
-*ConversationsParticipantsApi* | [**DeleteConversationParticipant**](docs/ConversationsParticipantsApi.md#deleteconversationparticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ConversationsParticipantsApi* | [**FetchConversationParticipant**](docs/ConversationsParticipantsApi.md#fetchconversationparticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ConversationsParticipantsApi* | [**ListConversationParticipant**](docs/ConversationsParticipantsApi.md#listconversationparticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | 
-*ConversationsParticipantsApi* | [**UpdateConversationParticipant**](docs/ConversationsParticipantsApi.md#updateconversationparticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ConversationsWebhooksApi* | [**CreateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#createconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks | 
-*ConversationsWebhooksApi* | [**DeleteConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#deleteconversationscopedwebhook) | **Delete** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*ConversationsWebhooksApi* | [**FetchConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#fetchconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*ConversationsWebhooksApi* | [**ListConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#listconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks | 
-*ConversationsWebhooksApi* | [**UpdateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#updateconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*CredentialsApi* | [**CreateCredential**](docs/CredentialsApi.md#createcredential) | **Post** /v1/Credentials | 
-*CredentialsApi* | [**DeleteCredential**](docs/CredentialsApi.md#deletecredential) | **Delete** /v1/Credentials/{Sid} | 
-*CredentialsApi* | [**FetchCredential**](docs/CredentialsApi.md#fetchcredential) | **Get** /v1/Credentials/{Sid} | 
-*CredentialsApi* | [**ListCredential**](docs/CredentialsApi.md#listcredential) | **Get** /v1/Credentials | 
-*CredentialsApi* | [**UpdateCredential**](docs/CredentialsApi.md#updatecredential) | **Post** /v1/Credentials/{Sid} | 
-*ParticipantConversationsApi* | [**ListParticipantConversation**](docs/ParticipantConversationsApi.md#listparticipantconversation) | **Get** /v1/ParticipantConversations | 
-*RolesApi* | [**CreateRole**](docs/RolesApi.md#createrole) | **Post** /v1/Roles | 
-*RolesApi* | [**DeleteRole**](docs/RolesApi.md#deleterole) | **Delete** /v1/Roles/{Sid} | 
-*RolesApi* | [**FetchRole**](docs/RolesApi.md#fetchrole) | **Get** /v1/Roles/{Sid} | 
-*RolesApi* | [**ListRole**](docs/RolesApi.md#listrole) | **Get** /v1/Roles | 
-*RolesApi* | [**UpdateRole**](docs/RolesApi.md#updaterole) | **Post** /v1/Roles/{Sid} | 
-*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
-*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
-*ServicesBindingsApi* | [**DeleteServiceBinding**](docs/ServicesBindingsApi.md#deleteservicebinding) | **Delete** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | 
-*ServicesBindingsApi* | [**FetchServiceBinding**](docs/ServicesBindingsApi.md#fetchservicebinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | 
-*ServicesBindingsApi* | [**ListServiceBinding**](docs/ServicesBindingsApi.md#listservicebinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings | 
-*ServicesConfigurationApi* | [**FetchServiceConfiguration**](docs/ServicesConfigurationApi.md#fetchserviceconfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration | 
-*ServicesConfigurationApi* | [**UpdateServiceConfiguration**](docs/ServicesConfigurationApi.md#updateserviceconfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration | 
-*ServicesConfigurationNotificationsApi* | [**FetchServiceNotification**](docs/ServicesConfigurationNotificationsApi.md#fetchservicenotification) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Notifications | 
-*ServicesConfigurationNotificationsApi* | [**UpdateServiceNotification**](docs/ServicesConfigurationNotificationsApi.md#updateservicenotification) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Notifications | 
-*ServicesConfigurationWebhooksApi* | [**FetchServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#fetchservicewebhookconfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
-*ServicesConfigurationWebhooksApi* | [**UpdateServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#updateservicewebhookconfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | 
-*ServicesConversationWithParticipantsApi* | [**CreateServiceConversationWithParticipants**](docs/ServicesConversationWithParticipantsApi.md#createserviceconversationwithparticipants) | **Post** /v1/Services/{ChatServiceSid}/ConversationWithParticipants | 
-*ServicesConversationsApi* | [**CreateServiceConversation**](docs/ServicesConversationsApi.md#createserviceconversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations | 
-*ServicesConversationsApi* | [**DeleteServiceConversation**](docs/ServicesConversationsApi.md#deleteserviceconversation) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
-*ServicesConversationsApi* | [**FetchServiceConversation**](docs/ServicesConversationsApi.md#fetchserviceconversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
-*ServicesConversationsApi* | [**ListServiceConversation**](docs/ServicesConversationsApi.md#listserviceconversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations | 
-*ServicesConversationsApi* | [**UpdateServiceConversation**](docs/ServicesConversationsApi.md#updateserviceconversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | 
-*ServicesConversationsMessagesApi* | [**CreateServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#createserviceconversationmessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | 
-*ServicesConversationsMessagesApi* | [**DeleteServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#deleteserviceconversationmessage) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ServicesConversationsMessagesApi* | [**FetchServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#fetchserviceconversationmessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ServicesConversationsMessagesApi* | [**ListServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#listserviceconversationmessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | 
-*ServicesConversationsMessagesApi* | [**UpdateServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#updateserviceconversationmessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | 
-*ServicesConversationsMessagesReceiptsApi* | [**FetchServiceConversationMessageReceipt**](docs/ServicesConversationsMessagesReceiptsApi.md#fetchserviceconversationmessagereceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | 
-*ServicesConversationsMessagesReceiptsApi* | [**ListServiceConversationMessageReceipt**](docs/ServicesConversationsMessagesReceiptsApi.md#listserviceconversationmessagereceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | 
-*ServicesConversationsParticipantsApi* | [**CreateServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#createserviceconversationparticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-*ServicesConversationsParticipantsApi* | [**DeleteServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#deleteserviceconversationparticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ServicesConversationsParticipantsApi* | [**FetchServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#fetchserviceconversationparticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ServicesConversationsParticipantsApi* | [**ListServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#listserviceconversationparticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | 
-*ServicesConversationsParticipantsApi* | [**UpdateServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#updateserviceconversationparticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | 
-*ServicesConversationsWebhooksApi* | [**CreateServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#createserviceconversationscopedwebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | 
-*ServicesConversationsWebhooksApi* | [**DeleteServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#deleteserviceconversationscopedwebhook) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*ServicesConversationsWebhooksApi* | [**FetchServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#fetchserviceconversationscopedwebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*ServicesConversationsWebhooksApi* | [**ListServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#listserviceconversationscopedwebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | 
-*ServicesConversationsWebhooksApi* | [**UpdateServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#updateserviceconversationscopedwebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-*ServicesParticipantConversationsApi* | [**ListServiceParticipantConversation**](docs/ServicesParticipantConversationsApi.md#listserviceparticipantconversation) | **Get** /v1/Services/{ChatServiceSid}/ParticipantConversations | 
-*ServicesRolesApi* | [**CreateServiceRole**](docs/ServicesRolesApi.md#createservicerole) | **Post** /v1/Services/{ChatServiceSid}/Roles | 
-*ServicesRolesApi* | [**DeleteServiceRole**](docs/ServicesRolesApi.md#deleteservicerole) | **Delete** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
-*ServicesRolesApi* | [**FetchServiceRole**](docs/ServicesRolesApi.md#fetchservicerole) | **Get** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
-*ServicesRolesApi* | [**ListServiceRole**](docs/ServicesRolesApi.md#listservicerole) | **Get** /v1/Services/{ChatServiceSid}/Roles | 
-*ServicesRolesApi* | [**UpdateServiceRole**](docs/ServicesRolesApi.md#updateservicerole) | **Post** /v1/Services/{ChatServiceSid}/Roles/{Sid} | 
-*ServicesUsersApi* | [**CreateServiceUser**](docs/ServicesUsersApi.md#createserviceuser) | **Post** /v1/Services/{ChatServiceSid}/Users | 
-*ServicesUsersApi* | [**DeleteServiceUser**](docs/ServicesUsersApi.md#deleteserviceuser) | **Delete** /v1/Services/{ChatServiceSid}/Users/{Sid} | 
-*ServicesUsersApi* | [**FetchServiceUser**](docs/ServicesUsersApi.md#fetchserviceuser) | **Get** /v1/Services/{ChatServiceSid}/Users/{Sid} | 
-*ServicesUsersApi* | [**ListServiceUser**](docs/ServicesUsersApi.md#listserviceuser) | **Get** /v1/Services/{ChatServiceSid}/Users | 
-*ServicesUsersApi* | [**UpdateServiceUser**](docs/ServicesUsersApi.md#updateserviceuser) | **Post** /v1/Services/{ChatServiceSid}/Users/{Sid} | 
-*ServicesUsersConversationsApi* | [**DeleteServiceUserConversation**](docs/ServicesUsersConversationsApi.md#deleteserviceuserconversation) | **Delete** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
-*ServicesUsersConversationsApi* | [**FetchServiceUserConversation**](docs/ServicesUsersConversationsApi.md#fetchserviceuserconversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
-*ServicesUsersConversationsApi* | [**ListServiceUserConversation**](docs/ServicesUsersConversationsApi.md#listserviceuserconversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations | 
-*ServicesUsersConversationsApi* | [**UpdateServiceUserConversation**](docs/ServicesUsersConversationsApi.md#updateserviceuserconversation) | **Post** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | 
-*UsersApi* | [**CreateUser**](docs/UsersApi.md#createuser) | **Post** /v1/Users | 
-*UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /v1/Users/{Sid} | 
-*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | 
-*UsersApi* | [**ListUser**](docs/UsersApi.md#listuser) | **Get** /v1/Users | 
-*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | 
-*UsersConversationsApi* | [**DeleteUserConversation**](docs/UsersConversationsApi.md#deleteuserconversation) | **Delete** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
-*UsersConversationsApi* | [**FetchUserConversation**](docs/UsersConversationsApi.md#fetchuserconversation) | **Get** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
-*UsersConversationsApi* | [**ListUserConversation**](docs/UsersConversationsApi.md#listuserconversation) | **Get** /v1/Users/{UserSid}/Conversations | 
-*UsersConversationsApi* | [**UpdateUserConversation**](docs/UsersConversationsApi.md#updateuserconversation) | **Post** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
+*ConversationWithParticipantsApi* | [**CreateConversationWithParticipants**](docs/ConversationWithParticipantsApi.md#createconversationwithparticipants) | **Post** /v1/ConversationWithParticipants | Create a new conversation with the list of participants in your account&#39;s default service
+*ConversationsApi* | [**CreateConversation**](docs/ConversationsApi.md#createconversation) | **Post** /v1/Conversations | Create a new conversation in your account&#39;s default service
+*ConversationsApi* | [**DeleteConversation**](docs/ConversationsApi.md#deleteconversation) | **Delete** /v1/Conversations/{Sid} | Remove a conversation from your account&#39;s default service
+*ConversationsApi* | [**FetchConversation**](docs/ConversationsApi.md#fetchconversation) | **Get** /v1/Conversations/{Sid} | Fetch a conversation from your account&#39;s default service
+*ConversationsApi* | [**ListConversation**](docs/ConversationsApi.md#listconversation) | **Get** /v1/Conversations | Retrieve a list of conversations in your account&#39;s default service
+*ConversationsApi* | [**UpdateConversation**](docs/ConversationsApi.md#updateconversation) | **Post** /v1/Conversations/{Sid} | Update an existing conversation in your account&#39;s default service
+*ConversationsMessagesApi* | [**CreateConversationMessage**](docs/ConversationsMessagesApi.md#createconversationmessage) | **Post** /v1/Conversations/{ConversationSid}/Messages | Add a new message to the conversation
+*ConversationsMessagesApi* | [**DeleteConversationMessage**](docs/ConversationsMessagesApi.md#deleteconversationmessage) | **Delete** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Remove a message from the conversation
+*ConversationsMessagesApi* | [**FetchConversationMessage**](docs/ConversationsMessagesApi.md#fetchconversationmessage) | **Get** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Fetch a message from the conversation
+*ConversationsMessagesApi* | [**ListConversationMessage**](docs/ConversationsMessagesApi.md#listconversationmessage) | **Get** /v1/Conversations/{ConversationSid}/Messages | Retrieve a list of all messages in the conversation
+*ConversationsMessagesApi* | [**UpdateConversationMessage**](docs/ConversationsMessagesApi.md#updateconversationmessage) | **Post** /v1/Conversations/{ConversationSid}/Messages/{Sid} | Update an existing message in the conversation
+*ConversationsMessagesReceiptsApi* | [**FetchConversationMessageReceipt**](docs/ConversationsMessagesReceiptsApi.md#fetchconversationmessagereceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | Fetch the delivery and read receipts of the conversation message
+*ConversationsMessagesReceiptsApi* | [**ListConversationMessageReceipt**](docs/ConversationsMessagesReceiptsApi.md#listconversationmessagereceipt) | **Get** /v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | Retrieve a list of all delivery and read receipts of the conversation message
+*ConversationsParticipantsApi* | [**CreateConversationParticipant**](docs/ConversationsParticipantsApi.md#createconversationparticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation
+*ConversationsParticipantsApi* | [**DeleteConversationParticipant**](docs/ConversationsParticipantsApi.md#deleteconversationparticipant) | **Delete** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+*ConversationsParticipantsApi* | [**FetchConversationParticipant**](docs/ConversationsParticipantsApi.md#fetchconversationparticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+*ConversationsParticipantsApi* | [**ListConversationParticipant**](docs/ConversationsParticipantsApi.md#listconversationparticipant) | **Get** /v1/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+*ConversationsParticipantsApi* | [**UpdateConversationParticipant**](docs/ConversationsParticipantsApi.md#updateconversationparticipant) | **Post** /v1/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
+*ConversationsWebhooksApi* | [**CreateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#createconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks | Create a new webhook scoped to the conversation
+*ConversationsWebhooksApi* | [**DeleteConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#deleteconversationscopedwebhook) | **Delete** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | Remove an existing webhook scoped to the conversation
+*ConversationsWebhooksApi* | [**FetchConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#fetchconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | Fetch the configuration of a conversation-scoped webhook
+*ConversationsWebhooksApi* | [**ListConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#listconversationscopedwebhook) | **Get** /v1/Conversations/{ConversationSid}/Webhooks | Retrieve a list of all webhooks scoped to the conversation
+*ConversationsWebhooksApi* | [**UpdateConversationScopedWebhook**](docs/ConversationsWebhooksApi.md#updateconversationscopedwebhook) | **Post** /v1/Conversations/{ConversationSid}/Webhooks/{Sid} | Update an existing conversation-scoped webhook
+*CredentialsApi* | [**CreateCredential**](docs/CredentialsApi.md#createcredential) | **Post** /v1/Credentials | Add a new push notification credential to your account
+*CredentialsApi* | [**DeleteCredential**](docs/CredentialsApi.md#deletecredential) | **Delete** /v1/Credentials/{Sid} | Remove a push notification credential from your account
+*CredentialsApi* | [**FetchCredential**](docs/CredentialsApi.md#fetchcredential) | **Get** /v1/Credentials/{Sid} | Fetch a push notification credential from your account
+*CredentialsApi* | [**ListCredential**](docs/CredentialsApi.md#listcredential) | **Get** /v1/Credentials | Retrieve a list of all push notification credentials on your account
+*CredentialsApi* | [**UpdateCredential**](docs/CredentialsApi.md#updatecredential) | **Post** /v1/Credentials/{Sid} | Update an existing push notification credential on your account
+*ParticipantConversationsApi* | [**ListParticipantConversation**](docs/ParticipantConversationsApi.md#listparticipantconversation) | **Get** /v1/ParticipantConversations | Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified.
+*RolesApi* | [**CreateRole**](docs/RolesApi.md#createrole) | **Post** /v1/Roles | Create a new user role in your account&#39;s default service
+*RolesApi* | [**DeleteRole**](docs/RolesApi.md#deleterole) | **Delete** /v1/Roles/{Sid} | Remove a user role from your account&#39;s default service
+*RolesApi* | [**FetchRole**](docs/RolesApi.md#fetchrole) | **Get** /v1/Roles/{Sid} | Fetch a user role from your account&#39;s default service
+*RolesApi* | [**ListRole**](docs/RolesApi.md#listrole) | **Get** /v1/Roles | Retrieve a list of all user roles in your account&#39;s default service
+*RolesApi* | [**UpdateRole**](docs/RolesApi.md#updaterole) | **Post** /v1/Roles/{Sid} | Update an existing user role in your account&#39;s default service
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | Create a new conversation service on your account
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | Remove a conversation service with all its nested resources from your account
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | Fetch a conversation service from your account
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | Retrieve a list of all conversation services on your account
+*ServicesBindingsApi* | [**DeleteServiceBinding**](docs/ServicesBindingsApi.md#deleteservicebinding) | **Delete** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | Remove a push notification binding from the conversation service
+*ServicesBindingsApi* | [**FetchServiceBinding**](docs/ServicesBindingsApi.md#fetchservicebinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | Fetch a push notification binding from the conversation service
+*ServicesBindingsApi* | [**ListServiceBinding**](docs/ServicesBindingsApi.md#listservicebinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings | Retrieve a list of all push notification bindings in the conversation service
+*ServicesConfigurationApi* | [**FetchServiceConfiguration**](docs/ServicesConfigurationApi.md#fetchserviceconfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration | Fetch the configuration of a conversation service
+*ServicesConfigurationApi* | [**UpdateServiceConfiguration**](docs/ServicesConfigurationApi.md#updateserviceconfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration | Update configuration settings of a conversation service
+*ServicesConfigurationNotificationsApi* | [**FetchServiceNotification**](docs/ServicesConfigurationNotificationsApi.md#fetchservicenotification) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Notifications | Fetch push notification service settings
+*ServicesConfigurationNotificationsApi* | [**UpdateServiceNotification**](docs/ServicesConfigurationNotificationsApi.md#updateservicenotification) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Notifications | Update push notification service settings
+*ServicesConfigurationWebhooksApi* | [**FetchServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#fetchservicewebhookconfiguration) | **Get** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | Fetch a specific service webhook configuration.
+*ServicesConfigurationWebhooksApi* | [**UpdateServiceWebhookConfiguration**](docs/ServicesConfigurationWebhooksApi.md#updateservicewebhookconfiguration) | **Post** /v1/Services/{ChatServiceSid}/Configuration/Webhooks | Update a specific Webhook.
+*ServicesConversationWithParticipantsApi* | [**CreateServiceConversationWithParticipants**](docs/ServicesConversationWithParticipantsApi.md#createserviceconversationwithparticipants) | **Post** /v1/Services/{ChatServiceSid}/ConversationWithParticipants | Create a new conversation with the list of participants in your account&#39;s default service
+*ServicesConversationsApi* | [**CreateServiceConversation**](docs/ServicesConversationsApi.md#createserviceconversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations | Create a new conversation in your service
+*ServicesConversationsApi* | [**DeleteServiceConversation**](docs/ServicesConversationsApi.md#deleteserviceconversation) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Remove a conversation from your service
+*ServicesConversationsApi* | [**FetchServiceConversation**](docs/ServicesConversationsApi.md#fetchserviceconversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Fetch a conversation from your service
+*ServicesConversationsApi* | [**ListServiceConversation**](docs/ServicesConversationsApi.md#listserviceconversation) | **Get** /v1/Services/{ChatServiceSid}/Conversations | Retrieve a list of conversations in your service
+*ServicesConversationsApi* | [**UpdateServiceConversation**](docs/ServicesConversationsApi.md#updateserviceconversation) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{Sid} | Update an existing conversation in your service
+*ServicesConversationsMessagesApi* | [**CreateServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#createserviceconversationmessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | Add a new message to the conversation in a specific service
+*ServicesConversationsMessagesApi* | [**DeleteServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#deleteserviceconversationmessage) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Remove a message from the conversation
+*ServicesConversationsMessagesApi* | [**FetchServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#fetchserviceconversationmessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Fetch a message from the conversation
+*ServicesConversationsMessagesApi* | [**ListServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#listserviceconversationmessage) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages | Retrieve a list of all messages in the conversation
+*ServicesConversationsMessagesApi* | [**UpdateServiceConversationMessage**](docs/ServicesConversationsMessagesApi.md#updateserviceconversationmessage) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid} | Update an existing message in the conversation
+*ServicesConversationsMessagesReceiptsApi* | [**FetchServiceConversationMessageReceipt**](docs/ServicesConversationsMessagesReceiptsApi.md#fetchserviceconversationmessagereceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid} | Fetch the delivery and read receipts of the conversation message
+*ServicesConversationsMessagesReceiptsApi* | [**ListServiceConversationMessageReceipt**](docs/ServicesConversationsMessagesReceiptsApi.md#listserviceconversationmessagereceipt) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts | Retrieve a list of all delivery and read receipts of the conversation message
+*ServicesConversationsParticipantsApi* | [**CreateServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#createserviceconversationparticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Add a new participant to the conversation in a specific service
+*ServicesConversationsParticipantsApi* | [**DeleteServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#deleteserviceconversationparticipant) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Remove a participant from the conversation
+*ServicesConversationsParticipantsApi* | [**FetchServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#fetchserviceconversationparticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Fetch a participant of the conversation
+*ServicesConversationsParticipantsApi* | [**ListServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#listserviceconversationparticipant) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants | Retrieve a list of all participants of the conversation
+*ServicesConversationsParticipantsApi* | [**UpdateServiceConversationParticipant**](docs/ServicesConversationsParticipantsApi.md#updateserviceconversationparticipant) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid} | Update an existing participant in the conversation
+*ServicesConversationsWebhooksApi* | [**CreateServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#createserviceconversationscopedwebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | Create a new webhook scoped to the conversation in a specific service
+*ServicesConversationsWebhooksApi* | [**DeleteServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#deleteserviceconversationscopedwebhook) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Remove an existing webhook scoped to the conversation
+*ServicesConversationsWebhooksApi* | [**FetchServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#fetchserviceconversationscopedwebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Fetch the configuration of a conversation-scoped webhook
+*ServicesConversationsWebhooksApi* | [**ListServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#listserviceconversationscopedwebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | Retrieve a list of all webhooks scoped to the conversation
+*ServicesConversationsWebhooksApi* | [**UpdateServiceConversationScopedWebhook**](docs/ServicesConversationsWebhooksApi.md#updateserviceconversationscopedwebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Update an existing conversation-scoped webhook
+*ServicesParticipantConversationsApi* | [**ListServiceParticipantConversation**](docs/ServicesParticipantConversationsApi.md#listserviceparticipantconversation) | **Get** /v1/Services/{ChatServiceSid}/ParticipantConversations | Retrieve a list of all Conversations that this Participant belongs to by identity or by address. Only one parameter should be specified.
+*ServicesRolesApi* | [**CreateServiceRole**](docs/ServicesRolesApi.md#createservicerole) | **Post** /v1/Services/{ChatServiceSid}/Roles | Create a new user role in your service
+*ServicesRolesApi* | [**DeleteServiceRole**](docs/ServicesRolesApi.md#deleteservicerole) | **Delete** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Remove a user role from your service
+*ServicesRolesApi* | [**FetchServiceRole**](docs/ServicesRolesApi.md#fetchservicerole) | **Get** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Fetch a user role from your service
+*ServicesRolesApi* | [**ListServiceRole**](docs/ServicesRolesApi.md#listservicerole) | **Get** /v1/Services/{ChatServiceSid}/Roles | Retrieve a list of all user roles in your service
+*ServicesRolesApi* | [**UpdateServiceRole**](docs/ServicesRolesApi.md#updateservicerole) | **Post** /v1/Services/{ChatServiceSid}/Roles/{Sid} | Update an existing user role in your service
+*ServicesUsersApi* | [**CreateServiceUser**](docs/ServicesUsersApi.md#createserviceuser) | **Post** /v1/Services/{ChatServiceSid}/Users | Add a new conversation user to your service
+*ServicesUsersApi* | [**DeleteServiceUser**](docs/ServicesUsersApi.md#deleteserviceuser) | **Delete** /v1/Services/{ChatServiceSid}/Users/{Sid} | Remove a conversation user from your service
+*ServicesUsersApi* | [**FetchServiceUser**](docs/ServicesUsersApi.md#fetchserviceuser) | **Get** /v1/Services/{ChatServiceSid}/Users/{Sid} | Fetch a conversation user from your service
+*ServicesUsersApi* | [**ListServiceUser**](docs/ServicesUsersApi.md#listserviceuser) | **Get** /v1/Services/{ChatServiceSid}/Users | Retrieve a list of all conversation users in your service
+*ServicesUsersApi* | [**UpdateServiceUser**](docs/ServicesUsersApi.md#updateserviceuser) | **Post** /v1/Services/{ChatServiceSid}/Users/{Sid} | Update an existing conversation user in your service
+*ServicesUsersConversationsApi* | [**DeleteServiceUserConversation**](docs/ServicesUsersConversationsApi.md#deleteserviceuserconversation) | **Delete** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Delete a specific User Conversation.
+*ServicesUsersConversationsApi* | [**FetchServiceUserConversation**](docs/ServicesUsersConversationsApi.md#fetchserviceuserconversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Fetch a specific User Conversation.
+*ServicesUsersConversationsApi* | [**ListServiceUserConversation**](docs/ServicesUsersConversationsApi.md#listserviceuserconversation) | **Get** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations | Retrieve a list of all User Conversations for the User.
+*ServicesUsersConversationsApi* | [**UpdateServiceUserConversation**](docs/ServicesUsersConversationsApi.md#updateserviceuserconversation) | **Post** /v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid} | Update a specific User Conversation.
+*UsersApi* | [**CreateUser**](docs/UsersApi.md#createuser) | **Post** /v1/Users | Add a new conversation user to your account&#39;s default service
+*UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /v1/Users/{Sid} | Remove a conversation user from your account&#39;s default service
+*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | Fetch a conversation user from your account&#39;s default service
+*UsersApi* | [**ListUser**](docs/UsersApi.md#listuser) | **Get** /v1/Users | Retrieve a list of all conversation users in your account&#39;s default service
+*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | Update an existing conversation user in your account&#39;s default service
+*UsersConversationsApi* | [**DeleteUserConversation**](docs/UsersConversationsApi.md#deleteuserconversation) | **Delete** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Delete a specific User Conversation.
+*UsersConversationsApi* | [**FetchUserConversation**](docs/UsersConversationsApi.md#fetchuserconversation) | **Get** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Fetch a specific User Conversation.
+*UsersConversationsApi* | [**ListUserConversation**](docs/UsersConversationsApi.md#listuserconversation) | **Get** /v1/Users/{UserSid}/Conversations | Retrieve a list of all User Conversations for the User.
+*UsersConversationsApi* | [**UpdateUserConversation**](docs/UsersConversationsApi.md#updateuserconversation) | **Post** /v1/Users/{UserSid}/Conversations/{ConversationSid} | Update a specific User Conversation.
 
 
 ## Documentation For Models

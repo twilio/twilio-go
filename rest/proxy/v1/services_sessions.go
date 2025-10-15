@@ -85,10 +85,10 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 	if params != nil && params.Mode != nil {
-		data.Set("Mode", *params.Mode)
+		data.Set("Mode", fmt.Sprint(*params.Mode))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Participants != nil {
 		for _, item := range *params.Participants {
@@ -345,7 +345,7 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

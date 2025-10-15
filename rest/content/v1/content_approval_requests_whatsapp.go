@@ -31,7 +31,7 @@ func (params *CreateApprovalCreateParams) SetContentApprovalRequest(ContentAppro
 	return params
 }
 
-//
+// Create a ContentApprovalRequest for a content item
 func (c *ApiService) CreateApprovalCreate(ContentSid string, params *CreateApprovalCreateParams) (*ContentV1ApprovalCreate, error) {
 	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
 	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)

@@ -4,7 +4,7 @@ All URIs are relative to *https://sync.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStreamMessage**](ServicesStreamsMessagesApi.md#CreateStreamMessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | 
+[**CreateStreamMessage**](ServicesStreamsMessagesApi.md#CreateStreamMessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | Create a new Stream Message.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > SyncV1StreamMessage CreateStreamMessage(ctx, ServiceSidStreamSidoptional)
 
-
+Create a new Stream Message.
 
 Create a new Stream Message.
 

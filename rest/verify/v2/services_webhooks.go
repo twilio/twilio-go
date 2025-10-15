@@ -80,10 +80,10 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Version != nil {
-		data.Set("Version", *params.Version)
+		data.Set("Version", fmt.Sprint(*params.Version))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -346,10 +346,10 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.Version != nil {
-		data.Set("Version", *params.Version)
+		data.Set("Version", fmt.Sprint(*params.Version))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

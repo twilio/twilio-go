@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#CreateServiceConversationScopedWebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | 
-[**DeleteServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#DeleteServiceConversationScopedWebhook) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-[**FetchServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#FetchServiceConversationScopedWebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
-[**ListServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#ListServiceConversationScopedWebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | 
-[**UpdateServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#UpdateServiceConversationScopedWebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | 
+[**CreateServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#CreateServiceConversationScopedWebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | Create a new webhook scoped to the conversation in a specific service
+[**DeleteServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#DeleteServiceConversationScopedWebhook) | **Delete** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Remove an existing webhook scoped to the conversation
+[**FetchServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#FetchServiceConversationScopedWebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Fetch the configuration of a conversation-scoped webhook
+[**ListServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#ListServiceConversationScopedWebhook) | **Get** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks | Retrieve a list of all webhooks scoped to the conversation
+[**UpdateServiceConversationScopedWebhook**](ServicesConversationsWebhooksApi.md#UpdateServiceConversationScopedWebhook) | **Post** /v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid} | Update an existing conversation-scoped webhook
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1ServiceConversationScopedWebhook CreateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
 
-
+Create a new webhook scoped to the conversation in a specific service
 
 Create a new webhook scoped to the conversation in a specific service
 
@@ -36,9 +36,9 @@ Other parameters are passed through a pointer to a CreateServiceConversationScop
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Target** | **string** | 
+**Target** | [**string**](string.md) | 
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
@@ -66,7 +66,7 @@ Name | Type | Description
 
 > DeleteServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSid)
 
-
+Remove an existing webhook scoped to the conversation
 
 Remove an existing webhook scoped to the conversation
 
@@ -110,7 +110,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationScopedWebhook FetchServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSid)
 
-
+Fetch the configuration of a conversation-scoped webhook
 
 Fetch the configuration of a conversation-scoped webhook
 
@@ -154,7 +154,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceConversationScopedWebhook ListServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
 
-
+Retrieve a list of all webhooks scoped to the conversation
 
 Retrieve a list of all webhooks scoped to the conversation
 
@@ -174,7 +174,7 @@ Other parameters are passed through a pointer to a ListServiceConversationScoped
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 5, and the maximum is 5.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -199,7 +199,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceConversationScopedWebhook UpdateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSidoptional)
 
-
+Update an existing conversation-scoped webhook
 
 Update an existing conversation-scoped webhook
 
@@ -221,7 +221,7 @@ Other parameters are passed through a pointer to a UpdateServiceConversationScop
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
-**ConfigurationMethod** | **string** | 
+**ConfigurationMethod** | [**string**](string.md) | 
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.

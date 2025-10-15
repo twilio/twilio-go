@@ -92,7 +92,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 		data.Set("Avatar", *params.Avatar)
 	}
 	if params != nil && params.State != nil {
-		data.Set("State", *params.State)
+		data.Set("State", fmt.Sprint(*params.State))
 	}
 	if params != nil && params.IsAvailable != nil {
 		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))

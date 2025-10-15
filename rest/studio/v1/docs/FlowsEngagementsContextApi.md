@@ -4,7 +4,7 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchEngagementContext**](FlowsEngagementsContextApi.md#FetchEngagementContext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context | 
+[**FetchEngagementContext**](FlowsEngagementsContextApi.md#FetchEngagementContext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context | Retrieve the most recent context for an Engagement.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > StudioV1EngagementContext FetchEngagementContext(ctx, FlowSidEngagementSid)
 
-
+Retrieve the most recent context for an Engagement.
 
 Retrieve the most recent context for an Engagement.
 

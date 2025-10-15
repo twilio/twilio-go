@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStream**](AccountsCallsStreamsApi.md#CreateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json | 
-[**UpdateStream**](AccountsCallsStreamsApi.md#UpdateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json | 
+[**CreateStream**](AccountsCallsStreamsApi.md#CreateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json | Create a Stream
+[**UpdateStream**](AccountsCallsStreamsApi.md#UpdateStream) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams/{Sid}.json | Stop a Stream using either the SID of the Stream resource or the &#x60;name&#x60; used when creating the resource
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010Stream CreateStream(ctx, CallSidoptional)
 
-
+Create a Stream
 
 Create a Stream
 
@@ -35,7 +35,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
 **Url** | **string** | Relative or absolute URL where WebSocket connection will be established.
 **Name** | **string** | The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
-**Track** | **string** | 
+**Track** | [**string**](string.md) | 
 **StatusCallback** | **string** | Absolute URL to which Twilio sends status callback HTTP requests.
 **StatusCallbackMethod** | **string** | The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
 **Parameter1Name** | **string** | Parameter name
@@ -259,7 +259,7 @@ Name | Type | Description
 
 > ApiV2010Stream UpdateStream(ctx, CallSidSidoptional)
 
-
+Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 
 Stop a Stream using either the SID of the Stream resource or the `name` used when creating the resource
 
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a UpdateStreamParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

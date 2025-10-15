@@ -31,8 +31,8 @@ All URIs are relative to *https://oauth.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthorizeApi* | [**FetchAuthorize**](docs/AuthorizeApi.md#fetchauthorize) | **Get** /v1/authorize | 
-*TokenApi* | [**CreateToken**](docs/TokenApi.md#createtoken) | **Post** /v1/token | 
+*AuthorizeApi* | [**FetchAuthorize**](docs/AuthorizeApi.md#fetchauthorize) | **Get** /v1/authorize | Retrieves authorize uri
+*TokenApi* | [**CreateToken**](docs/TokenApi.md#createtoken) | **Post** /v1/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
 ## Documentation For Models

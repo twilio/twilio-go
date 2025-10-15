@@ -4,11 +4,11 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateFunction**](ServicesFunctionsApi.md#CreateFunction) | **Post** /v1/Services/{ServiceSid}/Functions | 
-[**DeleteFunction**](ServicesFunctionsApi.md#DeleteFunction) | **Delete** /v1/Services/{ServiceSid}/Functions/{Sid} | 
-[**FetchFunction**](ServicesFunctionsApi.md#FetchFunction) | **Get** /v1/Services/{ServiceSid}/Functions/{Sid} | 
-[**ListFunction**](ServicesFunctionsApi.md#ListFunction) | **Get** /v1/Services/{ServiceSid}/Functions | 
-[**UpdateFunction**](ServicesFunctionsApi.md#UpdateFunction) | **Post** /v1/Services/{ServiceSid}/Functions/{Sid} | 
+[**CreateFunction**](ServicesFunctionsApi.md#CreateFunction) | **Post** /v1/Services/{ServiceSid}/Functions | Create a new Function resource.
+[**DeleteFunction**](ServicesFunctionsApi.md#DeleteFunction) | **Delete** /v1/Services/{ServiceSid}/Functions/{Sid} | Delete a Function resource.
+[**FetchFunction**](ServicesFunctionsApi.md#FetchFunction) | **Get** /v1/Services/{ServiceSid}/Functions/{Sid} | Retrieve a specific Function resource.
+[**ListFunction**](ServicesFunctionsApi.md#ListFunction) | **Get** /v1/Services/{ServiceSid}/Functions | Retrieve a list of all Functions.
+[**UpdateFunction**](ServicesFunctionsApi.md#UpdateFunction) | **Post** /v1/Services/{ServiceSid}/Functions/{Sid} | Update a specific Function resource.
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ServerlessV1Function CreateFunction(ctx, ServiceSidoptional)
 
-
+Create a new Function resource.
 
 Create a new Function resource.
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > DeleteFunction(ctx, ServiceSidSid)
 
-
+Delete a Function resource.
 
 Delete a Function resource.
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 > ServerlessV1Function FetchFunction(ctx, ServiceSidSid)
 
-
+Retrieve a specific Function resource.
 
 Retrieve a specific Function resource.
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ServerlessV1Function ListFunction(ctx, ServiceSidoptional)
 
-
+Retrieve a list of all Functions.
 
 Retrieve a list of all Functions.
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 > ServerlessV1Function UpdateFunction(ctx, ServiceSidSidoptional)
 
-
+Update a specific Function resource.
 
 Update a specific Function resource.
 

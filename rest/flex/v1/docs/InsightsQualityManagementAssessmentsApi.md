@@ -4,9 +4,9 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments | 
-[**ListInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#ListInsightsAssessments) | **Get** /v1/Insights/QualityManagement/Assessments | 
-[**UpdateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#UpdateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments/{AssessmentSid} | 
+[**CreateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#CreateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments | Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
+[**ListInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#ListInsightsAssessments) | **Get** /v1/Insights/QualityManagement/Assessments | Get assessments done for a conversation by logged in user
+[**UpdateInsightsAssessments**](InsightsQualityManagementAssessmentsApi.md#UpdateInsightsAssessments) | **Post** /v1/Insights/QualityManagement/Assessments/{AssessmentSid} | Update a specific Assessment assessed earlier
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsAssessments CreateInsightsAssessments(ctx, optional)
 
-
+Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
 
 Add assessments against conversation to dynamo db. Used in assessments screen by user. Users can select the questionnaire and pick up answers for each and every question.
 
@@ -63,7 +63,7 @@ Name | Type | Description
 
 > []FlexV1InsightsAssessments ListInsightsAssessments(ctx, optional)
 
-
+Get assessments done for a conversation by logged in user
 
 Get assessments done for a conversation by logged in user
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 > FlexV1InsightsAssessments UpdateInsightsAssessments(ctx, AssessmentSidoptional)
 
-
+Update a specific Assessment assessed earlier
 
 Update a specific Assessment assessed earlier
 

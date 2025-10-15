@@ -4,11 +4,11 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCredential**](CredentialsApi.md#CreateCredential) | **Post** /v1/Credentials | 
-[**DeleteCredential**](CredentialsApi.md#DeleteCredential) | **Delete** /v1/Credentials/{Sid} | 
-[**FetchCredential**](CredentialsApi.md#FetchCredential) | **Get** /v1/Credentials/{Sid} | 
-[**ListCredential**](CredentialsApi.md#ListCredential) | **Get** /v1/Credentials | 
-[**UpdateCredential**](CredentialsApi.md#UpdateCredential) | **Post** /v1/Credentials/{Sid} | 
+[**CreateCredential**](CredentialsApi.md#CreateCredential) | **Post** /v1/Credentials | Add a new push notification credential to your account
+[**DeleteCredential**](CredentialsApi.md#DeleteCredential) | **Delete** /v1/Credentials/{Sid} | Remove a push notification credential from your account
+[**FetchCredential**](CredentialsApi.md#FetchCredential) | **Get** /v1/Credentials/{Sid} | Fetch a push notification credential from your account
+[**ListCredential**](CredentialsApi.md#ListCredential) | **Get** /v1/Credentials | Retrieve a list of all push notification credentials on your account
+[**UpdateCredential**](CredentialsApi.md#UpdateCredential) | **Post** /v1/Credentials/{Sid} | Update an existing push notification credential on your account
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ConversationsV1Credential CreateCredential(ctx, optional)
 
-
+Add a new push notification credential to your account
 
 Add a new push notification credential to your account
 
@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 **Certificate** | **string** | [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
 **PrivateKey** | **string** | [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -61,7 +61,7 @@ Name | Type | Description
 
 > DeleteCredential(ctx, Sid)
 
-
+Remove a push notification credential from your account
 
 Remove a push notification credential from your account
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > ConversationsV1Credential FetchCredential(ctx, Sid)
 
-
+Fetch a push notification credential from your account
 
 Fetch a push notification credential from your account
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 > []ConversationsV1Credential ListCredential(ctx, optional)
 
-
+Retrieve a list of all push notification credentials on your account
 
 Retrieve a list of all push notification credentials on your account
 
@@ -160,7 +160,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
@@ -185,7 +185,7 @@ Name | Type | Description
 
 > ConversationsV1Credential UpdateCredential(ctx, Sidoptional)
 
-
+Update an existing push notification credential on your account
 
 Update an existing push notification credential on your account
 
@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 **Certificate** | **string** | [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
 **PrivateKey** | **string** | [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.

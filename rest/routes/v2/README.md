@@ -31,12 +31,12 @@ All URIs are relative to *https://routes.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | 
-*PhoneNumbersApi* | [**UpdatePhoneNumber**](docs/PhoneNumbersApi.md#updatephonenumber) | **Post** /v2/PhoneNumbers/{PhoneNumber} | 
+*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v2/PhoneNumbers/{PhoneNumber} | Fetch the Inbound Processing Region assigned to a phone number.
+*PhoneNumbersApi* | [**UpdatePhoneNumber**](docs/PhoneNumbersApi.md#updatephonenumber) | **Post** /v2/PhoneNumbers/{PhoneNumber} | Assign an Inbound Processing Region to a phone number.
 *SipDomainsApi* | [**FetchSipDomain**](docs/SipDomainsApi.md#fetchsipdomain) | **Get** /v2/SipDomains/{SipDomain} | 
 *SipDomainsApi* | [**UpdateSipDomain**](docs/SipDomainsApi.md#updatesipdomain) | **Post** /v2/SipDomains/{SipDomain} | 
-*TrunksApi* | [**FetchTrunks**](docs/TrunksApi.md#fetchtrunks) | **Get** /v2/Trunks/{SipTrunkDomain} | 
-*TrunksApi* | [**UpdateTrunks**](docs/TrunksApi.md#updatetrunks) | **Post** /v2/Trunks/{SipTrunkDomain} | 
+*TrunksApi* | [**FetchTrunks**](docs/TrunksApi.md#fetchtrunks) | **Get** /v2/Trunks/{SipTrunkDomain} | Fetch the Inbound Processing Region assigned to a SIP Trunk.
+*TrunksApi* | [**UpdateTrunks**](docs/TrunksApi.md#updatetrunks) | **Post** /v2/Trunks/{SipTrunkDomain} | Assign an Inbound Processing Region to a SIP Trunk
 
 
 ## Documentation For Models

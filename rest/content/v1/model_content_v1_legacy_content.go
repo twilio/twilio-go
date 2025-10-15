@@ -33,9 +33,9 @@ type ContentV1LegacyContent struct {
 	// Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
 	Language *string `json:"language,omitempty"`
 	// Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-	Variables *interface{} `json:"variables,omitempty"`
+	Variables *map[string]interface{} `json:"variables,omitempty"`
 	// The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-	Types *interface{} `json:"types,omitempty"`
+	Types *map[string]interface{} `json:"types,omitempty"`
 	// The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
 	LegacyTemplateName *string `json:"legacy_template_name,omitempty"`
 	// The string body field of the legacy content template associated with this Content resource

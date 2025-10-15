@@ -4,8 +4,8 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOperator**](OperatorsApi.md#FetchOperator) | **Get** /v2/Operators/{Sid} | 
-[**ListOperator**](OperatorsApi.md#ListOperator) | **Get** /v2/Operators | 
+[**FetchOperator**](OperatorsApi.md#FetchOperator) | **Get** /v2/Operators/{Sid} | Fetch a specific Operator. Works for both Custom and Pre-built Operators.
+[**ListOperator**](OperatorsApi.md#ListOperator) | **Get** /v2/Operators | Retrieves a list of all Operators for an Account, both Custom and Pre-built.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > IntelligenceV2Operator FetchOperator(ctx, Sid)
 
-
+Fetch a specific Operator. Works for both Custom and Pre-built Operators.
 
 Fetch a specific Operator. Works for both Custom and Pre-built Operators.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > []IntelligenceV2Operator ListOperator(ctx, optional)
 
-
+Retrieves a list of all Operators for an Account, both Custom and Pre-built.
 
 Retrieves a list of all Operators for an Account, both Custom and Pre-built.
 
@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a ListOperatorParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Availability** | **string** | Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
+**Availability** | [**string**](stringstring.md) | Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
 **LanguageCode** | **string** | Returns Operators that support the provided language code.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.

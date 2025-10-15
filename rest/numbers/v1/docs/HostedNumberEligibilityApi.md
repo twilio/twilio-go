@@ -4,7 +4,7 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateEligibility**](HostedNumberEligibilityApi.md#CreateEligibility) | **Post** /v1/HostedNumber/Eligibility | 
+[**CreateEligibility**](HostedNumberEligibilityApi.md#CreateEligibility) | **Post** /v1/HostedNumber/Eligibility | Create an eligibility check for a number that you want to host in Twilio.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > NumbersV1Eligibility CreateEligibility(ctx, optional)
 
-
+Create an eligibility check for a number that you want to host in Twilio.
 
 Create an eligibility check for a number that you want to host in Twilio.
 

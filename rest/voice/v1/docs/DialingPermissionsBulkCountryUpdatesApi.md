@@ -4,7 +4,7 @@ All URIs are relative to *https://voice.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDialingPermissionsCountryBulkUpdate**](DialingPermissionsBulkCountryUpdatesApi.md#CreateDialingPermissionsCountryBulkUpdate) | **Post** /v1/DialingPermissions/BulkCountryUpdates | 
+[**CreateDialingPermissionsCountryBulkUpdate**](DialingPermissionsBulkCountryUpdatesApi.md#CreateDialingPermissionsCountryBulkUpdate) | **Post** /v1/DialingPermissions/BulkCountryUpdates | Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > VoiceV1DialingPermissionsCountryBulkUpdate CreateDialingPermissionsCountryBulkUpdate(ctx, optional)
 
-
+Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
 Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 

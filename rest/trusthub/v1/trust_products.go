@@ -179,7 +179,7 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken,
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -339,7 +339,7 @@ func (c *ApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductPa
 	}
 
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

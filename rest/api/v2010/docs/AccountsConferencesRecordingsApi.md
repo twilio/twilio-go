@@ -4,10 +4,10 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteConferenceRecording**](AccountsConferencesRecordingsApi.md#DeleteConferenceRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
-[**FetchConferenceRecording**](AccountsConferencesRecordingsApi.md#FetchConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
-[**ListConferenceRecording**](AccountsConferencesRecordingsApi.md#ListConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json | 
-[**UpdateConferenceRecording**](AccountsConferencesRecordingsApi.md#UpdateConferenceRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | 
+[**DeleteConferenceRecording**](AccountsConferencesRecordingsApi.md#DeleteConferenceRecording) | **Delete** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | Delete a recording from your account
+[**FetchConferenceRecording**](AccountsConferencesRecordingsApi.md#FetchConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | Fetch an instance of a recording for a call
+[**ListConferenceRecording**](AccountsConferencesRecordingsApi.md#ListConferenceRecording) | **Get** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json | Retrieve a list of recordings belonging to the call used to make the request
+[**UpdateConferenceRecording**](AccountsConferencesRecordingsApi.md#UpdateConferenceRecording) | **Post** /2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json | Changes the status of the recording to paused, stopped, or in-progress. Note: To use &#x60;Twilio.CURRENT&#x60;, pass it as recording sid.
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeleteConferenceRecording(ctx, ConferenceSidSidoptional)
 
-
+Delete a recording from your account
 
 Delete a recording from your account
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 > ApiV2010ConferenceRecording FetchConferenceRecording(ctx, ConferenceSidSidoptional)
 
-
+Fetch an instance of a recording for a call
 
 Fetch an instance of a recording for a call
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 > []ApiV2010ConferenceRecording ListConferenceRecording(ctx, ConferenceSidoptional)
 
-
+Retrieve a list of recordings belonging to the call used to make the request
 
 Retrieve a list of recordings belonging to the call used to make the request
 
@@ -151,7 +151,7 @@ Name | Type | Description
 
 > ApiV2010ConferenceRecording UpdateConferenceRecording(ctx, ConferenceSidSidoptional)
 
-
+Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
 
 Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
 
@@ -172,7 +172,7 @@ Other parameters are passed through a pointer to a UpdateConferenceRecordingPara
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
 ### Return type

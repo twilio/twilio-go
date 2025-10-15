@@ -31,6 +31,8 @@ type CreateWebChannelParams struct {
 	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
 	// The pre-engagement data.
 	PreEngagementData *string `json:"PreEngagementData,omitempty"`
+	// The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
+	Identity *string `json:"Identity,omitempty"`
 }
 
 func (params *CreateWebChannelParams) SetUiVersion(UiVersion string) *CreateWebChannelParams {
@@ -51,6 +53,10 @@ func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyNa
 }
 func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData string) *CreateWebChannelParams {
 	params.PreEngagementData = &PreEngagementData
+	return params
+}
+func (params *CreateWebChannelParams) SetIdentity(Identity string) *CreateWebChannelParams {
+	params.Identity = &Identity
 	return params
 }
 
@@ -74,6 +80,9 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 	}
 	if params != nil && params.PreEngagementData != nil {
 		data.Set("PreEngagementData", *params.PreEngagementData)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
 	}
 
 	if params != nil && params.UiVersion != nil {

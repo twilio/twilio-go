@@ -4,10 +4,10 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateContent**](ContentApi.md#CreateContent) | **Post** /v1/Content | 
-[**DeleteContent**](ContentApi.md#DeleteContent) | **Delete** /v1/Content/{Sid} | 
-[**FetchContent**](ContentApi.md#FetchContent) | **Get** /v1/Content/{Sid} | 
-[**ListContent**](ContentApi.md#ListContent) | **Get** /v1/Content | 
+[**CreateContent**](ContentApi.md#CreateContent) | **Post** /v1/Content | Create Content
+[**DeleteContent**](ContentApi.md#DeleteContent) | **Delete** /v1/Content/{Sid} | Delete Content
+[**FetchContent**](ContentApi.md#FetchContent) | **Get** /v1/Content/{Sid} | Fetch Content
+[**ListContent**](ContentApi.md#ListContent) | **Get** /v1/Content | List Contents
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > ContentV1Content CreateContent(ctx, optional)
 
-
+Create Content
 
 Create a Content resource
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 > DeleteContent(ctx, Sid)
 
-
+Delete Content
 
 Deletes a Content resource
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 > ContentV1Content FetchContent(ctx, Sid)
 
-
+Fetch Content
 
 Fetch a Content resource by its unique Content Sid
 
@@ -138,7 +138,7 @@ Name | Type | Description
 
 > []ContentV1Content ListContent(ctx, optional)
 
-
+List Contents
 
 Retrieve a list of Contents belonging to the account used to make the request
 

@@ -84,7 +84,7 @@ func (c *ApiService) CreateBinding(ServiceSid string, params *CreateBindingParam
 		data.Set("Identity", *params.Identity)
 	}
 	if params != nil && params.BindingType != nil {
-		data.Set("BindingType", *params.BindingType)
+		data.Set("BindingType", fmt.Sprint(*params.BindingType))
 	}
 	if params != nil && params.Address != nil {
 		data.Set("Address", *params.Address)

@@ -4,8 +4,8 @@ All URIs are relative to *https://studio.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchTestUser**](FlowsTestUsersApi.md#FetchTestUser) | **Get** /v2/Flows/{Sid}/TestUsers | 
-[**UpdateTestUser**](FlowsTestUsersApi.md#UpdateTestUser) | **Post** /v2/Flows/{Sid}/TestUsers | 
+[**FetchTestUser**](FlowsTestUsersApi.md#FetchTestUser) | **Get** /v2/Flows/{Sid}/TestUsers | Fetch flow test users
+[**UpdateTestUser**](FlowsTestUsersApi.md#UpdateTestUser) | **Post** /v2/Flows/{Sid}/TestUsers | Update flow test users
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > StudioV2TestUser FetchTestUser(ctx, Sid)
 
-
+Fetch flow test users
 
 Fetch flow test users
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > StudioV2TestUser UpdateTestUser(ctx, Sidoptional)
 
-
+Update flow test users
 
 Update flow test users
 

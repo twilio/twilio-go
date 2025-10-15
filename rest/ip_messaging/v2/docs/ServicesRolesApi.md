@@ -36,7 +36,7 @@ Other parameters are passed through a pointer to a CreateRoleParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | 
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **Permission** | **[]string** | 
 
 ### Return type

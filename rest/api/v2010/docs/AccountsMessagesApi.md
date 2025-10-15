@@ -4,11 +4,11 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateMessage**](AccountsMessagesApi.md#CreateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages.json | 
-[**DeleteMessage**](AccountsMessagesApi.md#DeleteMessage) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
-[**FetchMessage**](AccountsMessagesApi.md#FetchMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
-[**ListMessage**](AccountsMessagesApi.md#ListMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages.json | 
-[**UpdateMessage**](AccountsMessagesApi.md#UpdateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | 
+[**CreateMessage**](AccountsMessagesApi.md#CreateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages.json | Send a message
+[**DeleteMessage**](AccountsMessagesApi.md#DeleteMessage) | **Delete** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Deletes a Message resource from your account
+[**FetchMessage**](AccountsMessagesApi.md#FetchMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Fetch a specific Message
+[**ListMessage**](AccountsMessagesApi.md#ListMessage) | **Get** /2010-04-01/Accounts/{AccountSid}/Messages.json | Retrieve a list of Message resources associated with a Twilio Account
+[**UpdateMessage**](AccountsMessagesApi.md#UpdateMessage) | **Post** /2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json | Update a Message resource (used to redact Message &#x60;body&#x60; text and to cancel not-yet-sent messages)
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010Message CreateMessage(ctx, optional)
 
-
+Send a message
 
 Send a message
 
@@ -40,16 +40,17 @@ Name | Type | Description
 **Attempt** | **int** | Total number of attempts made (including this request) to send the message regardless of the provider used
 **ValidityPeriod** | **int** | The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
 **ForceDelivery** | **bool** | Reserved
-**ContentRetention** | **string** | 
-**AddressRetention** | **string** | 
+**ContentRetention** | [**string**](string.md) | 
+**AddressRetention** | [**string**](string.md) | 
 **SmartEncoded** | **bool** | Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
 **PersistentAction** | **[]string** | Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
+**TrafficType** | [**string**](string.md) | 
 **ShortenUrls** | **bool** | For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
-**ScheduleType** | **string** | 
+**ScheduleType** | [**string**](string.md) | 
 **SendAt** | **time.Time** | The time that Twilio will send the message. Must be in ISO 8601 format.
 **SendAsMms** | **bool** | If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
 **ContentVariables** | **string** | For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-**RiskCheck** | **string** | 
+**RiskCheck** | [**string**](string.md) | 
 **From** | **string** | The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
 **Body** | **string** | The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages).
@@ -78,7 +79,7 @@ Name | Type | Description
 
 > DeleteMessage(ctx, Sidoptional)
 
-
+Deletes a Message resource from your account
 
 Deletes a Message resource from your account
 
@@ -121,7 +122,7 @@ Name | Type | Description
 
 > ApiV2010Message FetchMessage(ctx, Sidoptional)
 
-
+Fetch a specific Message
 
 Fetch a specific Message
 
@@ -164,7 +165,7 @@ Name | Type | Description
 
 > []ApiV2010Message ListMessage(ctx, optional)
 
-
+Retrieve a list of Message resources associated with a Twilio Account
 
 Retrieve a list of Message resources associated with a Twilio Account
 
@@ -180,8 +181,8 @@ Other parameters are passed through a pointer to a ListMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resources.
-**To** | **string** | Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
-**From** | **string** | Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
+**To** | **string** | Filter by recipient. For example: Set this parameter to `+15558881111` to retrieve a list of Message resources sent to `+15558881111`.
+**From** | **string** | Filter by sender. For example: Set this parameter to `+15552229999` to retrieve a list of Message resources sent by `+15552229999`.
 **DateSent** | **time.Time** | Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
 **DateSentBefore** | **time.Time** | Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
 **DateSentAfter** | **time.Time** | Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -210,7 +211,7 @@ Name | Type | Description
 
 > ApiV2010Message UpdateMessage(ctx, Sidoptional)
 
-
+Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)
 
 Update a Message resource (used to redact Message `body` text and to cancel not-yet-sent messages)
 
@@ -231,7 +232,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
 **Body** | **string** | The new `body` of the Message resource. To redact the text content of a Message, this parameter's value must be an empty string
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

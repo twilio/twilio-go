@@ -97,7 +97,7 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", *params.Type)
+		data.Set("Type", fmt.Sprint(*params.Type))
 	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))

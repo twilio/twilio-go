@@ -4,8 +4,8 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSecondaryAuthToken**](AuthTokensSecondaryApi.md#CreateSecondaryAuthToken) | **Post** /v1/AuthTokens/Secondary | 
-[**DeleteSecondaryAuthToken**](AuthTokensSecondaryApi.md#DeleteSecondaryAuthToken) | **Delete** /v1/AuthTokens/Secondary | 
+[**CreateSecondaryAuthToken**](AuthTokensSecondaryApi.md#CreateSecondaryAuthToken) | **Post** /v1/AuthTokens/Secondary | Create a new secondary Auth Token
+[**DeleteSecondaryAuthToken**](AuthTokensSecondaryApi.md#DeleteSecondaryAuthToken) | **Delete** /v1/AuthTokens/Secondary | Delete the secondary Auth Token from your account
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > AccountsV1SecondaryAuthToken CreateSecondaryAuthToken(ctx, )
 
-
+Create a new secondary Auth Token
 
 Create a new secondary Auth Token
 
@@ -48,7 +48,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 
 > DeleteSecondaryAuthToken(ctx, )
 
-
+Delete the secondary Auth Token from your account
 
 Delete the secondary Auth Token from your account
 

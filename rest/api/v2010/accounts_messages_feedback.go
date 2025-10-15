@@ -16,6 +16,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -53,7 +54,7 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 	}
 
 	if params != nil && params.Outcome != nil {
-		data.Set("Outcome", *params.Outcome)
+		data.Set("Outcome", fmt.Sprint(*params.Outcome))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

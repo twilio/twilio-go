@@ -127,7 +127,7 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 		data.Set("Resolution", *params.Resolution)
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -477,7 +477,7 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 	if params != nil && params.Format != nil {
-		data.Set("Format", *params.Format)
+		data.Set("Format", fmt.Sprint(*params.Format))
 	}
 	if params != nil && params.Resolution != nil {
 		data.Set("Resolution", *params.Resolution)

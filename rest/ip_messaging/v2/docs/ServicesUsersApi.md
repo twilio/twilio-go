@@ -35,7 +35,7 @@ Other parameters are passed through a pointer to a CreateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Identity** | **string** | 
 **RoleSid** | **string** | 
 **Attributes** | **string** | 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a UpdateUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **RoleSid** | **string** | 
 **Attributes** | **string** | 
 **FriendlyName** | **string** | 

@@ -29,7 +29,7 @@ type CreateParticipantParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
 	From *string `json:"From,omitempty"`
-	// The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+	// The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
 	To *string `json:"To,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
@@ -51,7 +51,7 @@ type CreateParticipantParams struct {
 	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
 	// Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
 	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
-	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	// The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
 	WaitUrl *string `json:"WaitUrl,omitempty"`
 	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
 	WaitMethod *string `json:"WaitMethod,omitempty"`
@@ -79,7 +79,7 @@ type CreateParticipantParams struct {
 	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
 	// The SIP password for authentication.
 	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
 	Region *string `json:"Region,omitempty"`
 	// The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
 	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
@@ -123,6 +123,8 @@ type CreateParticipantParams struct {
 	Trim *string `json:"Trim,omitempty"`
 	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 	CallToken *string `json:"CallToken,omitempty"`
+	// The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+	CallerDisplayName *string `json:"CallerDisplayName,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -321,6 +323,10 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 	params.CallToken = &CallToken
 	return params
 }
+func (params *CreateParticipantParams) SetCallerDisplayName(CallerDisplayName string) *CreateParticipantParams {
+	params.CallerDisplayName = &CallerDisplayName
+	return params
+}
 
 //
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
@@ -488,6 +494,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.CallToken != nil {
 		data.Set("CallToken", *params.CallToken)
+	}
+	if params != nil && params.CallerDisplayName != nil {
+		data.Set("CallerDisplayName", *params.CallerDisplayName)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -778,7 +787,7 @@ type UpdateParticipantParams struct {
 	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
 	// The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
 	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-	// The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	// The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
 	WaitUrl *string `json:"WaitUrl,omitempty"`
 	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
 	WaitMethod *string `json:"WaitMethod,omitempty"`

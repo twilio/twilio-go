@@ -27,7 +27,8 @@ type ApiV2010UsageRecordThisMonth struct {
 	// The API version used to create the resource.
 	ApiVersion *string `json:"api_version,omitempty"`
 	// Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
-	AsOf     *string `json:"as_of,omitempty"`
+	AsOf *string `json:"as_of,omitempty"`
+	// The category of usage. For more information, see [Usage Categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
 	Category *string `json:"category,omitempty"`
 	// The number of usage events, such as the number of calls.
 	Count *string `json:"count,omitempty"`

@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        go: [ '1.15', '1.16', '1.17', '1.18', '1.19' ]
+        go: [ '1.18.10', '1.19.13', '1.20', '1.21', '1.22', '1.23', '1.24' ]
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v3
@@ -52,6 +52,14 @@ jobs:
           TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_FROM_NUMBER_OAUTH: $${{ secrets.TWILIO_FROM_NUMBER_OAUTH }}
+          TWILIO_TO_NUMBER_OAUTH: $${{ secrets.TWILIO_TO_NUMBER_OAUTH }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_ACCOUNT_SID_OAUTH: ${{ secrets.TWILIO_ACCOUNT_SID_OAUTH }}
+          TWILIO_ORG_SID: ${{secrets.TWILIO_ORG_SID}}
+          TWILIO_ORGS_CLIENT_ID: ${{secrets.TWILIO_ORGS_CLIENT_ID}}
+          TWILIO_ORGS_CLIENT_SECRET: ${{secrets.TWILIO_ORGS_CLIENT_SECRET}}
         run: make cluster-test
 
       - name: Run Test Coverage

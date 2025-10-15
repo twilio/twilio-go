@@ -4,7 +4,7 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateNewSigningKey**](AccountsSigningKeysApi.md#CreateNewSigningKey) | **Post** /2010-04-01/Accounts/{AccountSid}/SigningKeys.json | 
+[**CreateNewSigningKey**](AccountsSigningKeysApi.md#CreateNewSigningKey) | **Post** /2010-04-01/Accounts/{AccountSid}/SigningKeys.json | Create a new Signing Key for the account making the request.
 [**DeleteSigningKey**](AccountsSigningKeysApi.md#DeleteSigningKey) | **Delete** /2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json | 
 [**FetchSigningKey**](AccountsSigningKeysApi.md#FetchSigningKey) | **Get** /2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json | 
 [**ListSigningKey**](AccountsSigningKeysApi.md#ListSigningKey) | **Get** /2010-04-01/Accounts/{AccountSid}/SigningKeys.json | 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > ApiV2010NewSigningKey CreateNewSigningKey(ctx, optional)
 
-
+Create a new Signing Key for the account making the request.
 
 Create a new Signing Key for the account making the request.
 

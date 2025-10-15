@@ -1,5 +1,311 @@
 twilio-go changelog
 ====================
+[2025-10-14] Version 1.28.4
+---------------------------
+**Api**
+- Updated description for property `CallerDisplayName` for participant create request
+- Updated description for property `CallerDisplayName` for participant create request
+
+**Accounts**
+- FILE_IS_AUTO_GENERATED: false
+
+
+[2025-09-30] Version 1.28.3
+---------------------------
+**Library - Chore**
+- [PR #302](https://github.com/twilio/twilio-go/pull/302): change oauth token endpoint. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Insights**
+- Replace `field` with `key` in Request Filters and Response Metadata Filters and  for Reports API
+
+
+[2025-09-25] Version 1.28.2
+---------------------------
+**Api**
+- Added optional parameter `CallerDisplayName` for conference participant outbound
+- Updated description for property `to` in the participant create request
+
+
+[2025-09-18] Version 1.28.1
+---------------------------
+**Api**
+- Add `date_created` property to media resource and date_created filtering parameters for read action
+- Updated the Recordings Resource `channels` property to clarify channels = # of channels in the recording resource and how to specify the # of channels in recording download
+
+**Intelligence**
+- Add encryption_credential_sid field in transcripts and services in v2
+
+**Trusthub**
+- Remove beta feature flag for all TH APIs
+- Remove beta feature flag for ComplianceInquiries API to support OneConsole traffic
+
+**Twiml**
+- Add new noun `<AiSession>`
+
+
+[2025-09-04] Version 1.28.0
+---------------------------
+**Api**
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+
+
+[2025-08-28] Version 1.27.2
+---------------------------
+**Studio**
+- Add `type` to Step resource APIs
+
+**Verify**
+- Allow to update all passkeys parameters in the service update
+
+
+[2025-08-18] Version 1.27.1
+---------------------------
+**Accounts**
+- Update beta feature flag for consent and contact bulk upsert APIs
+
+**Api**
+- Add multiple missing usage categories to usage records and usage triggers api
+- Add `channels-whatsapp-template-marketing` and `channels-whatsapp-template-utility` to usage categories
+
+**Conversations**
+- Fix `state` spelling for `initializing` enum value
+- Update `state` to include `intializing` for ServiceConversationWithParticipants and ConversationWithParticipants
+
+**Flex**
+- Adding new optional parameter `identity` to `web_channels` API in version `v2`
+
+**Trusthub**
+- Add required Permissions to the ComplianceInquiries API
+
+**Verify**
+- Add passkeys support to Verify API creating and updating services.
+- Update `ienum` type for Factor creation
+- Add passkeys as challenge and factor type
+
+
+[2025-07-24] Version 1.27.0
+---------------------------
+**Library - Docs**
+- [PR #294](https://github.com/twilio/twilio-go/pull/294): Remove preview messaging reference. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
+[2025-07-10] Version 1.26.5
+---------------------------
+**Library - Fix**
+- [PR #291](https://github.com/twilio/twilio-go/pull/291): revert cluster test change to interface. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
+[2025-07-03] Version 1.26.4
+---------------------------
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.
+
+**Twiml**
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+
+[2025-06-12] Version 1.26.3
+---------------------------
+**Api**
+- Change DependentPhoneNumber `capabilities` type `object` and `date_created`, `date_updated` to `date_time<rfc2822>`
+- Updated the `Default` value from 0 to 1 in the Recordings Resource `channels` property
+
+**Serverless**
+- Update `ienum` type level in Logs api
+
+**Verify**
+- Update Channel list in Verify Attempst API
+- Update `ienum` type for Conversion_Status in Verify Attempts API
+
+**Twiml**
+- Add `us2` to the list of supported values for the region attribute in the `<Conference>` TwiML noun.
+
+
+[2025-05-29] Version 1.26.2
+---------------------------
+**Library - Chore**
+- [PR #289](https://github.com/twilio/twilio-go/pull/289): add mocking for Oauth. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Added several usage category enums to `usage_record` API
+
+**Numbers**
+- Update the porting documentation
+
+**Verify**
+- Update `ienum` type for Channels in Verify Attempts API
+
+
+[2025-05-13] Version 1.26.1
+---------------------------
+**Library - Docs**
+- [PR #285](https://github.com/twilio/twilio-go/pull/285): add changelog for jwt v5. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
+[2025-05-05] Version 1.26.0
+---------------------------
+**Library - Chore**
+- [PR #282](https://github.com/twilio/twilio-go/pull/282): add access token example. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #277](https://github.com/twilio/twilio-go/pull/277): retract 1.25.0. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #275](https://github.com/twilio/twilio-go/pull/275): cluster test. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #281](https://github.com/twilio/twilio-go/pull/281): orgs api. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #280](https://github.com/twilio/twilio-go/pull/280): update github.com/golang-jwt/jwt to address vulnerability. Thanks to [@sigi-glovebox](https://github.com/sigi-glovebox)! **(breaking change)**
+  - The JWT library been updated to version v5 and may require changes to your code. We recommend adding indirect dependency to your go.mod file to ensure compatibility. For example, you can add the following line to your go.mod file:
+  ```
+  require (
+        github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
+    )
+  ```
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
+[2024-04-08] Version 1.25.1
+---------------------------
+**Library - Chore**
+- Retract v1.25.0 due to build issue [#276](https://github.com/twilio/twilio-go/issues/276)
+
+[2025-04-07] Version 1.25.0
+---------------------------
+**Library - Chore**
+- [PR #268](https://github.com/twilio/twilio-go/pull/268): Added patch method support. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #274](https://github.com/twilio/twilio-go/pull/274): Readme changes. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #273](https://github.com/twilio/twilio-go/pull/273): update readme. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Feature**
+- [PR #272](https://github.com/twilio/twilio-go/pull/272): Oauth design (#269). Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Studio**
+- Add documentation for parent_step_sid field in Step resource
+
+
+[2025-03-20] Version 1.24.1
+---------------------------
+**Library - Chore**
+- [PR #265](https://github.com/twilio/twilio-go/pull/265): update go versions. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Accounts**
+- Update Safelist API docs as part of prefix supoort
+
+**Flex**
+- Removing `first_name`, `last_name`, and `friendly_name` from the Flex User API
+
+**Messaging**
+- Add missing tests under transaction/phone_numbers and transaction/short_code
+
+
+[2025-03-11] Version 1.24.0
+---------------------------
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+**DataType Changes**
+- Some attributes in multiple APIs has changed from Dictionary to Object **(breaking change)**. Please refer to the [API documentation](https://github.com/twilio/twilio-oai]) for more details.
+
+
+[2025-02-20] Version 1.23.13
+----------------------------
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
+[2025-02-11] Version 1.23.12
+----------------------------
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
+[2025-01-28] Version 1.23.11
+----------------------------
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
 [2025-01-13] Version 1.23.10
 ----------------------------
 **Messaging**

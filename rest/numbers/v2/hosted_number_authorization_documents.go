@@ -198,7 +198,7 @@ func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocument
 		data.Set("Email", *params.Email)
 	}
 	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
+		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

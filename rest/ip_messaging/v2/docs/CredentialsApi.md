@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Type** | **string** | 
+**Type** | [**string**](string.md) | 
 **FriendlyName** | **string** | 
 **Certificate** | **string** | 
 **PrivateKey** | **string** | 

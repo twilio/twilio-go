@@ -4,7 +4,7 @@ All URIs are relative to *https://chat.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UpdateChannel**](ServicesChannelsApi.md#UpdateChannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | 
+[**UpdateChannel**](ServicesChannelsApi.md#UpdateChannel) | **Post** /v3/Services/{ServiceSid}/Channels/{Sid} | Update a specific Channel.
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ChatV3Channel UpdateChannel(ctx, ServiceSidSidoptional)
 
-
+Update a specific Channel.
 
 Update a specific Channel.
 
@@ -32,8 +32,8 @@ Other parameters are passed through a pointer to a UpdateChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
-**Type** | **string** | 
+**XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
+**Type** | [**string**](string.md) | 
 **MessagingServiceSid** | **string** | The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
 ### Return type

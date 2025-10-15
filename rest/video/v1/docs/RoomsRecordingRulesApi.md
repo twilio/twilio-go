@@ -4,8 +4,8 @@ All URIs are relative to *https://video.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchRoomRecordingRule**](RoomsRecordingRulesApi.md#FetchRoomRecordingRule) | **Get** /v1/Rooms/{RoomSid}/RecordingRules | 
-[**UpdateRoomRecordingRule**](RoomsRecordingRulesApi.md#UpdateRoomRecordingRule) | **Post** /v1/Rooms/{RoomSid}/RecordingRules | 
+[**FetchRoomRecordingRule**](RoomsRecordingRulesApi.md#FetchRoomRecordingRule) | **Get** /v1/Rooms/{RoomSid}/RecordingRules | Returns a list of Recording Rules for the Room.
+[**UpdateRoomRecordingRule**](RoomsRecordingRulesApi.md#UpdateRoomRecordingRule) | **Post** /v1/Rooms/{RoomSid}/RecordingRules | Update the Recording Rules for the Room
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VideoV1RoomRecordingRule FetchRoomRecordingRule(ctx, RoomSid)
 
-
+Returns a list of Recording Rules for the Room.
 
 Returns a list of Recording Rules for the Room.
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 > VideoV1RoomRecordingRule UpdateRoomRecordingRule(ctx, RoomSidoptional)
 
-
+Update the Recording Rules for the Room
 
 Update the Recording Rules for the Room
 

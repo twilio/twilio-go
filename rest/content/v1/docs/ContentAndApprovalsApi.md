@@ -4,7 +4,7 @@ All URIs are relative to *https://content.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListContentAndApprovals**](ContentAndApprovalsApi.md#ListContentAndApprovals) | **Get** /v1/ContentAndApprovals | 
+[**ListContentAndApprovals**](ContentAndApprovalsApi.md#ListContentAndApprovals) | **Get** /v1/ContentAndApprovals | List Content Approvals
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > []ContentV1ContentAndApprovals ListContentAndApprovals(ctx, optional)
 
-
+List Content Approvals
 
 Retrieve a list of Contents with approval statuses belonging to the account used to make the request
 

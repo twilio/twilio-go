@@ -4,8 +4,8 @@ All URIs are relative to *https://voice.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchDialingPermissionsSettings**](SettingsApi.md#FetchDialingPermissionsSettings) | **Get** /v1/Settings | 
-[**UpdateDialingPermissionsSettings**](SettingsApi.md#UpdateDialingPermissionsSettings) | **Post** /v1/Settings | 
+[**FetchDialingPermissionsSettings**](SettingsApi.md#FetchDialingPermissionsSettings) | **Get** /v1/Settings | Retrieve voice dialing permissions inheritance for the sub-account
+[**UpdateDialingPermissionsSettings**](SettingsApi.md#UpdateDialingPermissionsSettings) | **Post** /v1/Settings | Update voice dialing permissions inheritance for the sub-account
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > VoiceV1DialingPermissionsSettings FetchDialingPermissionsSettings(ctx, )
 
-
+Retrieve voice dialing permissions inheritance for the sub-account
 
 Retrieve voice dialing permissions inheritance for the sub-account
 
@@ -48,7 +48,7 @@ Other parameters are passed through a pointer to a FetchDialingPermissionsSettin
 
 > VoiceV1DialingPermissionsSettings UpdateDialingPermissionsSettings(ctx, optional)
 
-
+Update voice dialing permissions inheritance for the sub-account
 
 Update voice dialing permissions inheritance for the sub-account
 

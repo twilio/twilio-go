@@ -14,8 +14,10 @@ Name | Type | Description | Notes
 **TwilioCatalog** | Pointer to [**TwilioCatalog**](TwilioCatalog.md) |  |
 **TwilioCarousel** | Pointer to [**TwilioCarousel**](TwilioCarousel.md) |  |
 **TwilioFlows** | Pointer to [**TwilioFlows**](TwilioFlows.md) |  |
+**TwilioSchedule** | Pointer to [**TwilioSchedule**](TwilioSchedule.md) |  |
 **WhatsappCard** | Pointer to [**WhatsappCard**](WhatsappCard.md) |  |
 **WhatsappAuthentication** | Pointer to [**WhatsappAuthentication**](WhatsappAuthentication.md) |  |
+**WhatsappFlows** | Pointer to [**WhatsappFlows**](WhatsappFlows.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

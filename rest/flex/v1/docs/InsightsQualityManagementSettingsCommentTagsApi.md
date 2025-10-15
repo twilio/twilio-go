@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchInsightsSettingsComment**](InsightsQualityManagementSettingsCommentTagsApi.md#FetchInsightsSettingsComment) | **Get** /v1/Insights/QualityManagement/Settings/CommentTags | 
+[**FetchInsightsSettingsComment**](InsightsQualityManagementSettingsCommentTagsApi.md#FetchInsightsSettingsComment) | **Get** /v1/Insights/QualityManagement/Settings/CommentTags | To get the Comment Settings for an Account
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > FlexV1InsightsSettingsComment FetchInsightsSettingsComment(ctx, optional)
 
-
+To get the Comment Settings for an Account
 
 To get the Comment Settings for an Account
 

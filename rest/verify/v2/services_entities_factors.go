@@ -127,7 +127,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.FactorType != nil {
-		data.Set("FactorType", *params.FactorType)
+		data.Set("FactorType", fmt.Sprint(*params.FactorType))
 	}
 	if params != nil && params.BindingAlg != nil {
 		data.Set("Binding.Alg", *params.BindingAlg)
@@ -139,7 +139,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Config.AppId", *params.ConfigAppId)
 	}
 	if params != nil && params.ConfigNotificationPlatform != nil {
-		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
+		data.Set("Config.NotificationPlatform", fmt.Sprint(*params.ConfigNotificationPlatform))
 	}
 	if params != nil && params.ConfigNotificationToken != nil {
 		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
@@ -160,7 +160,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("Config.Alg", *params.ConfigAlg)
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
 	}
 	if params != nil && params.Metadata != nil {
 		v, err := json.Marshal(params.Metadata)
@@ -470,7 +470,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
 	}
 	if params != nil && params.ConfigAlg != nil {
-		data.Set("Config.Alg", *params.ConfigAlg)
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
 	}
 	if params != nil && params.ConfigNotificationPlatform != nil {
 		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)

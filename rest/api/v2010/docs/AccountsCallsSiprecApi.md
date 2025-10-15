@@ -4,8 +4,8 @@ All URIs are relative to *https://api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSiprec**](AccountsCallsSiprecApi.md#CreateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json | 
-[**UpdateSiprec**](AccountsCallsSiprecApi.md#UpdateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json | 
+[**CreateSiprec**](AccountsCallsSiprecApi.md#CreateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json | Create a Siprec
+[**UpdateSiprec**](AccountsCallsSiprecApi.md#UpdateSiprec) | **Post** /2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json | Stop a Siprec using either the SID of the Siprec resource or the &#x60;name&#x60; used when creating the resource
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ApiV2010Siprec CreateSiprec(ctx, CallSidoptional)
 
-
+Create a Siprec
 
 Create a Siprec
 
@@ -35,7 +35,7 @@ Name | Type | Description
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
 **Name** | **string** | The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
 **ConnectorName** | **string** | Unique name used when configuring the connector via Marketplace Add-on.
-**Track** | **string** | 
+**Track** | [**string**](string.md) | 
 **StatusCallback** | **string** | Absolute URL of the status callback.
 **StatusCallbackMethod** | **string** | The http method for the status_callback (one of GET, POST).
 **Parameter1Name** | **string** | Parameter name
@@ -259,7 +259,7 @@ Name | Type | Description
 
 > ApiV2010Siprec UpdateSiprec(ctx, CallSidSidoptional)
 
-
+Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 
 Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
 
@@ -280,7 +280,7 @@ Other parameters are passed through a pointer to a UpdateSiprecParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-**Status** | **string** | 
+**Status** | [**string**](string.md) | 
 
 ### Return type
 

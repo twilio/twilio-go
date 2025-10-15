@@ -4,9 +4,9 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteServiceBinding**](ServicesBindingsApi.md#DeleteServiceBinding) | **Delete** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | 
-[**FetchServiceBinding**](ServicesBindingsApi.md#FetchServiceBinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | 
-[**ListServiceBinding**](ServicesBindingsApi.md#ListServiceBinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings | 
+[**DeleteServiceBinding**](ServicesBindingsApi.md#DeleteServiceBinding) | **Delete** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | Remove a push notification binding from the conversation service
+[**FetchServiceBinding**](ServicesBindingsApi.md#FetchServiceBinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings/{Sid} | Fetch a push notification binding from the conversation service
+[**ListServiceBinding**](ServicesBindingsApi.md#ListServiceBinding) | **Get** /v1/Services/{ChatServiceSid}/Bindings | Retrieve a list of all push notification bindings in the conversation service
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > DeleteServiceBinding(ctx, ChatServiceSidSid)
 
-
+Remove a push notification binding from the conversation service
 
 Remove a push notification binding from the conversation service
 
@@ -57,7 +57,7 @@ Name | Type | Description
 
 > ConversationsV1ServiceBinding FetchServiceBinding(ctx, ChatServiceSidSid)
 
-
+Fetch a push notification binding from the conversation service
 
 Fetch a push notification binding from the conversation service
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 > []ConversationsV1ServiceBinding ListServiceBinding(ctx, ChatServiceSidoptional)
 
-
+Retrieve a list of all push notification bindings in the conversation service
 
 Retrieve a list of all push notification bindings in the conversation service
 
@@ -119,9 +119,9 @@ Other parameters are passed through a pointer to a ListServiceBindingParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**BindingType** | [**[]ServiceBindingEnumBindingType**](ServiceBindingEnumBindingType.md) | The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+**BindingType** | [**[]ServiceBindingEnumBindingType**](ServiceBindingEnumBindingType.md) | The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 **Identity** | **[]string** | The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 100.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

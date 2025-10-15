@@ -89,7 +89,7 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 		data.Set("Template", *params.Template)
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -375,7 +375,7 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
 	}
 	if params != nil && params.PrioritizeQueueOrder != nil {
-		data.Set("PrioritizeQueueOrder", *params.PrioritizeQueueOrder)
+		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
