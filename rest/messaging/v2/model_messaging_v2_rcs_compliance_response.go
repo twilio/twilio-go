@@ -19,5 +19,5 @@ type MessagingV2RcsComplianceResponse struct {
 	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
 	RegistrationSid string `json:"registration_sid"`
 	// A list of country-specific compliance details.
-	Countries []MessagingV2RcsComplianceCountryResponse `json:"countries"`
+	Countries []MessagingV2RcsComplianceCountryResponse `json:"countries,omitempty"`
 }

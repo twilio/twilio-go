@@ -28,9 +28,9 @@ Other parameters are passed through a pointer to a CreateComplianceInquiryParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PrimaryProfileSid** | **string** | The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 **NotificationEmail** | **string** | The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
 **ThemeSetId** | **string** | Theme id for styling the inquiry form.
+**PrimaryProfileSid** | **string** | The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
 ### Return type
 

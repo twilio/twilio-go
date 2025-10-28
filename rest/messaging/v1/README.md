@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [MessagingV1GenericSender](docs/MessagingV1GenericSender.md)
  - [MessagingV1DomainCertV4](docs/MessagingV1DomainCertV4.md)
  - [MessagingV1LinkshorteningMessagingServiceDomainAssociation](docs/MessagingV1LinkshorteningMessagingServiceDomainAssociation.md)
  - [MessagingV1ExternalCampaign](docs/MessagingV1ExternalCampaign.md)
@@ -122,8 +123,10 @@ Class | Method | HTTP request | Description
  - [ListTollfreeVerificationResponse](docs/ListTollfreeVerificationResponse.md)
  - [MessagingV1AlphaSender](docs/MessagingV1AlphaSender.md)
  - [ListAlphaSenderResponseMeta](docs/ListAlphaSenderResponseMeta.md)
+ - [MessagingV1ServiceForNumber](docs/MessagingV1ServiceForNumber.md)
  - [MessagingV1BrandVetting](docs/MessagingV1BrandVetting.md)
  - [ListShortCodeResponse](docs/ListShortCodeResponse.md)
+ - [MessagingV1Addons](docs/MessagingV1Addons.md)
 
 
 ## Documentation For Authorization

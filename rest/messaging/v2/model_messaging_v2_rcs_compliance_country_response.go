@@ -19,7 +19,7 @@ type MessagingV2RcsComplianceCountryResponse struct {
 	// The ISO 3166-1 alpha-2 country code.
 	Country string `json:"country"`
 	// The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
-	RegistrationSid string                      `json:"registration_sid"`
-	Status          MessagingV2RcsCountryStatus `json:"status"`
+	RegistrationSid string                      `json:"registration_sid,omitempty"`
+	Status          MessagingV2RcsCountryStatus `json:"status,omitempty"`
 	Carriers        []MessagingV2RcsCarrier     `json:"carriers,omitempty"`
 }

@@ -121,7 +121,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | [**[]BindingEnumBindingType**](BindingEnumBindingType.md) | The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 50.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
