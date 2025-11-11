@@ -93,6 +93,7 @@ Class | Method | HTTP request | Description
  - [ListAuthorizationDocumentResponse](docs/ListAuthorizationDocumentResponse.md)
  - [NumbersV2BulkHostedNumberOrder](docs/NumbersV2BulkHostedNumberOrder.md)
  - [PaginationMeta](docs/PaginationMeta.md)
+ - [UpdateSenderIdCountryDefault](docs/UpdateSenderIdCountryDefault.md)
  - [NumbersV2ReplaceItems](docs/NumbersV2ReplaceItems.md)
  - [ListSupportingDocumentResponse](docs/ListSupportingDocumentResponse.md)
  - [ListSupportingDocumentTypeResponse](docs/ListSupportingDocumentTypeResponse.md)

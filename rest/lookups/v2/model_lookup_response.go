@@ -27,15 +27,15 @@ type LookupResponse struct {
 	// Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
 	Valid bool `json:"valid,omitempty"`
 	// Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
-	ValidationErrors     []ValidationError    `json:"validation_errors,omitempty"`
-	CallerName           CallerName           `json:"caller_name,omitempty"`
-	SimSwap              SimSwap              `json:"sim_swap,omitempty"`
-	CallForwarding       CallForwarding       `json:"call_forwarding,omitempty"`
-	LineTypeIntelligence LineTypeIntelligence `json:"line_type_intelligence,omitempty"`
-	LineStatus           LineStatus           `json:"line_status,omitempty"`
-	IdentityMatch        IdentityMatch        `json:"identity_match,omitempty"`
-	ReassignedNumber     ReassignedNumber     `json:"reassigned_number,omitempty"`
-	SmsPumpingRisk       SmsPumpingRisk       `json:"sms_pumping_risk,omitempty"`
+	ValidationErrors     []ValidationError        `json:"validation_errors,omitempty"`
+	CallerName           CallerNameInfo           `json:"caller_name,omitempty"`
+	SimSwap              SimSwapInfo              `json:"sim_swap,omitempty"`
+	CallForwarding       CallForwardingInfo       `json:"call_forwarding,omitempty"`
+	LineTypeIntelligence LineTypeIntelligenceInfo `json:"line_type_intelligence,omitempty"`
+	LineStatus           LineStatusInfo           `json:"line_status,omitempty"`
+	IdentityMatch        IdentityMatchInfo        `json:"identity_match,omitempty"`
+	ReassignedNumber     ReassignedNumberInfo     `json:"reassigned_number,omitempty"`
+	SmsPumpingRisk       SmsPumpingRiskInfo       `json:"sms_pumping_risk,omitempty"`
 	// An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
 	PhoneNumberQualityScore *interface{} `json:"phone_number_quality_score,omitempty"`
 	// An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.

@@ -50,5 +50,6 @@ type NumbersV1PortingPortIn struct {
 	Documents   *[]string  `json:"documents,omitempty"`
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// Unique ID of the request's support ticket
-	SupportTicketId int `json:"support_ticket_id,omitempty"`
+	SupportTicketId     int     `json:"support_ticket_id,omitempty"`
+	SignatureRequestUrl *string `json:"signature_request_url,omitempty"`
 }

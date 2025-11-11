@@ -16,7 +16,7 @@ package openapi
 
 // QuickReplyAction struct for QuickReplyAction
 type QuickReplyAction struct {
-	Type  QuickReplyActionType `json:"type"`
+	Type  QuickReplyActionType `json:"type,omitempty"`
 	Title string               `json:"title"`
 	Id    string               `json:"id,omitempty"`
 }

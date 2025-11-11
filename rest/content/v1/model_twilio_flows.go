@@ -18,8 +18,8 @@ package openapi
 type TwilioFlows struct {
 	Body       string      `json:"body"`
 	ButtonText string      `json:"button_text"`
-	Subtitle   string      `json:"subtitle"`
-	MediaUrl   string      `json:"media_url"`
+	Subtitle   string      `json:"subtitle,omitempty"`
+	MediaUrl   string      `json:"media_url,omitempty"`
 	Pages      []FlowsPage `json:"pages"`
 	Type       string      `json:"type"`
 }

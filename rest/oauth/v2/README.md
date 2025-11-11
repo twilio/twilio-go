@@ -36,6 +36,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [V2OauthAuth0CallbackResponse](docs/V2OauthAuth0CallbackResponse.md)
  - [V2Oauth2TokenResponse](docs/V2Oauth2TokenResponse.md)
  - [Auth0SignupRequest](docs/Auth0SignupRequest.md)
  - [Auth0TestLoginResponse](docs/Auth0TestLoginResponse.md)

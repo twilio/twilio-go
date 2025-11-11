@@ -335,6 +335,49 @@ func (m VoiceStart) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+//VoiceRecording <Recording> TwiML Noun
+type VoiceRecording struct {
+	// recording_status_callback: Recording Status Callback URL
+	// recording_status_callback_method: Recording Status Callback URL method
+	// recording_status_callback_event: Recording Status Callback Events
+	// trim: Trim the recording
+	// track: To indicate which audio track should be recorded
+	// channels: The recording channels for the final recording
+	// OptionalAttributes: additional attributes
+	RecordingStatusCallback       string
+	RecordingStatusCallbackMethod string
+	RecordingStatusCallbackEvent  string
+	Trim                          string
+	Track                         string
+	Channels                      string
+	InnerElements                 []Element
+	OptionalAttributes            map[string]string
+}
+
+func (m VoiceRecording) GetName() string {
+	return "Recording"
+}
+
+func (m VoiceRecording) GetText() string {
+	return ""
+}
+
+func (m VoiceRecording) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"RecordingStatusCallback":       m.RecordingStatusCallback,
+		"RecordingStatusCallbackMethod": m.RecordingStatusCallbackMethod,
+		"RecordingStatusCallbackEvent":  m.RecordingStatusCallbackEvent,
+		"Trim":                          m.Trim,
+		"Track":                         m.Track,
+		"Channels":                      m.Channels,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceRecording) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 //VoicePrompt <Prompt> Twiml Verb
 type VoicePrompt struct {
 	// for_: Name of the payment source data element
@@ -1821,6 +1864,37 @@ func (m VoiceConnect) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceConnect) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+//VoiceConversationRelaySession <ConversationRelaySession> TwiML Noun
+type VoiceConversationRelaySession struct {
+	// connector: The unique name or installed add-on sid that identifies the installed addon resource for the ConversationRelaySession Connector
+	// session_configuration: The unique name or id of the ConversationRelaySession  Configuration resource.
+	// OptionalAttributes: additional attributes
+	Connector            string
+	SessionConfiguration string
+	InnerElements        []Element
+	OptionalAttributes   map[string]string
+}
+
+func (m VoiceConversationRelaySession) GetName() string {
+	return "ConversationRelaySession"
+}
+
+func (m VoiceConversationRelaySession) GetText() string {
+	return ""
+}
+
+func (m VoiceConversationRelaySession) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Connector":            m.Connector,
+		"SessionConfiguration": m.SessionConfiguration,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceConversationRelaySession) GetInnerElements() []Element {
 	return m.InnerElements
 }
 

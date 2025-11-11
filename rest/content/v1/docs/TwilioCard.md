@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Title** | **string** |  |
+**Title** | **string** |  |[optional] 
 **Subtitle** | **string** |  |[optional] 
 **Media** | **[]string** |  |[optional] 
 **Actions** | [**[]CardAction**](CardAction.md) |  |[optional] 

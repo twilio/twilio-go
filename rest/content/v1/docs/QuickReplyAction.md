@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | [**QuickReplyActionType**](QuickReplyActionType.md) |  |
+**Type** | [**QuickReplyActionType**](QuickReplyActionType.md) |  |[optional] 
 **Title** | **string** |  |
 **Id** | **string** |  |[optional] 
 

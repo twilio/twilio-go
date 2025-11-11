@@ -193,6 +193,7 @@ Name | Type | Description
 **ExternalReferenceId** | **string** | Customer supplied reference id for the Tollfree Verification record.
 **IncludeSubAccounts** | **bool** | Whether to include Tollfree Verifications from sub accounts in list response.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**TrustProductSid** | **[]string** | The trust product sids / tollfree bundle sids of tollfree verifications
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

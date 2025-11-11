@@ -16,7 +16,7 @@ package openapi
 
 // TwilioCard twilio/card is a structured template which can be used to send a series of related information. It must include a title and at least one additional field.
 type TwilioCard struct {
-	Title    string       `json:"title"`
+	Title    string       `json:"title,omitempty"`
 	Subtitle string       `json:"subtitle,omitempty"`
 	Media    []string     `json:"media,omitempty"`
 	Actions  []CardAction `json:"actions,omitempty"`

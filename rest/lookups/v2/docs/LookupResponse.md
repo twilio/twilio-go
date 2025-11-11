@@ -10,14 +10,14 @@ Name | Type | Description | Notes
 **NationalFormat** | Pointer to **string** | The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers). |
 **Valid** | **bool** | Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user. |[optional] 
 **ValidationErrors** | [**[]ValidationError**](ValidationError.md) | Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER. |[optional] 
-**CallerName** | [**CallerName**](CallerName.md) |  |[optional] 
-**SimSwap** | [**SimSwap**](SimSwap.md) |  |[optional] 
-**CallForwarding** | [**CallForwarding**](CallForwarding.md) |  |[optional] 
-**LineTypeIntelligence** | [**LineTypeIntelligence**](LineTypeIntelligence.md) |  |[optional] 
-**LineStatus** | [**LineStatus**](LineStatus.md) |  |[optional] 
-**IdentityMatch** | [**IdentityMatch**](IdentityMatch.md) |  |[optional] 
-**ReassignedNumber** | [**ReassignedNumber**](ReassignedNumber.md) |  |[optional] 
-**SmsPumpingRisk** | [**SmsPumpingRisk**](SmsPumpingRisk.md) |  |[optional] 
+**CallerName** | [**CallerNameInfo**](CallerNameInfo.md) |  |[optional] 
+**SimSwap** | [**SimSwapInfo**](SimSwapInfo.md) |  |[optional] 
+**CallForwarding** | [**CallForwardingInfo**](CallForwardingInfo.md) |  |[optional] 
+**LineTypeIntelligence** | [**LineTypeIntelligenceInfo**](LineTypeIntelligenceInfo.md) |  |[optional] 
+**LineStatus** | [**LineStatusInfo**](LineStatusInfo.md) |  |[optional] 
+**IdentityMatch** | [**IdentityMatchInfo**](IdentityMatchInfo.md) |  |[optional] 
+**ReassignedNumber** | [**ReassignedNumberInfo**](ReassignedNumberInfo.md) |  |[optional] 
+**SmsPumpingRisk** | [**SmsPumpingRiskInfo**](SmsPumpingRiskInfo.md) |  |[optional] 
 **PhoneNumberQualityScore** | Pointer to **interface{}** | An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number. |
 **PreFill** | Pointer to **interface{}** | An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code.  |
 **Url** | **string** | The absolute URL of the resource. |[optional] 

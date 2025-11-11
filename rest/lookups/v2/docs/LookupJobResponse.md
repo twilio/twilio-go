@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** |  |
 **Description** | Pointer to **string** |  |
 **Status** | [**JobStatus**](JobStatus.md) |  |[optional] 
-**Thresholds** | [**Thresholds**](Thresholds.md) |  |[optional] 
+**Thresholds** | [**JobThresholds**](JobThresholds.md) |  |[optional] 
 **CreatedAt** | [**time.Time**](time.Time.md) |  |[optional] 
 **CompletedAt** | Pointer to [**time.Time**](time.Time.md) |  |
-**Result** | [**Result**](Result.md) |  |[optional] 
+**Result** | [**JobResult**](JobResult.md) |  |[optional] 
 **TwilioErrorCode** | Pointer to **int** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

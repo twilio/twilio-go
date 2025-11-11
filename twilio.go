@@ -30,6 +30,7 @@ import (
 	FlexV1 "github.com/twilio/twilio-go/rest/flex/v1"
 	FlexV2 "github.com/twilio/twilio-go/rest/flex/v2"
 	FrontlineV1 "github.com/twilio/twilio-go/rest/frontline/v1"
+	IamScim "github.com/twilio/twilio-go/rest/iam/scim"
 	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
 	IamV2 "github.com/twilio/twilio-go/rest/iam/v2"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
@@ -89,6 +90,7 @@ type RestClient struct {
 	FrontlineV1            *FrontlineV1.ApiService
 	PreviewIamV1           *PreviewIamV1.ApiService
 	PreviewIamOrganization *PreviewIamOrganization.ApiService
+	IamScim                *IamScim.ApiService
 	IamV1                  *IamV1.ApiService
 	IamV2                  *IamV2.ApiService
 	InsightsV1             *InsightsV1.ApiService
@@ -224,6 +226,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
 	c.PreviewIamV1 = PreviewIamV1.NewApiService(c.RequestHandler)
 	c.PreviewIamOrganization = PreviewIamOrganization.NewApiService(c.RequestHandler)
+	c.IamScim = IamScim.NewApiService(c.RequestHandler)
 	c.IamV1 = IamV1.NewApiService(c.RequestHandler)
 	c.IamV2 = IamV2.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)

@@ -19,21 +19,21 @@ type LookupBatchResponse struct {
 	// Unique identifier used to match request with response
 	CorrelationId string `json:"correlation_id,omitempty"`
 	// Twilio error code in case that the request to downstream fails
-	TwilioErrorCode         int                  `json:"twilio_error_code,omitempty"`
-	CallingCountryCode      string               `json:"calling_country_code,omitempty"`
-	CountryCode             string               `json:"country_code,omitempty"`
-	PhoneNumber             string               `json:"phone_number,omitempty"`
-	NationalFormat          string               `json:"national_format,omitempty"`
-	Valid                   bool                 `json:"valid,omitempty"`
-	ValidationErrors        []string             `json:"validation_errors,omitempty"`
-	CallerName              CallerName           `json:"caller_name,omitempty"`
-	SimSwap                 SimSwap              `json:"sim_swap,omitempty"`
-	CallForwarding          CallForwarding       `json:"call_forwarding,omitempty"`
-	LineTypeIntelligence    LineTypeIntelligence `json:"line_type_intelligence,omitempty"`
-	LineStatus              LineStatus           `json:"line_status,omitempty"`
-	IdentityMatch           IdentityMatch        `json:"identity_match,omitempty"`
-	ReassignedNumber        ReassignedNumber     `json:"reassigned_number,omitempty"`
-	SmsPumpingRisk          SmsPumpingRisk       `json:"sms_pumping_risk,omitempty"`
-	PhoneNumberQualityScore *interface{}         `json:"phone_number_quality_score,omitempty"`
-	PreFill                 *interface{}         `json:"pre_fill,omitempty"`
+	TwilioErrorCode         int                      `json:"twilio_error_code,omitempty"`
+	CallingCountryCode      string                   `json:"calling_country_code,omitempty"`
+	CountryCode             string                   `json:"country_code,omitempty"`
+	PhoneNumber             string                   `json:"phone_number,omitempty"`
+	NationalFormat          string                   `json:"national_format,omitempty"`
+	Valid                   bool                     `json:"valid,omitempty"`
+	ValidationErrors        []string                 `json:"validation_errors,omitempty"`
+	CallerName              CallerNameInfo           `json:"caller_name,omitempty"`
+	SimSwap                 SimSwapInfo              `json:"sim_swap,omitempty"`
+	CallForwarding          CallForwardingInfo       `json:"call_forwarding,omitempty"`
+	LineTypeIntelligence    LineTypeIntelligenceInfo `json:"line_type_intelligence,omitempty"`
+	LineStatus              LineStatusInfo           `json:"line_status,omitempty"`
+	IdentityMatch           IdentityMatchInfo        `json:"identity_match,omitempty"`
+	ReassignedNumber        ReassignedNumberInfo     `json:"reassigned_number,omitempty"`
+	SmsPumpingRisk          SmsPumpingRiskInfo       `json:"sms_pumping_risk,omitempty"`
+	PhoneNumberQualityScore *interface{}             `json:"phone_number_quality_score,omitempty"`
+	PreFill                 *interface{}             `json:"pre_fill,omitempty"`
 }

@@ -16,7 +16,7 @@ package openapi
 
 // MessagingV1ServiceForNumber struct for MessagingV1ServiceForNumber
 type MessagingV1ServiceForNumber struct {
-	// The SID to identify the PhoneNumber resource.
+	// The SID to identify the number resource.
 	NumberSid *string `json:"number_sid,omitempty"`
 	// The SID of the messaging service that the phone number is in.
 	Sid *string `json:"sid,omitempty"`

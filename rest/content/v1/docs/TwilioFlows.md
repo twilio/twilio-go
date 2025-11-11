@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | **string** |  |
 **ButtonText** | **string** |  |
-**Subtitle** | **string** |  |
-**MediaUrl** | **string** |  |
+**Subtitle** | **string** |  |[optional] 
+**MediaUrl** | **string** |  |[optional] 
 **Pages** | [**[]FlowsPage**](FlowsPage.md) |  |
 **Type** | **string** |  |
 

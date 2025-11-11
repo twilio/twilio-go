@@ -20,13 +20,13 @@ import (
 
 // LookupJobResponse struct for LookupJobResponse
 type LookupJobResponse struct {
-	JobSid          string     `json:"job_sid,omitempty"`
-	FriendlyName    *string    `json:"friendly_name,omitempty"`
-	Description     *string    `json:"description,omitempty"`
-	Status          JobStatus  `json:"status,omitempty"`
-	Thresholds      Thresholds `json:"thresholds,omitempty"`
-	CreatedAt       time.Time  `json:"created_at,omitempty"`
-	CompletedAt     *time.Time `json:"completed_at,omitempty"`
-	Result          Result     `json:"result,omitempty"`
-	TwilioErrorCode *int       `json:"twilio_error_code,omitempty"`
+	JobSid          string        `json:"job_sid,omitempty"`
+	FriendlyName    *string       `json:"friendly_name,omitempty"`
+	Description     *string       `json:"description,omitempty"`
+	Status          JobStatus     `json:"status,omitempty"`
+	Thresholds      JobThresholds `json:"thresholds,omitempty"`
+	CreatedAt       time.Time     `json:"created_at,omitempty"`
+	CompletedAt     *time.Time    `json:"completed_at,omitempty"`
+	Result          JobResult     `json:"result,omitempty"`
+	TwilioErrorCode *int          `json:"twilio_error_code,omitempty"`
 }
