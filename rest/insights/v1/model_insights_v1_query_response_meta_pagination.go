@@ -14,8 +14,9 @@
 
 package openapi
 
-// InsightsV1QueryRequestQueryPagination Pagination options
-type InsightsV1QueryRequestQueryPagination struct {
-	PageSize  int     `json:"pageSize,omitempty"`
-	PageToken *string `json:"pageToken,omitempty"`
+// InsightsV1QueryResponseMetaPagination Pagination options
+type InsightsV1QueryResponseMetaPagination struct {
+	PageSize      int     `json:"pageSize,omitempty"`
+	NextToken     *string `json:"nextToken,omitempty"`
+	PreviousToken *string `json:"previousToken,omitempty"`
 }

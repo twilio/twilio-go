@@ -30,4 +30,6 @@ type SenderId struct {
 	SenderId string `json:"sender_id"`
 	// The unique identifier of the Sender ID.
 	Sid string `json:"sid"`
+	// Messages per second (throughput) for the Sender ID.
+	Mps int `json:"mps"`
 }

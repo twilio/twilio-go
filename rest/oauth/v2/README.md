@@ -37,11 +37,12 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [V2OauthAuth0CallbackResponse](docs/V2OauthAuth0CallbackResponse.md)
+ - [Auth0RefreshTokenHeartbeatResponse](docs/Auth0RefreshTokenHeartbeatResponse.md)
+ - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)
+ - [Error](docs/Error.md)
  - [V2Oauth2TokenResponse](docs/V2Oauth2TokenResponse.md)
  - [Auth0SignupRequest](docs/Auth0SignupRequest.md)
  - [Auth0TestLoginResponse](docs/Auth0TestLoginResponse.md)
- - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)
- - [Error](docs/Error.md)
  - [Auth0RefreshScopedTokenRequest](docs/Auth0RefreshScopedTokenRequest.md)
  - [Auth0TestLoginRequest](docs/Auth0TestLoginRequest.md)
  - [Auth0AuthorizeResponse](docs/Auth0AuthorizeResponse.md)

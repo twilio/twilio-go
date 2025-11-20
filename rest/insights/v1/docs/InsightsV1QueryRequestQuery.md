@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cube** | **string** |  |
 **Measures** | **[]string** |  |[optional] 
 **Dimensions** | **[]string** |  |[optional] 
 **Filters** | [**[]InsightsV1QueryRequestQueryFilters**](InsightsV1QueryRequestQueryFilters.md) | Nested filter conditions. Always use `op` and `expressions`. |[optional] 

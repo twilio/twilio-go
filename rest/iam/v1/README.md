@@ -69,6 +69,7 @@ Class | Method | HTTP request | Description
  - [IamV1AccountSearchRequest](docs/IamV1AccountSearchRequest.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
  - [IamV1CreateAccountRequest](docs/IamV1CreateAccountRequest.md)
+ - [IamV1CreateSubaccountRequest](docs/IamV1CreateSubaccountRequest.md)
  - [IamV1EmailChangeResendRequest](docs/IamV1EmailChangeResendRequest.md)
  - [ListGetKeysResponseMeta](docs/ListGetKeysResponseMeta.md)
  - [IamV1MfaTotpQrCodeUrlResponse](docs/IamV1MfaTotpQrCodeUrlResponse.md)

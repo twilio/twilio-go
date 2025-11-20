@@ -16,5 +16,5 @@ package openapi
 
 // InsightsV1QueryResponseMeta struct for InsightsV1QueryResponseMeta
 type InsightsV1QueryResponseMeta struct {
-	Pagination InsightsV1QueryRequestQueryPagination `json:"pagination,omitempty"`
+	Pagination InsightsV1QueryResponseMetaPagination `json:"pagination,omitempty"`
 }

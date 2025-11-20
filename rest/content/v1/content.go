@@ -249,3 +249,48 @@ func (c *ApiService) getNextListContentResponse(nextPageUrl string) (interface{}
 	}
 	return ps, nil
 }
+
+// Optional parameters for the method 'UpdateContent'
+type UpdateContentParams struct {
+	//
+	ContentUpdateRequest *ContentUpdateRequest `json:"ContentUpdateRequest,omitempty"`
+}
+
+func (params *UpdateContentParams) SetContentUpdateRequest(ContentUpdateRequest ContentUpdateRequest) *UpdateContentParams {
+	params.ContentUpdateRequest = &ContentUpdateRequest
+	return params
+}
+
+// Update a Content resource
+func (c *ApiService) UpdateContent(Sid string, params *UpdateContentParams) (*ContentV1Content, error) {
+	path := "/v1/Content/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ContentUpdateRequest != nil {
+		b, err := json.Marshal(*params.ContentUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1Content{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}

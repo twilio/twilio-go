@@ -1,11 +1,10 @@
-# InsightsV1QueryRequestQueryPagination
+# CreateShortCodeApplicationRequestSetup
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PageSize** | **int** |  |[optional] 
-**PageToken** | Pointer to **string** |  |
+**ChargesApply** | **bool** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,11 +1,10 @@
-# InsightsV1QueryRequestQueryPagination
+# CreateShortCodeApplicationRequestBusinessInformation
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PageSize** | **int** |  |[optional] 
-**PageToken** | Pointer to **string** |  |
+**CustomerFacingProfile** | **string** | The Compliance Profile SID for the customer-facing business profile. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

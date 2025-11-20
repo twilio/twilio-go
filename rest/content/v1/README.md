@@ -35,6 +35,7 @@ Class | Method | HTTP request | Description
 *ContentApi* | [**DeleteContent**](docs/ContentApi.md#deletecontent) | **Delete** /v1/Content/{Sid} | Delete Content
 *ContentApi* | [**FetchContent**](docs/ContentApi.md#fetchcontent) | **Get** /v1/Content/{Sid} | Fetch Content
 *ContentApi* | [**ListContent**](docs/ContentApi.md#listcontent) | **Get** /v1/Content | List Contents
+*ContentApi* | [**UpdateContent**](docs/ContentApi.md#updatecontent) | **Put** /v1/Content/{Sid} | Update Content
 *ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | List Content Approvals
 *ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | Fetch Approval Status
 *ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | Create Content Approval Request
@@ -59,6 +60,7 @@ Class | Method | HTTP request | Description
  - [FlowsPage](docs/FlowsPage.md)
  - [ContentCreateRequest](docs/ContentCreateRequest.md)
  - [TwilioListPicker](docs/TwilioListPicker.md)
+ - [ContentUpdateRequest](docs/ContentUpdateRequest.md)
  - [ListContentResponseMeta](docs/ListContentResponseMeta.md)
  - [TwilioCarousel](docs/TwilioCarousel.md)
  - [TwilioText](docs/TwilioText.md)

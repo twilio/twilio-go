@@ -75,6 +75,9 @@ Class | Method | HTTP request | Description
 *RegulatoryComplianceSupportingDocumentsApi* | [**FetchSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#fetchsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | Fetch specific Supporting Document Instance.
 *RegulatoryComplianceSupportingDocumentsApi* | [**ListSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#listsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments | Retrieve a list of all Supporting Document for an account.
 *RegulatoryComplianceSupportingDocumentsApi* | [**UpdateSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#updatesupportingdocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | Update an existing Supporting Document.
+*ShortCodesApplicationsApi* | [**CreateShortCodeApplication**](docs/ShortCodesApplicationsApi.md#createshortcodeapplication) | **Post** /v2/ShortCodes/Applications | Create a new short code application
+*ShortCodesApplicationsApi* | [**FetchShortCodeApplication**](docs/ShortCodesApplicationsApi.md#fetchshortcodeapplication) | **Get** /v2/ShortCodes/Applications/{sid} | Fetch a specific Short Code Application instance.
+*ShortCodesApplicationsApi* | [**ListShortCodeApplications**](docs/ShortCodesApplicationsApi.md#listshortcodeapplications) | **Get** /v2/ShortCodes/Applications | List Short Code Applications
 
 
 ## Documentation For Models
@@ -88,21 +91,27 @@ Class | Method | HTTP request | Description
  - [ListRegulationResponse](docs/ListRegulationResponse.md)
  - [NumbersV2Regulation](docs/NumbersV2Regulation.md)
  - [SenderIdCountryStatusOverrideInfo](docs/SenderIdCountryStatusOverrideInfo.md)
+ - [CreateShortCodeApplicationBundleInquiryRequest](docs/CreateShortCodeApplicationBundleInquiryRequest.md)
  - [ListEvaluationResponse](docs/ListEvaluationResponse.md)
  - [NumbersV2HostedNumberOrderCapabilities](docs/NumbersV2HostedNumberOrderCapabilities.md)
  - [ListAuthorizationDocumentResponse](docs/ListAuthorizationDocumentResponse.md)
+ - [CreateShortCodeApplicationBundleInquiryResponse](docs/CreateShortCodeApplicationBundleInquiryResponse.md)
  - [NumbersV2BulkHostedNumberOrder](docs/NumbersV2BulkHostedNumberOrder.md)
  - [PaginationMeta](docs/PaginationMeta.md)
  - [UpdateSenderIdCountryDefault](docs/UpdateSenderIdCountryDefault.md)
+ - [ShortCodeApplicationResponsePage](docs/ShortCodeApplicationResponsePage.md)
  - [NumbersV2ReplaceItems](docs/NumbersV2ReplaceItems.md)
+ - [CreateShortCodeApplicationRequestBusinessInformation](docs/CreateShortCodeApplicationRequestBusinessInformation.md)
  - [ListSupportingDocumentResponse](docs/ListSupportingDocumentResponse.md)
  - [ListSupportingDocumentTypeResponse](docs/ListSupportingDocumentTypeResponse.md)
  - [SenderIdResponsePage](docs/SenderIdResponsePage.md)
+ - [CreateShortCodeApplicationRequestSetup](docs/CreateShortCodeApplicationRequestSetup.md)
  - [ListEndUserTypeResponse](docs/ListEndUserTypeResponse.md)
  - [ListEndUserResponse](docs/ListEndUserResponse.md)
  - [NumbersV2Evaluation](docs/NumbersV2Evaluation.md)
  - [NumbersV2EndUserType](docs/NumbersV2EndUserType.md)
  - [NumbersV2DependentHostedNumberOrder](docs/NumbersV2DependentHostedNumberOrder.md)
+ - [CreateShortCodeApplicationResponse](docs/CreateShortCodeApplicationResponse.md)
  - [SenderIdCountry](docs/SenderIdCountry.md)
  - [ListDependentHostedNumberOrderResponse](docs/ListDependentHostedNumberOrderResponse.md)
  - [SenderId](docs/SenderId.md)
@@ -113,9 +122,11 @@ Class | Method | HTTP request | Description
  - [NumbersV2BundleClone](docs/NumbersV2BundleClone.md)
  - [ListBundleResponse](docs/ListBundleResponse.md)
  - [NumbersV2BundleCopy](docs/NumbersV2BundleCopy.md)
+ - [CreateShortCodeApplicationRequest](docs/CreateShortCodeApplicationRequest.md)
  - [ListBundleCopyResponse](docs/ListBundleCopyResponse.md)
  - [NumbersV2SupportingDocument](docs/NumbersV2SupportingDocument.md)
  - [NumbersV2EndUser](docs/NumbersV2EndUser.md)
+ - [ShortCodeApplication](docs/ShortCodeApplication.md)
 
 
 ## Documentation For Authorization

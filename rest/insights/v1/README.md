@@ -55,6 +55,7 @@ Class | Method | HTTP request | Description
  - [InsightsV1MetadataResponseCubes](docs/InsightsV1MetadataResponseCubes.md)
  - [InsightsV1QueryRequestQuery](docs/InsightsV1QueryRequestQuery.md)
  - [InsightsV1MetadataResponseCubesMeasures](docs/InsightsV1MetadataResponseCubesMeasures.md)
+ - [InsightsV1QueryResponseMetaPagination](docs/InsightsV1QueryResponseMetaPagination.md)
  - [InsightsV1VideoRoomSummary](docs/InsightsV1VideoRoomSummary.md)
  - [InsightsV1AccountSettings](docs/InsightsV1AccountSettings.md)
  - [InsightsV1QueryRequestQueryOrderBy](docs/InsightsV1QueryRequestQueryOrderBy.md)

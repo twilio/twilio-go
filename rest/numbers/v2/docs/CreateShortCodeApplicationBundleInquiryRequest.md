@@ -1,11 +1,10 @@
-# InsightsV1QueryRequestQueryPagination
+# CreateShortCodeApplicationBundleInquiryRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PageSize** | **int** |  |[optional] 
-**PageToken** | Pointer to **string** |  |
+**ApplicationSid** | **string** | The unique identifier of the Short Code Application. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

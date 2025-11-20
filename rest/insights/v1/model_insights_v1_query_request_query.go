@@ -16,7 +16,6 @@ package openapi
 
 // InsightsV1QueryRequestQuery struct for InsightsV1QueryRequestQuery
 type InsightsV1QueryRequestQuery struct {
-	Cube       string   `json:"cube"`
 	Measures   []string `json:"measures,omitempty"`
 	Dimensions []string `json:"dimensions,omitempty"`
 	// Nested filter conditions. Always use `op` and `expressions`.
