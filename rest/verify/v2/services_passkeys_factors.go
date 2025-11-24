@@ -32,7 +32,7 @@ func (params *CreateNewFactorPasskeyParams) SetCreateNewPasskeysFactorRequest(Cr
 }
 
 // Create a new Passkeys Factor for the Entity
-func (c *ApiService) CreateNewFactorPasskey(ServiceSid string, params *CreateNewFactorPasskeyParams) (*CreateNewFactorPasskeyResponse, error) {
+func (c *ApiService) CreateNewFactorPasskey(ServiceSid string, params *CreateNewFactorPasskeyParams) (*CreateNewFactorPasskey201Response, error) {
 	path := "/v2/Services/{ServiceSid}/Passkeys/Factors"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +57,7 @@ func (c *ApiService) CreateNewFactorPasskey(ServiceSid string, params *CreateNew
 
 	defer resp.Body.Close()
 
-	ps := &CreateNewFactorPasskeyResponse{}
+	ps := &CreateNewFactorPasskey201Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

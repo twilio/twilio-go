@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateNewFactorPasskey
 
-> CreateNewFactorPasskeyResponse CreateNewFactorPasskey(ctx, ServiceSidoptional)
+> CreateNewFactorPasskey201Response CreateNewFactorPasskey(ctx, ServiceSidoptional)
 
 Create a new Passkeys Factor for the Entity
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**CreateNewFactorPasskeyResponse**](CreateNewFactorPasskey201Response.md)
+[**CreateNewFactorPasskey201Response**](CreateNewFactorPasskey201Response.md)
 
 ### Authorization
 

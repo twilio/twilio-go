@@ -31,6 +31,9 @@ All URIs are relative to *https://iam.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountOAuthAppsApi* | [**CreateOauthAppAccount**](docs/AccountOAuthAppsApi.md#createoauthappaccount) | **Post** /v1/Account/OAuthApps | Creates an oauth app for the given AccountSid
+*AccountOAuthAppsApi* | [**DeleteOauthAppAccount**](docs/AccountOAuthAppsApi.md#deleteoauthappaccount) | **Delete** /v1/Account/OAuthApps/{sid} | Deletes an oauth app for the given AccountSid
+*AccountOAuthAppsApi* | [**UpdateOauthAppAccount**](docs/AccountOAuthAppsApi.md#updateoauthappaccount) | **Put** /v1/Account/OAuthApps/{sid} | Updates an existing OAuth app for the given OauthAppSid
 *KeysApi* | [**CreateNewKey**](docs/KeysApi.md#createnewkey) | **Post** /v1/Keys | 
 *KeysApi* | [**DeleteKey**](docs/KeysApi.md#deletekey) | **Delete** /v1/Keys/{Sid} | 
 *KeysApi* | [**FetchKey**](docs/KeysApi.md#fetchkey) | **Get** /v1/Keys/{Sid} | 
@@ -75,6 +78,7 @@ Class | Method | HTTP request | Description
  - [IamV1MfaTotpQrCodeUrlResponse](docs/IamV1MfaTotpQrCodeUrlResponse.md)
  - [IamV1InvitedUserRoleAssignments](docs/IamV1InvitedUserRoleAssignments.md)
  - [IamV1CreationStatusResponse](docs/IamV1CreationStatusResponse.md)
+ - [UpdateOauthAppAccount400Response](docs/UpdateOauthAppAccount400Response.md)
  - [IamV1ExternalUser](docs/IamV1ExternalUser.md)
  - [IamV1Key](docs/IamV1Key.md)
  - [IamV1Operation](docs/IamV1Operation.md)

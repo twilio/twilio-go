@@ -26,6 +26,8 @@ type CreateComplianceTollfreeInquiryParams struct {
 	TollfreePhoneNumber *string `json:"TollfreePhoneNumber,omitempty"`
 	// The email address to receive the notification about the verification result.
 	NotificationEmail *string `json:"NotificationEmail,omitempty"`
+	// The Customer Profile Sid associated with the Account.
+	CustomerProfileSid *string `json:"CustomerProfileSid,omitempty"`
 	// The name of the business or organization using the Tollfree number.
 	BusinessName *string `json:"BusinessName,omitempty"`
 	// The website of the business or organization using the Tollfree number.
@@ -76,6 +78,10 @@ func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(Toll
 }
 func (params *CreateComplianceTollfreeInquiryParams) SetNotificationEmail(NotificationEmail string) *CreateComplianceTollfreeInquiryParams {
 	params.NotificationEmail = &NotificationEmail
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetCustomerProfileSid(CustomerProfileSid string) *CreateComplianceTollfreeInquiryParams {
+	params.CustomerProfileSid = &CustomerProfileSid
 	return params
 }
 func (params *CreateComplianceTollfreeInquiryParams) SetBusinessName(BusinessName string) *CreateComplianceTollfreeInquiryParams {
@@ -177,6 +183,9 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	}
 	if params != nil && params.NotificationEmail != nil {
 		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.CustomerProfileSid != nil {
+		data.Set("CustomerProfileSid", *params.CustomerProfileSid)
 	}
 	if params != nil && params.BusinessName != nil {
 		data.Set("BusinessName", *params.BusinessName)

@@ -32,7 +32,7 @@ func (params *CreateChallengePasskeysParams) SetCreatePasskeysChallengeRequest(C
 }
 
 // Create a Passkeys Challenge
-func (c *ApiService) CreateChallengePasskeys(ServiceSid string, params *CreateChallengePasskeysParams) (*CreateChallengePasskeysResponse, error) {
+func (c *ApiService) CreateChallengePasskeys(ServiceSid string, params *CreateChallengePasskeysParams) (*CreateChallengePasskeys201Response, error) {
 	path := "/v2/Services/{ServiceSid}/Passkeys/Challenges"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -57,7 +57,7 @@ func (c *ApiService) CreateChallengePasskeys(ServiceSid string, params *CreateCh
 
 	defer resp.Body.Close()
 
-	ps := &CreateChallengePasskeysResponse{}
+	ps := &CreateChallengePasskeys201Response{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

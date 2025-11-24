@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateChallengePasskeys
 
-> CreateChallengePasskeysResponse CreateChallengePasskeys(ctx, ServiceSidoptional)
+> CreateChallengePasskeys201Response CreateChallengePasskeys(ctx, ServiceSidoptional)
 
 Create a Passkeys Challenge
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**CreateChallengePasskeysResponse**](CreateChallengePasskeys201Response.md)
+[**CreateChallengePasskeys201Response**](CreateChallengePasskeys201Response.md)
 
 ### Authorization
 

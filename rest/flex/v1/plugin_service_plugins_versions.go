@@ -70,7 +70,6 @@ func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -128,7 +127,6 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
