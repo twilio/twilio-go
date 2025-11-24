@@ -116,7 +116,7 @@ func (c *ApiService) FetchChannelsSender(Sid string) (*MessagingV2ChannelsSender
 type ListChannelsSenderParams struct {
 	//
 	Channel *string `json:"Channel,omitempty"`
-	// The number of items to return per page.
+	// The number of items to return per page. For WhatsApp, the default is `20`.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

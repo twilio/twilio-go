@@ -31,6 +31,9 @@ All URIs are relative to *https://iam.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountOAuthAppsApi* | [**CreateOauthAppAccount**](docs/AccountOAuthAppsApi.md#createoauthappaccount) | **Post** /v1/Account/OAuthApps | Creates an oauth app for the given AccountSid
+*AccountOAuthAppsApi* | [**DeleteOauthAppAccount**](docs/AccountOAuthAppsApi.md#deleteoauthappaccount) | **Delete** /v1/Account/OAuthApps/{sid} | Deletes an oauth app for the given AccountSid
+*AccountOAuthAppsApi* | [**UpdateOauthAppAccount**](docs/AccountOAuthAppsApi.md#updateoauthappaccount) | **Put** /v1/Account/OAuthApps/{sid} | Updates an existing OAuth app for the given OauthAppSid
 *KeysApi* | [**CreateNewKey**](docs/KeysApi.md#createnewkey) | **Post** /v1/Keys | 
 *KeysApi* | [**DeleteKey**](docs/KeysApi.md#deletekey) | **Delete** /v1/Keys/{Sid} | 
 *KeysApi* | [**FetchKey**](docs/KeysApi.md#fetchkey) | **Get** /v1/Keys/{Sid} | 
@@ -49,6 +52,7 @@ Class | Method | HTTP request | Description
  - [IamV1VendorOauthAppCreateUpdateResponse](docs/IamV1VendorOauthAppCreateUpdateResponse.md)
  - [IamV1ChallengeMethod](docs/IamV1ChallengeMethod.md)
  - [IamV1CreateDomainResponse](docs/IamV1CreateDomainResponse.md)
+ - [UpdateOauthAppAccountResponse](docs/UpdateOauthAppAccountResponse.md)
  - [IamV1EmailChangeInitiateRequest](docs/IamV1EmailChangeInitiateRequest.md)
  - [IamV1Domain](docs/IamV1Domain.md)
  - [IamV1OperationError](docs/IamV1OperationError.md)
