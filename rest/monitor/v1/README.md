@@ -39,12 +39,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [FetchAlert429Response](docs/FetchAlert429Response.md)
  - [ListAlertResponse](docs/ListAlertResponse.md)
  - [MonitorV1AlertInstance](docs/MonitorV1AlertInstance.md)
  - [MonitorV1Event](docs/MonitorV1Event.md)
  - [MonitorV1Alert](docs/MonitorV1Alert.md)
  - [ListEventResponse](docs/ListEventResponse.md)
+ - [FetchAlertResponse](docs/FetchAlertResponse.md)
  - [ListAlertResponseMeta](docs/ListAlertResponseMeta.md)
 
 

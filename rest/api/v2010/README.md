@@ -310,7 +310,6 @@ Class | Method | HTTP request | Description
  - [ApiV2010DependentPhoneNumber](docs/ApiV2010DependentPhoneNumber.md)
  - [ApiV2010IncomingPhoneNumberAssignedAddOn](docs/ApiV2010IncomingPhoneNumberAssignedAddOn.md)
  - [ApiV2010UsageRecordDaily](docs/ApiV2010UsageRecordDaily.md)
- - [ListCallNotification429Response](docs/ListCallNotification429Response.md)
  - [ApiV2010Application](docs/ApiV2010Application.md)
  - [ListIncomingPhoneNumberTollFreeResponse](docs/ListIncomingPhoneNumberTollFreeResponse.md)
  - [ListSipAuthCallsCredentialListMappingResponse](docs/ListSipAuthCallsCredentialListMappingResponse.md)
