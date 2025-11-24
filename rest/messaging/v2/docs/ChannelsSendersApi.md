@@ -155,7 +155,7 @@ Other parameters are passed through a pointer to a ListChannelsSenderParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **Channel** | **string** | 
-**PageSize** | **int** | The number of items to return per page.
+**PageSize** | **int** | The number of items to return per page. For WhatsApp, the default is `20`.
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

@@ -29,6 +29,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **TollfreePhoneNumber** | **string** | The Tollfree phone number to be verified
 **NotificationEmail** | **string** | The email address to receive the notification about the verification result.
+**CustomerProfileSid** | **string** | The Customer Profile Sid associated with the Account.
 **BusinessName** | **string** | The name of the business or organization using the Tollfree number.
 **BusinessWebsite** | **string** | The website of the business or organization using the Tollfree number.
 **UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many are applicable..
