@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -25,13 +26,13 @@ func ReadLimits(pageSize *int, limit *int) int {
 	}
 }
 
-func GetNext(baseUrl string, response interface{}, getNextPage func(nextPageUri string) (interface{}, error)) (interface{}, error) {
+func GetNextWithContext(ctx context.Context, baseUrl string, response interface{}, getNextPage func(ctx context.Context, nextPageUri string) (interface{}, error)) (interface{}, error) {
 	nextPageUrl, err := getNextPageUrl(baseUrl, response)
 	if err != nil {
 		return nil, err
 	}
 
-	return getNextPage(nextPageUrl)
+	return getNextPage(ctx, nextPageUrl)
 }
 
 func toMap(s interface{}) (map[string]interface{}, error) {
