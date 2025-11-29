@@ -527,7 +527,7 @@ type VoiceW struct {
 }
 
 func (m VoiceW) GetName() string {
-	return "W"
+	return "w"
 }
 
 func (m VoiceW) GetText() string {
@@ -557,7 +557,7 @@ type VoiceSub struct {
 }
 
 func (m VoiceSub) GetName() string {
-	return "Sub"
+	return "sub"
 }
 
 func (m VoiceSub) GetText() string {
@@ -589,7 +589,7 @@ type VoiceSayAs struct {
 }
 
 func (m VoiceSayAs) GetName() string {
-	return "SayAs"
+	return "say-as"
 }
 
 func (m VoiceSayAs) GetText() string {
@@ -624,7 +624,7 @@ type VoiceProsody struct {
 }
 
 func (m VoiceProsody) GetName() string {
-	return "Prosody"
+	return "prosody"
 }
 
 func (m VoiceProsody) GetText() string {
@@ -654,7 +654,7 @@ type VoiceS struct {
 }
 
 func (m VoiceS) GetName() string {
-	return "S"
+	return "s"
 }
 
 func (m VoiceS) GetText() string {
@@ -683,7 +683,7 @@ type VoicePhoneme struct {
 }
 
 func (m VoicePhoneme) GetName() string {
-	return "Phoneme"
+	return "phoneme"
 }
 
 func (m VoicePhoneme) GetText() string {
@@ -714,7 +714,7 @@ type VoiceLang struct {
 }
 
 func (m VoiceLang) GetName() string {
-	return "Lang"
+	return "lang"
 }
 
 func (m VoiceLang) GetText() string {
@@ -742,7 +742,7 @@ type VoiceP struct {
 }
 
 func (m VoiceP) GetName() string {
-	return "P"
+	return "p"
 }
 
 func (m VoiceP) GetText() string {
@@ -769,7 +769,7 @@ type VoiceEmphasis struct {
 }
 
 func (m VoiceEmphasis) GetName() string {
-	return "Emphasis"
+	return "emphasis"
 }
 
 func (m VoiceEmphasis) GetText() string {
@@ -799,7 +799,7 @@ type VoiceBreak struct {
 }
 
 func (m VoiceBreak) GetName() string {
-	return "Break"
+	return "break"
 }
 
 func (m VoiceBreak) GetText() string {
