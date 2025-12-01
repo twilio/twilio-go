@@ -128,18 +128,27 @@ func TestRequestHandler_SetEdgeFromRegion(t *testing.T) {
 	// Test case: Region is in the map
 	requestHandler.Region = "au1"
 	requestHandler.Edge = ""
-	requestHandler.Get(server.URL, nil, nil)
+	_, err := requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
 	assert.Equal(t, "sydney", requestHandler.Edge)
 
 	// Test case: Region is not in the map
 	requestHandler.Region = "unknown"
 	requestHandler.Edge = ""
-	requestHandler.Get(server.URL, nil, nil)
+	_, err = requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
 	assert.Equal(t, "", requestHandler.Edge)
 
 	// Test case: Edge is already set
 	requestHandler.Region = "au1"
 	requestHandler.Edge = "custom-edge"
-	requestHandler.Get(server.URL, nil, nil)
+	_, err = requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
 	assert.Equal(t, "custom-edge", requestHandler.Edge)
 }
