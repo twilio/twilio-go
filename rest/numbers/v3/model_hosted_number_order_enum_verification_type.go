@@ -19,6 +19,6 @@ type HostedNumberOrderEnumVerificationType string
 
 // List of hostedNumberOrderEnumVerificationType
 const (
-	HOSTEDNUMBERORDERENUMVERIFICATIONTYPE_CALL HostedNumberOrderEnumVerificationType = "phone-call"
-	HOSTEDNUMBERORDERENUMVERIFICATIONTYPE_BILL HostedNumberOrderEnumVerificationType = "phone-bill"
+	HOSTEDNUMBERORDERENUMVERIFICATIONTYPE_PHONE_CALL HostedNumberOrderEnumVerificationType = "phone-call"
+	HOSTEDNUMBERORDERENUMVERIFICATIONTYPE_PHONE_BILL HostedNumberOrderEnumVerificationType = "phone-bill"
 )

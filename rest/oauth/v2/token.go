@@ -21,6 +21,8 @@ import (
 
 // Optional parameters for the method 'CreateOauth2Token'
 type CreateOauth2TokenParams struct {
+	// Optional Account SID to perform on behalf of requests.
+	AccountSid *string `json:"account_sid,omitempty"`
 	// Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
 	GrantType *string `json:"grant_type,omitempty"`
 	// A 34 character string that uniquely identifies this OAuth App.
@@ -39,6 +41,10 @@ type CreateOauth2TokenParams struct {
 	Scope *string `json:"scope,omitempty"`
 }
 
+func (params *CreateOauth2TokenParams) SetAccountSid(AccountSid string) *CreateOauth2TokenParams {
+	params.AccountSid = &AccountSid
+	return params
+}
 func (params *CreateOauth2TokenParams) SetGrantType(GrantType string) *CreateOauth2TokenParams {
 	params.GrantType = &GrantType
 	return params
@@ -80,6 +86,9 @@ func (c *ApiService) CreateOauth2Token(params *CreateOauth2TokenParams) (*V2Oaut
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("account_sid", *params.AccountSid)
+	}
 	if params != nil && params.GrantType != nil {
 		data.Set("grant_type", *params.GrantType)
 	}

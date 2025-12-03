@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  |
 **NextPageId** | **string** |  |[optional] 
-**Title** | **string** |  |[optional] 
+**Title** | **string** |  |
 **Subtitle** | **string** |  |[optional] 
 **Layout** | [**[]FlowsPageComponent**](FlowsPageComponent.md) |  |
 

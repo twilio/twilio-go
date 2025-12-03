@@ -16,6 +16,6 @@ package openapi
 
 // FlowsPageComponent struct for FlowsPageComponent
 type FlowsPageComponent struct {
-	Label string `json:"label"`
+	Label string `json:"label,omitempty"`
 	Type  string `json:"type"`
 }

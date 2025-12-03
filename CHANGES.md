@@ -1,5 +1,21 @@
 twilio-go changelog
 ====================
+[2025-12-03] Version 1.28.8
+---------------------------
+**Library - Chore**
+- [PR #308](https://github.com/twilio/twilio-go/pull/308): region API domain processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add `twiml_session` resource for calls
+- Add `twiml_session` resource for calls
+
+**Monitor**
+- Update default output properties
+
+**Trusthub**
+- Added customer_profile_sid in toll-free initialize api payload.
+
+
 [2025-11-20] Version 1.28.7
 ---------------------------
 **Memory**
