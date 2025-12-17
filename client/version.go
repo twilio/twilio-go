@@ -2,4 +2,4 @@
 package client
 
 // LibraryVersion specifies the current version of twilio-go.
-const LibraryVersion = "1.28.8"
+const LibraryVersion = "1.29.0"
