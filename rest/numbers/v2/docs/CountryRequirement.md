@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **DomesticDocumentTypeMachineNames** | **[]string** | List of document type machine names for Domestic traffic reach |[optional] 
 **InternationalDocumentTypeMachineNames** | **[]string** | List of document type machine names for International traffic reach |[optional] 
 **SenderIdRegistrationRules** | Pointer to **string** | Sender ID string rules for the country |
+**UsoEnabled** | Pointer to **bool** | Whether USO (Unified Sender Onboarding) is enabled for this country |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

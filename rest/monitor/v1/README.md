@@ -44,7 +44,6 @@ Class | Method | HTTP request | Description
  - [MonitorV1Event](docs/MonitorV1Event.md)
  - [MonitorV1Alert](docs/MonitorV1Alert.md)
  - [ListEventResponse](docs/ListEventResponse.md)
- - [FetchAlertResponse](docs/FetchAlertResponse.md)
  - [ListAlertResponseMeta](docs/ListAlertResponseMeta.md)
 
 

@@ -31,8 +31,8 @@ Name | Type | Description
 **Size** | **int** | Number of items per page
 **PortInRequestSid** | **string** | Filter by Port in request SID, supports multiple values separated by comma
 **PortInRequestStatus** | **string** | Filter by Port In request status
-**CreatedBefore** | **time.Time** | Find all created before a certain date
-**CreatedAfter** | **time.Time** | Find all created after a certain date
+**CreatedBefore** | **string** | Find all created before a certain date
+**CreatedAfter** | **string** | Find all created after a certain date
 **Limit** | **int** | Max number of records to return.
 **PageSize** | **int** | Max number of records to return in a page
 

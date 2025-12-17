@@ -42,4 +42,6 @@ type CountryRequirement struct {
 	InternationalDocumentTypeMachineNames []string `json:"international_document_type_machine_names,omitempty"`
 	// Sender ID string rules for the country
 	SenderIdRegistrationRules *string `json:"sender_id_registration_rules,omitempty"`
+	// Whether USO (Unified Sender Onboarding) is enabled for this country
+	UsoEnabled *bool `json:"uso_enabled,omitempty"`
 }

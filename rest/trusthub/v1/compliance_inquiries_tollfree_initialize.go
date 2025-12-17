@@ -70,6 +70,30 @@ type CreateComplianceTollfreeInquiryParams struct {
 	ThemeSetId *string `json:"ThemeSetId,omitempty"`
 	// Skip the messaging use case screen of the inquiry form.
 	SkipMessagingUseCase *bool `json:"SkipMessagingUseCase,omitempty"`
+	// The Business Registration Number of the business or organization.
+	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
+	// The Business Registration Authority of the business or organization.
+	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
+	// The Business Registration Country of the business or organization.
+	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
+	//
+	BusinessType *string `json:"BusinessType,omitempty"`
+	// Trade name, sub entity, or downstream business name of business being submitted for verification.
+	DoingBusinessAs *string `json:"DoingBusinessAs,omitempty"`
+	// The confirmation message sent to users when they opt in to receive messages.
+	OptInConfirmationMessage *string `json:"OptInConfirmationMessage,omitempty"`
+	// A sample help message provided to users.
+	HelpMessageSample *string `json:"HelpMessageSample,omitempty"`
+	// The URL to the privacy policy for the business or organization.
+	PrivacyPolicyUrl *string `json:"PrivacyPolicyUrl,omitempty"`
+	// The URL to the terms and conditions for the business or organization.
+	TermsAndConditionsUrl *string `json:"TermsAndConditionsUrl,omitempty"`
+	// Indicates if the content is age gated.
+	AgeGatedContent *bool `json:"AgeGatedContent,omitempty"`
+	// A legally recognized business registration number.
+	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
+	// List of keywords that users can text in to opt in to receive messages.
+	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
 }
 
 func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(TollfreePhoneNumber string) *CreateComplianceTollfreeInquiryParams {
@@ -168,6 +192,54 @@ func (params *CreateComplianceTollfreeInquiryParams) SetSkipMessagingUseCase(Ski
 	params.SkipMessagingUseCase = &SkipMessagingUseCase
 	return params
 }
+func (params *CreateComplianceTollfreeInquiryParams) SetBusinessRegistrationNumber(BusinessRegistrationNumber string) *CreateComplianceTollfreeInquiryParams {
+	params.BusinessRegistrationNumber = &BusinessRegistrationNumber
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetBusinessRegistrationAuthority(BusinessRegistrationAuthority string) *CreateComplianceTollfreeInquiryParams {
+	params.BusinessRegistrationAuthority = &BusinessRegistrationAuthority
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetBusinessRegistrationCountry(BusinessRegistrationCountry string) *CreateComplianceTollfreeInquiryParams {
+	params.BusinessRegistrationCountry = &BusinessRegistrationCountry
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetBusinessType(BusinessType string) *CreateComplianceTollfreeInquiryParams {
+	params.BusinessType = &BusinessType
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetDoingBusinessAs(DoingBusinessAs string) *CreateComplianceTollfreeInquiryParams {
+	params.DoingBusinessAs = &DoingBusinessAs
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetOptInConfirmationMessage(OptInConfirmationMessage string) *CreateComplianceTollfreeInquiryParams {
+	params.OptInConfirmationMessage = &OptInConfirmationMessage
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetHelpMessageSample(HelpMessageSample string) *CreateComplianceTollfreeInquiryParams {
+	params.HelpMessageSample = &HelpMessageSample
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetPrivacyPolicyUrl(PrivacyPolicyUrl string) *CreateComplianceTollfreeInquiryParams {
+	params.PrivacyPolicyUrl = &PrivacyPolicyUrl
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetTermsAndConditionsUrl(TermsAndConditionsUrl string) *CreateComplianceTollfreeInquiryParams {
+	params.TermsAndConditionsUrl = &TermsAndConditionsUrl
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetAgeGatedContent(AgeGatedContent bool) *CreateComplianceTollfreeInquiryParams {
+	params.AgeGatedContent = &AgeGatedContent
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetExternalReferenceId(ExternalReferenceId string) *CreateComplianceTollfreeInquiryParams {
+	params.ExternalReferenceId = &ExternalReferenceId
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetOptInKeywords(OptInKeywords []string) *CreateComplianceTollfreeInquiryParams {
+	params.OptInKeywords = &OptInKeywords
+	return params
+}
 
 // Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
@@ -253,6 +325,44 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	}
 	if params != nil && params.SkipMessagingUseCase != nil {
 		data.Set("SkipMessagingUseCase", fmt.Sprint(*params.SkipMessagingUseCase))
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -37,17 +37,18 @@ Class | Method | HTTP request | Description
 *ChannelsSendersApi* | [**ListChannelsSender**](docs/ChannelsSendersApi.md#listchannelssender) | **Get** /v2/Channels/Senders | Retrieve a list of Senders
 *ChannelsSendersApi* | [**UpdateChannelsSender**](docs/ChannelsSendersApi.md#updatechannelssender) | **Post** /v2/Channels/Senders/{Sid} | Update a sender&#39;s information, including &#x60;profile&#x60;, &#x60;webhook&#x60;, and &#x60;configuration&#x60;.
 *IndicatorsTypingApi* | [**CreateTypingIndicator**](docs/IndicatorsTypingApi.md#createtypingindicator) | **Post** /v2/Indicators/Typing.json | Send a typing indicator
+*LinkShorteningDomainsCertificateApi* | [**FetchDomainCertV4**](docs/LinkShorteningDomainsCertificateApi.md#fetchdomaincertv4) | **Get** /v2/LinkShortening/Domains/{DomainSid}/Certificate | 
 
 
 ## Documentation For Models
 
  - [ListChannelsSenderResponse](docs/ListChannelsSenderResponse.md)
  - [MessagingV2Configuration](docs/MessagingV2Configuration.md)
- - [MessagingV2Items](docs/MessagingV2Items.md)
  - [MessagingV2RcsComplianceCountryResponse](docs/MessagingV2RcsComplianceCountryResponse.md)
+ - [MessagingV2Items](docs/MessagingV2Items.md)
+ - [MessagingV2Webhook](docs/MessagingV2Webhook.md)
  - [MessagingV2ChannelsSenderResponse](docs/MessagingV2ChannelsSenderResponse.md)
  - [MessagingV2RcsCarrierStatus](docs/MessagingV2RcsCarrierStatus.md)
- - [MessagingV2Webhook](docs/MessagingV2Webhook.md)
  - [MessagingV2Create](docs/MessagingV2Create.md)
  - [MessagingV2RcsComplianceResponse](docs/MessagingV2RcsComplianceResponse.md)
  - [MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers](docs/MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.md)
@@ -56,6 +57,7 @@ Class | Method | HTTP request | Description
  - [MessagingV2ChannelsSenderProfileGenericResponseEmails](docs/MessagingV2ChannelsSenderProfileGenericResponseEmails.md)
  - [CreateTypingIndicatorResponse](docs/CreateTypingIndicatorResponse.md)
  - [MessagingV2RcsCountryStatus](docs/MessagingV2RcsCountryStatus.md)
+ - [MessagingV2DomainCertV4](docs/MessagingV2DomainCertV4.md)
  - [MessagingV2ProfileGenericResponse](docs/MessagingV2ProfileGenericResponse.md)
  - [ListChannelsSenderResponseMeta](docs/ListChannelsSenderResponseMeta.md)
  - [MessagingV2ChannelsSenderProfileGenericResponseWebsites](docs/MessagingV2ChannelsSenderProfileGenericResponseWebsites.md)

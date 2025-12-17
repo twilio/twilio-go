@@ -17,7 +17,7 @@ package openapi
 // InsightsV1MetadataResponseCubesMeasures struct for InsightsV1MetadataResponseCubesMeasures
 type InsightsV1MetadataResponseCubesMeasures struct {
 	Name        string `json:"name"`
-	Title       string `json:"title,omitempty"`
+	DisplayName string `json:"displayName,omitempty"`
 	Description string `json:"description,omitempty"`
 	Type        string `json:"type"`
 	Aggregation string `json:"aggregation,omitempty"`

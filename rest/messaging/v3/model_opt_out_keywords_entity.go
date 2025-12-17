@@ -17,9 +17,9 @@ package openapi
 // OptOutKeywordsEntity struct for OptOutKeywordsEntity
 type OptOutKeywordsEntity struct {
 	// Combination of KeywordType and Locale in format: {KeywordType}.{Locale}  Valid KeywordTypes: STOP, START, HELP Valid Locales: See LocaleEnum for full list  Examples: STOP.ENGLISH, START.SPANISH, HELP.FRENCH
-	KeywordType string `json:"keyword_type"`
+	KeywordType string `json:"keywordType"`
 	// The message type identifier (typically country codes or special identifiers)
-	MessageType string `json:"message_type"`
+	MessageType string `json:"messageType"`
 	// The keyword to add
 	Keyword string `json:"keyword"`
 }
