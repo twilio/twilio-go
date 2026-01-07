@@ -88,7 +88,7 @@ Class | Method | HTTP request | Description
 *TollfreeVerificationsApi* | [**DeleteTollfreeVerification**](docs/TollfreeVerificationsApi.md#deletetollfreeverification) | **Delete** /v1/Tollfree/Verifications/{Sid} | Delete a tollfree verification
 *TollfreeVerificationsApi* | [**FetchTollfreeVerification**](docs/TollfreeVerificationsApi.md#fetchtollfreeverification) | **Get** /v1/Tollfree/Verifications/{Sid} | Retrieve a tollfree verification
 *TollfreeVerificationsApi* | [**ListTollfreeVerification**](docs/TollfreeVerificationsApi.md#listtollfreeverification) | **Get** /v1/Tollfree/Verifications | List tollfree verifications
-*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | Create a tollfree verification
+*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | Edit a tollfree verification
 
 
 ## Documentation For Models

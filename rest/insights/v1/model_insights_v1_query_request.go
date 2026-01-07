@@ -16,7 +16,6 @@ package openapi
 
 // InsightsV1QueryRequest struct for InsightsV1QueryRequest
 type InsightsV1QueryRequest struct {
-	Namespace     string                      `json:"namespace"`
-	ClientQueryId string                      `json:"clientQueryId,omitempty"`
-	Query         InsightsV1QueryRequestQuery `json:"query"`
+	Namespace string                      `json:"namespace"`
+	Query     InsightsV1QueryRequestQuery `json:"query"`
 }

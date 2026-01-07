@@ -95,6 +95,10 @@ type CreateTollfreeVerificationParams struct {
 	AgeGatedContent *bool `json:"AgeGatedContent,omitempty"`
 	// List of keywords that users can text in to opt in to receive messages.
 	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
+	//
+	VettingProvider *string `json:"VettingProvider,omitempty"`
+	// The unique ID of the vetting
+	VettingId *string `json:"VettingId,omitempty"`
 }
 
 func (params *CreateTollfreeVerificationParams) SetBusinessName(BusinessName string) *CreateTollfreeVerificationParams {
@@ -237,6 +241,14 @@ func (params *CreateTollfreeVerificationParams) SetOptInKeywords(OptInKeywords [
 	params.OptInKeywords = &OptInKeywords
 	return params
 }
+func (params *CreateTollfreeVerificationParams) SetVettingProvider(VettingProvider string) *CreateTollfreeVerificationParams {
+	params.VettingProvider = &VettingProvider
+	return params
+}
+func (params *CreateTollfreeVerificationParams) SetVettingId(VettingId string) *CreateTollfreeVerificationParams {
+	params.VettingId = &VettingId
+	return params
+}
 
 // Create a tollfree verification
 func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
@@ -357,6 +369,12 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		for _, item := range *params.OptInKeywords {
 			data.Add("OptInKeywords", item)
 		}
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -672,6 +690,10 @@ type UpdateTollfreeVerificationParams struct {
 	AgeGatedContent *bool `json:"AgeGatedContent,omitempty"`
 	// List of keywords that users can text in to opt in to receive messages.
 	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
+	//
+	VettingProvider *string `json:"VettingProvider,omitempty"`
+	// The unique ID of the vetting
+	VettingId *string `json:"VettingId,omitempty"`
 }
 
 func (params *UpdateTollfreeVerificationParams) SetBusinessName(BusinessName string) *UpdateTollfreeVerificationParams {
@@ -806,8 +828,16 @@ func (params *UpdateTollfreeVerificationParams) SetOptInKeywords(OptInKeywords [
 	params.OptInKeywords = &OptInKeywords
 	return params
 }
+func (params *UpdateTollfreeVerificationParams) SetVettingProvider(VettingProvider string) *UpdateTollfreeVerificationParams {
+	params.VettingProvider = &VettingProvider
+	return params
+}
+func (params *UpdateTollfreeVerificationParams) SetVettingId(VettingId string) *UpdateTollfreeVerificationParams {
+	params.VettingId = &VettingId
+	return params
+}
 
-// Create a tollfree verification
+// Edit a tollfree verification
 func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfreeVerificationParams) (*MessagingV1TollfreeVerification, error) {
 	path := "/v1/Tollfree/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -921,6 +951,12 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		for _, item := range *params.OptInKeywords {
 			data.Add("OptInKeywords", item)
 		}
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

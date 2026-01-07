@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  |
-**DisplayName** | **string** |  |[optional] 
 **Description** | **string** |  |[optional] 
 **Type** | **string** |  |
 **Aggregation** | **string** |  |[optional] 

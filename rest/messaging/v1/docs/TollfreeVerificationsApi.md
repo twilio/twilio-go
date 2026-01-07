@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**DeleteTollfreeVerification**](TollfreeVerificationsApi.md#DeleteTollfreeVerification) | **Delete** /v1/Tollfree/Verifications/{Sid} | Delete a tollfree verification
 [**FetchTollfreeVerification**](TollfreeVerificationsApi.md#FetchTollfreeVerification) | **Get** /v1/Tollfree/Verifications/{Sid} | Retrieve a tollfree verification
 [**ListTollfreeVerification**](TollfreeVerificationsApi.md#ListTollfreeVerification) | **Get** /v1/Tollfree/Verifications | List tollfree verifications
-[**UpdateTollfreeVerification**](TollfreeVerificationsApi.md#UpdateTollfreeVerification) | **Post** /v1/Tollfree/Verifications/{Sid} | Create a tollfree verification
+[**UpdateTollfreeVerification**](TollfreeVerificationsApi.md#UpdateTollfreeVerification) | **Post** /v1/Tollfree/Verifications/{Sid} | Edit a tollfree verification
 
 
 
@@ -66,6 +66,8 @@ Name | Type | Description
 **TermsAndConditionsUrl** | **string** | The URL to the terms and conditions for the business or organization.
 **AgeGatedContent** | **bool** | Indicates if the content is age gated.
 **OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
+**VettingProvider** | [**string**](string.md) | 
+**VettingId** | **string** | The unique ID of the vetting
 
 ### Return type
 
@@ -218,9 +220,9 @@ Name | Type | Description
 
 > MessagingV1TollfreeVerification UpdateTollfreeVerification(ctx, Sidoptional)
 
-Create a tollfree verification
+Edit a tollfree verification
 
-Create a tollfree verification
+Edit a tollfree verification
 
 ### Path Parameters
 
@@ -270,6 +272,8 @@ Name | Type | Description
 **TermsAndConditionsUrl** | **string** | The URL to the terms and conditions for the business or organization.
 **AgeGatedContent** | **bool** | Indicates if the content is age gated.
 **OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
+**VettingProvider** | [**string**](string.md) | 
+**VettingId** | **string** | The unique ID of the vetting
 
 ### Return type
 

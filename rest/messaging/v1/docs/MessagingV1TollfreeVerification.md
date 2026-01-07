@@ -54,6 +54,9 @@ Name | Type | Description | Notes
 **RejectionReasons** | Pointer to **[]interface{}** | A list of rejection reasons and codes describing why a Tollfree Verification has been rejected. |
 **ResourceLinks** | Pointer to **interface{}** | The URLs of the documents associated with the Tollfree Verification resource. |
 **ExternalReferenceId** | Pointer to **string** | An optional external reference ID supplied by customer and echoed back on status retrieval. |
+**VettingId** | Pointer to **string** |  |
+**VettingProvider** | Pointer to [**string**](TollfreeVerificationEnumVettingProvider.md) |  |
+**VettingIdExpiration** | Pointer to [**time.Time**](time.Time.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

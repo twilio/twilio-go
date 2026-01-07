@@ -123,6 +123,8 @@ type CreateParticipantParams struct {
 	Trim *string `json:"Trim,omitempty"`
 	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 	CallToken *string `json:"CallToken,omitempty"`
+	// The URL that we should use to deliver `push call notification`.
+	ClientNotificationUrl *string `json:"ClientNotificationUrl,omitempty"`
 	// The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
 	CallerDisplayName *string `json:"CallerDisplayName,omitempty"`
 }
@@ -323,6 +325,10 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 	params.CallToken = &CallToken
 	return params
 }
+func (params *CreateParticipantParams) SetClientNotificationUrl(ClientNotificationUrl string) *CreateParticipantParams {
+	params.ClientNotificationUrl = &ClientNotificationUrl
+	return params
+}
 func (params *CreateParticipantParams) SetCallerDisplayName(CallerDisplayName string) *CreateParticipantParams {
 	params.CallerDisplayName = &CallerDisplayName
 	return params
@@ -494,6 +500,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.CallToken != nil {
 		data.Set("CallToken", *params.CallToken)
+	}
+	if params != nil && params.ClientNotificationUrl != nil {
+		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
 	}
 	if params != nil && params.CallerDisplayName != nil {
 		data.Set("CallerDisplayName", *params.CallerDisplayName)

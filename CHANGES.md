@@ -1,5 +1,12 @@
 twilio-go changelog
 ====================
+[2026-01-07] Version 1.29.1
+---------------------------
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
 [2025-12-17] Version 1.29.0
 ---------------------------
 **Trunking**
