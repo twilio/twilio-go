@@ -26,9 +26,8 @@ type TrunkingV1PhoneNumber struct {
 	// The API version used to start a new TwiML session.
 	ApiVersion *string `json:"api_version,omitempty"`
 	// Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-	Beta *bool `json:"beta,omitempty"`
-	// The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
-	Capabilities *map[string]interface{} `json:"capabilities,omitempty"`
+	Beta         *bool                                   `json:"beta,omitempty"`
+	Capabilities *TrunkingV1TrunkPhoneNumberCapabilities `json:"capabilities,omitempty"`
 	// The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.

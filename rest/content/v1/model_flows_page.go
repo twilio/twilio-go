@@ -18,7 +18,7 @@ package openapi
 type FlowsPage struct {
 	Id         string               `json:"id"`
 	NextPageId string               `json:"next_page_id,omitempty"`
-	Title      string               `json:"title,omitempty"`
+	Title      string               `json:"title"`
 	Subtitle   string               `json:"subtitle,omitempty"`
 	Layout     []FlowsPageComponent `json:"layout"`
 }

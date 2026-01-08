@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **AddressRequirements** | Pointer to [**string**](PhoneNumberEnumAddressRequirement.md) |  |
 **ApiVersion** | Pointer to **string** | The API version used to start a new TwiML session. |
 **Beta** | Pointer to **bool** | Whether the phone number is new to the Twilio platform. Can be: `true` or `false`. |
-**Capabilities** | Pointer to **map[string]interface{}** | The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`. |
+**Capabilities** | Pointer to [**TrunkingV1TrunkPhoneNumberCapabilities**](TrunkingV1TrunkPhoneNumberCapabilities.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource. |

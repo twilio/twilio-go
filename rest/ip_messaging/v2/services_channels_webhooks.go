@@ -173,7 +173,7 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 
 // Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 5, and the maximum is 5.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

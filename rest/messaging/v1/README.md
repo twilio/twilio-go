@@ -48,6 +48,7 @@ Class | Method | HTTP request | Description
 *LinkShorteningDomainsMessagingServicesApi* | [**CreateLinkshorteningMessagingService**](docs/LinkShorteningDomainsMessagingServicesApi.md#createlinkshorteningmessagingservice) | **Post** /v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid} | 
 *LinkShorteningDomainsMessagingServicesApi* | [**DeleteLinkshorteningMessagingService**](docs/LinkShorteningDomainsMessagingServicesApi.md#deletelinkshorteningmessagingservice) | **Delete** /v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid} | 
 *LinkShorteningDomainsRequestManagedCertApi* | [**UpdateRequestManagedCert**](docs/LinkShorteningDomainsRequestManagedCertApi.md#updaterequestmanagedcert) | **Post** /v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert | 
+*LinkShorteningDomainsValidateDnsApi* | [**FetchDomainDnsValidation**](docs/LinkShorteningDomainsValidateDnsApi.md#fetchdomaindnsvalidation) | **Get** /v1/LinkShortening/Domains/{DomainSid}/ValidateDns | 
 *LinkShorteningMessagingServiceDomainConfigApi* | [**FetchDomainConfigMessagingService**](docs/LinkShorteningMessagingServiceDomainConfigApi.md#fetchdomainconfigmessagingservice) | **Get** /v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig | 
 *LinkShorteningMessagingServicesDomainApi* | [**FetchLinkshorteningMessagingServiceDomainAssociation**](docs/LinkShorteningMessagingServicesDomainApi.md#fetchlinkshorteningmessagingservicedomainassociation) | **Get** /v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain | 
 *ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
@@ -87,7 +88,7 @@ Class | Method | HTTP request | Description
 *TollfreeVerificationsApi* | [**DeleteTollfreeVerification**](docs/TollfreeVerificationsApi.md#deletetollfreeverification) | **Delete** /v1/Tollfree/Verifications/{Sid} | Delete a tollfree verification
 *TollfreeVerificationsApi* | [**FetchTollfreeVerification**](docs/TollfreeVerificationsApi.md#fetchtollfreeverification) | **Get** /v1/Tollfree/Verifications/{Sid} | Retrieve a tollfree verification
 *TollfreeVerificationsApi* | [**ListTollfreeVerification**](docs/TollfreeVerificationsApi.md#listtollfreeverification) | **Get** /v1/Tollfree/Verifications | List tollfree verifications
-*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | Create a tollfree verification
+*TollfreeVerificationsApi* | [**UpdateTollfreeVerification**](docs/TollfreeVerificationsApi.md#updatetollfreeverification) | **Post** /v1/Tollfree/Verifications/{Sid} | Edit a tollfree verification
 
 
 ## Documentation For Models
@@ -95,6 +96,7 @@ Class | Method | HTTP request | Description
  - [MessagingV1GenericSender](docs/MessagingV1GenericSender.md)
  - [MessagingV1DomainCertV4](docs/MessagingV1DomainCertV4.md)
  - [MessagingV1LinkshorteningMessagingServiceDomainAssociation](docs/MessagingV1LinkshorteningMessagingServiceDomainAssociation.md)
+ - [MessagingV1DomainDnsValidation](docs/MessagingV1DomainDnsValidation.md)
  - [MessagingV1ExternalCampaign](docs/MessagingV1ExternalCampaign.md)
  - [MessagingV1UsAppToPersonUsecase](docs/MessagingV1UsAppToPersonUsecase.md)
  - [MessagingV1LinkshorteningMessagingService](docs/MessagingV1LinkshorteningMessagingService.md)

@@ -117,3 +117,38 @@ func TestRequestHandler_SendPostRequest(t *testing.T) {
 	assert.Equal(t, "Bad request", twilioError.Message)
 	assert.Nil(t, twilioError.Details)
 }
+
+func TestRequestHandler_SetEdgeFromRegion(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+	requestHandler := NewRequestHandler("user", "pass")
+
+	// Test case: Region is in the map
+	requestHandler.Region = "au1"
+	requestHandler.Edge = ""
+	_, err := requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
+	assert.Equal(t, "sydney", requestHandler.Edge)
+
+	// Test case: Region is not in the map
+	requestHandler.Region = "unknown"
+	requestHandler.Edge = ""
+	_, err = requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
+	assert.Equal(t, "", requestHandler.Edge)
+
+	// Test case: Edge is already set
+	requestHandler.Region = "au1"
+	requestHandler.Edge = "custom-edge"
+	_, err = requestHandler.Get(server.URL, nil, nil)
+	if err != nil {
+		return
+	}
+	assert.Equal(t, "custom-edge", requestHandler.Edge)
+}

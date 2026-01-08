@@ -39,7 +39,7 @@ type CreateAddressParams struct {
 	PostalCode *string `json:"PostalCode,omitempty"`
 	// The ISO country code of the new address.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+	// A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether to enable emergency calling on the new address. Can be: `true` or `false`.
 	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`

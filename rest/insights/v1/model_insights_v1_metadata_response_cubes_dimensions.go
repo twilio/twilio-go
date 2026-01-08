@@ -17,7 +17,6 @@ package openapi
 // InsightsV1MetadataResponseCubesDimensions struct for InsightsV1MetadataResponseCubesDimensions
 type InsightsV1MetadataResponseCubesDimensions struct {
 	Name        string `json:"name"`
-	Title       string `json:"title,omitempty"`
 	Description string `json:"description,omitempty"`
 	Type        string `json:"type"`
 }

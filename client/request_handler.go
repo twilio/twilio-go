@@ -2,6 +2,7 @@
 package client
 
 import (
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -24,6 +25,26 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 
 func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}, body ...byte) (*http.Response, error) {
+	if (c.Edge == "" && c.Region != "") || (c.Edge != "" && c.Region == "") {
+		log.Println("For regional processing, DNS is of format product.city.region.twilio.com; otherwise use product.twilio.com.")
+	}
+	if c.Edge == "" && c.Region != "" {
+		log.Println("Setting default `Edge` for the provided `region`")
+		var regionToEdge = map[string]string{
+			"au1": "sydney",
+			"br1": "sao-paulo",
+			"de1": "frankfurt",
+			"ie1": "dublin",
+			"jp1": "tokyo",
+			"jp2": "osaka",
+			"sg1": "singapore",
+			"us1": "ashburn",
+			"us2": "umatilla",
+		}
+		if edge, ok := regionToEdge[c.Region]; ok {
+			c.Edge = edge
+		}
+	}
 	parsedURL, err := c.BuildUrl(rawURL)
 	if err != nil {
 		return nil, err

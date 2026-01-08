@@ -92,6 +92,8 @@ type CreateCallParams struct {
 	RecordingTrack *string `json:"RecordingTrack,omitempty"`
 	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
 	TimeLimit *int `json:"TimeLimit,omitempty"`
+	// The URL that we should use to deliver `push call notification`.
+	ClientNotificationUrl *string `json:"ClientNotificationUrl,omitempty"`
 	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
 	Url *string `json:"Url,omitempty"`
 	// TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
@@ -232,6 +234,10 @@ func (params *CreateCallParams) SetTimeLimit(TimeLimit int) *CreateCallParams {
 	params.TimeLimit = &TimeLimit
 	return params
 }
+func (params *CreateCallParams) SetClientNotificationUrl(ClientNotificationUrl string) *CreateCallParams {
+	params.ClientNotificationUrl = &ClientNotificationUrl
+	return params
+}
 func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
 	params.Url = &Url
 	return params
@@ -358,6 +364,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	}
 	if params != nil && params.TimeLimit != nil {
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+	if params != nil && params.ClientNotificationUrl != nil {
+		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
 	}
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)

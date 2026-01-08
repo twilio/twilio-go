@@ -32,7 +32,6 @@ import (
 	FrontlineV1 "github.com/twilio/twilio-go/rest/frontline/v1"
 	IamScim "github.com/twilio/twilio-go/rest/iam/scim"
 	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
-	IamV2 "github.com/twilio/twilio-go/rest/iam/v2"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
@@ -43,6 +42,7 @@ import (
 	MarketplaceV1 "github.com/twilio/twilio-go/rest/marketplace/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
 	MessagingV2 "github.com/twilio/twilio-go/rest/messaging/v2"
+	MessagingV3 "github.com/twilio/twilio-go/rest/messaging/v3"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
 	NotifyV1 "github.com/twilio/twilio-go/rest/notify/v1"
 	NumbersV1 "github.com/twilio/twilio-go/rest/numbers/v1"
@@ -92,7 +92,6 @@ type RestClient struct {
 	PreviewIamOrganization *PreviewIamOrganization.ApiService
 	IamScim                *IamScim.ApiService
 	IamV1                  *IamV1.ApiService
-	IamV2                  *IamV2.ApiService
 	InsightsV1             *InsightsV1.ApiService
 	IntelligenceV2         *IntelligenceV2.ApiService
 	IpMessagingV1          *IpMessagingV1.ApiService
@@ -103,6 +102,7 @@ type RestClient struct {
 	MarketplaceV1          *MarketplaceV1.ApiService
 	MessagingV1            *MessagingV1.ApiService
 	MessagingV2            *MessagingV2.ApiService
+	MessagingV3            *MessagingV3.ApiService
 	MonitorV1              *MonitorV1.ApiService
 	NotifyV1               *NotifyV1.ApiService
 	NumbersV1              *NumbersV1.ApiService
@@ -228,7 +228,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.PreviewIamOrganization = PreviewIamOrganization.NewApiService(c.RequestHandler)
 	c.IamScim = IamScim.NewApiService(c.RequestHandler)
 	c.IamV1 = IamV1.NewApiService(c.RequestHandler)
-	c.IamV2 = IamV2.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
@@ -239,6 +238,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.MarketplaceV1 = MarketplaceV1.NewApiService(c.RequestHandler)
 	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
 	c.MessagingV2 = MessagingV2.NewApiService(c.RequestHandler)
+	c.MessagingV3 = MessagingV3.NewApiService(c.RequestHandler)
 	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
 	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
 	c.NumbersV1 = NumbersV1.NewApiService(c.RequestHandler)

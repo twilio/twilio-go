@@ -17,7 +17,7 @@ package openapi
 // CarouselCard struct for CarouselCard
 type CarouselCard struct {
 	Title   string           `json:"title,omitempty"`
-	Body    string           `json:"body,omitempty"`
-	Media   string           `json:"media,omitempty"`
-	Actions []CarouselAction `json:"actions,omitempty"`
+	Body    string           `json:"body"`
+	Media   string           `json:"media"`
+	Actions []CarouselAction `json:"actions"`
 }

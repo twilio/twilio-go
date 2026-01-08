@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-	"time"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -34,9 +33,9 @@ type ListPortInRequestsParams struct {
 	// Filter by Port In request status
 	PortInRequestStatus *string `json:"PortInRequestStatus,omitempty"`
 	// Find all created before a certain date
-	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
+	CreatedBefore *string `json:"CreatedBefore,omitempty"`
 	// Find all created after a certain date
-	CreatedAfter *time.Time `json:"CreatedAfter,omitempty"`
+	CreatedAfter *string `json:"CreatedAfter,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 	// Max number of records to return in a page
@@ -59,11 +58,11 @@ func (params *ListPortInRequestsParams) SetPortInRequestStatus(PortInRequestStat
 	params.PortInRequestStatus = &PortInRequestStatus
 	return params
 }
-func (params *ListPortInRequestsParams) SetCreatedBefore(CreatedBefore time.Time) *ListPortInRequestsParams {
+func (params *ListPortInRequestsParams) SetCreatedBefore(CreatedBefore string) *ListPortInRequestsParams {
 	params.CreatedBefore = &CreatedBefore
 	return params
 }
-func (params *ListPortInRequestsParams) SetCreatedAfter(CreatedAfter time.Time) *ListPortInRequestsParams {
+func (params *ListPortInRequestsParams) SetCreatedAfter(CreatedAfter string) *ListPortInRequestsParams {
 	params.CreatedAfter = &CreatedAfter
 	return params
 }
@@ -98,10 +97,10 @@ func (c *ApiService) PagePortInRequests(params *ListPortInRequestsParams, pageTo
 		data.Set("PortInRequestStatus", *params.PortInRequestStatus)
 	}
 	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+		data.Set("CreatedBefore", *params.CreatedBefore)
 	}
 	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+		data.Set("CreatedAfter", *params.CreatedAfter)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

@@ -29,6 +29,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **TollfreePhoneNumber** | **string** | The Tollfree phone number to be verified
 **NotificationEmail** | **string** | The email address to receive the notification about the verification result.
+**CustomerProfileSid** | **string** | The Customer Profile Sid associated with the Account.
 **BusinessName** | **string** | The name of the business or organization using the Tollfree number.
 **BusinessWebsite** | **string** | The website of the business or organization using the Tollfree number.
 **UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many are applicable..
@@ -50,6 +51,18 @@ Name | Type | Description
 **BusinessContactPhone** | **string** | The phone number of the contact for the business or organization using the Tollfree number.
 **ThemeSetId** | **string** | Theme id for styling the inquiry form.
 **SkipMessagingUseCase** | **bool** | Skip the messaging use case screen of the inquiry form.
+**BusinessRegistrationNumber** | **string** | The Business Registration Number of the business or organization.
+**BusinessRegistrationAuthority** | **string** | The Business Registration Authority of the business or organization.
+**BusinessRegistrationCountry** | **string** | The Business Registration Country of the business or organization.
+**BusinessType** | [**string**](string.md) | 
+**DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification.
+**OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.
+**HelpMessageSample** | **string** | A sample help message provided to users.
+**PrivacyPolicyUrl** | **string** | The URL to the privacy policy for the business or organization.
+**TermsAndConditionsUrl** | **string** | The URL to the terms and conditions for the business or organization.
+**AgeGatedContent** | **bool** | Indicates if the content is age gated.
+**ExternalReferenceId** | **string** | A legally recognized business registration number.
+**OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
 
 ### Return type
 

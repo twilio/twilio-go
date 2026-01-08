@@ -25,6 +25,7 @@ Other parameters are passed through a pointer to a CreateOauth2TokenParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**AccountSid** | **string** | Optional Account SID to perform on behalf of requests.
 **GrantType** | **string** | Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
 **ClientId** | **string** | A 34 character string that uniquely identifies this OAuth App.
 **ClientSecret** | **string** | The credential for confidential OAuth App.

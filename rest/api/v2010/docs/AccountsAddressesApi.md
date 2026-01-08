@@ -38,7 +38,7 @@ Name | Type | Description
 **Region** | **string** | The state or region of the new address.
 **PostalCode** | **string** | The postal code of the new address.
 **IsoCountry** | **string** | The ISO country code of the new address.
-**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
 **EmergencyEnabled** | **bool** | Whether to enable emergency calling on the new address. Can be: `true` or `false`.
 **AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 **StreetSecondary** | **string** | The additional number and street address of the address.
