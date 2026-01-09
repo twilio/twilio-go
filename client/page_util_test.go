@@ -180,3 +180,359 @@ func TestPageUtil_ToMap(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, testMap)
 }
+
+// Tests for Safe Extraction Helpers
+
+func TestGetStringFromMap_ValidPath(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_token": "TOKEN123",
+		},
+	}
+
+	value, err := getStringFromMap(data, "meta", "next_token")
+	assert.Nil(t, err)
+	assert.Equal(t, "TOKEN123", value)
+}
+
+func TestGetStringFromMap_MissingKey(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{},
+	}
+
+	value, err := getStringFromMap(data, "meta", "next_token")
+	assert.Nil(t, err)
+	assert.Equal(t, "", value)
+}
+
+func TestGetStringFromMap_WrongType(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_token": 123,
+		},
+	}
+
+	value, err := getStringFromMap(data, "meta", "next_token")
+	assert.NotNil(t, err)
+	assert.Equal(t, "", value)
+}
+
+func TestGetStringFromMap_EmptyPath(t *testing.T) {
+	data := map[string]interface{}{}
+
+	value, err := getStringFromMap(data)
+	assert.NotNil(t, err)
+	assert.Equal(t, "", value)
+}
+
+func TestGetIntFromMap_ValidInt(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"page_size": 50,
+		},
+	}
+
+	value, err := getIntFromMap(data, "meta", "page_size")
+	assert.Nil(t, err)
+	assert.Equal(t, 50, value)
+}
+
+func TestGetIntFromMap_ValidFloat64(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"page_size": 50.0,
+		},
+	}
+
+	value, err := getIntFromMap(data, "meta", "page_size")
+	assert.Nil(t, err)
+	assert.Equal(t, 50, value)
+}
+
+func TestGetIntFromMap_MissingKey(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{},
+	}
+
+	value, err := getIntFromMap(data, "meta", "page_size")
+	assert.Nil(t, err)
+	assert.Equal(t, 0, value)
+}
+
+func TestGetIntFromMap_WrongType(t *testing.T) {
+	data := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"page_size": "fifty",
+		},
+	}
+
+	value, err := getIntFromMap(data, "meta", "page_size")
+	assert.NotNil(t, err)
+	assert.Equal(t, 0, value)
+}
+
+// Tests for Token URL Building
+
+func TestBuildTokenUrl_WithTokenAndPageSize(t *testing.T) {
+	url := buildTokenUrl("https://api.twilio.com/v1/Services", "TOKEN123", 50)
+	assert.Equal(t, "https://api.twilio.com/v1/Services?PageSize=50&PageToken=TOKEN123", url)
+}
+
+func TestBuildTokenUrl_WithTokenOnly(t *testing.T) {
+	url := buildTokenUrl("https://api.twilio.com/v1/Services", "TOKEN123", 0)
+	assert.Equal(t, "https://api.twilio.com/v1/Services?PageToken=TOKEN123", url)
+}
+
+func TestBuildTokenUrl_EmptyToken(t *testing.T) {
+	url := buildTokenUrl("https://api.twilio.com/v1/Services", "", 50)
+	assert.Equal(t, "", url)
+}
+
+func TestBuildTokenUrl_WithExistingQueryParams(t *testing.T) {
+	url := buildTokenUrl("https://api.twilio.com/v1/Services?Status=active&Limit=100", "TOKEN123", 50)
+	assert.Contains(t, url, "Status=active")
+	assert.Contains(t, url, "Limit=100")
+	assert.Contains(t, url, "PageSize=50")
+	assert.Contains(t, url, "PageToken=TOKEN123")
+	// Ensure proper delimiter is used (should have & not double ?)
+	assert.NotContains(t, url, "??")
+	assert.Contains(t, url, "?Status=active&Limit=100&PageSize=50&PageToken=TOKEN123")
+}
+
+func TestBuildTokenUrl_WithExistingQueryParamsTokenOnly(t *testing.T) {
+	url := buildTokenUrl("https://api.twilio.com/v1/Services?Filter=test", "TOKEN123", 0)
+	assert.Contains(t, url, "Filter=test")
+	assert.Contains(t, url, "PageToken=TOKEN123")
+	assert.NotContains(t, url, "??")
+	assert.Contains(t, url, "?Filter=test&PageToken=TOKEN123")
+}
+
+// Tests for Token Metadata Extraction
+
+func TestExtractTokenMeta_SnakeCase(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_token":     "TOKEN123",
+			"previous_token": "TOKEN122",
+			"page_size":      50,
+			"key":            "items",
+		},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.NotNil(t, meta)
+	assert.Equal(t, "TOKEN123", meta.NextToken)
+	assert.Equal(t, "TOKEN122", meta.PreviousToken)
+	assert.Equal(t, 50, meta.PageSize)
+	assert.Equal(t, "items", meta.Key)
+}
+
+func TestExtractTokenMeta_CamelCase(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"nextToken":     "TOKEN123",
+			"previousToken": "TOKEN122",
+			"pageSize":      25,
+			"key":           "records",
+		},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.NotNil(t, meta)
+	assert.Equal(t, "TOKEN123", meta.NextToken)
+	assert.Equal(t, "TOKEN122", meta.PreviousToken)
+	assert.Equal(t, 25, meta.PageSize)
+	assert.Equal(t, "records", meta.Key)
+}
+
+func TestExtractTokenMeta_NoMeta(t *testing.T) {
+	payload := map[string]interface{}{
+		"items": []interface{}{},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.Nil(t, meta)
+}
+
+func TestExtractTokenMeta_NoTokens(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"page_size": 50,
+		},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.Nil(t, meta)
+}
+
+func TestExtractTokenMeta_NextTokenOnly(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_token": "TOKEN123",
+			"page_size":  50,
+		},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.NotNil(t, meta)
+	assert.Equal(t, "TOKEN123", meta.NextToken)
+	assert.Equal(t, "", meta.PreviousToken)
+	assert.Equal(t, 50, meta.PageSize)
+}
+
+func TestExtractTokenMeta_PreviousTokenOnly(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"previous_token": "TOKEN122",
+		},
+	}
+
+	meta, err := extractTokenMeta(payload)
+	assert.Nil(t, err)
+	assert.NotNil(t, meta)
+	assert.Equal(t, "", meta.NextToken)
+	assert.Equal(t, "TOKEN122", meta.PreviousToken)
+}
+
+// Tests for Token-Based Pagination Integration
+
+func TestGetNextPageUrl_TokenBased(t *testing.T) {
+	payload := map[string]interface{}{
+		"items": []interface{}{},
+		"meta": map[string]interface{}{
+			"next_token": "TOKEN123",
+			"page_size":  25,
+		},
+	}
+
+	nextUrl, err := getNextPageUrl("https://api.twilio.com/v1/Services", payload)
+	assert.Nil(t, err)
+	assert.Contains(t, nextUrl, "PageToken=TOKEN123")
+	assert.Contains(t, nextUrl, "PageSize=25")
+}
+
+func TestGetNextPageUrl_TokenBasedCamelCase(t *testing.T) {
+	payload := map[string]interface{}{
+		"records": []interface{}{},
+		"meta": map[string]interface{}{
+			"nextToken": "TOKEN456",
+			"pageSize":  50,
+		},
+	}
+
+	nextUrl, err := getNextPageUrl("https://api.twilio.com/v1/Services", payload)
+	assert.Nil(t, err)
+	assert.Contains(t, nextUrl, "PageToken=TOKEN456")
+	assert.Contains(t, nextUrl, "PageSize=50")
+}
+
+func TestGetNextPageUrl_UrlBasedTakesPrecedence(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_page_url": "https://api.twilio.com/v1/Services?Page=2",
+			"next_token":    "TOKEN123",
+		},
+	}
+
+	nextUrl, err := getNextPageUrl("https://api.twilio.com/v1/Services", payload)
+	assert.Nil(t, err)
+	assert.Equal(t, "https://api.twilio.com/v1/Services?Page=2", nextUrl)
+	assert.NotContains(t, nextUrl, "TOKEN123")
+}
+
+func TestGetNextPageUrl_TokenBasedWithExistingQueryParams(t *testing.T) {
+	payload := map[string]interface{}{
+		"items": []interface{}{},
+		"meta": map[string]interface{}{
+			"next_token": "TOKEN123",
+			"page_size":  25,
+		},
+	}
+
+	// Base URL already has query parameters
+	baseUrl := "https://api.twilio.com/v1/Services?Status=active&Type=sms"
+	nextUrl, err := getNextPageUrl(baseUrl, payload)
+	assert.Nil(t, err)
+	assert.Contains(t, nextUrl, "Status=active")
+	assert.Contains(t, nextUrl, "Type=sms")
+	assert.Contains(t, nextUrl, "PageToken=TOKEN123")
+	assert.Contains(t, nextUrl, "PageSize=25")
+	// Verify proper concatenation with &
+	assert.Contains(t, nextUrl, "?Status=active&Type=sms&PageSize=25&PageToken=TOKEN123")
+}
+
+func TestGetPreviousPageUrl_TokenBased(t *testing.T) {
+	payload := map[string]interface{}{
+		"items": []interface{}{},
+		"meta": map[string]interface{}{
+			"previous_token": "TOKEN122",
+			"page_size":      25,
+		},
+	}
+
+	prevUrl, err := getPreviousPageUrl("https://api.twilio.com/v1/Services", payload)
+	assert.Nil(t, err)
+	assert.Contains(t, prevUrl, "PageToken=TOKEN122")
+	assert.Contains(t, prevUrl, "PageSize=25")
+}
+
+func TestGetPreviousPageUrl_NoPreviousToken(t *testing.T) {
+	payload := map[string]interface{}{
+		"items": []interface{}{},
+		"meta": map[string]interface{}{
+			"next_token": "TOKEN123",
+			"page_size":  25,
+		},
+	}
+
+	prevUrl, err := getPreviousPageUrl("https://api.twilio.com/v1/Services", payload)
+	assert.Nil(t, err)
+	assert.Equal(t, "", prevUrl)
+}
+
+// Tests for Backward Compatibility
+
+func TestGetNextPageUrl_BackwardCompatibility_MetaNextPageUrl(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_page_url": "https://api.twilio.com/2010-04-01/Accounts/ACXX/Messages.json?PageSize=50&Page=1",
+			"page_size":     50,
+		},
+	}
+
+	nextPageUrl, err := getNextPageUrl("https://apitest.twilio.com", payload)
+	assert.Nil(t, err)
+	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/Messages.json?PageSize=50&Page=1", nextPageUrl)
+}
+
+func TestGetNextPageUrl_BackwardCompatibility_NextPageUri(t *testing.T) {
+	payload := map[string]interface{}{
+		"next_page_uri": "/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1",
+		"page_size":     50,
+	}
+	baseUrl := "https://api.twilio.com/"
+	nextPageUrl, err := getNextPageUrl(baseUrl, payload)
+	assert.Nil(t, err)
+	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
+}
+
+// Tests for KeyError
+
+func TestKeyError_ErrorMessage(t *testing.T) {
+	err := NewKeyError("next_token", "required for pagination")
+	assert.NotNil(t, err)
+	assert.Contains(t, err.Error(), "next_token")
+	assert.Contains(t, err.Error(), "required for pagination")
+	assert.Contains(t, err.Error(), "KeyError")
+}
+
+func TestKeyError_Fields(t *testing.T) {
+	err := NewKeyError("test_key", "test message")
+	assert.Equal(t, "test_key", err.Key)
+	assert.Equal(t, "test message", err.Message)
+}
