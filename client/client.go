@@ -102,6 +102,23 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 
 	// Note that 3XX response codes are allowed for fetches
 	if res.StatusCode < 200 || res.StatusCode >= 400 {
+		// First try to decode as a RestErrorV1 (Twilio API Standards V1.0)
+		apiVersion := req.Header.Get("X-Twilio-ApiVersion")
+		if apiVersion == "v1.0" {
+			v1Err := &RestErrorV1{}
+			if decodeErr := json.NewDecoder(res.Body).Decode(v1Err); decodeErr == nil {
+				// Successfully decoded as V1 error format
+				return nil, v1Err
+			}
+			// Reset the response body reader for the next attempt
+			res.Body.Close()
+			res, err = client.Do(req)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		// Fall back to legacy TwilioRestError format
 		err = &TwilioRestError{}
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
 			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
