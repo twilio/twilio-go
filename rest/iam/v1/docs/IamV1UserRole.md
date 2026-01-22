@@ -1,11 +1,11 @@
-# InsightsV1MetadataResponse
+# IamV1UserRole
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespace** | **string** |  |[optional] 
-**Cubes** | [**[]InsightsV1MetadataResponseCubes**](InsightsV1MetadataResponseCubes.md) |  |[optional] 
+**Sid** | **string** | Unique Twilio sid of the account role |[optional] 
+**Name** | **string** | The name of the role |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

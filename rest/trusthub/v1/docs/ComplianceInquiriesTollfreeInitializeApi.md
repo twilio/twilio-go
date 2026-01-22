@@ -63,6 +63,8 @@ Name | Type | Description
 **AgeGatedContent** | **bool** | Indicates if the content is age gated.
 **ExternalReferenceId** | **string** | A legally recognized business registration number.
 **OptInKeywords** | **[]string** | List of keywords that users can text in to opt in to receive messages.
+**VettingId** | **string** | Unique identifier for the created Vetting .
+**VettingProvider** | **string** | Name of the vetting provider.
 
 ### Return type
 

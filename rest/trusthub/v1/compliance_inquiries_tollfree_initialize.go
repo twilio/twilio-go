@@ -94,6 +94,10 @@ type CreateComplianceTollfreeInquiryParams struct {
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
 	// List of keywords that users can text in to opt in to receive messages.
 	OptInKeywords *[]string `json:"OptInKeywords,omitempty"`
+	// Unique identifier for the created Vetting .
+	VettingId *string `json:"VettingId,omitempty"`
+	// Name of the vetting provider.
+	VettingProvider *string `json:"VettingProvider,omitempty"`
 }
 
 func (params *CreateComplianceTollfreeInquiryParams) SetTollfreePhoneNumber(TollfreePhoneNumber string) *CreateComplianceTollfreeInquiryParams {
@@ -240,6 +244,14 @@ func (params *CreateComplianceTollfreeInquiryParams) SetOptInKeywords(OptInKeywo
 	params.OptInKeywords = &OptInKeywords
 	return params
 }
+func (params *CreateComplianceTollfreeInquiryParams) SetVettingId(VettingId string) *CreateComplianceTollfreeInquiryParams {
+	params.VettingId = &VettingId
+	return params
+}
+func (params *CreateComplianceTollfreeInquiryParams) SetVettingProvider(VettingProvider string) *CreateComplianceTollfreeInquiryParams {
+	params.VettingProvider = &VettingProvider
+	return params
+}
 
 // Create a new Compliance Tollfree Verification Inquiry for the authenticated account. This is necessary to start a new embedded session.
 func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTollfreeInquiryParams) (*TrusthubV1ComplianceTollfreeInquiry, error) {
@@ -363,6 +375,12 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		for _, item := range *params.OptInKeywords {
 			data.Add("OptInKeywords", item)
 		}
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", *params.VettingProvider)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Ttid** | Pointer to **string** | The unique string that we created to identify the transcriptions resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource. |
 **RoomSid** | Pointer to **string** | The SID of the transcriptions's room. |
+**SourceSid** | Pointer to **string** | The SID of the transcriptions's associated call. |
 **Status** | Pointer to [**string**](RoomTranscriptionsEnumStatus.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |

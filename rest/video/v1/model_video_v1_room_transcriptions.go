@@ -26,7 +26,9 @@ type VideoV1RoomTranscriptions struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The SID of the transcriptions's room.
 	RoomSid *string `json:"room_sid,omitempty"`
-	Status  *string `json:"status,omitempty"`
+	// The SID of the transcriptions's associated call.
+	SourceSid *string `json:"source_sid,omitempty"`
+	Status    *string `json:"status,omitempty"`
 	// The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.

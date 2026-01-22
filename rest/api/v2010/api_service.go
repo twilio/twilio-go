@@ -28,6 +28,7 @@ func (c *ApiService) RequestHandler() *twilio.RequestHandler {
 }
 
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+
 	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://api.twilio.com",

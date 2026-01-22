@@ -51,8 +51,10 @@ type CreateRealtimeTranscriptionParams struct {
 	Hints *string `json:"Hints,omitempty"`
 	// The provider will add punctuation to recognition result
 	EnableAutomaticPunctuation *bool `json:"EnableAutomaticPunctuation,omitempty"`
-	// The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+	// The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
 	IntelligenceService *string `json:"IntelligenceService,omitempty"`
+	// Whether the callback includes raw provider data.
+	EnableProviderData *bool `json:"EnableProviderData,omitempty"`
 }
 
 func (params *CreateRealtimeTranscriptionParams) SetPathAccountSid(PathAccountSid string) *CreateRealtimeTranscriptionParams {
@@ -115,6 +117,10 @@ func (params *CreateRealtimeTranscriptionParams) SetIntelligenceService(Intellig
 	params.IntelligenceService = &IntelligenceService
 	return params
 }
+func (params *CreateRealtimeTranscriptionParams) SetEnableProviderData(EnableProviderData bool) *CreateRealtimeTranscriptionParams {
+	params.EnableProviderData = &EnableProviderData
+	return params
+}
 
 // Create a Transcription
 func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateRealtimeTranscriptionParams) (*ApiV2010RealtimeTranscription, error) {
@@ -172,6 +178,9 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 	}
 	if params != nil && params.IntelligenceService != nil {
 		data.Set("IntelligenceService", *params.IntelligenceService)
+	}
+	if params != nil && params.EnableProviderData != nil {
+		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
