@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteOrganizationUser**](ScimUsersApi.md#DeleteOrganizationUser) | **Delete** /Organizations/{OrganizationSid}/scim/Users/{Id} | Delete SCIM User
 [**FetchOrganizationUser**](ScimUsersApi.md#FetchOrganizationUser) | **Get** /Organizations/{OrganizationSid}/scim/Users/{Id} | Get SCIM User
 [**ListOrganizationUsers**](ScimUsersApi.md#ListOrganizationUsers) | **Get** /Organizations/{OrganizationSid}/scim/Users | List SCIM Users
+[**PatchOrganizationUser**](ScimUsersApi.md#PatchOrganizationUser) | **Patch** /Organizations/{OrganizationSid}/scim/Users/{Id} | Patch SCIM User
 [**UpdateOrganizationUser**](ScimUsersApi.md#UpdateOrganizationUser) | **Put** /Organizations/{OrganizationSid}/scim/Users/{Id} | Update SCIM User
 
 
@@ -171,6 +172,49 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/scim+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchOrganizationUser
+
+> ScimUser PatchOrganizationUser(ctx, OrganizationSidIdoptional)
+
+Patch SCIM User
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**OrganizationSid** | **string** | 
+**Id** | **string** | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a PatchOrganizationUserParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**IfMatch** | **string** | 
+**ScimPatchRequest** | [**ScimPatchRequest**](ScimPatchRequest.md) | 
+
+### Return type
+
+[**ScimUser**](ScimUser.md)
+
+### Authorization
+
+[oAuth2ClientCredentials](../README.md#oAuth2ClientCredentials)
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/scim+json
 - **Accept**: application/scim+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSigningRequestConfiguration'
@@ -64,6 +65,45 @@ func (c *ApiService) CreateSigningRequestConfiguration(params *CreateSigningRequ
 	}
 
 	return ps, err
+}
+
+// CreateSigningRequestConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSigningRequestConfigurationWithMetadata(params *CreateSigningRequestConfigurationParams) (*metadata.ResourceMetadata[NumbersV1SigningRequestConfiguration], error) {
+	path := "/v1/SigningRequest/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1SigningRequestConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1SigningRequestConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSigningRequestConfiguration'
@@ -136,6 +176,53 @@ func (c *ApiService) PageSigningRequestConfiguration(params *ListSigningRequestC
 	return ps, err
 }
 
+// PageSigningRequestConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSigningRequestConfigurationWithMetadata(params *ListSigningRequestConfigurationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSigningRequestConfigurationResponse], error) {
+	path := "/v1/SigningRequest/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.Product != nil {
+		data.Set("Product", *params.Product)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSigningRequestConfigurationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSigningRequestConfigurationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SigningRequestConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSigningRequestConfiguration(params *ListSigningRequestConfigurationParams) ([]NumbersV1SigningRequestConfiguration, error) {
 	response, errors := c.StreamSigningRequestConfiguration(params)
@@ -150,6 +237,29 @@ func (c *ApiService) ListSigningRequestConfiguration(params *ListSigningRequestC
 	}
 
 	return records, nil
+}
+
+// ListSigningRequestConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSigningRequestConfigurationWithMetadata(params *ListSigningRequestConfigurationParams) (*metadata.ResourceMetadata[[]NumbersV1SigningRequestConfiguration], error) {
+	response, errors := c.StreamSigningRequestConfigurationWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV1SigningRequestConfiguration, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV1SigningRequestConfiguration](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SigningRequestConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -172,6 +282,35 @@ func (c *ApiService) StreamSigningRequestConfiguration(params *ListSigningReques
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSigningRequestConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSigningRequestConfigurationWithMetadata(params *ListSigningRequestConfigurationParams) (*metadata.ResourceMetadata[chan NumbersV1SigningRequestConfiguration], chan error) {
+	if params == nil {
+		params = &ListSigningRequestConfigurationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV1SigningRequestConfiguration, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSigningRequestConfigurationWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSigningRequestConfiguration(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV1SigningRequestConfiguration](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSigningRequestConfiguration(response *ListSigningRequestConfigurationResponse, params *ListSigningRequestConfigurationParams, recordChannel chan NumbersV1SigningRequestConfiguration, errorChannel chan error) {

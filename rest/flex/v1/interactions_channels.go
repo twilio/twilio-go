@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a Channel for an Interaction.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchInteractionChannel(InteractionSid string, Sid string) 
 	}
 
 	return ps, err
+}
+
+// FetchInteractionChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInteractionChannelWithMetadata(InteractionSid string, Sid string) (*metadata.ResourceMetadata[FlexV1InteractionChannel], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInteractionChannel'
@@ -103,6 +136,49 @@ func (c *ApiService) PageInteractionChannel(InteractionSid string, params *ListI
 	return ps, err
 }
 
+// PageInteractionChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInteractionChannelWithMetadata(InteractionSid string, params *ListInteractionChannelParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInteractionChannelResponse], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels"
+
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInteractionChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInteractionChannelResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InteractionChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannel(InteractionSid string, params *ListInteractionChannelParams) ([]FlexV1InteractionChannel, error) {
 	response, errors := c.StreamInteractionChannel(InteractionSid, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListInteractionChannel(InteractionSid string, params *ListI
 	}
 
 	return records, nil
+}
+
+// ListInteractionChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInteractionChannelWithMetadata(InteractionSid string, params *ListInteractionChannelParams) (*metadata.ResourceMetadata[[]FlexV1InteractionChannel], error) {
+	response, errors := c.StreamInteractionChannelWithMetadata(InteractionSid, params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InteractionChannel, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InteractionChannel](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InteractionChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamInteractionChannel(InteractionSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInteractionChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInteractionChannelWithMetadata(InteractionSid string, params *ListInteractionChannelParams) (*metadata.ResourceMetadata[chan FlexV1InteractionChannel], chan error) {
+	if params == nil {
+		params = &ListInteractionChannelParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InteractionChannel, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInteractionChannelWithMetadata(InteractionSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInteractionChannel(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InteractionChannel](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInteractionChannel(response *ListInteractionChannelResponse, params *ListInteractionChannelParams, recordChannel chan FlexV1InteractionChannel, errorChannel chan error) {
@@ -243,4 +371,49 @@ func (c *ApiService) UpdateInteractionChannel(InteractionSid string, Sid string,
 	}
 
 	return ps, err
+}
+
+// UpdateInteractionChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInteractionChannelWithMetadata(InteractionSid string, Sid string, params *UpdateInteractionChannelParams) (*metadata.ResourceMetadata[FlexV1InteractionChannel], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Routing != nil {
+		v, err := json.Marshal(params.Routing)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Routing", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

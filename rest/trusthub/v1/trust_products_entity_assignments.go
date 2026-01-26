@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTrustProductEntityAssignment'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, 
 	return ps, err
 }
 
+// CreateTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTrustProductEntityAssignmentWithMetadata(TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*metadata.ResourceMetadata[TrusthubV1TrustProductEntityAssignment], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ObjectSid != nil {
+		data.Set("ObjectSid", *params.ObjectSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1TrustProductEntityAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1TrustProductEntityAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTrustProductEntityAssignmentWithMetadata(TrustProductSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch specific Assigned Item Instance.
@@ -108,6 +171,38 @@ func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTrustProductEntityAssignmentWithMetadata(TrustProductSid string, Sid string) (*metadata.ResourceMetadata[TrusthubV1TrustProductEntityAssignment], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1TrustProductEntityAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1TrustProductEntityAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTrustProductEntityAssignment'
@@ -173,6 +268,52 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 	return ps, err
 }
 
+// PageTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTrustProductEntityAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTrustProductEntityAssignmentResponse], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
+
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ObjectType != nil {
+		data.Set("ObjectType", *params.ObjectType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductEntityAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTrustProductEntityAssignmentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductEntityAssignment, error) {
 	response, errors := c.StreamTrustProductEntityAssignment(TrustProductSid, params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTrustProductEntityAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (*metadata.ResourceMetadata[[]TrusthubV1TrustProductEntityAssignment], error) {
+	response, errors := c.StreamTrustProductEntityAssignmentWithMetadata(TrustProductSid, params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1TrustProductEntityAssignment, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1TrustProductEntityAssignment](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTrustProductEntityAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTrustProductEntityAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (*metadata.ResourceMetadata[chan TrusthubV1TrustProductEntityAssignment], chan error) {
+	if params == nil {
+		params = &ListTrustProductEntityAssignmentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1TrustProductEntityAssignment, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTrustProductEntityAssignmentWithMetadata(TrustProductSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTrustProductEntityAssignment(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1TrustProductEntityAssignment](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTrustProductEntityAssignment(response *ListTrustProductEntityAssignmentResponse, params *ListTrustProductEntityAssignmentParams, recordChannel chan TrusthubV1TrustProductEntityAssignment, errorChannel chan error) {

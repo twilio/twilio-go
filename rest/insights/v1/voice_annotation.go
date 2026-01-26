@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Get the Annotation for a specific Call.
@@ -44,6 +46,37 @@ func (c *ApiService) FetchAnnotation(CallSid string) (*InsightsV1Annotation, err
 	}
 
 	return ps, err
+}
+
+// FetchAnnotationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAnnotationWithMetadata(CallSid string) (*metadata.ResourceMetadata[InsightsV1Annotation], error) {
+	path := "/v1/Voice/{CallSid}/Annotation"
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1Annotation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1Annotation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateAnnotation'
@@ -138,4 +171,57 @@ func (c *ApiService) UpdateAnnotation(CallSid string, params *UpdateAnnotationPa
 	}
 
 	return ps, err
+}
+
+// UpdateAnnotationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAnnotationWithMetadata(CallSid string, params *UpdateAnnotationParams) (*metadata.ResourceMetadata[InsightsV1Annotation], error) {
+	path := "/v1/Voice/{CallSid}/Annotation"
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AnsweredBy != nil {
+		data.Set("AnsweredBy", *params.AnsweredBy)
+	}
+	if params != nil && params.ConnectivityIssue != nil {
+		data.Set("ConnectivityIssue", *params.ConnectivityIssue)
+	}
+	if params != nil && params.QualityIssues != nil {
+		data.Set("QualityIssues", *params.QualityIssues)
+	}
+	if params != nil && params.Spam != nil {
+		data.Set("Spam", fmt.Sprint(*params.Spam))
+	}
+	if params != nil && params.CallScore != nil {
+		data.Set("CallScore", fmt.Sprint(*params.CallScore))
+	}
+	if params != nil && params.Comment != nil {
+		data.Set("Comment", *params.Comment)
+	}
+	if params != nil && params.Incident != nil {
+		data.Set("Incident", *params.Incident)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1Annotation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1Annotation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateRealtimeTranscription'
@@ -198,6 +200,88 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 	return ps, err
 }
 
+// CreateRealtimeTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateRealtimeTranscriptionWithMetadata(CallSid string, params *CreateRealtimeTranscriptionParams) (*metadata.ResourceMetadata[ApiV2010RealtimeTranscription], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Name != nil {
+		data.Set("Name", *params.Name)
+	}
+	if params != nil && params.Track != nil {
+		data.Set("Track", fmt.Sprint(*params.Track))
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.InboundTrackLabel != nil {
+		data.Set("InboundTrackLabel", *params.InboundTrackLabel)
+	}
+	if params != nil && params.OutboundTrackLabel != nil {
+		data.Set("OutboundTrackLabel", *params.OutboundTrackLabel)
+	}
+	if params != nil && params.PartialResults != nil {
+		data.Set("PartialResults", fmt.Sprint(*params.PartialResults))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("LanguageCode", *params.LanguageCode)
+	}
+	if params != nil && params.TranscriptionEngine != nil {
+		data.Set("TranscriptionEngine", *params.TranscriptionEngine)
+	}
+	if params != nil && params.ProfanityFilter != nil {
+		data.Set("ProfanityFilter", fmt.Sprint(*params.ProfanityFilter))
+	}
+	if params != nil && params.SpeechModel != nil {
+		data.Set("SpeechModel", *params.SpeechModel)
+	}
+	if params != nil && params.Hints != nil {
+		data.Set("Hints", *params.Hints)
+	}
+	if params != nil && params.EnableAutomaticPunctuation != nil {
+		data.Set("EnableAutomaticPunctuation", fmt.Sprint(*params.EnableAutomaticPunctuation))
+	}
+	if params != nil && params.IntelligenceService != nil {
+		data.Set("IntelligenceService", *params.IntelligenceService)
+	}
+	if params != nil && params.EnableProviderData != nil {
+		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010RealtimeTranscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010RealtimeTranscription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdateRealtimeTranscription'
 type UpdateRealtimeTranscriptionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
@@ -248,4 +332,45 @@ func (c *ApiService) UpdateRealtimeTranscription(CallSid string, Sid string, par
 	}
 
 	return ps, err
+}
+
+// UpdateRealtimeTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRealtimeTranscriptionWithMetadata(CallSid string, Sid string, params *UpdateRealtimeTranscriptionParams) (*metadata.ResourceMetadata[ApiV2010RealtimeTranscription], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Transcriptions/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010RealtimeTranscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010RealtimeTranscription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

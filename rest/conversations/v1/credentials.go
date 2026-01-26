@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCredential'
@@ -116,6 +117,58 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 	return ps, err
 }
 
+// CreateCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCredentialWithMetadata(params *CreateCredentialParams) (*metadata.ResourceMetadata[ConversationsV1Credential], error) {
+	path := "/v1/Credentials"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", fmt.Sprint(*params.Type))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
+	}
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1Credential](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove a push notification credential from your account
 func (c *ApiService) DeleteCredential(Sid string) error {
 	path := "/v1/Credentials/{Sid}"
@@ -134,6 +187,32 @@ func (c *ApiService) DeleteCredential(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCredentialWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a push notification credential from your account
@@ -159,6 +238,37 @@ func (c *ApiService) FetchCredential(Sid string) (*ConversationsV1Credential, er
 	}
 
 	return ps, err
+}
+
+// FetchCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCredentialWithMetadata(Sid string) (*metadata.ResourceMetadata[ConversationsV1Credential], error) {
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1Credential](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCredential'
@@ -213,6 +323,47 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pag
 	return ps, err
 }
 
+// PageCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCredentialWithMetadata(params *ListCredentialParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCredentialResponse], error) {
+	path := "/v1/Credentials"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCredentialResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCredentialResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredential(params *ListCredentialParams) ([]ConversationsV1Credential, error) {
 	response, errors := c.StreamCredential(params)
@@ -227,6 +378,29 @@ func (c *ApiService) ListCredential(params *ListCredentialParams) ([]Conversatio
 	}
 
 	return records, nil
+}
+
+// ListCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCredentialWithMetadata(params *ListCredentialParams) (*metadata.ResourceMetadata[[]ConversationsV1Credential], error) {
+	response, errors := c.StreamCredentialWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1Credential, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1Credential](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -249,6 +423,35 @@ func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan Conver
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCredentialWithMetadata(params *ListCredentialParams) (*metadata.ResourceMetadata[chan ConversationsV1Credential], chan error) {
+	if params == nil {
+		params = &ListCredentialParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1Credential, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCredentialWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCredential(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1Credential](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCredential(response *ListCredentialResponse, params *ListCredentialParams, recordChannel chan ConversationsV1Credential, errorChannel chan error) {
@@ -391,4 +594,57 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 	}
 
 	return ps, err
+}
+
+// UpdateCredentialWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCredentialWithMetadata(Sid string, params *UpdateCredentialParams) (*metadata.ResourceMetadata[ConversationsV1Credential], error) {
+	path := "/v1/Credentials/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", fmt.Sprint(*params.Type))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Certificate != nil {
+		data.Set("Certificate", *params.Certificate)
+	}
+	if params != nil && params.PrivateKey != nil {
+		data.Set("PrivateKey", *params.PrivateKey)
+	}
+	if params != nil && params.Sandbox != nil {
+		data.Set("Sandbox", fmt.Sprint(*params.Sandbox))
+	}
+	if params != nil && params.ApiKey != nil {
+		data.Set("ApiKey", *params.ApiKey)
+	}
+	if params != nil && params.Secret != nil {
+		data.Set("Secret", *params.Secret)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1Credential{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1Credential](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

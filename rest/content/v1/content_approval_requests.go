@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a Content resource's approval status by its unique Content Sid
@@ -43,4 +45,35 @@ func (c *ApiService) FetchApprovalFetch(Sid string) (*ContentV1ApprovalFetch, er
 	}
 
 	return ps, err
+}
+
+// FetchApprovalFetchWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchApprovalFetchWithMetadata(Sid string) (*metadata.ResourceMetadata[ContentV1ApprovalFetch], error) {
+	path := "/v1/Content/{Sid}/ApprovalRequests"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1ApprovalFetch{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ContentV1ApprovalFetch](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

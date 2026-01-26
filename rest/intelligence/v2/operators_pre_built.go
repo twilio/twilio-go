@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific Pre-built Operator.
@@ -46,6 +47,37 @@ func (c *ApiService) FetchPrebuiltOperator(Sid string) (*IntelligenceV2PrebuiltO
 	}
 
 	return ps, err
+}
+
+// FetchPrebuiltOperatorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPrebuiltOperatorWithMetadata(Sid string) (*metadata.ResourceMetadata[IntelligenceV2PrebuiltOperator], error) {
+	path := "/v2/Operators/PreBuilt/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2PrebuiltOperator{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2PrebuiltOperator](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListPrebuiltOperator'
@@ -118,6 +150,53 @@ func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pa
 	return ps, err
 }
 
+// PagePrebuiltOperatorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PagePrebuiltOperatorWithMetadata(params *ListPrebuiltOperatorParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListPrebuiltOperatorResponse], error) {
+	path := "/v2/Operators/PreBuilt"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Availability != nil {
+		data.Set("Availability", fmt.Sprint(*params.Availability))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("LanguageCode", *params.LanguageCode)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPrebuiltOperatorResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListPrebuiltOperatorResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists PrebuiltOperator records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPrebuiltOperator(params *ListPrebuiltOperatorParams) ([]IntelligenceV2PrebuiltOperator, error) {
 	response, errors := c.StreamPrebuiltOperator(params)
@@ -132,6 +211,29 @@ func (c *ApiService) ListPrebuiltOperator(params *ListPrebuiltOperatorParams) ([
 	}
 
 	return records, nil
+}
+
+// ListPrebuiltOperatorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListPrebuiltOperatorWithMetadata(params *ListPrebuiltOperatorParams) (*metadata.ResourceMetadata[[]IntelligenceV2PrebuiltOperator], error) {
+	response, errors := c.StreamPrebuiltOperatorWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]IntelligenceV2PrebuiltOperator, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IntelligenceV2PrebuiltOperator](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams PrebuiltOperator records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -154,6 +256,35 @@ func (c *ApiService) StreamPrebuiltOperator(params *ListPrebuiltOperatorParams) 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamPrebuiltOperatorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamPrebuiltOperatorWithMetadata(params *ListPrebuiltOperatorParams) (*metadata.ResourceMetadata[chan IntelligenceV2PrebuiltOperator], chan error) {
+	if params == nil {
+		params = &ListPrebuiltOperatorParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IntelligenceV2PrebuiltOperator, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PagePrebuiltOperatorWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamPrebuiltOperator(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IntelligenceV2PrebuiltOperator](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamPrebuiltOperator(response *ListPrebuiltOperatorResponse, params *ListPrebuiltOperatorParams, recordChannel chan IntelligenceV2PrebuiltOperator, errorChannel chan error) {

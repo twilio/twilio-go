@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'DeleteRecordingAddOnResult'
@@ -58,6 +59,38 @@ func (c *ApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string,
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRecordingAddOnResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteRecordingAddOnResultWithMetadata(ReferenceSid string, Sid string, params *DeleteRecordingAddOnResultParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchRecordingAddOnResult'
@@ -100,6 +133,43 @@ func (c *ApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string, 
 	}
 
 	return ps, err
+}
+
+// FetchRecordingAddOnResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRecordingAddOnResultWithMetadata(ReferenceSid string, Sid string, params *FetchRecordingAddOnResultParams) (*metadata.ResourceMetadata[ApiV2010RecordingAddOnResult], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010RecordingAddOnResult{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010RecordingAddOnResult](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRecordingAddOnResult'
@@ -167,6 +237,54 @@ func (c *ApiService) PageRecordingAddOnResult(ReferenceSid string, params *ListR
 	return ps, err
 }
 
+// PageRecordingAddOnResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRecordingAddOnResultWithMetadata(ReferenceSid string, params *ListRecordingAddOnResultParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRecordingAddOnResultResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingAddOnResultResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRecordingAddOnResultResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists RecordingAddOnResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) ([]ApiV2010RecordingAddOnResult, error) {
 	response, errors := c.StreamRecordingAddOnResult(ReferenceSid, params)
@@ -181,6 +299,29 @@ func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListR
 	}
 
 	return records, nil
+}
+
+// ListRecordingAddOnResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRecordingAddOnResultWithMetadata(ReferenceSid string, params *ListRecordingAddOnResultParams) (*metadata.ResourceMetadata[[]ApiV2010RecordingAddOnResult], error) {
+	response, errors := c.StreamRecordingAddOnResultWithMetadata(ReferenceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010RecordingAddOnResult, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010RecordingAddOnResult](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams RecordingAddOnResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -203,6 +344,35 @@ func (c *ApiService) StreamRecordingAddOnResult(ReferenceSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRecordingAddOnResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRecordingAddOnResultWithMetadata(ReferenceSid string, params *ListRecordingAddOnResultParams) (*metadata.ResourceMetadata[chan ApiV2010RecordingAddOnResult], chan error) {
+	if params == nil {
+		params = &ListRecordingAddOnResultParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010RecordingAddOnResult, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRecordingAddOnResultWithMetadata(ReferenceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRecordingAddOnResult(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010RecordingAddOnResult](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRecordingAddOnResult(response *ListRecordingAddOnResultResponse, params *ListRecordingAddOnResultParams, recordChannel chan ApiV2010RecordingAddOnResult, errorChannel chan error) {

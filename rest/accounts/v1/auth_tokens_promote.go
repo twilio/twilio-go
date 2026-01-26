@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
@@ -41,4 +43,34 @@ func (c *ApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, 
 	}
 
 	return ps, err
+}
+
+// UpdateAuthTokenPromotionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAuthTokenPromotionWithMetadata() (*metadata.ResourceMetadata[AccountsV1AuthTokenPromotion], error) {
+	path := "/v1/AuthTokens/Promote"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1AuthTokenPromotion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1AuthTokenPromotion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

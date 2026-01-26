@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateHostedNumberOrder'
@@ -199,6 +200,87 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 	return ps, err
 }
 
+// CreateHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateHostedNumberOrderWithMetadata(params *CreateHostedNumberOrderParams) (*metadata.ResourceMetadata[NumbersV2HostedNumberOrder], error) {
+	path := "/v2/HostedNumber/Orders"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.ContactPhoneNumber != nil {
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CcEmails != nil {
+		for _, item := range *params.CcEmails {
+			data.Add("CcEmails", item)
+		}
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsCapability != nil {
+		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.ContactTitle != nil {
+		data.Set("ContactTitle", *params.ContactTitle)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2HostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2HostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Cancel the HostedNumberOrder (only available when the status is in `received`).
 func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 	path := "/v2/HostedNumber/Orders/{Sid}"
@@ -217,6 +299,32 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteHostedNumberOrderWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/HostedNumber/Orders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific HostedNumberOrder.
@@ -242,6 +350,37 @@ func (c *ApiService) FetchHostedNumberOrder(Sid string) (*NumbersV2HostedNumberO
 	}
 
 	return ps, err
+}
+
+// FetchHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchHostedNumberOrderWithMetadata(Sid string) (*metadata.ResourceMetadata[NumbersV2HostedNumberOrder], error) {
+	path := "/v2/HostedNumber/Orders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2HostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2HostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListHostedNumberOrder'
@@ -341,6 +480,62 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 	return ps, err
 }
 
+// PageHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageHostedNumberOrderWithMetadata(params *ListHostedNumberOrderParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListHostedNumberOrderResponse], error) {
+	path := "/v2/HostedNumber/Orders"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.SmsCapability != nil {
+		data.Set("SmsCapability", fmt.Sprint(*params.SmsCapability))
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.IncomingPhoneNumberSid != nil {
+		data.Set("IncomingPhoneNumberSid", *params.IncomingPhoneNumberSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListHostedNumberOrderResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListHostedNumberOrderResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists HostedNumberOrder records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) ([]NumbersV2HostedNumberOrder, error) {
 	response, errors := c.StreamHostedNumberOrder(params)
@@ -355,6 +550,29 @@ func (c *ApiService) ListHostedNumberOrder(params *ListHostedNumberOrderParams) 
 	}
 
 	return records, nil
+}
+
+// ListHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListHostedNumberOrderWithMetadata(params *ListHostedNumberOrderParams) (*metadata.ResourceMetadata[[]NumbersV2HostedNumberOrder], error) {
+	response, errors := c.StreamHostedNumberOrderWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2HostedNumberOrder, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2HostedNumberOrder](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams HostedNumberOrder records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -377,6 +595,35 @@ func (c *ApiService) StreamHostedNumberOrder(params *ListHostedNumberOrderParams
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamHostedNumberOrderWithMetadata(params *ListHostedNumberOrderParams) (*metadata.ResourceMetadata[chan NumbersV2HostedNumberOrder], chan error) {
+	if params == nil {
+		params = &ListHostedNumberOrderParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2HostedNumberOrder, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageHostedNumberOrderWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamHostedNumberOrder(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2HostedNumberOrder](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamHostedNumberOrder(response *ListHostedNumberOrderResponse, params *ListHostedNumberOrderParams, recordChannel chan NumbersV2HostedNumberOrder, errorChannel chan error) {
@@ -483,4 +730,45 @@ func (c *ApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNum
 	}
 
 	return ps, err
+}
+
+// UpdateHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateHostedNumberOrderWithMetadata(Sid string, params *UpdateHostedNumberOrderParams) (*metadata.ResourceMetadata[NumbersV2HostedNumberOrder], error) {
+	path := "/v2/HostedNumber/Orders/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.VerificationCallDelay != nil {
+		data.Set("VerificationCallDelay", fmt.Sprint(*params.VerificationCallDelay))
+	}
+	if params != nil && params.VerificationCallExtension != nil {
+		data.Set("VerificationCallExtension", *params.VerificationCallExtension)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2HostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2HostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

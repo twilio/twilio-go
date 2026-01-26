@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSession'
@@ -117,6 +118,64 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 	return ps, err
 }
 
+// CreateSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSessionWithMetadata(ServiceSid string, params *CreateSessionParams) (*metadata.ResourceMetadata[ProxyV1Session], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.DateExpiry != nil {
+		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.Mode != nil {
+		data.Set("Mode", fmt.Sprint(*params.Mode))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Participants != nil {
+		for _, item := range *params.Participants {
+			v, err := json.Marshal(item)
+
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Participants", string(v))
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ProxyV1Session{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ProxyV1Session](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Session.
 func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
@@ -136,6 +195,33 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSessionWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Session.
@@ -162,6 +248,38 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Sessio
 	}
 
 	return ps, err
+}
+
+// FetchSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSessionWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ProxyV1Session], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ProxyV1Session{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ProxyV1Session](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSession'
@@ -218,6 +336,49 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 	return ps, err
 }
 
+// PageSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSessionWithMetadata(ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSessionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSessionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSessionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1Session, error) {
 	response, errors := c.StreamSession(ServiceSid, params)
@@ -232,6 +393,29 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 	}
 
 	return records, nil
+}
+
+// ListSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSessionWithMetadata(ServiceSid string, params *ListSessionParams) (*metadata.ResourceMetadata[[]ProxyV1Session], error) {
+	response, errors := c.StreamSessionWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ProxyV1Session, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ProxyV1Session](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -254,6 +438,35 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSessionWithMetadata(ServiceSid string, params *ListSessionParams) (*metadata.ResourceMetadata[chan ProxyV1Session], chan error) {
+	if params == nil {
+		params = &ListSessionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ProxyV1Session, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSessionWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSession(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ProxyV1Session](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSession(response *ListSessionResponse, params *ListSessionParams, recordChannel chan ProxyV1Session, errorChannel chan error) {
@@ -361,4 +574,46 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 	}
 
 	return ps, err
+}
+
+// UpdateSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSessionWithMetadata(ServiceSid string, Sid string, params *UpdateSessionParams) (*metadata.ResourceMetadata[ProxyV1Session], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateExpiry != nil {
+		data.Set("DateExpiry", fmt.Sprint((*params.DateExpiry).Format(time.RFC3339)))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ProxyV1Session{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ProxyV1Session](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

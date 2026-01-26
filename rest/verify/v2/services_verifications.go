@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateVerification'
@@ -226,6 +228,104 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	return ps, err
 }
 
+// CreateVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateVerificationWithMetadata(ServiceSid string, params *CreateVerificationParams) (*metadata.ResourceMetadata[VerifyV2Verification], error) {
+	path := "/v2/Services/{ServiceSid}/Verifications"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.Channel != nil {
+		data.Set("Channel", *params.Channel)
+	}
+	if params != nil && params.CustomFriendlyName != nil {
+		data.Set("CustomFriendlyName", *params.CustomFriendlyName)
+	}
+	if params != nil && params.CustomMessage != nil {
+		data.Set("CustomMessage", *params.CustomMessage)
+	}
+	if params != nil && params.SendDigits != nil {
+		data.Set("SendDigits", *params.SendDigits)
+	}
+	if params != nil && params.Locale != nil {
+		data.Set("Locale", *params.Locale)
+	}
+	if params != nil && params.CustomCode != nil {
+		data.Set("CustomCode", *params.CustomCode)
+	}
+	if params != nil && params.Amount != nil {
+		data.Set("Amount", *params.Amount)
+	}
+	if params != nil && params.Payee != nil {
+		data.Set("Payee", *params.Payee)
+	}
+	if params != nil && params.RateLimits != nil {
+		v, err := json.Marshal(params.RateLimits)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("RateLimits", string(v))
+	}
+	if params != nil && params.ChannelConfiguration != nil {
+		v, err := json.Marshal(params.ChannelConfiguration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("ChannelConfiguration", string(v))
+	}
+	if params != nil && params.AppHash != nil {
+		data.Set("AppHash", *params.AppHash)
+	}
+	if params != nil && params.TemplateSid != nil {
+		data.Set("TemplateSid", *params.TemplateSid)
+	}
+	if params != nil && params.TemplateCustomSubstitutions != nil {
+		data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
+	}
+	if params != nil && params.DeviceIp != nil {
+		data.Set("DeviceIp", *params.DeviceIp)
+	}
+	if params != nil && params.EnableSnaClientToken != nil {
+		data.Set("EnableSnaClientToken", fmt.Sprint(*params.EnableSnaClientToken))
+	}
+	if params != nil && params.RiskCheck != nil {
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
+	}
+	if params != nil && params.Tags != nil {
+		data.Set("Tags", *params.Tags)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Verification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Verification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a specific Verification
 func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
@@ -250,6 +350,38 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2
 	}
 
 	return ps, err
+}
+
+// FetchVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVerificationWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[VerifyV2Verification], error) {
+	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Verification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Verification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateVerification'
@@ -291,4 +423,40 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 	}
 
 	return ps, err
+}
+
+// UpdateVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateVerificationWithMetadata(ServiceSid string, Sid string, params *UpdateVerificationParams) (*metadata.ResourceMetadata[VerifyV2Verification], error) {
+	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Verification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Verification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

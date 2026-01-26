@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBundleCopy'
@@ -61,6 +62,41 @@ func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopy
 	}
 
 	return ps, err
+}
+
+// CreateBundleCopyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBundleCopyWithMetadata(BundleSid string, params *CreateBundleCopyParams) (*metadata.ResourceMetadata[NumbersV2BundleCopy], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2BundleCopy{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2BundleCopy](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBundleCopy'
@@ -117,6 +153,49 @@ func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyPara
 	return ps, err
 }
 
+// PageBundleCopyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBundleCopyWithMetadata(BundleSid string, params *ListBundleCopyParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBundleCopyResponse], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies"
+
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBundleCopyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBundleCopyResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists BundleCopy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyParams) ([]NumbersV2BundleCopy, error) {
 	response, errors := c.StreamBundleCopy(BundleSid, params)
@@ -131,6 +210,29 @@ func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyPara
 	}
 
 	return records, nil
+}
+
+// ListBundleCopyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBundleCopyWithMetadata(BundleSid string, params *ListBundleCopyParams) (*metadata.ResourceMetadata[[]NumbersV2BundleCopy], error) {
+	response, errors := c.StreamBundleCopyWithMetadata(BundleSid, params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2BundleCopy, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2BundleCopy](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams BundleCopy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -153,6 +255,35 @@ func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBundleCopyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBundleCopyWithMetadata(BundleSid string, params *ListBundleCopyParams) (*metadata.ResourceMetadata[chan NumbersV2BundleCopy], chan error) {
+	if params == nil {
+		params = &ListBundleCopyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2BundleCopy, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBundleCopyWithMetadata(BundleSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBundleCopy(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2BundleCopy](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBundleCopy(response *ListBundleCopyResponse, params *ListBundleCopyParams, recordChannel chan NumbersV2BundleCopy, errorChannel chan error) {

@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch push notification service settings
@@ -44,6 +46,37 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*Conversat
 	}
 
 	return ps, err
+}
+
+// FetchServiceNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceNotificationWithMetadata(ChatServiceSid string) (*metadata.ResourceMetadata[ConversationsV1ServiceNotification], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceNotification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceNotification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateServiceNotification'
@@ -192,4 +225,75 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 	}
 
 	return ps, err
+}
+
+// UpdateServiceNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceNotificationWithMetadata(ChatServiceSid string, params *UpdateServiceNotificationParams) (*metadata.ResourceMetadata[ConversationsV1ServiceNotification], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.LogEnabled != nil {
+		data.Set("LogEnabled", fmt.Sprint(*params.LogEnabled))
+	}
+	if params != nil && params.NewMessageEnabled != nil {
+		data.Set("NewMessage.Enabled", fmt.Sprint(*params.NewMessageEnabled))
+	}
+	if params != nil && params.NewMessageTemplate != nil {
+		data.Set("NewMessage.Template", *params.NewMessageTemplate)
+	}
+	if params != nil && params.NewMessageSound != nil {
+		data.Set("NewMessage.Sound", *params.NewMessageSound)
+	}
+	if params != nil && params.NewMessageBadgeCountEnabled != nil {
+		data.Set("NewMessage.BadgeCountEnabled", fmt.Sprint(*params.NewMessageBadgeCountEnabled))
+	}
+	if params != nil && params.AddedToConversationEnabled != nil {
+		data.Set("AddedToConversation.Enabled", fmt.Sprint(*params.AddedToConversationEnabled))
+	}
+	if params != nil && params.AddedToConversationTemplate != nil {
+		data.Set("AddedToConversation.Template", *params.AddedToConversationTemplate)
+	}
+	if params != nil && params.AddedToConversationSound != nil {
+		data.Set("AddedToConversation.Sound", *params.AddedToConversationSound)
+	}
+	if params != nil && params.RemovedFromConversationEnabled != nil {
+		data.Set("RemovedFromConversation.Enabled", fmt.Sprint(*params.RemovedFromConversationEnabled))
+	}
+	if params != nil && params.RemovedFromConversationTemplate != nil {
+		data.Set("RemovedFromConversation.Template", *params.RemovedFromConversationTemplate)
+	}
+	if params != nil && params.RemovedFromConversationSound != nil {
+		data.Set("RemovedFromConversation.Sound", *params.RemovedFromConversationSound)
+	}
+	if params != nil && params.NewMessageWithMediaEnabled != nil {
+		data.Set("NewMessage.WithMedia.Enabled", fmt.Sprint(*params.NewMessageWithMediaEnabled))
+	}
+	if params != nil && params.NewMessageWithMediaTemplate != nil {
+		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceNotification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceNotification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

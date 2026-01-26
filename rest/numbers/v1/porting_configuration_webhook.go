@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreatePortingWebhookConfiguration'
@@ -65,6 +67,45 @@ func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebh
 	return ps, err
 }
 
+// CreatePortingWebhookConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreatePortingWebhookConfigurationWithMetadata(params *CreatePortingWebhookConfigurationParams) (*metadata.ResourceMetadata[NumbersV1PortingWebhookConfiguration], error) {
+	path := "/v1/Porting/Configuration/Webhook"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingWebhookConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingWebhookConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Allows the client to delete a webhook configuration.
 func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string) error {
 	path := "/v1/Porting/Configuration/Webhook/{WebhookType}"
@@ -83,6 +124,32 @@ func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string)
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeletePortingWebhookConfigurationDeleteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeletePortingWebhookConfigurationDeleteWithMetadata(WebhookType string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Porting/Configuration/Webhook/{WebhookType}"
+	path = strings.Replace(path, "{"+"WebhookType"+"}", fmt.Sprint(WebhookType), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Allows to fetch the webhook configuration
@@ -107,4 +174,34 @@ func (c *ApiService) FetchPortingWebhookConfigurationFetch() (*NumbersV1PortingW
 	}
 
 	return ps, err
+}
+
+// FetchPortingWebhookConfigurationFetchWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPortingWebhookConfigurationFetchWithMetadata() (*metadata.ResourceMetadata[NumbersV1PortingWebhookConfigurationFetch], error) {
+	path := "/v1/Porting/Configuration/Webhook"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingWebhookConfigurationFetch{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingWebhookConfigurationFetch](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInteractionChannelInvite'
@@ -68,6 +69,48 @@ func (c *ApiService) CreateInteractionChannelInvite(InteractionSid string, Chann
 	}
 
 	return ps, err
+}
+
+// CreateInteractionChannelInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInteractionChannelInviteWithMetadata(InteractionSid string, ChannelSid string, params *CreateInteractionChannelInviteParams) (*metadata.ResourceMetadata[FlexV1InteractionChannelInvite], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Routing != nil {
+		v, err := json.Marshal(params.Routing)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Routing", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionChannelInvite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionChannelInvite](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInteractionChannelInvite'
@@ -125,6 +168,50 @@ func (c *ApiService) PageInteractionChannelInvite(InteractionSid string, Channel
 	return ps, err
 }
 
+// PageInteractionChannelInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInteractionChannelInviteWithMetadata(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInteractionChannelInviteResponse], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites"
+
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInteractionChannelInviteResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInteractionChannelInviteResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InteractionChannelInvite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) ([]FlexV1InteractionChannelInvite, error) {
 	response, errors := c.StreamInteractionChannelInvite(InteractionSid, ChannelSid, params)
@@ -139,6 +226,29 @@ func (c *ApiService) ListInteractionChannelInvite(InteractionSid string, Channel
 	}
 
 	return records, nil
+}
+
+// ListInteractionChannelInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInteractionChannelInviteWithMetadata(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (*metadata.ResourceMetadata[[]FlexV1InteractionChannelInvite], error) {
+	response, errors := c.StreamInteractionChannelInviteWithMetadata(InteractionSid, ChannelSid, params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InteractionChannelInvite, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InteractionChannelInvite](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InteractionChannelInvite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -161,6 +271,35 @@ func (c *ApiService) StreamInteractionChannelInvite(InteractionSid string, Chann
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInteractionChannelInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInteractionChannelInviteWithMetadata(InteractionSid string, ChannelSid string, params *ListInteractionChannelInviteParams) (*metadata.ResourceMetadata[chan FlexV1InteractionChannelInvite], chan error) {
+	if params == nil {
+		params = &ListInteractionChannelInviteParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InteractionChannelInvite, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInteractionChannelInviteWithMetadata(InteractionSid, ChannelSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInteractionChannelInvite(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InteractionChannelInvite](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInteractionChannelInvite(response *ListInteractionChannelInviteResponse, params *ListInteractionChannelInviteParams, recordChannel chan FlexV1InteractionChannelInvite, errorChannel chan error) {

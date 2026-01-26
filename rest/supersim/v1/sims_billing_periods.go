@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListBillingPeriod'
@@ -77,6 +78,49 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 	return ps, err
 }
 
+// PageBillingPeriodWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBillingPeriodWithMetadata(SimSid string, params *ListBillingPeriodParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBillingPeriodResponse], error) {
+	path := "/v1/Sims/{SimSid}/BillingPeriods"
+
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBillingPeriodResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBillingPeriodResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
 	response, errors := c.StreamBillingPeriod(SimSid, params)
@@ -91,6 +135,29 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 	}
 
 	return records, nil
+}
+
+// ListBillingPeriodWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBillingPeriodWithMetadata(SimSid string, params *ListBillingPeriodParams) (*metadata.ResourceMetadata[[]SupersimV1BillingPeriod], error) {
+	response, errors := c.StreamBillingPeriodWithMetadata(SimSid, params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1BillingPeriod, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1BillingPeriod](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -113,6 +180,35 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBillingPeriodWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBillingPeriodWithMetadata(SimSid string, params *ListBillingPeriodParams) (*metadata.ResourceMetadata[chan SupersimV1BillingPeriod], chan error) {
+	if params == nil {
+		params = &ListBillingPeriodParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1BillingPeriod, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBillingPeriodWithMetadata(SimSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBillingPeriod(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1BillingPeriod](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBillingPeriod(response *ListBillingPeriodResponse, params *ListBillingPeriodParams, recordChannel chan SupersimV1BillingPeriod, errorChannel chan error) {

@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateToken'
@@ -69,4 +71,43 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Token, err
 	}
 
 	return ps, err
+}
+
+// CreateTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTokenWithMetadata(params *CreateTokenParams) (*metadata.ResourceMetadata[ApiV2010Token], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Token{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Token](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

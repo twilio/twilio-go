@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchConferenceParticipant'
@@ -71,6 +72,45 @@ func (c *ApiService) FetchConferenceParticipant(ConferenceSid string, Participan
 	}
 
 	return ps, err
+}
+
+// FetchConferenceParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConferenceParticipantWithMetadata(ConferenceSid string, ParticipantSid string, params *FetchConferenceParticipantParams) (*metadata.ResourceMetadata[InsightsV1ConferenceParticipant], error) {
+	path := "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}"
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
+	}
+	if params != nil && params.Metrics != nil {
+		data.Set("Metrics", *params.Metrics)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1ConferenceParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1ConferenceParticipant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListConferenceParticipant'
@@ -154,6 +194,58 @@ func (c *ApiService) PageConferenceParticipant(ConferenceSid string, params *Lis
 	return ps, err
 }
 
+// PageConferenceParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageConferenceParticipantWithMetadata(ConferenceSid string, params *ListConferenceParticipantParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListConferenceParticipantResponse], error) {
+	path := "/v1/Conferences/{ConferenceSid}/Participants"
+
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ParticipantSid != nil {
+		data.Set("ParticipantSid", *params.ParticipantSid)
+	}
+	if params != nil && params.Label != nil {
+		data.Set("Label", *params.Label)
+	}
+	if params != nil && params.Events != nil {
+		data.Set("Events", *params.Events)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConferenceParticipantResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListConferenceParticipantResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ConferenceParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConferenceParticipant(ConferenceSid string, params *ListConferenceParticipantParams) ([]InsightsV1ConferenceParticipant, error) {
 	response, errors := c.StreamConferenceParticipant(ConferenceSid, params)
@@ -168,6 +260,29 @@ func (c *ApiService) ListConferenceParticipant(ConferenceSid string, params *Lis
 	}
 
 	return records, nil
+}
+
+// ListConferenceParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListConferenceParticipantWithMetadata(ConferenceSid string, params *ListConferenceParticipantParams) (*metadata.ResourceMetadata[[]InsightsV1ConferenceParticipant], error) {
+	response, errors := c.StreamConferenceParticipantWithMetadata(ConferenceSid, params)
+	resource := response.GetResource()
+
+	records := make([]InsightsV1ConferenceParticipant, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]InsightsV1ConferenceParticipant](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ConferenceParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -190,6 +305,35 @@ func (c *ApiService) StreamConferenceParticipant(ConferenceSid string, params *L
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamConferenceParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamConferenceParticipantWithMetadata(ConferenceSid string, params *ListConferenceParticipantParams) (*metadata.ResourceMetadata[chan InsightsV1ConferenceParticipant], chan error) {
+	if params == nil {
+		params = &ListConferenceParticipantParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan InsightsV1ConferenceParticipant, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageConferenceParticipantWithMetadata(ConferenceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamConferenceParticipant(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan InsightsV1ConferenceParticipant](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamConferenceParticipant(response *ListConferenceParticipantResponse, params *ListConferenceParticipantParams, recordChannel chan InsightsV1ConferenceParticipant, errorChannel chan error) {

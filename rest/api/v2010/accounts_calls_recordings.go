@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCallRecording'
@@ -121,6 +122,63 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 	return ps, err
 }
 
+// CreateCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCallRecordingWithMetadata(CallSid string, params *CreateCallRecordingParams) (*metadata.ResourceMetadata[ApiV2010CallRecording], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010CallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010CallRecording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteCallRecording'
 type DeleteCallRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
@@ -156,6 +214,38 @@ func (c *ApiService) DeleteCallRecording(CallSid string, Sid string, params *Del
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCallRecordingWithMetadata(CallSid string, Sid string, params *DeleteCallRecordingParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchCallRecording'
@@ -198,6 +288,43 @@ func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *Fetc
 	}
 
 	return ps, err
+}
+
+// FetchCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCallRecordingWithMetadata(CallSid string, Sid string, params *FetchCallRecordingParams) (*metadata.ResourceMetadata[ApiV2010CallRecording], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010CallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010CallRecording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCallRecording'
@@ -292,6 +419,63 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 	return ps, err
 }
 
+// PageCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCallRecordingWithMetadata(CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCallRecordingResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCallRecordingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) ([]ApiV2010CallRecording, error) {
 	response, errors := c.StreamCallRecording(CallSid, params)
@@ -306,6 +490,29 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 	}
 
 	return records, nil
+}
+
+// ListCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCallRecordingWithMetadata(CallSid string, params *ListCallRecordingParams) (*metadata.ResourceMetadata[[]ApiV2010CallRecording], error) {
+	response, errors := c.StreamCallRecordingWithMetadata(CallSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010CallRecording, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010CallRecording](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -328,6 +535,35 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCallRecordingWithMetadata(CallSid string, params *ListCallRecordingParams) (*metadata.ResourceMetadata[chan ApiV2010CallRecording], chan error) {
+	if params == nil {
+		params = &ListCallRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010CallRecording, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCallRecordingWithMetadata(CallSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCallRecording(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010CallRecording](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCallRecording(response *ListCallRecordingResponse, params *ListCallRecordingParams, recordChannel chan ApiV2010CallRecording, errorChannel chan error) {
@@ -437,4 +673,48 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 	}
 
 	return ps, err
+}
+
+// UpdateCallRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCallRecordingWithMetadata(CallSid string, Sid string, params *UpdateCallRecordingParams) (*metadata.ResourceMetadata[ApiV2010CallRecording], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PauseBehavior != nil {
+		data.Set("PauseBehavior", *params.PauseBehavior)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010CallRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010CallRecording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

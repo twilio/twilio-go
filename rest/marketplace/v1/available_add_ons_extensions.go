@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch an instance of an Extension for the Available Add-on.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchAvailableAddOnExtension(AvailableAddOnSid string, Sid 
 	}
 
 	return ps, err
+}
+
+// FetchAvailableAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAvailableAddOnExtensionWithMetadata(AvailableAddOnSid string, Sid string) (*metadata.ResourceMetadata[MarketplaceV1AvailableAddOnExtension], error) {
+	path := "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1AvailableAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1AvailableAddOnExtension](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAvailableAddOnExtension'
@@ -103,6 +136,49 @@ func (c *ApiService) PageAvailableAddOnExtension(AvailableAddOnSid string, param
 	return ps, err
 }
 
+// PageAvailableAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAvailableAddOnExtensionWithMetadata(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAvailableAddOnExtensionResponse], error) {
+	path := "/v1/AvailableAddOns/{AvailableAddOnSid}/Extensions"
+
+	path = strings.Replace(path, "{"+"AvailableAddOnSid"+"}", AvailableAddOnSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailableAddOnExtensionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAvailableAddOnExtensionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AvailableAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailableAddOnExtension(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) ([]MarketplaceV1AvailableAddOnExtension, error) {
 	response, errors := c.StreamAvailableAddOnExtension(AvailableAddOnSid, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListAvailableAddOnExtension(AvailableAddOnSid string, param
 	}
 
 	return records, nil
+}
+
+// ListAvailableAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAvailableAddOnExtensionWithMetadata(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) (*metadata.ResourceMetadata[[]MarketplaceV1AvailableAddOnExtension], error) {
+	response, errors := c.StreamAvailableAddOnExtensionWithMetadata(AvailableAddOnSid, params)
+	resource := response.GetResource()
+
+	records := make([]MarketplaceV1AvailableAddOnExtension, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MarketplaceV1AvailableAddOnExtension](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AvailableAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamAvailableAddOnExtension(AvailableAddOnSid string, par
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAvailableAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAvailableAddOnExtensionWithMetadata(AvailableAddOnSid string, params *ListAvailableAddOnExtensionParams) (*metadata.ResourceMetadata[chan MarketplaceV1AvailableAddOnExtension], chan error) {
+	if params == nil {
+		params = &ListAvailableAddOnExtensionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MarketplaceV1AvailableAddOnExtension, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAvailableAddOnExtensionWithMetadata(AvailableAddOnSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAvailableAddOnExtension(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MarketplaceV1AvailableAddOnExtension](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAvailableAddOnExtension(response *ListAvailableAddOnExtensionResponse, params *ListAvailableAddOnExtensionParams, recordChannel chan MarketplaceV1AvailableAddOnExtension, errorChannel chan error) {

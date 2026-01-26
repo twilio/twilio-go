@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateHostedNumbersHostedNumberOrder'
@@ -203,4 +205,88 @@ func (c *ApiService) CreateHostedNumbersHostedNumberOrder(params *CreateHostedNu
 	}
 
 	return ps, err
+}
+
+// CreateHostedNumbersHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateHostedNumbersHostedNumberOrderWithMetadata(params *CreateHostedNumbersHostedNumberOrderParams) (*metadata.ResourceMetadata[NumbersV3HostedNumberOrder], error) {
+	path := "/v3/HostedNumbers/HostedNumberOrders"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("phoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.SmsCapability != nil {
+		data.Set("smsCapability", fmt.Sprint(*params.SmsCapability))
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("accountSid", *params.AccountSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("friendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("uniqueName", *params.UniqueName)
+	}
+	if params != nil && params.CcEmails != nil {
+		for _, item := range *params.CcEmails {
+			data.Add("ccEmails", item)
+		}
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("smsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("smsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("smsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("smsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("statusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("statusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("smsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("addressSid", *params.AddressSid)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("email", *params.Email)
+	}
+	if params != nil && params.VerificationType != nil {
+		data.Set("verificationType", *params.VerificationType)
+	}
+	if params != nil && params.VerificationDocumentSid != nil {
+		data.Set("verificationDocumentSid", *params.VerificationDocumentSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV3HostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV3HostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

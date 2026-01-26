@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListContentAndApprovals'
@@ -162,6 +163,80 @@ func (c *ApiService) PageContentAndApprovals(params *ListContentAndApprovalsPara
 	return ps, err
 }
 
+// PageContentAndApprovalsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageContentAndApprovalsWithMetadata(params *ListContentAndApprovalsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListContentAndApprovalsResponse], error) {
+	path := "/v2/ContentAndApprovals"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.SortByDate != nil {
+		data.Set("SortByDate", *params.SortByDate)
+	}
+	if params != nil && params.SortByContentName != nil {
+		data.Set("SortByContentName", *params.SortByContentName)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.ContentName != nil {
+		data.Set("ContentName", *params.ContentName)
+	}
+	if params != nil && params.Content != nil {
+		data.Set("Content", *params.Content)
+	}
+	if params != nil && params.Language != nil {
+		for _, item := range *params.Language {
+			data.Add("Language", item)
+		}
+	}
+	if params != nil && params.ContentType != nil {
+		for _, item := range *params.ContentType {
+			data.Add("ContentType", item)
+		}
+	}
+	if params != nil && params.ChannelEligibility != nil {
+		for _, item := range *params.ChannelEligibility {
+			data.Add("ChannelEligibility", item)
+		}
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListContentAndApprovalsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListContentAndApprovalsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ContentAndApprovals records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListContentAndApprovals(params *ListContentAndApprovalsParams) ([]ContentV1ContentAndApprovals, error) {
 	response, errors := c.StreamContentAndApprovals(params)
@@ -176,6 +251,29 @@ func (c *ApiService) ListContentAndApprovals(params *ListContentAndApprovalsPara
 	}
 
 	return records, nil
+}
+
+// ListContentAndApprovalsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListContentAndApprovalsWithMetadata(params *ListContentAndApprovalsParams) (*metadata.ResourceMetadata[[]ContentV1ContentAndApprovals], error) {
+	response, errors := c.StreamContentAndApprovalsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ContentV1ContentAndApprovals, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ContentV1ContentAndApprovals](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ContentAndApprovals records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -198,6 +296,35 @@ func (c *ApiService) StreamContentAndApprovals(params *ListContentAndApprovalsPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamContentAndApprovalsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamContentAndApprovalsWithMetadata(params *ListContentAndApprovalsParams) (*metadata.ResourceMetadata[chan ContentV1ContentAndApprovals], chan error) {
+	if params == nil {
+		params = &ListContentAndApprovalsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ContentV1ContentAndApprovals, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageContentAndApprovalsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamContentAndApprovals(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ContentV1ContentAndApprovals](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamContentAndApprovals(response *ListContentAndApprovalsResponse, params *ListContentAndApprovalsParams, recordChannel chan ContentV1ContentAndApprovals, errorChannel chan error) {

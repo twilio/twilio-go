@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch specific Policy Instance.
@@ -46,6 +47,37 @@ func (c *ApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
 	}
 
 	return ps, err
+}
+
+// FetchPoliciesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPoliciesWithMetadata(Sid string) (*metadata.ResourceMetadata[TrusthubV1Policies], error) {
+	path := "/v1/Policies/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1Policies{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1Policies](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListPolicies'
@@ -100,6 +132,47 @@ func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken, pageNum
 	return ps, err
 }
 
+// PagePoliciesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PagePoliciesWithMetadata(params *ListPoliciesParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListPoliciesResponse], error) {
+	path := "/v1/Policies"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPoliciesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListPoliciesResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Policies, error) {
 	response, errors := c.StreamPolicies(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Polic
 	}
 
 	return records, nil
+}
+
+// ListPoliciesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListPoliciesWithMetadata(params *ListPoliciesParams) (*metadata.ResourceMetadata[[]TrusthubV1Policies], error) {
+	response, errors := c.StreamPoliciesWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1Policies, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1Policies](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamPoliciesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamPoliciesWithMetadata(params *ListPoliciesParams) (*metadata.ResourceMetadata[chan TrusthubV1Policies], chan error) {
+	if params == nil {
+		params = &ListPoliciesParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1Policies, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PagePoliciesWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamPolicies(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1Policies](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamPolicies(response *ListPoliciesResponse, params *ListPoliciesParams, recordChannel chan TrusthubV1Policies, errorChannel chan error) {

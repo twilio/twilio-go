@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSinkValidate'
@@ -58,4 +60,39 @@ func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidatePa
 	}
 
 	return ps, err
+}
+
+// CreateSinkValidateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSinkValidateWithMetadata(Sid string, params *CreateSinkValidateParams) (*metadata.ResourceMetadata[EventsV1SinkValidate], error) {
+	path := "/v1/Sinks/{Sid}/Validate"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TestId != nil {
+		data.Set("TestId", *params.TestId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SinkValidate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1SinkValidate](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

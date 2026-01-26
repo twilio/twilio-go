@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSim'
@@ -71,6 +72,43 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
 	return ps, err
 }
 
+// CreateSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSimWithMetadata(params *CreateSimParams) (*metadata.ResourceMetadata[SupersimV1Sim], error) {
+	path := "/v1/Sims"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.RegistrationCode != nil {
+		data.Set("RegistrationCode", *params.RegistrationCode)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Sim](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a Super SIM instance from your account.
 func (c *ApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
@@ -94,6 +132,37 @@ func (c *ApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	}
 
 	return ps, err
+}
+
+// FetchSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSimWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1Sim], error) {
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Sim](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSim'
@@ -175,6 +244,56 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 	return ps, err
 }
 
+// PageSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSimWithMetadata(params *ListSimParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSimResponse], error) {
+	path := "/v1/Sims"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.Iccid != nil {
+		data.Set("Iccid", *params.Iccid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSimResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSimResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSim(params *ListSimParams) ([]SupersimV1Sim, error) {
 	response, errors := c.StreamSim(params)
@@ -189,6 +308,29 @@ func (c *ApiService) ListSim(params *ListSimParams) ([]SupersimV1Sim, error) {
 	}
 
 	return records, nil
+}
+
+// ListSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSimWithMetadata(params *ListSimParams) (*metadata.ResourceMetadata[[]SupersimV1Sim], error) {
+	response, errors := c.StreamSimWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1Sim, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1Sim](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -211,6 +353,35 @@ func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, chan 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSimWithMetadata(params *ListSimParams) (*metadata.ResourceMetadata[chan SupersimV1Sim], chan error) {
+	if params == nil {
+		params = &ListSimParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1Sim, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSimWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSim(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1Sim](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSim(response *ListSimResponse, params *ListSimParams, recordChannel chan SupersimV1Sim, errorChannel chan error) {
@@ -344,4 +515,54 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 	}
 
 	return ps, err
+}
+
+// UpdateSimWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSimWithMetadata(Sid string, params *UpdateSimParams) (*metadata.ResourceMetadata[SupersimV1Sim], error) {
+	path := "/v1/Sims/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Sim{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Sim](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

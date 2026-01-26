@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateConversationParticipant'
@@ -136,6 +137,65 @@ func (c *ApiService) CreateConversationParticipant(ConversationSid string, param
 	return ps, err
 }
 
+// CreateConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateConversationParticipantWithMetadata(ConversationSid string, params *CreateConversationParticipantParams) (*metadata.ResourceMetadata[ConversationsV1ConversationParticipant], error) {
+	path := "/v1/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.MessagingBindingAddress != nil {
+		data.Set("MessagingBinding.Address", *params.MessagingBindingAddress)
+	}
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConversationParticipant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteConversationParticipant'
 type DeleteConversationParticipantParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
@@ -171,6 +231,36 @@ func (c *ApiService) DeleteConversationParticipant(ConversationSid string, Sid s
 	return nil
 }
 
+// DeleteConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteConversationParticipantWithMetadata(ConversationSid string, Sid string, params *DeleteConversationParticipantParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a participant of the conversation
 func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
@@ -195,6 +285,38 @@ func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid st
 	}
 
 	return ps, err
+}
+
+// FetchConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConversationParticipantWithMetadata(ConversationSid string, Sid string) (*metadata.ResourceMetadata[ConversationsV1ConversationParticipant], error) {
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConversationParticipant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListConversationParticipant'
@@ -251,6 +373,49 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 	return ps, err
 }
 
+// PageConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageConversationParticipantWithMetadata(ConversationSid string, params *ListConversationParticipantParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListConversationParticipantResponse], error) {
+	path := "/v1/Conversations/{ConversationSid}/Participants"
+
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConversationParticipantResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListConversationParticipantResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationParticipant, error) {
 	response, errors := c.StreamConversationParticipant(ConversationSid, params)
@@ -265,6 +430,29 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 	}
 
 	return records, nil
+}
+
+// ListConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListConversationParticipantWithMetadata(ConversationSid string, params *ListConversationParticipantParams) (*metadata.ResourceMetadata[[]ConversationsV1ConversationParticipant], error) {
+	response, errors := c.StreamConversationParticipantWithMetadata(ConversationSid, params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1ConversationParticipant, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1ConversationParticipant](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -287,6 +475,35 @@ func (c *ApiService) StreamConversationParticipant(ConversationSid string, param
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamConversationParticipantWithMetadata(ConversationSid string, params *ListConversationParticipantParams) (*metadata.ResourceMetadata[chan ConversationsV1ConversationParticipant], chan error) {
+	if params == nil {
+		params = &ListConversationParticipantParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1ConversationParticipant, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageConversationParticipantWithMetadata(ConversationSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamConversationParticipant(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1ConversationParticipant](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamConversationParticipant(response *ListConversationParticipantResponse, params *ListConversationParticipantParams, recordChannel chan ConversationsV1ConversationParticipant, errorChannel chan error) {
@@ -457,4 +674,67 @@ func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid s
 	}
 
 	return ps, err
+}
+
+// UpdateConversationParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConversationParticipantWithMetadata(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*metadata.ResourceMetadata[ConversationsV1ConversationParticipant], error) {
+	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
+	if params != nil && params.MessagingBindingProxyAddress != nil {
+		data.Set("MessagingBinding.ProxyAddress", *params.MessagingBindingProxyAddress)
+	}
+	if params != nil && params.MessagingBindingProjectedAddress != nil {
+		data.Set("MessagingBinding.ProjectedAddress", *params.MessagingBindingProjectedAddress)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.LastReadMessageIndex != nil {
+		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
+	}
+	if params != nil && params.LastReadTimestamp != nil {
+		data.Set("LastReadTimestamp", *params.LastReadTimestamp)
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationParticipant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConversationParticipant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

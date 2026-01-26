@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch flex user for the given flex user sid
@@ -44,6 +46,38 @@ func (c *ApiService) FetchFlexUser(InstanceSid string, FlexUserSid string) (*Fle
 	}
 
 	return ps, err
+}
+
+// FetchFlexUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFlexUserWithMetadata(InstanceSid string, FlexUserSid string) (*metadata.ResourceMetadata[FlexV2FlexUser], error) {
+	path := "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}"
+	path = strings.Replace(path, "{"+"InstanceSid"+"}", InstanceSid, -1)
+	path = strings.Replace(path, "{"+"FlexUserSid"+"}", FlexUserSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV2FlexUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV2FlexUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateFlexUser'
@@ -103,4 +137,46 @@ func (c *ApiService) UpdateFlexUser(InstanceSid string, FlexUserSid string, para
 	}
 
 	return ps, err
+}
+
+// UpdateFlexUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFlexUserWithMetadata(InstanceSid string, FlexUserSid string, params *UpdateFlexUserParams) (*metadata.ResourceMetadata[FlexV2FlexUser], error) {
+	path := "/v2/Instances/{InstanceSid}/Users/{FlexUserSid}"
+	path = strings.Replace(path, "{"+"InstanceSid"+"}", InstanceSid, -1)
+	path = strings.Replace(path, "{"+"FlexUserSid"+"}", FlexUserSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.UserSid != nil {
+		data.Set("UserSid", *params.UserSid)
+	}
+	if params != nil && params.Locale != nil {
+		data.Set("Locale", *params.Locale)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV2FlexUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV2FlexUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

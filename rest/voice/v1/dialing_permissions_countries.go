@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve voice dialing country permissions identified by the given ISO country code
@@ -46,6 +47,37 @@ func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1Dia
 	}
 
 	return ps, err
+}
+
+// FetchDialingPermissionsCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDialingPermissionsCountryWithMetadata(IsoCode string) (*metadata.ResourceMetadata[VoiceV1DialingPermissionsCountryInstance], error) {
+	path := "/v1/DialingPermissions/Countries/{IsoCode}"
+	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1DialingPermissionsCountryInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1DialingPermissionsCountryInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListDialingPermissionsCountry'
@@ -154,6 +186,65 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 	return ps, err
 }
 
+// PageDialingPermissionsCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageDialingPermissionsCountryWithMetadata(params *ListDialingPermissionsCountryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListDialingPermissionsCountryResponse], error) {
+	path := "/v1/DialingPermissions/Countries"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IsoCode != nil {
+		data.Set("IsoCode", *params.IsoCode)
+	}
+	if params != nil && params.Continent != nil {
+		data.Set("Continent", *params.Continent)
+	}
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+	if params != nil && params.LowRiskNumbersEnabled != nil {
+		data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
+	}
+	if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
+		data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
+	}
+	if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
+		data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDialingPermissionsCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListDialingPermissionsCountryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsCountry, error) {
 	response, errors := c.StreamDialingPermissionsCountry(params)
@@ -168,6 +259,29 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	}
 
 	return records, nil
+}
+
+// ListDialingPermissionsCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListDialingPermissionsCountryWithMetadata(params *ListDialingPermissionsCountryParams) (*metadata.ResourceMetadata[[]VoiceV1DialingPermissionsCountry], error) {
+	response, errors := c.StreamDialingPermissionsCountryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV1DialingPermissionsCountry, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV1DialingPermissionsCountry](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -190,6 +304,35 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamDialingPermissionsCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamDialingPermissionsCountryWithMetadata(params *ListDialingPermissionsCountryParams) (*metadata.ResourceMetadata[chan VoiceV1DialingPermissionsCountry], chan error) {
+	if params == nil {
+		params = &ListDialingPermissionsCountryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV1DialingPermissionsCountry, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageDialingPermissionsCountryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamDialingPermissionsCountry(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV1DialingPermissionsCountry](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamDialingPermissionsCountry(response *ListDialingPermissionsCountryResponse, params *ListDialingPermissionsCountryParams, recordChannel chan VoiceV1DialingPermissionsCountry, errorChannel chan error) {

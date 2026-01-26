@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateFunction'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionPar
 	return ps, err
 }
 
+// CreateFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateFunctionWithMetadata(ServiceSid string, params *CreateFunctionParams) (*metadata.ResourceMetadata[ServerlessV1Function], error) {
+	path := "/v1/Services/{ServiceSid}/Functions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Function{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Function](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a Function resource.
 func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteFunctionWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific Function resource.
@@ -108,6 +171,38 @@ func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1
 	}
 
 	return ps, err
+}
+
+// FetchFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFunctionWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Function], error) {
+	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Function{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Function](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFunction'
@@ -164,6 +259,49 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 	return ps, err
 }
 
+// PageFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFunctionWithMetadata(ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFunctionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Functions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFunctionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFunctionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1Function, error) {
 	response, errors := c.StreamFunction(ServiceSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams)
 	}
 
 	return records, nil
+}
+
+// ListFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFunctionWithMetadata(ServiceSid string, params *ListFunctionParams) (*metadata.ResourceMetadata[[]ServerlessV1Function], error) {
+	response, errors := c.StreamFunctionWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Function, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Function](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFunctionWithMetadata(ServiceSid string, params *ListFunctionParams) (*metadata.ResourceMetadata[chan ServerlessV1Function], chan error) {
+	if params == nil {
+		params = &ListFunctionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Function, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFunctionWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFunction(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Function](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFunction(response *ListFunctionResponse, params *ListFunctionParams, recordChannel chan ServerlessV1Function, errorChannel chan error) {
@@ -289,4 +479,40 @@ func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *Updat
 	}
 
 	return ps, err
+}
+
+// UpdateFunctionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFunctionWithMetadata(ServiceSid string, Sid string, params *UpdateFunctionParams) (*metadata.ResourceMetadata[ServerlessV1Function], error) {
+	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Function{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Function](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

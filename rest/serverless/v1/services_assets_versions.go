@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve a specific Asset Version.
@@ -48,6 +49,39 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 	}
 
 	return ps, err
+}
+
+// FetchAssetVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAssetVersionWithMetadata(ServiceSid string, AssetSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1AssetVersion], error) {
+	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1AssetVersion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1AssetVersion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAssetVersion'
@@ -105,6 +139,50 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 	return ps, err
 }
 
+// PageAssetVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAssetVersionWithMetadata(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAssetVersionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAssetVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAssetVersionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
 	response, errors := c.StreamAssetVersion(ServiceSid, AssetSid, params)
@@ -119,6 +197,29 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 	}
 
 	return records, nil
+}
+
+// ListAssetVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAssetVersionWithMetadata(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (*metadata.ResourceMetadata[[]ServerlessV1AssetVersion], error) {
+	response, errors := c.StreamAssetVersionWithMetadata(ServiceSid, AssetSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1AssetVersion, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1AssetVersion](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +242,35 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAssetVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAssetVersionWithMetadata(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (*metadata.ResourceMetadata[chan ServerlessV1AssetVersion], chan error) {
+	if params == nil {
+		params = &ListAssetVersionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1AssetVersion, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAssetVersionWithMetadata(ServiceSid, AssetSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAssetVersion(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1AssetVersion](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAssetVersion(response *ListAssetVersionResponse, params *ListAssetVersionParams, recordChannel chan ServerlessV1AssetVersion, errorChannel chan error) {

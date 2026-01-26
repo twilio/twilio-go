@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"time"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchVerificationAttemptsSummary'
@@ -103,4 +105,53 @@ func (c *ApiService) FetchVerificationAttemptsSummary(params *FetchVerificationA
 	}
 
 	return ps, err
+}
+
+// FetchVerificationAttemptsSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVerificationAttemptsSummaryWithMetadata(params *FetchVerificationAttemptsSummaryParams) (*metadata.ResourceMetadata[VerifyV2VerificationAttemptsSummary], error) {
+	path := "/v2/Attempts/Summary"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.VerifyServiceSid != nil {
+		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.Channel != nil {
+		data.Set("Channel", fmt.Sprint(*params.Channel))
+	}
+	if params != nil && params.DestinationPrefix != nil {
+		data.Set("DestinationPrefix", *params.DestinationPrefix)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2VerificationAttemptsSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2VerificationAttemptsSummary](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

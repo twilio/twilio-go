@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve a specific Function Version resource.
@@ -48,6 +49,39 @@ func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string,
 	}
 
 	return ps, err
+}
+
+// FetchFunctionVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFunctionVersionWithMetadata(ServiceSid string, FunctionSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1FunctionVersion], error) {
+	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1FunctionVersion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1FunctionVersion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFunctionVersion'
@@ -105,6 +139,50 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 	return ps, err
 }
 
+// PageFunctionVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFunctionVersionWithMetadata(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFunctionVersionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFunctionVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFunctionVersionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1FunctionVersion, error) {
 	response, errors := c.StreamFunctionVersion(ServiceSid, FunctionSid, params)
@@ -119,6 +197,29 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	}
 
 	return records, nil
+}
+
+// ListFunctionVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFunctionVersionWithMetadata(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (*metadata.ResourceMetadata[[]ServerlessV1FunctionVersion], error) {
+	response, errors := c.StreamFunctionVersionWithMetadata(ServiceSid, FunctionSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1FunctionVersion, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1FunctionVersion](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +242,35 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFunctionVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFunctionVersionWithMetadata(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (*metadata.ResourceMetadata[chan ServerlessV1FunctionVersion], chan error) {
+	if params == nil {
+		params = &ListFunctionVersionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1FunctionVersion, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFunctionVersionWithMetadata(ServiceSid, FunctionSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFunctionVersion(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1FunctionVersion](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFunctionVersion(response *ListFunctionVersionResponse, params *ListFunctionVersionParams, recordChannel chan ServerlessV1FunctionVersion, errorChannel chan error) {

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSink'
@@ -86,6 +87,52 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 	return ps, err
 }
 
+// CreateSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSinkWithMetadata(params *CreateSinkParams) (*metadata.ResourceMetadata[EventsV1Sink], error) {
+	path := "/v1/Sinks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.SinkConfiguration != nil {
+		v, err := json.Marshal(params.SinkConfiguration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("SinkConfiguration", string(v))
+	}
+	if params != nil && params.SinkType != nil {
+		data.Set("SinkType", fmt.Sprint(*params.SinkType))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Sink](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Sink.
 func (c *ApiService) DeleteSink(Sid string) error {
 	path := "/v1/Sinks/{Sid}"
@@ -104,6 +151,32 @@ func (c *ApiService) DeleteSink(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSinkWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Sink.
@@ -129,6 +202,37 @@ func (c *ApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	}
 
 	return ps, err
+}
+
+// FetchSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSinkWithMetadata(Sid string) (*metadata.ResourceMetadata[EventsV1Sink], error) {
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Sink](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSink'
@@ -201,6 +305,53 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
 	return ps, err
 }
 
+// PageSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSinkWithMetadata(params *ListSinkParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSinkResponse], error) {
+	path := "/v1/Sinks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.InUse != nil {
+		data.Set("InUse", fmt.Sprint(*params.InUse))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSinkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSinkResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Sink records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSink(params *ListSinkParams) ([]EventsV1Sink, error) {
 	response, errors := c.StreamSink(params)
@@ -215,6 +366,29 @@ func (c *ApiService) ListSink(params *ListSinkParams) ([]EventsV1Sink, error) {
 	}
 
 	return records, nil
+}
+
+// ListSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSinkWithMetadata(params *ListSinkParams) (*metadata.ResourceMetadata[[]EventsV1Sink], error) {
+	response, errors := c.StreamSinkWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]EventsV1Sink, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]EventsV1Sink](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Sink records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -237,6 +411,35 @@ func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSinkWithMetadata(params *ListSinkParams) (*metadata.ResourceMetadata[chan EventsV1Sink], chan error) {
+	if params == nil {
+		params = &ListSinkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan EventsV1Sink, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSinkWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSink(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan EventsV1Sink](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSink(response *ListSinkResponse, params *ListSinkParams, recordChannel chan EventsV1Sink, errorChannel chan error) {
@@ -325,4 +528,39 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 	}
 
 	return ps, err
+}
+
+// UpdateSinkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSinkWithMetadata(Sid string, params *UpdateSinkParams) (*metadata.ResourceMetadata[EventsV1Sink], error) {
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Sink{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Sink](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

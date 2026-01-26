@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBuild'
@@ -94,6 +95,54 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 	return ps, err
 }
 
+// CreateBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBuildWithMetadata(ServiceSid string, params *CreateBuildParams) (*metadata.ResourceMetadata[ServerlessV1Build], error) {
+	path := "/v1/Services/{ServiceSid}/Builds"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AssetVersions != nil {
+		for _, item := range *params.AssetVersions {
+			data.Add("AssetVersions", item)
+		}
+	}
+	if params != nil && params.FunctionVersions != nil {
+		for _, item := range *params.FunctionVersions {
+			data.Add("FunctionVersions", item)
+		}
+	}
+	if params != nil && params.Dependencies != nil {
+		data.Set("Dependencies", *params.Dependencies)
+	}
+	if params != nil && params.Runtime != nil {
+		data.Set("Runtime", *params.Runtime)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Build{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Build](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a Build resource.
 func (c *ApiService) DeleteBuild(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
@@ -113,6 +162,33 @@ func (c *ApiService) DeleteBuild(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteBuildWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific Build resource.
@@ -139,6 +215,38 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Bui
 	}
 
 	return ps, err
+}
+
+// FetchBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBuildWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Build], error) {
+	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Build{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Build](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBuild'
@@ -195,6 +303,49 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 	return ps, err
 }
 
+// PageBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBuildWithMetadata(ServiceSid string, params *ListBuildParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBuildResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Builds"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBuildResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBuildResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1Build, error) {
 	response, errors := c.StreamBuild(ServiceSid, params)
@@ -209,6 +360,29 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]Se
 	}
 
 	return records, nil
+}
+
+// ListBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBuildWithMetadata(ServiceSid string, params *ListBuildParams) (*metadata.ResourceMetadata[[]ServerlessV1Build], error) {
+	response, errors := c.StreamBuildWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Build, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Build](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -231,6 +405,35 @@ func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (ch
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBuildWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBuildWithMetadata(ServiceSid string, params *ListBuildParams) (*metadata.ResourceMetadata[chan ServerlessV1Build], chan error) {
+	if params == nil {
+		params = &ListBuildParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Build, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBuildWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBuild(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Build](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBuild(response *ListBuildResponse, params *ListBuildParams, recordChannel chan ServerlessV1Build, errorChannel chan error) {

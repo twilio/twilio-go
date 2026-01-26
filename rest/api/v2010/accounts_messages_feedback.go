@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessageFeedback'
@@ -70,4 +72,44 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 	}
 
 	return ps, err
+}
+
+// CreateMessageFeedbackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessageFeedbackWithMetadata(MessageSid string, params *CreateMessageFeedbackParams) (*metadata.ResourceMetadata[ApiV2010MessageFeedback], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Outcome != nil {
+		data.Set("Outcome", fmt.Sprint(*params.Outcome))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010MessageFeedback{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010MessageFeedback](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

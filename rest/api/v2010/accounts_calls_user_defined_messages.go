@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateUserDefinedMessage'
@@ -78,4 +80,47 @@ func (c *ApiService) CreateUserDefinedMessage(CallSid string, params *CreateUser
 	}
 
 	return ps, err
+}
+
+// CreateUserDefinedMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateUserDefinedMessageWithMetadata(CallSid string, params *CreateUserDefinedMessageParams) (*metadata.ResourceMetadata[ApiV2010UserDefinedMessage], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessages.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Content != nil {
+		data.Set("Content", *params.Content)
+	}
+	if params != nil && params.IdempotencyKey != nil {
+		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010UserDefinedMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010UserDefinedMessage](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

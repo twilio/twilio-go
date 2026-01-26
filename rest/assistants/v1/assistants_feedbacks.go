@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateFeedback'
@@ -66,6 +67,46 @@ func (c *ApiService) CreateFeedback(Id string, params *CreateFeedbackParams) (*A
 	}
 
 	return ps, err
+}
+
+// CreateFeedbackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateFeedbackWithMetadata(Id string, params *CreateFeedbackParams) (*metadata.ResourceMetadata[AssistantsV1Feedback], error) {
+	path := "/v1/Assistants/{id}/Feedbacks"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1CreateFeedbackRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1CreateFeedbackRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Feedback{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Feedback](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFeedback'
@@ -122,6 +163,49 @@ func (c *ApiService) PageFeedback(Id string, params *ListFeedbackParams, pageTok
 	return ps, err
 }
 
+// PageFeedbackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFeedbackWithMetadata(Id string, params *ListFeedbackParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFeedbacksResponse], error) {
+	path := "/v1/Assistants/{id}/Feedbacks"
+
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFeedbacksResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFeedbacksResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Feedback records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFeedback(Id string, params *ListFeedbackParams) ([]AssistantsV1Feedback, error) {
 	response, errors := c.StreamFeedback(Id, params)
@@ -136,6 +220,29 @@ func (c *ApiService) ListFeedback(Id string, params *ListFeedbackParams) ([]Assi
 	}
 
 	return records, nil
+}
+
+// ListFeedbackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFeedbackWithMetadata(Id string, params *ListFeedbackParams) (*metadata.ResourceMetadata[[]AssistantsV1Feedback], error) {
+	response, errors := c.StreamFeedbackWithMetadata(Id, params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1Feedback, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1Feedback](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Feedback records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -158,6 +265,35 @@ func (c *ApiService) StreamFeedback(Id string, params *ListFeedbackParams) (chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFeedbackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFeedbackWithMetadata(Id string, params *ListFeedbackParams) (*metadata.ResourceMetadata[chan AssistantsV1Feedback], chan error) {
+	if params == nil {
+		params = &ListFeedbackParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1Feedback, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFeedbackWithMetadata(Id, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFeedback(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1Feedback](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFeedback(response *ListFeedbacksResponse, params *ListFeedbackParams, recordChannel chan AssistantsV1Feedback, errorChannel chan error) {

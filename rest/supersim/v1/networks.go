@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a Network resource.
@@ -46,6 +47,37 @@ func (c *ApiService) FetchNetwork(Sid string) (*SupersimV1Network, error) {
 	}
 
 	return ps, err
+}
+
+// FetchNetworkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchNetworkWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1Network], error) {
+	path := "/v1/Networks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Network{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Network](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListNetwork'
@@ -127,6 +159,56 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageNetworkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageNetworkWithMetadata(params *ListNetworkParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListNetworkResponse], error) {
+	path := "/v1/Networks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Mcc != nil {
+		data.Set("Mcc", *params.Mcc)
+	}
+	if params != nil && params.Mnc != nil {
+		data.Set("Mnc", *params.Mnc)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListNetworkResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network, error) {
 	response, errors := c.StreamNetwork(params)
@@ -141,6 +223,29 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network
 	}
 
 	return records, nil
+}
+
+// ListNetworkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListNetworkWithMetadata(params *ListNetworkParams) (*metadata.ResourceMetadata[[]SupersimV1Network], error) {
+	response, errors := c.StreamNetworkWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1Network, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1Network](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -163,6 +268,35 @@ func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Ne
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamNetworkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamNetworkWithMetadata(params *ListNetworkParams) (*metadata.ResourceMetadata[chan SupersimV1Network], chan error) {
+	if params == nil {
+		params = &ListNetworkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1Network, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageNetworkWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamNetwork(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1Network](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamNetwork(response *ListNetworkResponse, params *ListNetworkParams, recordChannel chan SupersimV1Network, errorChannel chan error) {

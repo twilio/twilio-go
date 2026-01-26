@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateLookupPhoneNumberOverrides'
@@ -66,6 +68,47 @@ func (c *ApiService) CreateLookupPhoneNumberOverrides(Field string, PhoneNumber 
 	return ps, err
 }
 
+// CreateLookupPhoneNumberOverridesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateLookupPhoneNumberOverridesWithMetadata(Field string, PhoneNumber string, params *CreateLookupPhoneNumberOverridesParams) (*metadata.ResourceMetadata[OverridesResponse], error) {
+	path := "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.OverridesRequest != nil {
+		b, err := json.Marshal(*params.OverridesRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &OverridesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[OverridesResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete an Override for a specific package and phone number.
 func (c *ApiService) DeleteLookupPhoneNumberOverrides(Field string, PhoneNumber string) error {
 	path := "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}"
@@ -85,6 +128,33 @@ func (c *ApiService) DeleteLookupPhoneNumberOverrides(Field string, PhoneNumber 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteLookupPhoneNumberOverridesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteLookupPhoneNumberOverridesWithMetadata(Field string, PhoneNumber string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve an Override for a specific package and phone number.
@@ -111,6 +181,38 @@ func (c *ApiService) FetchLookupPhoneNumberOverrides(Field string, PhoneNumber s
 	}
 
 	return ps, err
+}
+
+// FetchLookupPhoneNumberOverridesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchLookupPhoneNumberOverridesWithMetadata(Field string, PhoneNumber string) (*metadata.ResourceMetadata[OverridesResponse], error) {
+	path := "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &OverridesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[OverridesResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateLookupPhoneNumberOverrides'
@@ -157,4 +259,45 @@ func (c *ApiService) UpdateLookupPhoneNumberOverrides(Field string, PhoneNumber 
 	}
 
 	return ps, err
+}
+
+// UpdateLookupPhoneNumberOverridesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateLookupPhoneNumberOverridesWithMetadata(Field string, PhoneNumber string, params *UpdateLookupPhoneNumberOverridesParams) (*metadata.ResourceMetadata[OverridesResponse], error) {
+	path := "/v2/PhoneNumbers/{PhoneNumber}/Overrides/{Field}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.OverridesRequest != nil {
+		b, err := json.Marshal(*params.OverridesRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &OverridesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[OverridesResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

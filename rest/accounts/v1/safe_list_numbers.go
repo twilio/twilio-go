@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSafelist'
@@ -58,6 +60,40 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Sa
 	return ps, err
 }
 
+// CreateSafelistWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSafelistWithMetadata(params *CreateSafelistParams) (*metadata.ResourceMetadata[AccountsV1Safelist], error) {
+	path := "/v1/SafeList/Numbers"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1Safelist{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1Safelist](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSafelist'
 type DeleteSafelistParams struct {
 	// The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
@@ -90,6 +126,35 @@ func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSafelistWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSafelistWithMetadata(params *DeleteSafelistParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/SafeList/Numbers"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchSafelist'
@@ -129,4 +194,38 @@ func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*AccountsV1Safe
 	}
 
 	return ps, err
+}
+
+// FetchSafelistWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSafelistWithMetadata(params *FetchSafelistParams) (*metadata.ResourceMetadata[AccountsV1Safelist], error) {
+	path := "/v1/SafeList/Numbers"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1Safelist{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1Safelist](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

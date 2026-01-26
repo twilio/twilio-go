@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateOauthAppAccount'
@@ -63,6 +65,45 @@ func (c *ApiService) CreateOauthAppAccount(params *CreateOauthAppAccountParams) 
 	return ps, err
 }
 
+// CreateOauthAppAccountWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateOauthAppAccountWithMetadata(params *CreateOauthAppAccountParams) (*metadata.ResourceMetadata[IamV1VendorOauthAppCreateUpdateResponse], error) {
+	path := "/v1/Account/OAuthApps"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.IamV1VendorOauthAppCreateRequest != nil {
+		b, err := json.Marshal(*params.IamV1VendorOauthAppCreateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IamV1VendorOauthAppCreateUpdateResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IamV1VendorOauthAppCreateUpdateResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 func (c *ApiService) DeleteOauthAppAccount(Sid string) error {
 	path := "/v1/Account/OAuthApps/{sid}"
 	path = strings.Replace(path, "{"+"sid"+"}", Sid, -1)
@@ -80,6 +121,32 @@ func (c *ApiService) DeleteOauthAppAccount(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteOauthAppAccountWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteOauthAppAccountWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Account/OAuthApps/{sid}"
+	path = strings.Replace(path, "{"+"sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateOauthAppAccount'
@@ -124,4 +191,44 @@ func (c *ApiService) UpdateOauthAppAccount(Sid string, params *UpdateOauthAppAcc
 	}
 
 	return ps, err
+}
+
+// UpdateOauthAppAccountWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateOauthAppAccountWithMetadata(Sid string, params *UpdateOauthAppAccountParams) (*metadata.ResourceMetadata[IamV1VendorOauthAppCreateUpdateResponse], error) {
+	path := "/v1/Account/OAuthApps/{sid}"
+	path = strings.Replace(path, "{"+"sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.IamV1VendorOauthAppUpdateRequest != nil {
+		b, err := json.Marshal(*params.IamV1VendorOauthAppUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IamV1VendorOauthAppCreateUpdateResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IamV1VendorOauthAppCreateUpdateResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

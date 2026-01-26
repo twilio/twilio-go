@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBulkEligibility'
@@ -64,6 +66,45 @@ func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) 
 	return ps, err
 }
 
+// CreateBulkEligibilityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBulkEligibilityWithMetadata(params *CreateBulkEligibilityParams) (*metadata.ResourceMetadata[NumbersV1BulkEligibility], error) {
+	path := "/v1/HostedNumber/Eligibility/Bulk"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1BulkEligibility{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1BulkEligibility](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch an eligibility bulk check that you requested to host in Twilio.
 func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligibility, error) {
 	path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
@@ -87,4 +128,35 @@ func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligi
 	}
 
 	return ps, err
+}
+
+// FetchBulkEligibilityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBulkEligibilityWithMetadata(RequestId string) (*metadata.ResourceMetadata[NumbersV1BulkEligibility], error) {
+	path := "/v1/HostedNumber/Eligibility/Bulk/{RequestId}"
+	path = strings.Replace(path, "{"+"RequestId"+"}", RequestId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1BulkEligibility{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1BulkEligibility](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

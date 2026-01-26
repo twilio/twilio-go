@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch the delivery and read receipts of the conversation message
@@ -49,6 +50,40 @@ func (c *ApiService) FetchServiceConversationMessageReceipt(ChatServiceSid strin
 	}
 
 	return ps, err
+}
+
+// FetchServiceConversationMessageReceiptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceConversationMessageReceiptWithMetadata(ChatServiceSid string, ConversationSid string, MessageSid string, Sid string) (*metadata.ResourceMetadata[ConversationsV1ServiceConversationMessageReceipt], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConversationMessageReceipt{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConversationMessageReceipt](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListServiceConversationMessageReceipt'
@@ -107,6 +142,51 @@ func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string
 	return ps, err
 }
 
+// PageServiceConversationMessageReceiptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceConversationMessageReceiptWithMetadata(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceConversationMessageReceiptResponse], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
+
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceConversationMessageReceiptResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceConversationMessageReceiptResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) ([]ConversationsV1ServiceConversationMessageReceipt, error) {
 	response, errors := c.StreamServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params)
@@ -121,6 +201,29 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 	}
 
 	return records, nil
+}
+
+// ListServiceConversationMessageReceiptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceConversationMessageReceiptWithMetadata(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (*metadata.ResourceMetadata[[]ConversationsV1ServiceConversationMessageReceipt], error) {
+	response, errors := c.StreamServiceConversationMessageReceiptWithMetadata(ChatServiceSid, ConversationSid, MessageSid, params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1ServiceConversationMessageReceipt, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1ServiceConversationMessageReceipt](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -143,6 +246,35 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceConversationMessageReceiptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceConversationMessageReceiptWithMetadata(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (*metadata.ResourceMetadata[chan ConversationsV1ServiceConversationMessageReceipt], chan error) {
+	if params == nil {
+		params = &ListServiceConversationMessageReceiptParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1ServiceConversationMessageReceipt, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceConversationMessageReceiptWithMetadata(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamServiceConversationMessageReceipt(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1ServiceConversationMessageReceipt](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamServiceConversationMessageReceipt(response *ListServiceConversationMessageReceiptResponse, params *ListServiceConversationMessageReceiptParams, recordChannel chan ConversationsV1ServiceConversationMessageReceipt, errorChannel chan error) {

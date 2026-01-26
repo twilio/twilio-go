@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific Export.
@@ -43,4 +45,35 @@ func (c *ApiService) FetchExport(ResourceType string) (*BulkexportsV1Export, err
 	}
 
 	return ps, err
+}
+
+// FetchExportWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchExportWithMetadata(ResourceType string) (*metadata.ResourceMetadata[BulkexportsV1Export], error) {
+	path := "/v1/Exports/{ResourceType}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1Export{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1Export](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

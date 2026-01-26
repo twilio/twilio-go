@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateComplianceInquiry'
@@ -77,6 +79,46 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 	return ps, err
 }
 
+// CreateComplianceInquiryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateComplianceInquiryWithMetadata(params *CreateComplianceInquiryParams) (*metadata.ResourceMetadata[TrusthubV1ComplianceInquiry], error) {
+	path := "/v1/ComplianceInquiries/Customers/Initialize"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+	if params != nil && params.PrimaryProfileSid != nil {
+		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceInquiry{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1ComplianceInquiry](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdateComplianceInquiry'
 type UpdateComplianceInquiryParams struct {
 	// The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
@@ -124,4 +166,42 @@ func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateCo
 	}
 
 	return ps, err
+}
+
+// UpdateComplianceInquiryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateComplianceInquiryWithMetadata(CustomerId string, params *UpdateComplianceInquiryParams) (*metadata.ResourceMetadata[TrusthubV1ComplianceInquiry], error) {
+	path := "/v1/ComplianceInquiries/Customers/{CustomerId}/Initialize"
+	path = strings.Replace(path, "{"+"CustomerId"+"}", CustomerId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PrimaryProfileSid != nil {
+		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceInquiry{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1ComplianceInquiry](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

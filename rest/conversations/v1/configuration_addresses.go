@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateConfigurationAddress'
@@ -163,6 +164,75 @@ func (c *ApiService) CreateConfigurationAddress(params *CreateConfigurationAddre
 	return ps, err
 }
 
+// CreateConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateConfigurationAddressWithMetadata(params *CreateConfigurationAddressParams) (*metadata.ResourceMetadata[ConversationsV1ConfigurationAddress], error) {
+	path := "/v1/Configuration/Addresses"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", fmt.Sprint(*params.Type))
+	}
+	if params != nil && params.Address != nil {
+		data.Set("Address", *params.Address)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AutoCreationEnabled != nil {
+		data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
+	}
+	if params != nil && params.AutoCreationType != nil {
+		data.Set("AutoCreation.Type", fmt.Sprint(*params.AutoCreationType))
+	}
+	if params != nil && params.AutoCreationConversationServiceSid != nil {
+		data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
+	}
+	if params != nil && params.AutoCreationWebhookUrl != nil {
+		data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
+	}
+	if params != nil && params.AutoCreationWebhookMethod != nil {
+		data.Set("AutoCreation.WebhookMethod", fmt.Sprint(*params.AutoCreationWebhookMethod))
+	}
+	if params != nil && params.AutoCreationWebhookFilters != nil {
+		for _, item := range *params.AutoCreationWebhookFilters {
+			data.Add("AutoCreation.WebhookFilters", item)
+		}
+	}
+	if params != nil && params.AutoCreationStudioFlowSid != nil {
+		data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
+	}
+	if params != nil && params.AutoCreationStudioRetryCount != nil {
+		data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
+	}
+	if params != nil && params.AddressCountry != nil {
+		data.Set("AddressCountry", *params.AddressCountry)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConfigurationAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConfigurationAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an existing address configuration
 func (c *ApiService) DeleteConfigurationAddress(Sid string) error {
 	path := "/v1/Configuration/Addresses/{Sid}"
@@ -181,6 +251,32 @@ func (c *ApiService) DeleteConfigurationAddress(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteConfigurationAddressWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Configuration/Addresses/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch an address configuration
@@ -206,6 +302,37 @@ func (c *ApiService) FetchConfigurationAddress(Sid string) (*ConversationsV1Conf
 	}
 
 	return ps, err
+}
+
+// FetchConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConfigurationAddressWithMetadata(Sid string) (*metadata.ResourceMetadata[ConversationsV1ConfigurationAddress], error) {
+	path := "/v1/Configuration/Addresses/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConfigurationAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConfigurationAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListConfigurationAddress'
@@ -269,6 +396,50 @@ func (c *ApiService) PageConfigurationAddress(params *ListConfigurationAddressPa
 	return ps, err
 }
 
+// PageConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageConfigurationAddressWithMetadata(params *ListConfigurationAddressParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListConfigurationAddressResponse], error) {
+	path := "/v1/Configuration/Addresses"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConfigurationAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListConfigurationAddressResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ConfigurationAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConfigurationAddress(params *ListConfigurationAddressParams) ([]ConversationsV1ConfigurationAddress, error) {
 	response, errors := c.StreamConfigurationAddress(params)
@@ -283,6 +454,29 @@ func (c *ApiService) ListConfigurationAddress(params *ListConfigurationAddressPa
 	}
 
 	return records, nil
+}
+
+// ListConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListConfigurationAddressWithMetadata(params *ListConfigurationAddressParams) (*metadata.ResourceMetadata[[]ConversationsV1ConfigurationAddress], error) {
+	response, errors := c.StreamConfigurationAddressWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1ConfigurationAddress, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1ConfigurationAddress](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ConfigurationAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -305,6 +499,35 @@ func (c *ApiService) StreamConfigurationAddress(params *ListConfigurationAddress
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamConfigurationAddressWithMetadata(params *ListConfigurationAddressParams) (*metadata.ResourceMetadata[chan ConversationsV1ConfigurationAddress], chan error) {
+	if params == nil {
+		params = &ListConfigurationAddressParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1ConfigurationAddress, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageConfigurationAddressWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamConfigurationAddress(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1ConfigurationAddress](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamConfigurationAddress(response *ListConfigurationAddressResponse, params *ListConfigurationAddressParams, recordChannel chan ConversationsV1ConfigurationAddress, errorChannel chan error) {
@@ -467,4 +690,65 @@ func (c *ApiService) UpdateConfigurationAddress(Sid string, params *UpdateConfig
 	}
 
 	return ps, err
+}
+
+// UpdateConfigurationAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConfigurationAddressWithMetadata(Sid string, params *UpdateConfigurationAddressParams) (*metadata.ResourceMetadata[ConversationsV1ConfigurationAddress], error) {
+	path := "/v1/Configuration/Addresses/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AutoCreationEnabled != nil {
+		data.Set("AutoCreation.Enabled", fmt.Sprint(*params.AutoCreationEnabled))
+	}
+	if params != nil && params.AutoCreationType != nil {
+		data.Set("AutoCreation.Type", fmt.Sprint(*params.AutoCreationType))
+	}
+	if params != nil && params.AutoCreationConversationServiceSid != nil {
+		data.Set("AutoCreation.ConversationServiceSid", *params.AutoCreationConversationServiceSid)
+	}
+	if params != nil && params.AutoCreationWebhookUrl != nil {
+		data.Set("AutoCreation.WebhookUrl", *params.AutoCreationWebhookUrl)
+	}
+	if params != nil && params.AutoCreationWebhookMethod != nil {
+		data.Set("AutoCreation.WebhookMethod", fmt.Sprint(*params.AutoCreationWebhookMethod))
+	}
+	if params != nil && params.AutoCreationWebhookFilters != nil {
+		for _, item := range *params.AutoCreationWebhookFilters {
+			data.Add("AutoCreation.WebhookFilters", item)
+		}
+	}
+	if params != nil && params.AutoCreationStudioFlowSid != nil {
+		data.Set("AutoCreation.StudioFlowSid", *params.AutoCreationStudioFlowSid)
+	}
+	if params != nil && params.AutoCreationStudioRetryCount != nil {
+		data.Set("AutoCreation.StudioRetryCount", fmt.Sprint(*params.AutoCreationStudioRetryCount))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConfigurationAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConfigurationAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

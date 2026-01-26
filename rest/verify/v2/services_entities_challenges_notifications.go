@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNotification'
@@ -61,4 +63,41 @@ func (c *ApiService) CreateNotification(ServiceSid string, Identity string, Chal
 	}
 
 	return ps, err
+}
+
+// CreateNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNotificationWithMetadata(ServiceSid string, Identity string, ChallengeSid string, params *CreateNotificationParams) (*metadata.ResourceMetadata[VerifyV2Notification], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"ChallengeSid"+"}", ChallengeSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Notification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Notification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

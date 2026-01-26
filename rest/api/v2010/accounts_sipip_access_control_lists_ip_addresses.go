@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSipIpAddress'
@@ -92,6 +93,52 @@ func (c *ApiService) CreateSipIpAddress(IpAccessControlListSid string, params *C
 	return ps, err
 }
 
+// CreateSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSipIpAddressWithMetadata(IpAccessControlListSid string, params *CreateSipIpAddressParams) (*metadata.ResourceMetadata[ApiV2010SipIpAddress], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipIpAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSipIpAddress'
 type DeleteSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
@@ -127,6 +174,38 @@ func (c *ApiService) DeleteSipIpAddress(IpAccessControlListSid string, Sid strin
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSipIpAddressWithMetadata(IpAccessControlListSid string, Sid string, params *DeleteSipIpAddressParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchSipIpAddress'
@@ -169,6 +248,43 @@ func (c *ApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid string
 	}
 
 	return ps, err
+}
+
+// FetchSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSipIpAddressWithMetadata(IpAccessControlListSid string, Sid string, params *FetchSipIpAddressParams) (*metadata.ResourceMetadata[ApiV2010SipIpAddress], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipIpAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSipIpAddress'
@@ -236,6 +352,54 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 	return ps, err
 }
 
+// PageSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSipIpAddressWithMetadata(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSipIpAddressResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSipIpAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSipIpAddressResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) ([]ApiV2010SipIpAddress, error) {
 	response, errors := c.StreamSipIpAddress(IpAccessControlListSid, params)
@@ -250,6 +414,29 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 	}
 
 	return records, nil
+}
+
+// ListSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSipIpAddressWithMetadata(IpAccessControlListSid string, params *ListSipIpAddressParams) (*metadata.ResourceMetadata[[]ApiV2010SipIpAddress], error) {
+	response, errors := c.StreamSipIpAddressWithMetadata(IpAccessControlListSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010SipIpAddress, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010SipIpAddress](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -272,6 +459,35 @@ func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *L
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSipIpAddressWithMetadata(IpAccessControlListSid string, params *ListSipIpAddressParams) (*metadata.ResourceMetadata[chan ApiV2010SipIpAddress], chan error) {
+	if params == nil {
+		params = &ListSipIpAddressParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010SipIpAddress, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSipIpAddressWithMetadata(IpAccessControlListSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSipIpAddress(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010SipIpAddress](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSipIpAddress(response *ListSipIpAddressResponse, params *ListSipIpAddressParams, recordChannel chan ApiV2010SipIpAddress, errorChannel chan error) {
@@ -390,4 +606,51 @@ func (c *ApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid strin
 	}
 
 	return ps, err
+}
+
+// UpdateSipIpAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSipIpAddressWithMetadata(IpAccessControlListSid string, Sid string, params *UpdateSipIpAddressParams) (*metadata.ResourceMetadata[ApiV2010SipIpAddress], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipIpAddress{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipIpAddress](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

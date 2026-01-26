@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Creates an evaluation for a bundle
@@ -48,6 +49,37 @@ func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, e
 	return ps, err
 }
 
+// CreateEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateEvaluationWithMetadata(BundleSid string) (*metadata.ResourceMetadata[NumbersV2Evaluation], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Evaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Evaluation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch specific Evaluation Instance.
 func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Evaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
@@ -72,6 +104,38 @@ func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Ev
 	}
 
 	return ps, err
+}
+
+// FetchEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEvaluationWithMetadata(BundleSid string, Sid string) (*metadata.ResourceMetadata[NumbersV2Evaluation], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Evaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Evaluation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEvaluation'
@@ -128,6 +192,49 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 	return ps, err
 }
 
+// PageEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEvaluationWithMetadata(BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEvaluationResponse], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEvaluationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) ([]NumbersV2Evaluation, error) {
 	response, errors := c.StreamEvaluation(BundleSid, params)
@@ -142,6 +249,29 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 	}
 
 	return records, nil
+}
+
+// ListEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEvaluationWithMetadata(BundleSid string, params *ListEvaluationParams) (*metadata.ResourceMetadata[[]NumbersV2Evaluation], error) {
+	response, errors := c.StreamEvaluationWithMetadata(BundleSid, params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2Evaluation, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2Evaluation](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -164,6 +294,35 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEvaluationWithMetadata(BundleSid string, params *ListEvaluationParams) (*metadata.ResourceMetadata[chan NumbersV2Evaluation], chan error) {
+	if params == nil {
+		params = &ListEvaluationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2Evaluation, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEvaluationWithMetadata(BundleSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEvaluation(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2Evaluation](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEvaluation(response *ListEvaluationResponse, params *ListEvaluationParams, recordChannel chan NumbersV2Evaluation, errorChannel chan error) {

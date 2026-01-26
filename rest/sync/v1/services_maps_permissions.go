@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Delete a specific Sync Map Permission.
@@ -43,6 +44,34 @@ func (c *ApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, I
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, Identity string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Sync Map Permission.
@@ -70,6 +99,39 @@ func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Id
 	}
 
 	return ps, err
+}
+
+// FetchSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, Identity string) (*metadata.ResourceMetadata[SyncV1SyncMapPermission], error) {
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncMapPermission](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSyncMapPermission'
@@ -127,6 +189,50 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 	return ps, err
 }
 
+// PageSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSyncMapPermissionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncMapPermissionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSyncMapPermissionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) ([]SyncV1SyncMapPermission, error) {
 	response, errors := c.StreamSyncMapPermission(ServiceSid, MapSid, params)
@@ -141,6 +247,29 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 	}
 
 	return records, nil
+}
+
+// ListSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (*metadata.ResourceMetadata[[]SyncV1SyncMapPermission], error) {
+	response, errors := c.StreamSyncMapPermissionWithMetadata(ServiceSid, MapSid, params)
+	resource := response.GetResource()
+
+	records := make([]SyncV1SyncMapPermission, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SyncV1SyncMapPermission](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -163,6 +292,35 @@ func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, p
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (*metadata.ResourceMetadata[chan SyncV1SyncMapPermission], chan error) {
+	if params == nil {
+		params = &ListSyncMapPermissionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SyncV1SyncMapPermission, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSyncMapPermissionWithMetadata(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSyncMapPermission(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SyncV1SyncMapPermission](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSyncMapPermission(response *ListSyncMapPermissionResponse, params *ListSyncMapPermissionParams, recordChannel chan SyncV1SyncMapPermission, errorChannel chan error) {
@@ -271,4 +429,47 @@ func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, I
 	}
 
 	return ps, err
+}
+
+// UpdateSyncMapPermissionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSyncMapPermissionWithMetadata(ServiceSid string, MapSid string, Identity string, params *UpdateSyncMapPermissionParams) (*metadata.ResourceMetadata[SyncV1SyncMapPermission], error) {
+	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Read != nil {
+		data.Set("Read", fmt.Sprint(*params.Read))
+	}
+	if params != nil && params.Write != nil {
+		data.Set("Write", fmt.Sprint(*params.Write))
+	}
+	if params != nil && params.Manage != nil {
+		data.Set("Manage", fmt.Sprint(*params.Manage))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncMapPermission{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncMapPermission](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

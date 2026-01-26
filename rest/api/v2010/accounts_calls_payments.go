@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreatePayments'
@@ -213,6 +215,97 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	return ps, err
 }
 
+// CreatePaymentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreatePaymentsWithMetadata(CallSid string, params *CreatePaymentsParams) (*metadata.ResourceMetadata[ApiV2010Payments], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IdempotencyKey != nil {
+		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.BankAccountType != nil {
+		data.Set("BankAccountType", fmt.Sprint(*params.BankAccountType))
+	}
+	if params != nil && params.ChargeAmount != nil {
+		data.Set("ChargeAmount", fmt.Sprint(*params.ChargeAmount))
+	}
+	if params != nil && params.Currency != nil {
+		data.Set("Currency", *params.Currency)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.Input != nil {
+		data.Set("Input", *params.Input)
+	}
+	if params != nil && params.MinPostalCodeLength != nil {
+		data.Set("MinPostalCodeLength", fmt.Sprint(*params.MinPostalCodeLength))
+	}
+	if params != nil && params.Parameter != nil {
+		v, err := json.Marshal(params.Parameter)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Parameter", string(v))
+	}
+	if params != nil && params.PaymentConnector != nil {
+		data.Set("PaymentConnector", *params.PaymentConnector)
+	}
+	if params != nil && params.PaymentMethod != nil {
+		data.Set("PaymentMethod", fmt.Sprint(*params.PaymentMethod))
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", fmt.Sprint(*params.PostalCode))
+	}
+	if params != nil && params.SecurityCode != nil {
+		data.Set("SecurityCode", fmt.Sprint(*params.SecurityCode))
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+	}
+	if params != nil && params.TokenType != nil {
+		data.Set("TokenType", fmt.Sprint(*params.TokenType))
+	}
+	if params != nil && params.ValidCardTypes != nil {
+		data.Set("ValidCardTypes", *params.ValidCardTypes)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Payments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Payments](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdatePayments'
 type UpdatePaymentsParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
@@ -290,4 +383,54 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 	}
 
 	return ps, err
+}
+
+// UpdatePaymentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdatePaymentsWithMetadata(CallSid string, Sid string, params *UpdatePaymentsParams) (*metadata.ResourceMetadata[ApiV2010Payments], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IdempotencyKey != nil {
+		data.Set("IdempotencyKey", *params.IdempotencyKey)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.Capture != nil {
+		data.Set("Capture", fmt.Sprint(*params.Capture))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Payments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Payments](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

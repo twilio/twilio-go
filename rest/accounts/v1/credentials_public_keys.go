@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCredentialPublicKey'
@@ -80,6 +81,46 @@ func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKey
 	return ps, err
 }
 
+// CreateCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCredentialPublicKeyWithMetadata(params *CreateCredentialPublicKeyParams) (*metadata.ResourceMetadata[AccountsV1CredentialPublicKey], error) {
+	path := "/v1/Credentials/PublicKeys"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PublicKey != nil {
+		data.Set("PublicKey", *params.PublicKey)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1CredentialPublicKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1CredentialPublicKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a Credential from your account
 func (c *ApiService) DeleteCredentialPublicKey(Sid string) error {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
@@ -98,6 +139,32 @@ func (c *ApiService) DeleteCredentialPublicKey(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCredentialPublicKeyWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Credentials/PublicKeys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch the public key specified by the provided Credential Sid
@@ -123,6 +190,37 @@ func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Credential
 	}
 
 	return ps, err
+}
+
+// FetchCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCredentialPublicKeyWithMetadata(Sid string) (*metadata.ResourceMetadata[AccountsV1CredentialPublicKey], error) {
+	path := "/v1/Credentials/PublicKeys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1CredentialPublicKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1CredentialPublicKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCredentialPublicKey'
@@ -177,6 +275,47 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 	return ps, err
 }
 
+// PageCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCredentialPublicKeyWithMetadata(params *ListCredentialPublicKeyParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCredentialPublicKeyResponse], error) {
+	path := "/v1/Credentials/PublicKeys"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCredentialPublicKeyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCredentialPublicKeyResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialPublicKey, error) {
 	response, errors := c.StreamCredentialPublicKey(params)
@@ -191,6 +330,29 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 	}
 
 	return records, nil
+}
+
+// ListCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCredentialPublicKeyWithMetadata(params *ListCredentialPublicKeyParams) (*metadata.ResourceMetadata[[]AccountsV1CredentialPublicKey], error) {
+	response, errors := c.StreamCredentialPublicKeyWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]AccountsV1CredentialPublicKey, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AccountsV1CredentialPublicKey](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -213,6 +375,35 @@ func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCredentialPublicKeyWithMetadata(params *ListCredentialPublicKeyParams) (*metadata.ResourceMetadata[chan AccountsV1CredentialPublicKey], chan error) {
+	if params == nil {
+		params = &ListCredentialPublicKeyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AccountsV1CredentialPublicKey, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCredentialPublicKeyWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCredentialPublicKey(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AccountsV1CredentialPublicKey](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCredentialPublicKey(response *ListCredentialPublicKeyResponse, params *ListCredentialPublicKeyParams, recordChannel chan AccountsV1CredentialPublicKey, errorChannel chan error) {
@@ -301,4 +492,39 @@ func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredent
 	}
 
 	return ps, err
+}
+
+// UpdateCredentialPublicKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCredentialPublicKeyWithMetadata(Sid string, params *UpdateCredentialPublicKeyParams) (*metadata.ResourceMetadata[AccountsV1CredentialPublicKey], error) {
+	path := "/v1/Credentials/PublicKeys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1CredentialPublicKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1CredentialPublicKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

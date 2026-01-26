@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBillingUsage'
@@ -63,4 +65,44 @@ func (c *ApiService) CreateBillingUsage(InstalledAddOnSid string, params *Create
 	}
 
 	return ps, err
+}
+
+// CreateBillingUsageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBillingUsageWithMetadata(InstalledAddOnSid string, params *CreateBillingUsageParams) (*metadata.ResourceMetadata[MarketplaceV1InstalledAddOnUsage], error) {
+	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Usage"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.MarketplaceV1InstalledAddOnUsage != nil {
+		b, err := json.Marshal(*params.MarketplaceV1InstalledAddOnUsage)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1InstalledAddOnUsage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1InstalledAddOnUsage](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

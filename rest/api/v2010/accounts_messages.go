@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -285,6 +286,118 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	return ps, err
 }
 
+// CreateMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessageWithMetadata(params *CreateMessageParams) (*metadata.ResourceMetadata[ApiV2010Message], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.ApplicationSid != nil {
+		data.Set("ApplicationSid", *params.ApplicationSid)
+	}
+	if params != nil && params.MaxPrice != nil {
+		data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice))
+	}
+	if params != nil && params.ProvideFeedback != nil {
+		data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
+	}
+	if params != nil && params.Attempt != nil {
+		data.Set("Attempt", fmt.Sprint(*params.Attempt))
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+	}
+	if params != nil && params.ForceDelivery != nil {
+		data.Set("ForceDelivery", fmt.Sprint(*params.ForceDelivery))
+	}
+	if params != nil && params.ContentRetention != nil {
+		data.Set("ContentRetention", fmt.Sprint(*params.ContentRetention))
+	}
+	if params != nil && params.AddressRetention != nil {
+		data.Set("AddressRetention", fmt.Sprint(*params.AddressRetention))
+	}
+	if params != nil && params.SmartEncoded != nil {
+		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
+	}
+	if params != nil && params.PersistentAction != nil {
+		for _, item := range *params.PersistentAction {
+			data.Add("PersistentAction", item)
+		}
+	}
+	if params != nil && params.TrafficType != nil {
+		data.Set("TrafficType", fmt.Sprint(*params.TrafficType))
+	}
+	if params != nil && params.ShortenUrls != nil {
+		data.Set("ShortenUrls", fmt.Sprint(*params.ShortenUrls))
+	}
+	if params != nil && params.ScheduleType != nil {
+		data.Set("ScheduleType", fmt.Sprint(*params.ScheduleType))
+	}
+	if params != nil && params.SendAt != nil {
+		data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
+	}
+	if params != nil && params.SendAsMms != nil {
+		data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
+	}
+	if params != nil && params.ContentVariables != nil {
+		data.Set("ContentVariables", *params.ContentVariables)
+	}
+	if params != nil && params.RiskCheck != nil {
+		data.Set("RiskCheck", fmt.Sprint(*params.RiskCheck))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.MediaUrl != nil {
+		for _, item := range *params.MediaUrl {
+			data.Add("MediaUrl", item)
+		}
+	}
+	if params != nil && params.ContentSid != nil {
+		data.Set("ContentSid", *params.ContentSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource
@@ -319,6 +432,37 @@ func (c *ApiService) DeleteMessage(Sid string, params *DeleteMessageParams) erro
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteMessageWithMetadata(Sid string, params *DeleteMessageParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchMessage'
@@ -360,6 +504,42 @@ func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV
 	}
 
 	return ps, err
+}
+
+// FetchMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessageWithMetadata(Sid string, params *FetchMessageParams) (*metadata.ResourceMetadata[ApiV2010Message], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMessage'
@@ -471,6 +651,68 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMessageWithMetadata(params *ListMessageParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMessageResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.DateSent != nil {
+		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateSentBefore != nil {
+		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateSentAfter != nil {
+		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMessageResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010Message, error) {
 	response, errors := c.StreamMessage(params)
@@ -485,6 +727,29 @@ func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010Message, 
 	}
 
 	return records, nil
+}
+
+// ListMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMessageWithMetadata(params *ListMessageParams) (*metadata.ResourceMetadata[[]ApiV2010Message], error) {
+	response, errors := c.StreamMessageWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Message, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Message](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -507,6 +772,35 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Mess
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMessageWithMetadata(params *ListMessageParams) (*metadata.ResourceMetadata[chan ApiV2010Message], chan error) {
+	if params == nil {
+		params = &ListMessageParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Message, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMessageWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMessage(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Message](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan ApiV2010Message, errorChannel chan error) {
@@ -615,4 +909,47 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 	}
 
 	return ps, err
+}
+
+// UpdateMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateMessageWithMetadata(Sid string, params *UpdateMessageParams) (*metadata.ResourceMetadata[ApiV2010Message], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateAssistant'
@@ -67,6 +68,45 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*Assistants
 	return ps, err
 }
 
+// CreateAssistantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateAssistantWithMetadata(params *CreateAssistantParams) (*metadata.ResourceMetadata[AssistantsV1Assistant], error) {
+	path := "/v1/Assistants"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1CreateAssistantRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1CreateAssistantRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Assistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Assistant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // delete an assistant
 func (c *ApiService) DeleteAssistant(Id string) error {
 	path := "/v1/Assistants/{id}"
@@ -85,6 +125,32 @@ func (c *ApiService) DeleteAssistant(Id string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteAssistantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteAssistantWithMetadata(Id string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Assistants/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // get an assistant
@@ -110,6 +176,37 @@ func (c *ApiService) FetchAssistant(Id string) (*AssistantsV1AssistantWithToolsA
 	}
 
 	return ps, err
+}
+
+// FetchAssistantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAssistantWithMetadata(Id string) (*metadata.ResourceMetadata[AssistantsV1AssistantWithToolsAndKnowledge], error) {
+	path := "/v1/Assistants/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1AssistantWithToolsAndKnowledge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1AssistantWithToolsAndKnowledge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAssistants'
@@ -164,6 +261,47 @@ func (c *ApiService) PageAssistants(params *ListAssistantsParams, pageToken, pag
 	return ps, err
 }
 
+// PageAssistantsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAssistantsWithMetadata(params *ListAssistantsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAssistantResponse], error) {
+	path := "/v1/Assistants"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAssistantResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAssistantResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Assistants records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssistants(params *ListAssistantsParams) ([]AssistantsV1Assistant, error) {
 	response, errors := c.StreamAssistants(params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListAssistants(params *ListAssistantsParams) ([]AssistantsV
 	}
 
 	return records, nil
+}
+
+// ListAssistantsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAssistantsWithMetadata(params *ListAssistantsParams) (*metadata.ResourceMetadata[[]AssistantsV1Assistant], error) {
+	response, errors := c.StreamAssistantsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1Assistant, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1Assistant](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Assistants records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamAssistants(params *ListAssistantsParams) (chan Assist
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAssistantsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAssistantsWithMetadata(params *ListAssistantsParams) (*metadata.ResourceMetadata[chan AssistantsV1Assistant], chan error) {
+	if params == nil {
+		params = &ListAssistantsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1Assistant, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAssistantsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAssistants(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1Assistant](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAssistants(response *ListAssistantResponse, params *ListAssistantsParams, recordChannel chan AssistantsV1Assistant, errorChannel chan error) {
@@ -293,4 +483,44 @@ func (c *ApiService) UpdateAssistant(Id string, params *UpdateAssistantParams) (
 	}
 
 	return ps, err
+}
+
+// UpdateAssistantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAssistantWithMetadata(Id string, params *UpdateAssistantParams) (*metadata.ResourceMetadata[AssistantsV1Assistant], error) {
+	path := "/v1/Assistants/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1UpdateAssistantRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1UpdateAssistantRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Assistant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Assistant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

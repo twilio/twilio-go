@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateComplianceTollfreeInquiry'
@@ -396,4 +398,155 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 	}
 
 	return ps, err
+}
+
+// CreateComplianceTollfreeInquiryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateComplianceTollfreeInquiryWithMetadata(params *CreateComplianceTollfreeInquiryParams) (*metadata.ResourceMetadata[TrusthubV1ComplianceTollfreeInquiry], error) {
+	path := "/v1/ComplianceInquiries/Tollfree/Initialize"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TollfreePhoneNumber != nil {
+		data.Set("TollfreePhoneNumber", *params.TollfreePhoneNumber)
+	}
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.CustomerProfileSid != nil {
+		data.Set("CustomerProfileSid", *params.CustomerProfileSid)
+	}
+	if params != nil && params.BusinessName != nil {
+		data.Set("BusinessName", *params.BusinessName)
+	}
+	if params != nil && params.BusinessWebsite != nil {
+		data.Set("BusinessWebsite", *params.BusinessWebsite)
+	}
+	if params != nil && params.UseCaseCategories != nil {
+		for _, item := range *params.UseCaseCategories {
+			data.Add("UseCaseCategories", item)
+		}
+	}
+	if params != nil && params.UseCaseSummary != nil {
+		data.Set("UseCaseSummary", *params.UseCaseSummary)
+	}
+	if params != nil && params.ProductionMessageSample != nil {
+		data.Set("ProductionMessageSample", *params.ProductionMessageSample)
+	}
+	if params != nil && params.OptInImageUrls != nil {
+		for _, item := range *params.OptInImageUrls {
+			data.Add("OptInImageUrls", item)
+		}
+	}
+	if params != nil && params.OptInType != nil {
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
+	}
+	if params != nil && params.MessageVolume != nil {
+		data.Set("MessageVolume", *params.MessageVolume)
+	}
+	if params != nil && params.BusinessStreetAddress != nil {
+		data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
+	}
+	if params != nil && params.BusinessStreetAddress2 != nil {
+		data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
+	}
+	if params != nil && params.BusinessCity != nil {
+		data.Set("BusinessCity", *params.BusinessCity)
+	}
+	if params != nil && params.BusinessStateProvinceRegion != nil {
+		data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
+	}
+	if params != nil && params.BusinessPostalCode != nil {
+		data.Set("BusinessPostalCode", *params.BusinessPostalCode)
+	}
+	if params != nil && params.BusinessCountry != nil {
+		data.Set("BusinessCountry", *params.BusinessCountry)
+	}
+	if params != nil && params.AdditionalInformation != nil {
+		data.Set("AdditionalInformation", *params.AdditionalInformation)
+	}
+	if params != nil && params.BusinessContactFirstName != nil {
+		data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
+	}
+	if params != nil && params.BusinessContactLastName != nil {
+		data.Set("BusinessContactLastName", *params.BusinessContactLastName)
+	}
+	if params != nil && params.BusinessContactEmail != nil {
+		data.Set("BusinessContactEmail", *params.BusinessContactEmail)
+	}
+	if params != nil && params.BusinessContactPhone != nil {
+		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+	if params != nil && params.SkipMessagingUseCase != nil {
+		data.Set("SkipMessagingUseCase", fmt.Sprint(*params.SkipMessagingUseCase))
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", *params.VettingProvider)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceTollfreeInquiry{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1ComplianceTollfreeInquiry](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

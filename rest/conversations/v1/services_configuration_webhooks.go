@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific service webhook configuration.
@@ -43,6 +45,37 @@ func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*C
 	}
 
 	return ps, err
+}
+
+// FetchServiceWebhookConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceWebhookConfigurationWithMetadata(ChatServiceSid string) (*metadata.ResourceMetadata[ConversationsV1ServiceWebhookConfiguration], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceWebhookConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceWebhookConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateServiceWebhookConfiguration'
@@ -112,4 +145,50 @@ func (c *ApiService) UpdateServiceWebhookConfiguration(ChatServiceSid string, pa
 	}
 
 	return ps, err
+}
+
+// UpdateServiceWebhookConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceWebhookConfigurationWithMetadata(ChatServiceSid string, params *UpdateServiceWebhookConfigurationParams) (*metadata.ResourceMetadata[ConversationsV1ServiceWebhookConfiguration], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration/Webhooks"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.Filters != nil {
+		for _, item := range *params.Filters {
+			data.Add("Filters", item)
+		}
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceWebhookConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceWebhookConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

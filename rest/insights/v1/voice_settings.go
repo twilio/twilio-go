@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchAccountSettings'
@@ -57,6 +59,40 @@ func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*
 	}
 
 	return ps, err
+}
+
+// FetchAccountSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAccountSettingsWithMetadata(params *FetchAccountSettingsParams) (*metadata.ResourceMetadata[InsightsV1AccountSettings], error) {
+	path := "/v1/Voice/Settings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SubaccountSid != nil {
+		data.Set("SubaccountSid", *params.SubaccountSid)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1AccountSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1AccountSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateAccountSettings'
@@ -114,4 +150,44 @@ func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) 
 	}
 
 	return ps, err
+}
+
+// UpdateAccountSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAccountSettingsWithMetadata(params *UpdateAccountSettingsParams) (*metadata.ResourceMetadata[InsightsV1AccountSettings], error) {
+	path := "/v1/Voice/Settings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AdvancedFeatures != nil {
+		data.Set("AdvancedFeatures", fmt.Sprint(*params.AdvancedFeatures))
+	}
+	if params != nil && params.VoiceTrace != nil {
+		data.Set("VoiceTrace", fmt.Sprint(*params.VoiceTrace))
+	}
+	if params != nil && params.SubaccountSid != nil {
+		data.Set("SubaccountSid", *params.SubaccountSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1AccountSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1AccountSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

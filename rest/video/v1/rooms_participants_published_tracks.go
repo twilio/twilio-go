@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Returns a single Track resource represented by TrackName or SID.
@@ -48,6 +49,39 @@ func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, Particip
 	}
 
 	return ps, err
+}
+
+// FetchRoomParticipantPublishedTrackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoomParticipantPublishedTrackWithMetadata(RoomSid string, ParticipantSid string, Sid string) (*metadata.ResourceMetadata[VideoV1RoomParticipantPublishedTrack], error) {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomParticipantPublishedTrack{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomParticipantPublishedTrack](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRoomParticipantPublishedTrack'
@@ -105,6 +139,50 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 	return ps, err
 }
 
+// PageRoomParticipantPublishedTrackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRoomParticipantPublishedTrackWithMetadata(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRoomParticipantPublishedTrackResponse], error) {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
+
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomParticipantPublishedTrackResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRoomParticipantPublishedTrackResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
 	response, errors := c.StreamRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
@@ -119,6 +197,29 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	}
 
 	return records, nil
+}
+
+// ListRoomParticipantPublishedTrackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRoomParticipantPublishedTrackWithMetadata(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (*metadata.ResourceMetadata[[]VideoV1RoomParticipantPublishedTrack], error) {
+	response, errors := c.StreamRoomParticipantPublishedTrackWithMetadata(RoomSid, ParticipantSid, params)
+	resource := response.GetResource()
+
+	records := make([]VideoV1RoomParticipantPublishedTrack, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VideoV1RoomParticipantPublishedTrack](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +242,35 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRoomParticipantPublishedTrackWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRoomParticipantPublishedTrackWithMetadata(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (*metadata.ResourceMetadata[chan VideoV1RoomParticipantPublishedTrack], chan error) {
+	if params == nil {
+		params = &ListRoomParticipantPublishedTrackParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VideoV1RoomParticipantPublishedTrack, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRoomParticipantPublishedTrackWithMetadata(RoomSid, ParticipantSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRoomParticipantPublishedTrack(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VideoV1RoomParticipantPublishedTrack](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRoomParticipantPublishedTrack(response *ListRoomParticipantPublishedTrackResponse, params *ListRoomParticipantPublishedTrackParams, recordChannel chan VideoV1RoomParticipantPublishedTrack, errorChannel chan error) {

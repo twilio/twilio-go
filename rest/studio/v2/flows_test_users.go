@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch flow test users
@@ -43,6 +45,37 @@ func (c *ApiService) FetchTestUser(Sid string) (*StudioV2TestUser, error) {
 	}
 
 	return ps, err
+}
+
+// FetchTestUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTestUserWithMetadata(Sid string) (*metadata.ResourceMetadata[StudioV2TestUser], error) {
+	path := "/v2/Flows/{Sid}/TestUsers"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2TestUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2TestUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateTestUser'
@@ -85,4 +118,41 @@ func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*
 	}
 
 	return ps, err
+}
+
+// UpdateTestUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTestUserWithMetadata(Sid string, params *UpdateTestUserParams) (*metadata.ResourceMetadata[StudioV2TestUser], error) {
+	path := "/v2/Flows/{Sid}/TestUsers"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TestUsers != nil {
+		for _, item := range *params.TestUsers {
+			data.Add("TestUsers", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2TestUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2TestUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

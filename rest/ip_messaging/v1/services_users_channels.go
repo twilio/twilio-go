@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListUserChannel'
@@ -78,6 +79,50 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 	return ps, err
 }
 
+// PageUserChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageUserChannelWithMetadata(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListUserChannelResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUserChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListUserChannelResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV1UserChannel, error) {
 	response, errors := c.StreamUserChannel(ServiceSid, UserSid, params)
@@ -92,6 +137,29 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	}
 
 	return records, nil
+}
+
+// ListUserChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListUserChannelWithMetadata(ServiceSid string, UserSid string, params *ListUserChannelParams) (*metadata.ResourceMetadata[[]IpMessagingV1UserChannel], error) {
+	response, errors := c.StreamUserChannelWithMetadata(ServiceSid, UserSid, params)
+	resource := response.GetResource()
+
+	records := make([]IpMessagingV1UserChannel, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IpMessagingV1UserChannel](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -114,6 +182,35 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamUserChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamUserChannelWithMetadata(ServiceSid string, UserSid string, params *ListUserChannelParams) (*metadata.ResourceMetadata[chan IpMessagingV1UserChannel], chan error) {
+	if params == nil {
+		params = &ListUserChannelParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IpMessagingV1UserChannel, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageUserChannelWithMetadata(ServiceSid, UserSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamUserChannel(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IpMessagingV1UserChannel](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamUserChannel(response *ListUserChannelResponse, params *ListUserChannelParams, recordChannel chan IpMessagingV1UserChannel, errorChannel chan error) {

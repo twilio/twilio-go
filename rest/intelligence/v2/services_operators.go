@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Attach an Operator to a Service.
@@ -46,6 +48,38 @@ func (c *ApiService) CreateOperatorAttachment(ServiceSid string, OperatorSid str
 	return ps, err
 }
 
+// CreateOperatorAttachmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateOperatorAttachmentWithMetadata(ServiceSid string, OperatorSid string) (*metadata.ResourceMetadata[IntelligenceV2OperatorAttachment], error) {
+	path := "/v2/Services/{ServiceSid}/Operators/{OperatorSid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2OperatorAttachment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2OperatorAttachment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Detach an Operator from a Service.
 func (c *ApiService) DeleteOperatorAttachment(ServiceSid string, OperatorSid string) error {
 	path := "/v2/Services/{ServiceSid}/Operators/{OperatorSid}"
@@ -65,6 +99,33 @@ func (c *ApiService) DeleteOperatorAttachment(ServiceSid string, OperatorSid str
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteOperatorAttachmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteOperatorAttachmentWithMetadata(ServiceSid string, OperatorSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Operators/{OperatorSid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve Operators attached to a Service.
@@ -90,4 +151,35 @@ func (c *ApiService) FetchOperatorAttachments(ServiceSid string) (*IntelligenceV
 	}
 
 	return ps, err
+}
+
+// FetchOperatorAttachmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchOperatorAttachmentsWithMetadata(ServiceSid string) (*metadata.ResourceMetadata[IntelligenceV2OperatorAttachments], error) {
+	path := "/v2/Services/{ServiceSid}/Operators"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2OperatorAttachments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2OperatorAttachments](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

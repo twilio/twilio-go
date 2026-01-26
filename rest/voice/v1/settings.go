@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve voice dialing permissions inheritance for the sub-account
@@ -42,6 +44,36 @@ func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissio
 	}
 
 	return ps, err
+}
+
+// FetchDialingPermissionsSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDialingPermissionsSettingsWithMetadata() (*metadata.ResourceMetadata[VoiceV1DialingPermissionsSettings], error) {
+	path := "/v1/Settings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1DialingPermissionsSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1DialingPermissionsSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateDialingPermissionsSettings'
@@ -81,4 +113,38 @@ func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermi
 	}
 
 	return ps, err
+}
+
+// UpdateDialingPermissionsSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateDialingPermissionsSettingsWithMetadata(params *UpdateDialingPermissionsSettingsParams) (*metadata.ResourceMetadata[VoiceV1DialingPermissionsSettings], error) {
+	path := "/v1/Settings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DialingPermissionsInheritance != nil {
+		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1DialingPermissionsSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1DialingPermissionsSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

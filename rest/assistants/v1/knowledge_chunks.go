@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListKnowledgeChunks'
@@ -77,6 +78,49 @@ func (c *ApiService) PageKnowledgeChunks(Id string, params *ListKnowledgeChunksP
 	return ps, err
 }
 
+// PageKnowledgeChunksWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageKnowledgeChunksWithMetadata(Id string, params *ListKnowledgeChunksParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListKnowledgeChunksResponse], error) {
+	path := "/v1/Knowledge/{id}/Chunks"
+
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListKnowledgeChunksResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListKnowledgeChunksResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists KnowledgeChunks records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKnowledgeChunks(Id string, params *ListKnowledgeChunksParams) ([]AssistantsV1KnowledgeChunk, error) {
 	response, errors := c.StreamKnowledgeChunks(Id, params)
@@ -91,6 +135,29 @@ func (c *ApiService) ListKnowledgeChunks(Id string, params *ListKnowledgeChunksP
 	}
 
 	return records, nil
+}
+
+// ListKnowledgeChunksWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListKnowledgeChunksWithMetadata(Id string, params *ListKnowledgeChunksParams) (*metadata.ResourceMetadata[[]AssistantsV1KnowledgeChunk], error) {
+	response, errors := c.StreamKnowledgeChunksWithMetadata(Id, params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1KnowledgeChunk, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1KnowledgeChunk](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams KnowledgeChunks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -113,6 +180,35 @@ func (c *ApiService) StreamKnowledgeChunks(Id string, params *ListKnowledgeChunk
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamKnowledgeChunksWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamKnowledgeChunksWithMetadata(Id string, params *ListKnowledgeChunksParams) (*metadata.ResourceMetadata[chan AssistantsV1KnowledgeChunk], chan error) {
+	if params == nil {
+		params = &ListKnowledgeChunksParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1KnowledgeChunk, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageKnowledgeChunksWithMetadata(Id, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamKnowledgeChunks(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1KnowledgeChunk](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse, params *ListKnowledgeChunksParams, recordChannel chan AssistantsV1KnowledgeChunk, errorChannel chan error) {

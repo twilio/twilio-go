@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // get a session
@@ -46,6 +47,37 @@ func (c *ApiService) FetchSession(Id string) (*AssistantsV1Session, error) {
 	}
 
 	return ps, err
+}
+
+// FetchSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSessionWithMetadata(Id string) (*metadata.ResourceMetadata[AssistantsV1Session], error) {
+	path := "/v1/Sessions/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Session{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Session](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSessions'
@@ -100,6 +132,47 @@ func (c *ApiService) PageSessions(params *ListSessionsParams, pageToken, pageNum
 	return ps, err
 }
 
+// PageSessionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSessionsWithMetadata(params *ListSessionsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSessionsResponse], error) {
+	path := "/v1/Sessions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSessionsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSessionsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Sessions records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSessions(params *ListSessionsParams) ([]AssistantsV1Session, error) {
 	response, errors := c.StreamSessions(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListSessions(params *ListSessionsParams) ([]AssistantsV1Ses
 	}
 
 	return records, nil
+}
+
+// ListSessionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSessionsWithMetadata(params *ListSessionsParams) (*metadata.ResourceMetadata[[]AssistantsV1Session], error) {
+	response, errors := c.StreamSessionsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1Session, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1Session](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Sessions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamSessions(params *ListSessionsParams) (chan Assistants
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSessionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSessionsWithMetadata(params *ListSessionsParams) (*metadata.ResourceMetadata[chan AssistantsV1Session], chan error) {
+	if params == nil {
+		params = &ListSessionsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1Session, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSessionsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSessions(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1Session](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSessions(response *ListSessionsResponse, params *ListSessionsParams, recordChannel chan AssistantsV1Session, errorChannel chan error) {

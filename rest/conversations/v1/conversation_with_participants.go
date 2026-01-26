@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"time"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateConversationWithParticipants'
@@ -168,4 +170,76 @@ func (c *ApiService) CreateConversationWithParticipants(params *CreateConversati
 	}
 
 	return ps, err
+}
+
+// CreateConversationWithParticipantsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateConversationWithParticipantsWithMetadata(params *CreateConversationWithParticipantsParams) (*metadata.ResourceMetadata[ConversationsV1ConversationWithParticipants], error) {
+	path := "/v1/ConversationWithParticipants"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", fmt.Sprint(*params.State))
+	}
+	if params != nil && params.TimersInactive != nil {
+		data.Set("Timers.Inactive", *params.TimersInactive)
+	}
+	if params != nil && params.TimersClosed != nil {
+		data.Set("Timers.Closed", *params.TimersClosed)
+	}
+	if params != nil && params.BindingsEmailAddress != nil {
+		data.Set("Bindings.Email.Address", *params.BindingsEmailAddress)
+	}
+	if params != nil && params.BindingsEmailName != nil {
+		data.Set("Bindings.Email.Name", *params.BindingsEmailName)
+	}
+	if params != nil && params.Participant != nil {
+		for _, item := range *params.Participant {
+			data.Add("Participant", item)
+		}
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ConversationWithParticipants{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ConversationWithParticipants](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

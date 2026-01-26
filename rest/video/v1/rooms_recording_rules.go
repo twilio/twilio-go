@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Returns a list of Recording Rules for the Room.
@@ -43,6 +45,37 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordi
 	}
 
 	return ps, err
+}
+
+// FetchRoomRecordingRuleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoomRecordingRuleWithMetadata(RoomSid string) (*metadata.ResourceMetadata[VideoV1RoomRecordingRule], error) {
+	path := "/v1/Rooms/{RoomSid}/RecordingRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomRecordingRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomRecordingRule](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateRoomRecordingRule'
@@ -89,4 +122,45 @@ func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomR
 	}
 
 	return ps, err
+}
+
+// UpdateRoomRecordingRuleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRoomRecordingRuleWithMetadata(RoomSid string, params *UpdateRoomRecordingRuleParams) (*metadata.ResourceMetadata[VideoV1RoomRecordingRule], error) {
+	path := "/v1/Rooms/{RoomSid}/RecordingRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Rules != nil {
+		v, err := json.Marshal(params.Rules)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Rules", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomRecordingRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomRecordingRule](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

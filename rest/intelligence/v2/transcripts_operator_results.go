@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchOperatorResult'
@@ -62,6 +63,42 @@ func (c *ApiService) FetchOperatorResult(TranscriptSid string, OperatorSid strin
 	}
 
 	return ps, err
+}
+
+// FetchOperatorResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchOperatorResultWithMetadata(TranscriptSid string, OperatorSid string, params *FetchOperatorResultParams) (*metadata.ResourceMetadata[IntelligenceV2OperatorResult], error) {
+	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults/{OperatorSid}"
+	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+	path = strings.Replace(path, "{"+"OperatorSid"+"}", OperatorSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Redacted != nil {
+		data.Set("Redacted", fmt.Sprint(*params.Redacted))
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2OperatorResult{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2OperatorResult](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListOperatorResult'
@@ -127,6 +164,52 @@ func (c *ApiService) PageOperatorResult(TranscriptSid string, params *ListOperat
 	return ps, err
 }
 
+// PageOperatorResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageOperatorResultWithMetadata(TranscriptSid string, params *ListOperatorResultParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListOperatorResultResponse], error) {
+	path := "/v2/Transcripts/{TranscriptSid}/OperatorResults"
+
+	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Redacted != nil {
+		data.Set("Redacted", fmt.Sprint(*params.Redacted))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListOperatorResultResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListOperatorResultResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists OperatorResult records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOperatorResult(TranscriptSid string, params *ListOperatorResultParams) ([]IntelligenceV2OperatorResult, error) {
 	response, errors := c.StreamOperatorResult(TranscriptSid, params)
@@ -141,6 +224,29 @@ func (c *ApiService) ListOperatorResult(TranscriptSid string, params *ListOperat
 	}
 
 	return records, nil
+}
+
+// ListOperatorResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListOperatorResultWithMetadata(TranscriptSid string, params *ListOperatorResultParams) (*metadata.ResourceMetadata[[]IntelligenceV2OperatorResult], error) {
+	response, errors := c.StreamOperatorResultWithMetadata(TranscriptSid, params)
+	resource := response.GetResource()
+
+	records := make([]IntelligenceV2OperatorResult, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IntelligenceV2OperatorResult](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams OperatorResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -163,6 +269,35 @@ func (c *ApiService) StreamOperatorResult(TranscriptSid string, params *ListOper
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamOperatorResultWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamOperatorResultWithMetadata(TranscriptSid string, params *ListOperatorResultParams) (*metadata.ResourceMetadata[chan IntelligenceV2OperatorResult], chan error) {
+	if params == nil {
+		params = &ListOperatorResultParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IntelligenceV2OperatorResult, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageOperatorResultWithMetadata(TranscriptSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamOperatorResult(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IntelligenceV2OperatorResult](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamOperatorResult(response *ListOperatorResultResponse, params *ListOperatorResultParams, recordChannel chan IntelligenceV2OperatorResult, errorChannel chan error) {

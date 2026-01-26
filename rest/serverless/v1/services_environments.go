@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateEnvironment'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 	return ps, err
 }
 
+// CreateEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateEnvironmentWithMetadata(ServiceSid string, params *CreateEnvironmentParams) (*metadata.ResourceMetadata[ServerlessV1Environment], error) {
+	path := "/v1/Services/{ServiceSid}/Environments"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.DomainSuffix != nil {
+		data.Set("DomainSuffix", *params.DomainSuffix)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Environment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Environment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific environment.
 func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
@@ -91,6 +130,33 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteEnvironmentWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific environment.
@@ -117,6 +183,38 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 	}
 
 	return ps, err
+}
+
+// FetchEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEnvironmentWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Environment], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Environment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Environment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEnvironment'
@@ -173,6 +271,49 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 	return ps, err
 }
 
+// PageEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEnvironmentWithMetadata(ServiceSid string, params *ListEnvironmentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEnvironmentResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Environments"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEnvironmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEnvironmentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
 	response, errors := c.StreamEnvironment(ServiceSid, params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	}
 
 	return records, nil
+}
+
+// ListEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEnvironmentWithMetadata(ServiceSid string, params *ListEnvironmentParams) (*metadata.ResourceMetadata[[]ServerlessV1Environment], error) {
+	response, errors := c.StreamEnvironmentWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Environment, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Environment](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEnvironmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEnvironmentWithMetadata(ServiceSid string, params *ListEnvironmentParams) (*metadata.ResourceMetadata[chan ServerlessV1Environment], chan error) {
+	if params == nil {
+		params = &ListEnvironmentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Environment, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEnvironmentWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEnvironment(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Environment](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEnvironment(response *ListEnvironmentResponse, params *ListEnvironmentParams, recordChannel chan ServerlessV1Environment, errorChannel chan error) {

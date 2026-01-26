@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBundle'
@@ -126,6 +127,61 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle,
 	return ps, err
 }
 
+// CreateBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBundleWithMetadata(params *CreateBundleParams) (*metadata.ResourceMetadata[NumbersV2Bundle], error) {
+	path := "/v2/RegulatoryCompliance/Bundles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.RegulationSid != nil {
+		data.Set("RegulationSid", *params.RegulationSid)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", fmt.Sprint(*params.EndUserType))
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.IsTest != nil {
+		data.Set("IsTest", fmt.Sprint(*params.IsTest))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Bundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Bundle](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Bundle.
 func (c *ApiService) DeleteBundle(Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
@@ -144,6 +200,32 @@ func (c *ApiService) DeleteBundle(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteBundleWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Bundle instance.
@@ -169,6 +251,37 @@ func (c *ApiService) FetchBundle(Sid string) (*NumbersV2Bundle, error) {
 	}
 
 	return ps, err
+}
+
+// FetchBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBundleWithMetadata(Sid string) (*metadata.ResourceMetadata[NumbersV2Bundle], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Bundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Bundle](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBundle'
@@ -322,6 +435,80 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	return ps, err
 }
 
+// PageBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBundleWithMetadata(params *ListBundleParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBundleResponse], error) {
+	path := "/v2/RegulatoryCompliance/Bundles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.RegulationSid != nil {
+		data.Set("RegulationSid", *params.RegulationSid)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.HasValidUntilDate != nil {
+		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
+	}
+	if params != nil && params.SortBy != nil {
+		data.Set("SortBy", fmt.Sprint(*params.SortBy))
+	}
+	if params != nil && params.SortDirection != nil {
+		data.Set("SortDirection", fmt.Sprint(*params.SortDirection))
+	}
+	if params != nil && params.ValidUntilDate != nil {
+		data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.ValidUntilDateBefore != nil {
+		data.Set("ValidUntilDate<", fmt.Sprint((*params.ValidUntilDateBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.ValidUntilDateAfter != nil {
+		data.Set("ValidUntilDate>", fmt.Sprint((*params.ValidUntilDateAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBundleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBundleResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, error) {
 	response, errors := c.StreamBundle(params)
@@ -336,6 +523,29 @@ func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, er
 	}
 
 	return records, nil
+}
+
+// ListBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBundleWithMetadata(params *ListBundleParams) (*metadata.ResourceMetadata[[]NumbersV2Bundle], error) {
+	response, errors := c.StreamBundleWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2Bundle, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2Bundle](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -358,6 +568,35 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundl
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBundleWithMetadata(params *ListBundleParams) (*metadata.ResourceMetadata[chan NumbersV2Bundle], chan error) {
+	if params == nil {
+		params = &ListBundleParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2Bundle, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBundleWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBundle(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2Bundle](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBundle(response *ListBundleResponse, params *ListBundleParams, recordChannel chan NumbersV2Bundle, errorChannel chan error) {
@@ -473,4 +712,48 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	}
 
 	return ps, err
+}
+
+// UpdateBundleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateBundleWithMetadata(Sid string, params *UpdateBundleParams) (*metadata.ResourceMetadata[NumbersV2Bundle], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Bundle{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Bundle](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // This endpoint returns the data of a given Listing. To find a Listing's SID, use the [Available Add-ons resource](/docs/marketplace/api/available-add-ons) or view its Listing details page in the Console by visiting the [Catalog](https://console.twilio.com/us1/develop/add-ons/catalog) or the [My Listings tab](https://console.twilio.com/us1/develop/add-ons/publish/my-listings) and selecting the Listing.
@@ -43,6 +45,37 @@ func (c *ApiService) FetchModuleDataManagement(Sid string) (*MarketplaceV1Module
 	}
 
 	return ps, err
+}
+
+// FetchModuleDataManagementWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchModuleDataManagementWithMetadata(Sid string) (*metadata.ResourceMetadata[MarketplaceV1ModuleDataManagement], error) {
+	path := "/v1/Listing/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1ModuleDataManagement{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1ModuleDataManagement](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateModuleDataManagement'
@@ -137,4 +170,57 @@ func (c *ApiService) UpdateModuleDataManagement(Sid string, params *UpdateModule
 	}
 
 	return ps, err
+}
+
+// UpdateModuleDataManagementWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateModuleDataManagementWithMetadata(Sid string, params *UpdateModuleDataManagementParams) (*metadata.ResourceMetadata[MarketplaceV1ModuleDataManagement], error) {
+	path := "/v1/Listing/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ModuleInfo != nil {
+		data.Set("ModuleInfo", *params.ModuleInfo)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.Documentation != nil {
+		data.Set("Documentation", *params.Documentation)
+	}
+	if params != nil && params.Policies != nil {
+		data.Set("Policies", *params.Policies)
+	}
+	if params != nil && params.Support != nil {
+		data.Set("Support", *params.Support)
+	}
+	if params != nil && params.Configuration != nil {
+		data.Set("Configuration", *params.Configuration)
+	}
+	if params != nil && params.Pricing != nil {
+		data.Set("Pricing", *params.Pricing)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1ModuleDataManagement{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1ModuleDataManagement](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

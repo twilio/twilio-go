@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNewFactor'
@@ -187,6 +188,87 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	return ps, err
 }
 
+// CreateNewFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNewFactorWithMetadata(ServiceSid string, Identity string, params *CreateNewFactorParams) (*metadata.ResourceMetadata[VerifyV2NewFactor], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.FactorType != nil {
+		data.Set("FactorType", fmt.Sprint(*params.FactorType))
+	}
+	if params != nil && params.BindingAlg != nil {
+		data.Set("Binding.Alg", *params.BindingAlg)
+	}
+	if params != nil && params.BindingPublicKey != nil {
+		data.Set("Binding.PublicKey", *params.BindingPublicKey)
+	}
+	if params != nil && params.ConfigAppId != nil {
+		data.Set("Config.AppId", *params.ConfigAppId)
+	}
+	if params != nil && params.ConfigNotificationPlatform != nil {
+		data.Set("Config.NotificationPlatform", fmt.Sprint(*params.ConfigNotificationPlatform))
+	}
+	if params != nil && params.ConfigNotificationToken != nil {
+		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
+	}
+	if params != nil && params.ConfigSdkVersion != nil {
+		data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
+	}
+	if params != nil && params.BindingSecret != nil {
+		data.Set("Binding.Secret", *params.BindingSecret)
+	}
+	if params != nil && params.ConfigTimeStep != nil {
+		data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
+	}
+	if params != nil && params.ConfigSkew != nil {
+		data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
+	}
+	if params != nil && params.ConfigCodeLength != nil {
+		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
+	}
+	if params != nil && params.ConfigAlg != nil {
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
+	}
+	if params != nil && params.Metadata != nil {
+		v, err := json.Marshal(params.Metadata)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Metadata", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2NewFactor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2NewFactor](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Factor.
 func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
@@ -207,6 +289,34 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteFactorWithMetadata(ServiceSid string, Identity string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Factor.
@@ -234,6 +344,39 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 	}
 
 	return ps, err
+}
+
+// FetchFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFactorWithMetadata(ServiceSid string, Identity string, Sid string) (*metadata.ResourceMetadata[VerifyV2Factor], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Factor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Factor](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFactor'
@@ -291,6 +434,50 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 	return ps, err
 }
 
+// PageFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFactorWithMetadata(ServiceSid string, Identity string, params *ListFactorParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFactorResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFactorResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFactorResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2Factor, error) {
 	response, errors := c.StreamFactor(ServiceSid, Identity, params)
@@ -305,6 +492,29 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 	}
 
 	return records, nil
+}
+
+// ListFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFactorWithMetadata(ServiceSid string, Identity string, params *ListFactorParams) (*metadata.ResourceMetadata[[]VerifyV2Factor], error) {
+	response, errors := c.StreamFactorWithMetadata(ServiceSid, Identity, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2Factor, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2Factor](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -327,6 +537,35 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFactorWithMetadata(ServiceSid string, Identity string, params *ListFactorParams) (*metadata.ResourceMetadata[chan VerifyV2Factor], chan error) {
+	if params == nil {
+		params = &ListFactorParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2Factor, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFactorWithMetadata(ServiceSid, Identity, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFactor(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2Factor](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFactor(response *ListFactorResponse, params *ListFactorParams, recordChannel chan VerifyV2Factor, errorChannel chan error) {
@@ -489,4 +728,65 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	}
 
 	return ps, err
+}
+
+// UpdateFactorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFactorWithMetadata(ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*metadata.ResourceMetadata[VerifyV2Factor], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AuthPayload != nil {
+		data.Set("AuthPayload", *params.AuthPayload)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ConfigNotificationToken != nil {
+		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)
+	}
+	if params != nil && params.ConfigSdkVersion != nil {
+		data.Set("Config.SdkVersion", *params.ConfigSdkVersion)
+	}
+	if params != nil && params.ConfigTimeStep != nil {
+		data.Set("Config.TimeStep", fmt.Sprint(*params.ConfigTimeStep))
+	}
+	if params != nil && params.ConfigSkew != nil {
+		data.Set("Config.Skew", fmt.Sprint(*params.ConfigSkew))
+	}
+	if params != nil && params.ConfigCodeLength != nil {
+		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
+	}
+	if params != nil && params.ConfigAlg != nil {
+		data.Set("Config.Alg", fmt.Sprint(*params.ConfigAlg))
+	}
+	if params != nil && params.ConfigNotificationPlatform != nil {
+		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Factor{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Factor](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

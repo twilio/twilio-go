@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve a Step.
@@ -48,6 +49,39 @@ func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid
 	}
 
 	return ps, err
+}
+
+// FetchExecutionStepWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchExecutionStepWithMetadata(FlowSid string, ExecutionSid string, Sid string) (*metadata.ResourceMetadata[StudioV2ExecutionStep], error) {
+	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2ExecutionStep{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2ExecutionStep](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListExecutionStep'
@@ -105,6 +139,50 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 	return ps, err
 }
 
+// PageExecutionStepWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageExecutionStepWithMetadata(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListExecutionStepResponse], error) {
+	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps"
+
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListExecutionStepResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListExecutionStepResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) ([]StudioV2ExecutionStep, error) {
 	response, errors := c.StreamExecutionStep(FlowSid, ExecutionSid, params)
@@ -119,6 +197,29 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 	}
 
 	return records, nil
+}
+
+// ListExecutionStepWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListExecutionStepWithMetadata(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (*metadata.ResourceMetadata[[]StudioV2ExecutionStep], error) {
+	response, errors := c.StreamExecutionStepWithMetadata(FlowSid, ExecutionSid, params)
+	resource := response.GetResource()
+
+	records := make([]StudioV2ExecutionStep, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]StudioV2ExecutionStep](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +242,35 @@ func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, pa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamExecutionStepWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamExecutionStepWithMetadata(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (*metadata.ResourceMetadata[chan StudioV2ExecutionStep], chan error) {
+	if params == nil {
+		params = &ListExecutionStepParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan StudioV2ExecutionStep, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageExecutionStepWithMetadata(FlowSid, ExecutionSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamExecutionStep(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan StudioV2ExecutionStep](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamExecutionStep(response *ListExecutionStepResponse, params *ListExecutionStepParams, recordChannel chan StudioV2ExecutionStep, errorChannel chan error) {

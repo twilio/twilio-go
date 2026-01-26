@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSubscription'
@@ -88,6 +89,54 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 	return ps, err
 }
 
+// CreateSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSubscriptionWithMetadata(params *CreateSubscriptionParams) (*metadata.ResourceMetadata[EventsV1Subscription], error) {
+	path := "/v1/Subscriptions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.SinkSid != nil {
+		data.Set("SinkSid", *params.SinkSid)
+	}
+	if params != nil && params.Types != nil {
+		for _, item := range *params.Types {
+			v, err := json.Marshal(item)
+
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Types", string(v))
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Subscription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Subscription.
 func (c *ApiService) DeleteSubscription(Sid string) error {
 	path := "/v1/Subscriptions/{Sid}"
@@ -106,6 +155,32 @@ func (c *ApiService) DeleteSubscription(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSubscriptionWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Subscription.
@@ -131,6 +206,37 @@ func (c *ApiService) FetchSubscription(Sid string) (*EventsV1Subscription, error
 	}
 
 	return ps, err
+}
+
+// FetchSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSubscriptionWithMetadata(Sid string) (*metadata.ResourceMetadata[EventsV1Subscription], error) {
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Subscription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSubscription'
@@ -194,6 +300,50 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken,
 	return ps, err
 }
 
+// PageSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSubscriptionWithMetadata(params *ListSubscriptionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSubscriptionResponse], error) {
+	path := "/v1/Subscriptions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SinkSid != nil {
+		data.Set("SinkSid", *params.SinkSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSubscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSubscriptionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSubscription(params *ListSubscriptionParams) ([]EventsV1Subscription, error) {
 	response, errors := c.StreamSubscription(params)
@@ -208,6 +358,29 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams) ([]EventsV
 	}
 
 	return records, nil
+}
+
+// ListSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSubscriptionWithMetadata(params *ListSubscriptionParams) (*metadata.ResourceMetadata[[]EventsV1Subscription], error) {
+	response, errors := c.StreamSubscriptionWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]EventsV1Subscription, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]EventsV1Subscription](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -230,6 +403,35 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan Ev
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSubscriptionWithMetadata(params *ListSubscriptionParams) (*metadata.ResourceMetadata[chan EventsV1Subscription], chan error) {
+	if params == nil {
+		params = &ListSubscriptionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan EventsV1Subscription, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSubscriptionWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSubscription(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan EventsV1Subscription](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSubscription(response *ListSubscriptionResponse, params *ListSubscriptionParams, recordChannel chan EventsV1Subscription, errorChannel chan error) {
@@ -318,4 +520,39 @@ func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionPa
 	}
 
 	return ps, err
+}
+
+// UpdateSubscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSubscriptionWithMetadata(Sid string, params *UpdateSubscriptionParams) (*metadata.ResourceMetadata[EventsV1Subscription], error) {
+	path := "/v1/Subscriptions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Subscription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Subscription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Create a new secondary Auth Token
@@ -43,6 +45,36 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 	return ps, err
 }
 
+// CreateSecondaryAuthTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSecondaryAuthTokenWithMetadata() (*metadata.ResourceMetadata[AccountsV1SecondaryAuthToken], error) {
+	path := "/v1/AuthTokens/Secondary"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1SecondaryAuthToken{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1SecondaryAuthToken](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete the secondary Auth Token from your account
 func (c *ApiService) DeleteSecondaryAuthToken() error {
 	path := "/v1/AuthTokens/Secondary"
@@ -60,4 +92,29 @@ func (c *ApiService) DeleteSecondaryAuthToken() error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSecondaryAuthTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSecondaryAuthTokenWithMetadata() (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/AuthTokens/Secondary"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

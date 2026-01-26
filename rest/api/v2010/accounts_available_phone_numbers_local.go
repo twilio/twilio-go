@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberLocal'
@@ -250,6 +251,108 @@ func (c *ApiService) PageAvailablePhoneNumberLocal(CountryCode string, params *L
 	return ps, err
 }
 
+// PageAvailablePhoneNumberLocalWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAvailablePhoneNumberLocalWithMetadata(CountryCode string, params *ListAvailablePhoneNumberLocalParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAvailablePhoneNumberLocalResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", fmt.Sprint(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", fmt.Sprint(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberLocalResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAvailablePhoneNumberLocalResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AvailablePhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) ([]ApiV2010AvailablePhoneNumberLocal, error) {
 	response, errors := c.StreamAvailablePhoneNumberLocal(CountryCode, params)
@@ -264,6 +367,29 @@ func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *L
 	}
 
 	return records, nil
+}
+
+// ListAvailablePhoneNumberLocalWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAvailablePhoneNumberLocalWithMetadata(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (*metadata.ResourceMetadata[[]ApiV2010AvailablePhoneNumberLocal], error) {
+	response, errors := c.StreamAvailablePhoneNumberLocalWithMetadata(CountryCode, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010AvailablePhoneNumberLocal, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010AvailablePhoneNumberLocal](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AvailablePhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -286,6 +412,35 @@ func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAvailablePhoneNumberLocalWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAvailablePhoneNumberLocalWithMetadata(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (*metadata.ResourceMetadata[chan ApiV2010AvailablePhoneNumberLocal], chan error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberLocalParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010AvailablePhoneNumberLocal, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAvailablePhoneNumberLocalWithMetadata(CountryCode, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAvailablePhoneNumberLocal(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010AvailablePhoneNumberLocal](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAvailablePhoneNumberLocal(response *ListAvailablePhoneNumberLocalResponse, params *ListAvailablePhoneNumberLocalParams, recordChannel chan ApiV2010AvailablePhoneNumberLocal, errorChannel chan error) {

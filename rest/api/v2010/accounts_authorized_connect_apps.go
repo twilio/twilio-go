@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchAuthorizedConnectApp'
@@ -62,6 +63,42 @@ func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *Fet
 	}
 
 	return ps, err
+}
+
+// FetchAuthorizedConnectAppWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAuthorizedConnectAppWithMetadata(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*metadata.ResourceMetadata[ApiV2010AuthorizedConnectApp], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConnectAppSid"+"}", ConnectAppSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010AuthorizedConnectApp{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010AuthorizedConnectApp](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAuthorizedConnectApp'
@@ -128,6 +165,53 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 	return ps, err
 }
 
+// PageAuthorizedConnectAppWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAuthorizedConnectAppWithMetadata(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAuthorizedConnectAppResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAuthorizedConnectAppResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAuthorizedConnectAppResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AuthorizedConnectApp, error) {
 	response, errors := c.StreamAuthorizedConnectApp(params)
@@ -142,6 +226,29 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 	}
 
 	return records, nil
+}
+
+// ListAuthorizedConnectAppWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAuthorizedConnectAppWithMetadata(params *ListAuthorizedConnectAppParams) (*metadata.ResourceMetadata[[]ApiV2010AuthorizedConnectApp], error) {
+	response, errors := c.StreamAuthorizedConnectAppWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010AuthorizedConnectApp, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010AuthorizedConnectApp](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -164,6 +271,35 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAuthorizedConnectAppWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAuthorizedConnectAppWithMetadata(params *ListAuthorizedConnectAppParams) (*metadata.ResourceMetadata[chan ApiV2010AuthorizedConnectApp], chan error) {
+	if params == nil {
+		params = &ListAuthorizedConnectAppParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010AuthorizedConnectApp, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAuthorizedConnectAppWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAuthorizedConnectApp(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010AuthorizedConnectApp](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAuthorizedConnectApp(response *ListAuthorizedConnectAppResponse, params *ListAuthorizedConnectAppParams, recordChannel chan ApiV2010AuthorizedConnectApp, errorChannel chan error) {

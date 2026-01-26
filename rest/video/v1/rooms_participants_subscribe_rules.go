@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Returns a list of Subscribe Rules for the Participant.
@@ -44,6 +46,38 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 	}
 
 	return ps, err
+}
+
+// FetchRoomParticipantSubscribeRuleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoomParticipantSubscribeRuleWithMetadata(RoomSid string, ParticipantSid string) (*metadata.ResourceMetadata[VideoV1RoomParticipantSubscribeRule], error) {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomParticipantSubscribeRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomParticipantSubscribeRule](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateRoomParticipantSubscribeRule'
@@ -91,4 +125,46 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 	}
 
 	return ps, err
+}
+
+// UpdateRoomParticipantSubscribeRuleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRoomParticipantSubscribeRuleWithMetadata(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*metadata.ResourceMetadata[VideoV1RoomParticipantSubscribeRule], error) {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Rules != nil {
+		v, err := json.Marshal(params.Rules)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Rules", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomParticipantSubscribeRule{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomParticipantSubscribeRule](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

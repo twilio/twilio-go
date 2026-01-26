@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific End-User Type Instance.
@@ -46,6 +47,37 @@ func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2EndUserType, error)
 	}
 
 	return ps, err
+}
+
+// FetchEndUserTypeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEndUserTypeWithMetadata(Sid string) (*metadata.ResourceMetadata[NumbersV2EndUserType], error) {
+	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2EndUserType{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2EndUserType](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEndUserType'
@@ -100,6 +132,47 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, p
 	return ps, err
 }
 
+// PageEndUserTypeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEndUserTypeWithMetadata(params *ListEndUserTypeParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEndUserTypeResponse], error) {
+	path := "/v2/RegulatoryCompliance/EndUserTypes"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEndUserTypeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEndUserTypeResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2EndUserType, error) {
 	response, errors := c.StreamEndUserType(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2
 	}
 
 	return records, nil
+}
+
+// ListEndUserTypeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEndUserTypeWithMetadata(params *ListEndUserTypeParams) (*metadata.ResourceMetadata[[]NumbersV2EndUserType], error) {
+	response, errors := c.StreamEndUserTypeWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2EndUserType, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2EndUserType](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEndUserTypeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEndUserTypeWithMetadata(params *ListEndUserTypeParams) (*metadata.ResourceMetadata[chan NumbersV2EndUserType], chan error) {
+	if params == nil {
+		params = &ListEndUserTypeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2EndUserType, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEndUserTypeWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEndUserType(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2EndUserType](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEndUserType(response *ListEndUserTypeResponse, params *ListEndUserTypeParams, recordChannel chan NumbersV2EndUserType, errorChannel chan error) {

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve a specific log.
@@ -49,6 +50,39 @@ func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid stri
 	}
 
 	return ps, err
+}
+
+// FetchLogWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchLogWithMetadata(ServiceSid string, EnvironmentSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Log], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Log{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Log](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListLog'
@@ -133,6 +167,59 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	return ps, err
 }
 
+// PageLogWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageLogWithMetadata(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListLogResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FunctionSid != nil {
+		data.Set("FunctionSid", *params.FunctionSid)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListLogResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListLogResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1Log, error) {
 	response, errors := c.StreamLog(ServiceSid, EnvironmentSid, params)
@@ -147,6 +234,29 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	}
 
 	return records, nil
+}
+
+// ListLogWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListLogWithMetadata(ServiceSid string, EnvironmentSid string, params *ListLogParams) (*metadata.ResourceMetadata[[]ServerlessV1Log], error) {
+	response, errors := c.StreamLogWithMetadata(ServiceSid, EnvironmentSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Log, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Log](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -169,6 +279,35 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamLogWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamLogWithMetadata(ServiceSid string, EnvironmentSid string, params *ListLogParams) (*metadata.ResourceMetadata[chan ServerlessV1Log], chan error) {
+	if params == nil {
+		params = &ListLogParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Log, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageLogWithMetadata(ServiceSid, EnvironmentSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamLog(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Log](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamLog(response *ListLogResponse, params *ListLogParams, recordChannel chan ServerlessV1Log, errorChannel chan error) {

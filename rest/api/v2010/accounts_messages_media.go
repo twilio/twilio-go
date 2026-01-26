@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'DeleteMedia'
@@ -59,6 +60,38 @@ func (c *ApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMe
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteMediaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteMediaWithMetadata(MessageSid string, Sid string, params *DeleteMediaParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchMedia'
@@ -101,6 +134,43 @@ func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMedi
 	}
 
 	return ps, err
+}
+
+// FetchMediaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMediaWithMetadata(MessageSid string, Sid string, params *FetchMediaParams) (*metadata.ResourceMetadata[ApiV2010Media], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Media{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Media](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMedia'
@@ -195,6 +265,63 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 	return ps, err
 }
 
+// PageMediaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMediaWithMetadata(MessageSid string, params *ListMediaParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMediaResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMediaResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMediaResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]ApiV2010Media, error) {
 	response, errors := c.StreamMedia(MessageSid, params)
@@ -209,6 +336,29 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]Ap
 	}
 
 	return records, nil
+}
+
+// ListMediaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMediaWithMetadata(MessageSid string, params *ListMediaParams) (*metadata.ResourceMetadata[[]ApiV2010Media], error) {
+	response, errors := c.StreamMediaWithMetadata(MessageSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Media, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Media](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -231,6 +381,35 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMediaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMediaWithMetadata(MessageSid string, params *ListMediaParams) (*metadata.ResourceMetadata[chan ApiV2010Media], chan error) {
+	if params == nil {
+		params = &ListMediaParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Media, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMediaWithMetadata(MessageSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMedia(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Media](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMedia(response *ListMediaResponse, params *ListMediaParams, recordChannel chan ApiV2010Media, errorChannel chan error) {

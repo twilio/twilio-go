@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateToken'
@@ -118,4 +120,59 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, erro
 	}
 
 	return ps, err
+}
+
+// CreateTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTokenWithMetadata(params *CreateTokenParams) (*metadata.ResourceMetadata[OauthV1Token], error) {
+	path := "/v1/token"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.GrantType != nil {
+		data.Set("grant_type", *params.GrantType)
+	}
+	if params != nil && params.ClientId != nil {
+		data.Set("client_id", *params.ClientId)
+	}
+	if params != nil && params.ClientSecret != nil {
+		data.Set("client_secret", *params.ClientSecret)
+	}
+	if params != nil && params.Code != nil {
+		data.Set("code", *params.Code)
+	}
+	if params != nil && params.RedirectUri != nil {
+		data.Set("redirect_uri", *params.RedirectUri)
+	}
+	if params != nil && params.Audience != nil {
+		data.Set("audience", *params.Audience)
+	}
+	if params != nil && params.RefreshToken != nil {
+		data.Set("refresh_token", *params.RefreshToken)
+	}
+	if params != nil && params.Scope != nil {
+		data.Set("scope", *params.Scope)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &OauthV1Token{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[OauthV1Token](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

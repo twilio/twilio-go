@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreatePortingPortIn'
@@ -64,6 +66,45 @@ func (c *ApiService) CreatePortingPortIn(params *CreatePortingPortInParams) (*Nu
 	return ps, err
 }
 
+// CreatePortingPortInWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreatePortingPortInWithMetadata(params *CreatePortingPortInParams) (*metadata.ResourceMetadata[NumbersV1PortingPortIn], error) {
+	path := "/v1/Porting/PortIn"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.NumbersV1PortingPortInCreate != nil {
+		b, err := json.Marshal(*params.NumbersV1PortingPortInCreate)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortIn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingPortIn](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Allows to cancel a port in request by SID
 func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 	path := "/v1/Porting/PortIn/{PortInRequestSid}"
@@ -82,6 +123,32 @@ func (c *ApiService) DeletePortingPortIn(PortInRequestSid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeletePortingPortInWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeletePortingPortInWithMetadata(PortInRequestSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a port in request by SID
@@ -107,4 +174,35 @@ func (c *ApiService) FetchPortingPortIn(PortInRequestSid string) (*NumbersV1Port
 	}
 
 	return ps, err
+}
+
+// FetchPortingPortInWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPortingPortInWithMetadata(PortInRequestSid string) (*metadata.ResourceMetadata[NumbersV1PortingPortIn], error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortIn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingPortIn](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

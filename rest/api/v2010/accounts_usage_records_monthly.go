@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListUsageRecordMonthly'
@@ -123,6 +124,65 @@ func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 	return ps, err
 }
 
+// PageUsageRecordMonthlyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageUsageRecordMonthlyWithMetadata(params *ListUsageRecordMonthlyParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListUsageRecordMonthlyResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Category != nil {
+		data.Set("Category", *params.Category)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+	}
+	if params != nil && params.IncludeSubaccounts != nil {
+		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordMonthlyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListUsageRecordMonthlyResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists UsageRecordMonthly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams) ([]ApiV2010UsageRecordMonthly, error) {
 	response, errors := c.StreamUsageRecordMonthly(params)
@@ -137,6 +197,29 @@ func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 	}
 
 	return records, nil
+}
+
+// ListUsageRecordMonthlyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListUsageRecordMonthlyWithMetadata(params *ListUsageRecordMonthlyParams) (*metadata.ResourceMetadata[[]ApiV2010UsageRecordMonthly], error) {
+	response, errors := c.StreamUsageRecordMonthlyWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010UsageRecordMonthly, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010UsageRecordMonthly](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams UsageRecordMonthly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -159,6 +242,35 @@ func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyPara
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamUsageRecordMonthlyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamUsageRecordMonthlyWithMetadata(params *ListUsageRecordMonthlyParams) (*metadata.ResourceMetadata[chan ApiV2010UsageRecordMonthly], chan error) {
+	if params == nil {
+		params = &ListUsageRecordMonthlyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010UsageRecordMonthly, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageUsageRecordMonthlyWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamUsageRecordMonthly(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010UsageRecordMonthly](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamUsageRecordMonthly(response *ListUsageRecordMonthlyResponse, params *ListUsageRecordMonthlyParams, recordChannel chan ApiV2010UsageRecordMonthly, errorChannel chan error) {

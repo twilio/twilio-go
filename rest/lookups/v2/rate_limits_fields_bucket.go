@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 func (c *ApiService) DeleteLookupRateLimit(Field string, Bucket string) error {
@@ -38,6 +40,33 @@ func (c *ApiService) DeleteLookupRateLimit(Field string, Bucket string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteLookupRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteLookupRateLimitWithMetadata(Field string, Bucket string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"Bucket"+"}", Bucket, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 func (c *ApiService) FetchLookupRateLimit(Field string, Bucket string) (*RateLimitResponse, error) {
@@ -63,6 +92,38 @@ func (c *ApiService) FetchLookupRateLimit(Field string, Bucket string) (*RateLim
 	}
 
 	return ps, err
+}
+
+// FetchLookupRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchLookupRateLimitWithMetadata(Field string, Bucket string) (*metadata.ResourceMetadata[RateLimitResponse], error) {
+	path := "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"Bucket"+"}", Bucket, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &RateLimitResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[RateLimitResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateLookupRateLimit'
@@ -108,4 +169,45 @@ func (c *ApiService) UpdateLookupRateLimit(Field string, Bucket string, params *
 	}
 
 	return ps, err
+}
+
+// UpdateLookupRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateLookupRateLimitWithMetadata(Field string, Bucket string, params *UpdateLookupRateLimitParams) (*metadata.ResourceMetadata[RateLimitResponse], error) {
+	path := "/v2/RateLimits/Fields/{Field}/Bucket/{Bucket}"
+	path = strings.Replace(path, "{"+"Field"+"}", Field, -1)
+	path = strings.Replace(path, "{"+"Bucket"+"}", Bucket, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.RateLimitRequest != nil {
+		b, err := json.Marshal(*params.RateLimitRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &RateLimitResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[RateLimitResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

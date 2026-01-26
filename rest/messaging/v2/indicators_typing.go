@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTypingIndicator'
@@ -65,4 +67,41 @@ func (c *ApiService) CreateTypingIndicator(params *CreateTypingIndicatorParams) 
 	}
 
 	return ps, err
+}
+
+// CreateTypingIndicatorWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTypingIndicatorWithMetadata(params *CreateTypingIndicatorParams) (*metadata.ResourceMetadata[CreateTypingIndicatorResponse], error) {
+	path := "/v2/Indicators/Typing.json"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Channel != nil {
+		data.Set("channel", *params.Channel)
+	}
+	if params != nil && params.MessageId != nil {
+		data.Set("messageId", *params.MessageId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CreateTypingIndicatorResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[CreateTypingIndicatorResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

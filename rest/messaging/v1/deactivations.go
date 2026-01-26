@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchDeactivation'
@@ -57,4 +59,38 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*Messag
 	}
 
 	return ps, err
+}
+
+// FetchDeactivationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDeactivationWithMetadata(params *FetchDeactivationParams) (*metadata.ResourceMetadata[MessagingV1Deactivation], error) {
+	path := "/v1/Deactivations"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Date != nil {
+		data.Set("Date", fmt.Sprint(*params.Date))
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Deactivation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1Deactivation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

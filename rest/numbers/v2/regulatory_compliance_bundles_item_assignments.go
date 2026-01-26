@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateItemAssignment'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAs
 	return ps, err
 }
 
+// CreateItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateItemAssignmentWithMetadata(BundleSid string, params *CreateItemAssignmentParams) (*metadata.ResourceMetadata[NumbersV2ItemAssignment], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ObjectSid != nil {
+		data.Set("ObjectSid", *params.ObjectSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2ItemAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2ItemAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteItemAssignment(BundleSid string, Sid string) error {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteItemAssignment(BundleSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteItemAssignmentWithMetadata(BundleSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch specific Assigned Item Instance.
@@ -108,6 +171,38 @@ func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*Numbers
 	}
 
 	return ps, err
+}
+
+// FetchItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchItemAssignmentWithMetadata(BundleSid string, Sid string) (*metadata.ResourceMetadata[NumbersV2ItemAssignment], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2ItemAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2ItemAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListItemAssignment'
@@ -164,6 +259,49 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 	return ps, err
 }
 
+// PageItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageItemAssignmentWithMetadata(BundleSid string, params *ListItemAssignmentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListItemAssignmentResponse], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
+
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListItemAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListItemAssignmentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2ItemAssignment, error) {
 	response, errors := c.StreamItemAssignment(BundleSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 	}
 
 	return records, nil
+}
+
+// ListItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListItemAssignmentWithMetadata(BundleSid string, params *ListItemAssignmentParams) (*metadata.ResourceMetadata[[]NumbersV2ItemAssignment], error) {
+	response, errors := c.StreamItemAssignmentWithMetadata(BundleSid, params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2ItemAssignment, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2ItemAssignment](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamItemAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamItemAssignmentWithMetadata(BundleSid string, params *ListItemAssignmentParams) (*metadata.ResourceMetadata[chan NumbersV2ItemAssignment], chan error) {
+	if params == nil {
+		params = &ListItemAssignmentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2ItemAssignment, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageItemAssignmentWithMetadata(BundleSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamItemAssignment(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2ItemAssignment](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamItemAssignment(response *ListItemAssignmentResponse, params *ListItemAssignmentParams, recordChannel chan NumbersV2ItemAssignment, errorChannel chan error) {

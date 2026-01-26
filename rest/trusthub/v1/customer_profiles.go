@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCustomerProfile'
@@ -89,6 +90,49 @@ func (c *ApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) 
 	return ps, err
 }
 
+// CreateCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCustomerProfileWithMetadata(params *CreateCustomerProfileParams) (*metadata.ResourceMetadata[TrusthubV1CustomerProfile], error) {
+	path := "/v1/CustomerProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.PolicySid != nil {
+		data.Set("PolicySid", *params.PolicySid)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1CustomerProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1CustomerProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Customer-Profile.
 func (c *ApiService) DeleteCustomerProfile(Sid string) error {
 	path := "/v1/CustomerProfiles/{Sid}"
@@ -107,6 +151,32 @@ func (c *ApiService) DeleteCustomerProfile(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCustomerProfileWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/CustomerProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Customer-Profile instance.
@@ -132,6 +202,37 @@ func (c *ApiService) FetchCustomerProfile(Sid string) (*TrusthubV1CustomerProfil
 	}
 
 	return ps, err
+}
+
+// FetchCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCustomerProfileWithMetadata(Sid string) (*metadata.ResourceMetadata[TrusthubV1CustomerProfile], error) {
+	path := "/v1/CustomerProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1CustomerProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1CustomerProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCustomerProfile'
@@ -213,6 +314,56 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 	return ps, err
 }
 
+// PageCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCustomerProfileWithMetadata(params *ListCustomerProfileParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCustomerProfileResponse], error) {
+	path := "/v1/CustomerProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PolicySid != nil {
+		data.Set("PolicySid", *params.PolicySid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCustomerProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCustomerProfileResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]TrusthubV1CustomerProfile, error) {
 	response, errors := c.StreamCustomerProfile(params)
@@ -227,6 +378,29 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]T
 	}
 
 	return records, nil
+}
+
+// ListCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCustomerProfileWithMetadata(params *ListCustomerProfileParams) (*metadata.ResourceMetadata[[]TrusthubV1CustomerProfile], error) {
+	response, errors := c.StreamCustomerProfileWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1CustomerProfile, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1CustomerProfile](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -249,6 +423,35 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (c
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCustomerProfileWithMetadata(params *ListCustomerProfileParams) (*metadata.ResourceMetadata[chan TrusthubV1CustomerProfile], chan error) {
+	if params == nil {
+		params = &ListCustomerProfileParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1CustomerProfile, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCustomerProfileWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCustomerProfile(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1CustomerProfile](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCustomerProfile(response *ListCustomerProfileResponse, params *ListCustomerProfileParams, recordChannel chan TrusthubV1CustomerProfile, errorChannel chan error) {
@@ -364,4 +567,48 @@ func (c *ApiService) UpdateCustomerProfile(Sid string, params *UpdateCustomerPro
 	}
 
 	return ps, err
+}
+
+// UpdateCustomerProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCustomerProfileWithMetadata(Sid string, params *UpdateCustomerProfileParams) (*metadata.ResourceMetadata[TrusthubV1CustomerProfile], error) {
+	path := "/v1/CustomerProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1CustomerProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1CustomerProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

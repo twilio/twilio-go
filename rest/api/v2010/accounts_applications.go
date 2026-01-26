@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateApplication'
@@ -208,6 +209,90 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	return ps, err
 }
 
+// CreateApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateApplicationWithMetadata(params *CreateApplicationParams) (*metadata.ResourceMetadata[ApiV2010Application], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PublicApplicationConnectEnabled != nil {
+		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Application{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Application](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteApplication'
 type DeleteApplicationParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete.
@@ -242,6 +327,37 @@ func (c *ApiService) DeleteApplication(Sid string, params *DeleteApplicationPara
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteApplicationWithMetadata(Sid string, params *DeleteApplicationParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchApplication'
@@ -283,6 +399,42 @@ func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams
 	}
 
 	return ps, err
+}
+
+// FetchApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchApplicationWithMetadata(Sid string, params *FetchApplicationParams) (*metadata.ResourceMetadata[ApiV2010Application], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Application{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Application](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListApplication'
@@ -358,6 +510,56 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, p
 	return ps, err
 }
 
+// PageApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageApplicationWithMetadata(params *ListApplicationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListApplicationResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListApplicationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListApplicationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010Application, error) {
 	response, errors := c.StreamApplication(params)
@@ -372,6 +574,29 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010A
 	}
 
 	return records, nil
+}
+
+// ListApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListApplicationWithMetadata(params *ListApplicationParams) (*metadata.ResourceMetadata[[]ApiV2010Application], error) {
+	response, errors := c.StreamApplicationWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Application, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Application](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -394,6 +619,35 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamApplicationWithMetadata(params *ListApplicationParams) (*metadata.ResourceMetadata[chan ApiV2010Application], chan error) {
+	if params == nil {
+		params = &ListApplicationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Application, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageApplicationWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamApplication(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Application](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamApplication(response *ListApplicationResponse, params *ListApplicationParams, recordChannel chan ApiV2010Application, errorChannel chan error) {
@@ -628,4 +882,89 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	}
 
 	return ps, err
+}
+
+// UpdateApplicationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateApplicationWithMetadata(Sid string, params *UpdateApplicationParams) (*metadata.ResourceMetadata[ApiV2010Application], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsStatusCallback != nil {
+		data.Set("SmsStatusCallback", *params.SmsStatusCallback)
+	}
+	if params != nil && params.MessageStatusCallback != nil {
+		data.Set("MessageStatusCallback", *params.MessageStatusCallback)
+	}
+	if params != nil && params.PublicApplicationConnectEnabled != nil {
+		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Application{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Application](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

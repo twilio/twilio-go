@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchSummary'
@@ -58,4 +60,39 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 	}
 
 	return ps, err
+}
+
+// FetchSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSummaryWithMetadata(CallSid string, params *FetchSummaryParams) (*metadata.ResourceMetadata[InsightsV1Summary], error) {
+	path := "/v1/Voice/{CallSid}/Summary"
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ProcessingState != nil {
+		data.Set("ProcessingState", *params.ProcessingState)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1Summary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1Summary](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
