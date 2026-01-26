@@ -13,7 +13,7 @@ func Messages(verbs []Element) (string, error) {
 	return ToXML(doc)
 }
 
-//MessagingRedirect
+// MessagingRedirect
 // <Redirect> TwiML Verb
 type MessagingRedirect struct {
 	// url: Redirect URL
@@ -44,7 +44,7 @@ func (m MessagingRedirect) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//MessagingMessage
+// MessagingMessage
 // <Message> TwiML Verb
 type MessagingMessage struct {
 	// body: Message Body
@@ -87,7 +87,7 @@ func (m MessagingMessage) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//MessagingMedia
+// MessagingMedia
 // <Media> TwiML Noun
 type MessagingMedia struct {
 	// url: Media URL
@@ -113,7 +113,7 @@ func (m MessagingMedia) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//MessagingBody
+// MessagingBody
 // <Body> TwiML Noun
 type MessagingBody struct {
 	// message: Message Body
