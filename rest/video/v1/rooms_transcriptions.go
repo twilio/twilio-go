@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateRoomTranscriptions'
@@ -69,6 +70,47 @@ func (c *ApiService) CreateRoomTranscriptions(RoomSid string, params *CreateRoom
 	return ps, err
 }
 
+// CreateRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateRoomTranscriptionsWithMetadata(RoomSid string, params *CreateRoomTranscriptionsParams) (*metadata.ResourceMetadata[VideoV1RoomTranscriptions], error) {
+	path := "/v1/Rooms/{RoomSid}/Transcriptions"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Configuration != nil {
+		v, err := json.Marshal(params.Configuration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Configuration", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomTranscriptions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomTranscriptions](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchRoomTranscriptions(RoomSid string, Ttid string) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
@@ -93,6 +135,38 @@ func (c *ApiService) FetchRoomTranscriptions(RoomSid string, Ttid string) (*Vide
 	}
 
 	return ps, err
+}
+
+// FetchRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoomTranscriptionsWithMetadata(RoomSid string, Ttid string) (*metadata.ResourceMetadata[VideoV1RoomTranscriptions], error) {
+	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Ttid"+"}", Ttid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomTranscriptions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomTranscriptions](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRoomTranscriptions'
@@ -149,6 +223,49 @@ func (c *ApiService) PageRoomTranscriptions(RoomSid string, params *ListRoomTran
 	return ps, err
 }
 
+// PageRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRoomTranscriptionsWithMetadata(RoomSid string, params *ListRoomTranscriptionsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRoomTranscriptionsResponse], error) {
+	path := "/v1/Rooms/{RoomSid}/Transcriptions"
+
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomTranscriptionsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRoomTranscriptionsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists RoomTranscriptions records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomTranscriptions(RoomSid string, params *ListRoomTranscriptionsParams) ([]VideoV1RoomTranscriptions, error) {
 	response, errors := c.StreamRoomTranscriptions(RoomSid, params)
@@ -163,6 +280,29 @@ func (c *ApiService) ListRoomTranscriptions(RoomSid string, params *ListRoomTran
 	}
 
 	return records, nil
+}
+
+// ListRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRoomTranscriptionsWithMetadata(RoomSid string, params *ListRoomTranscriptionsParams) (*metadata.ResourceMetadata[[]VideoV1RoomTranscriptions], error) {
+	response, errors := c.StreamRoomTranscriptionsWithMetadata(RoomSid, params)
+	resource := response.GetResource()
+
+	records := make([]VideoV1RoomTranscriptions, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VideoV1RoomTranscriptions](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams RoomTranscriptions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -185,6 +325,35 @@ func (c *ApiService) StreamRoomTranscriptions(RoomSid string, params *ListRoomTr
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRoomTranscriptionsWithMetadata(RoomSid string, params *ListRoomTranscriptionsParams) (*metadata.ResourceMetadata[chan VideoV1RoomTranscriptions], chan error) {
+	if params == nil {
+		params = &ListRoomTranscriptionsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VideoV1RoomTranscriptions, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRoomTranscriptionsWithMetadata(RoomSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRoomTranscriptions(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VideoV1RoomTranscriptions](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRoomTranscriptions(response *ListRoomTranscriptionsResponse, params *ListRoomTranscriptionsParams, recordChannel chan VideoV1RoomTranscriptions, errorChannel chan error) {
@@ -274,4 +443,40 @@ func (c *ApiService) UpdateRoomTranscriptions(RoomSid string, Ttid string, param
 	}
 
 	return ps, err
+}
+
+// UpdateRoomTranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRoomTranscriptionsWithMetadata(RoomSid string, Ttid string, params *UpdateRoomTranscriptionsParams) (*metadata.ResourceMetadata[VideoV1RoomTranscriptions], error) {
+	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Ttid"+"}", Ttid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomTranscriptions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomTranscriptions](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

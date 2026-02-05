@@ -17,6 +17,8 @@ package openapi
 import (
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 func (c *ApiService) FetchOrganization(OrganizationSid string) error {
@@ -36,4 +38,30 @@ func (c *ApiService) FetchOrganization(OrganizationSid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// FetchOrganizationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchOrganizationWithMetadata(OrganizationSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/Organizations/{OrganizationSid}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

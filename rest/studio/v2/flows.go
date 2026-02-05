@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateFlow'
@@ -95,6 +96,55 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 	return ps, err
 }
 
+// CreateFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateFlowWithMetadata(params *CreateFlowParams) (*metadata.ResourceMetadata[StudioV2Flow], error) {
+	path := "/v2/Flows"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Definition != nil {
+		v, err := json.Marshal(params.Definition)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Definition", string(v))
+	}
+	if params != nil && params.CommitMessage != nil {
+		data.Set("CommitMessage", *params.CommitMessage)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Flow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Flow.
 func (c *ApiService) DeleteFlow(Sid string) error {
 	path := "/v2/Flows/{Sid}"
@@ -113,6 +163,32 @@ func (c *ApiService) DeleteFlow(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteFlowWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific Flow.
@@ -138,6 +214,37 @@ func (c *ApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	}
 
 	return ps, err
+}
+
+// FetchFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFlowWithMetadata(Sid string) (*metadata.ResourceMetadata[StudioV2Flow], error) {
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Flow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFlow'
@@ -192,6 +299,47 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber stri
 	return ps, err
 }
 
+// PageFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFlowWithMetadata(params *ListFlowParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFlowResponse], error) {
+	path := "/v2/Flows"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFlowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFlowResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlow(params *ListFlowParams) ([]StudioV2Flow, error) {
 	response, errors := c.StreamFlow(params)
@@ -206,6 +354,29 @@ func (c *ApiService) ListFlow(params *ListFlowParams) ([]StudioV2Flow, error) {
 	}
 
 	return records, nil
+}
+
+// ListFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFlowWithMetadata(params *ListFlowParams) (*metadata.ResourceMetadata[[]StudioV2Flow], error) {
+	response, errors := c.StreamFlowWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]StudioV2Flow, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]StudioV2Flow](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -228,6 +399,35 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV2Flow, chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFlowWithMetadata(params *ListFlowParams) (*metadata.ResourceMetadata[chan StudioV2Flow], chan error) {
+	if params == nil {
+		params = &ListFlowParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan StudioV2Flow, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFlowWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFlow(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan StudioV2Flow](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFlow(response *ListFlowResponse, params *ListFlowParams, recordChannel chan StudioV2Flow, errorChannel chan error) {
@@ -349,4 +549,54 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	}
 
 	return ps, err
+}
+
+// UpdateFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFlowWithMetadata(Sid string, params *UpdateFlowParams) (*metadata.ResourceMetadata[StudioV2Flow], error) {
+	path := "/v2/Flows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Definition != nil {
+		v, err := json.Marshal(params.Definition)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Definition", string(v))
+	}
+	if params != nil && params.CommitMessage != nil {
+		data.Set("CommitMessage", *params.CommitMessage)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Flow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Flow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

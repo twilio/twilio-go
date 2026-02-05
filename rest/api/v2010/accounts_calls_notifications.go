@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchCallNotification'
@@ -63,6 +64,43 @@ func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *F
 	}
 
 	return ps, err
+}
+
+// FetchCallNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCallNotificationWithMetadata(CallSid string, Sid string, params *FetchCallNotificationParams) (*metadata.ResourceMetadata[ApiV2010CallNotificationInstance], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010CallNotificationInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010CallNotificationInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCallNotification'
@@ -166,6 +204,66 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 	return ps, err
 }
 
+// PageCallNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCallNotificationWithMetadata(CallSid string, params *ListCallNotificationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCallNotificationResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Log != nil {
+		data.Set("Log", fmt.Sprint(*params.Log))
+	}
+	if params != nil && params.MessageDate != nil {
+		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+	}
+	if params != nil && params.MessageDateBefore != nil {
+		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
+	}
+	if params != nil && params.MessageDateAfter != nil {
+		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallNotificationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCallNotificationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010CallNotification, error) {
 	response, errors := c.StreamCallNotification(CallSid, params)
@@ -180,6 +278,29 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 	}
 
 	return records, nil
+}
+
+// ListCallNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCallNotificationWithMetadata(CallSid string, params *ListCallNotificationParams) (*metadata.ResourceMetadata[[]ApiV2010CallNotification], error) {
+	response, errors := c.StreamCallNotificationWithMetadata(CallSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010CallNotification, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010CallNotification](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -202,6 +323,35 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCallNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCallNotificationWithMetadata(CallSid string, params *ListCallNotificationParams) (*metadata.ResourceMetadata[chan ApiV2010CallNotification], chan error) {
+	if params == nil {
+		params = &ListCallNotificationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010CallNotification, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCallNotificationWithMetadata(CallSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCallNotification(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010CallNotification](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCallNotification(response *ListCallNotificationResponse, params *ListCallNotificationParams, recordChannel chan ApiV2010CallNotification, errorChannel chan error) {

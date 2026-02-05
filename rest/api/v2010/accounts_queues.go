@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateQueue'
@@ -82,6 +83,48 @@ func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, err
 	return ps, err
 }
 
+// CreateQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateQueueWithMetadata(params *CreateQueueParams) (*metadata.ResourceMetadata[ApiV2010Queue], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MaxSize != nil {
+		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Queue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Queue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteQueue'
 type DeleteQueueParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete.
@@ -116,6 +159,37 @@ func (c *ApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteQueueWithMetadata(Sid string, params *DeleteQueueParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchQueue'
@@ -157,6 +231,42 @@ func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010
 	}
 
 	return ps, err
+}
+
+// FetchQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchQueueWithMetadata(Sid string, params *FetchQueueParams) (*metadata.ResourceMetadata[ApiV2010Queue], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Queue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Queue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListQueue'
@@ -223,6 +333,53 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageQueueWithMetadata(params *ListQueueParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListQueueResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListQueueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListQueueResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error) {
 	response, errors := c.StreamQueue(params)
@@ -237,6 +394,29 @@ func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error)
 	}
 
 	return records, nil
+}
+
+// ListQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListQueueWithMetadata(params *ListQueueParams) (*metadata.ResourceMetadata[[]ApiV2010Queue], error) {
+	response, errors := c.StreamQueueWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Queue, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Queue](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -259,6 +439,35 @@ func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, c
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamQueueWithMetadata(params *ListQueueParams) (*metadata.ResourceMetadata[chan ApiV2010Queue], chan error) {
+	if params == nil {
+		params = &ListQueueParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Queue, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageQueueWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamQueue(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Queue](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamQueue(response *ListQueueResponse, params *ListQueueParams, recordChannel chan ApiV2010Queue, errorChannel chan error) {
@@ -367,4 +576,47 @@ func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV20
 	}
 
 	return ps, err
+}
+
+// UpdateQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateQueueWithMetadata(Sid string, params *UpdateQueueParams) (*metadata.ResourceMetadata[ApiV2010Queue], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MaxSize != nil {
+		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Queue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Queue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -54,10 +54,10 @@ Name | Type | Description
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **ExternalReferenceId** | **string** | An optional external reference ID supplied by customer and echoed back on status retrieval.
-**BusinessRegistrationNumber** | **string** | A legally recognized business registration number
-**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations
-**BusinessRegistrationCountry** | **string** | Country business is registered in
-**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+**BusinessRegistrationNumber** | **string** | A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
+**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+**BusinessRegistrationCountry** | **string** | The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
+**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
 **BusinessRegistrationPhoneNumber** | **string** | The E.164 formatted number associated with the business.
 **DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification
 **OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.

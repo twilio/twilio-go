@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -63,4 +65,44 @@ func (c *ApiService) CreateMessage(Id string, params *CreateMessageParams) (*Ass
 	}
 
 	return ps, err
+}
+
+// CreateMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessageWithMetadata(Id string, params *CreateMessageParams) (*metadata.ResourceMetadata[AssistantsV1AssistantSendMessageResponse], error) {
+	path := "/v1/Assistants/{id}/Messages"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1AssistantSendMessageRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1AssistantSendMessageRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1AssistantSendMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1AssistantSendMessageResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

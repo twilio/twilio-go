@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -197,6 +198,85 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 	return ps, err
 }
 
+// CreateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateServiceWithMetadata(params *CreateServiceParams) (*metadata.ResourceMetadata[MessagingV1Service], error) {
+	path := "/v1/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InboundRequestUrl != nil {
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+	}
+	if params != nil && params.InboundMethod != nil {
+		data.Set("InboundMethod", *params.InboundMethod)
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StickySender != nil {
+		data.Set("StickySender", fmt.Sprint(*params.StickySender))
+	}
+	if params != nil && params.MmsConverter != nil {
+		data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
+	}
+	if params != nil && params.SmartEncoding != nil {
+		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
+	}
+	if params != nil && params.ScanMessageContent != nil {
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
+	}
+	if params != nil && params.FallbackToLongCode != nil {
+		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
+	}
+	if params != nil && params.AreaCodeGeomatch != nil {
+		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+	}
+	if params != nil && params.SynchronousValidation != nil {
+		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+	}
+	if params != nil && params.Usecase != nil {
+		data.Set("Usecase", *params.Usecase)
+	}
+	if params != nil && params.UseInboundWebhookOnNumber != nil {
+		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
@@ -215,6 +295,32 @@ func (c *ApiService) DeleteService(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -240,6 +346,37 @@ func (c *ApiService) FetchService(Sid string) (*MessagingV1Service, error) {
 	}
 
 	return ps, err
+}
+
+// FetchServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[MessagingV1Service], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListService'
@@ -294,6 +431,47 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceWithMetadata(params *ListServiceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceResponse], error) {
+	path := "/v1/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]MessagingV1Service, error) {
 	response, errors := c.StreamService(params)
@@ -308,6 +486,29 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]MessagingV1Servic
 	}
 
 	return records, nil
+}
+
+// ListServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[[]MessagingV1Service], error) {
+	response, errors := c.StreamServiceWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MessagingV1Service, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1Service](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -330,6 +531,35 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan MessagingV1S
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[chan MessagingV1Service], chan error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MessagingV1Service, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamService(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1Service](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan MessagingV1Service, errorChannel chan error) {
@@ -553,4 +783,84 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 	}
 
 	return ps, err
+}
+
+// UpdateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceWithMetadata(Sid string, params *UpdateServiceParams) (*metadata.ResourceMetadata[MessagingV1Service], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.InboundRequestUrl != nil {
+		data.Set("InboundRequestUrl", *params.InboundRequestUrl)
+	}
+	if params != nil && params.InboundMethod != nil {
+		data.Set("InboundMethod", *params.InboundMethod)
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StickySender != nil {
+		data.Set("StickySender", fmt.Sprint(*params.StickySender))
+	}
+	if params != nil && params.MmsConverter != nil {
+		data.Set("MmsConverter", fmt.Sprint(*params.MmsConverter))
+	}
+	if params != nil && params.SmartEncoding != nil {
+		data.Set("SmartEncoding", fmt.Sprint(*params.SmartEncoding))
+	}
+	if params != nil && params.ScanMessageContent != nil {
+		data.Set("ScanMessageContent", fmt.Sprint(*params.ScanMessageContent))
+	}
+	if params != nil && params.FallbackToLongCode != nil {
+		data.Set("FallbackToLongCode", fmt.Sprint(*params.FallbackToLongCode))
+	}
+	if params != nil && params.AreaCodeGeomatch != nil {
+		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
+	}
+	if params != nil && params.ValidityPeriod != nil {
+		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
+	}
+	if params != nil && params.SynchronousValidation != nil {
+		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+	}
+	if params != nil && params.Usecase != nil {
+		data.Set("Usecase", *params.Usecase)
+	}
+	if params != nil && params.UseInboundWebhookOnNumber != nil {
+		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

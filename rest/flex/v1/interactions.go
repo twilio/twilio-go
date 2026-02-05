@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInteraction'
@@ -98,6 +100,61 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 	return ps, err
 }
 
+// CreateInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInteractionWithMetadata(params *CreateInteractionParams) (*metadata.ResourceMetadata[FlexV1Interaction], error) {
+	path := "/v1/Interactions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Channel != nil {
+		v, err := json.Marshal(params.Channel)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Channel", string(v))
+	}
+	if params != nil && params.Routing != nil {
+		v, err := json.Marshal(params.Routing)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Routing", string(v))
+	}
+	if params != nil && params.InteractionContextSid != nil {
+		data.Set("InteractionContextSid", *params.InteractionContextSid)
+	}
+	if params != nil && params.WebhookTtid != nil {
+		data.Set("WebhookTtid", *params.WebhookTtid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Interaction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Interaction](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
@@ -121,6 +178,37 @@ func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	}
 
 	return ps, err
+}
+
+// FetchInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInteractionWithMetadata(Sid string) (*metadata.ResourceMetadata[FlexV1Interaction], error) {
+	path := "/v1/Interactions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Interaction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Interaction](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateInteraction'
@@ -161,4 +249,39 @@ func (c *ApiService) UpdateInteraction(Sid string, params *UpdateInteractionPara
 	}
 
 	return ps, err
+}
+
+// UpdateInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInteractionWithMetadata(Sid string, params *UpdateInteractionParams) (*metadata.ResourceMetadata[FlexV1Interaction], error) {
+	path := "/v1/Interactions/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.WebhookTtid != nil {
+		data.Set("WebhookTtid", *params.WebhookTtid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Interaction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Interaction](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

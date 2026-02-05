@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateKnowledge'
@@ -67,6 +68,45 @@ func (c *ApiService) CreateKnowledge(params *CreateKnowledgeParams) (*Assistants
 	return ps, err
 }
 
+// CreateKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateKnowledgeWithMetadata(params *CreateKnowledgeParams) (*metadata.ResourceMetadata[AssistantsV1Knowledge], error) {
+	path := "/v1/Knowledge"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1CreateKnowledgeRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1CreateKnowledgeRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Knowledge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Knowledge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete knowledge
 func (c *ApiService) DeleteKnowledge(Id string) error {
 	path := "/v1/Knowledge/{id}"
@@ -85,6 +125,32 @@ func (c *ApiService) DeleteKnowledge(Id string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteKnowledgeWithMetadata(Id string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Knowledge/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Get knowledge
@@ -110,6 +176,37 @@ func (c *ApiService) FetchKnowledge(Id string) (*AssistantsV1Knowledge, error) {
 	}
 
 	return ps, err
+}
+
+// FetchKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchKnowledgeWithMetadata(Id string) (*metadata.ResourceMetadata[AssistantsV1Knowledge], error) {
+	path := "/v1/Knowledge/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Knowledge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Knowledge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListKnowledge'
@@ -173,6 +270,50 @@ func (c *ApiService) PageKnowledge(params *ListKnowledgeParams, pageToken, pageN
 	return ps, err
 }
 
+// PageKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageKnowledgeWithMetadata(params *ListKnowledgeParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListKnowledgeResponse], error) {
+	path := "/v1/Knowledge"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AssistantId != nil {
+		data.Set("AssistantId", *params.AssistantId)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListKnowledgeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListKnowledgeResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Knowledge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKnowledge(params *ListKnowledgeParams) ([]AssistantsV1Knowledge, error) {
 	response, errors := c.StreamKnowledge(params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListKnowledge(params *ListKnowledgeParams) ([]AssistantsV1K
 	}
 
 	return records, nil
+}
+
+// ListKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListKnowledgeWithMetadata(params *ListKnowledgeParams) (*metadata.ResourceMetadata[[]AssistantsV1Knowledge], error) {
+	response, errors := c.StreamKnowledgeWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1Knowledge, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1Knowledge](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Knowledge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamKnowledge(params *ListKnowledgeParams) (chan Assistan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamKnowledgeWithMetadata(params *ListKnowledgeParams) (*metadata.ResourceMetadata[chan AssistantsV1Knowledge], chan error) {
+	if params == nil {
+		params = &ListKnowledgeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1Knowledge, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageKnowledgeWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamKnowledge(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1Knowledge](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *ListKnowledgeParams, recordChannel chan AssistantsV1Knowledge, errorChannel chan error) {
@@ -302,4 +495,44 @@ func (c *ApiService) UpdateKnowledge(Id string, params *UpdateKnowledgeParams) (
 	}
 
 	return ps, err
+}
+
+// UpdateKnowledgeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateKnowledgeWithMetadata(Id string, params *UpdateKnowledgeParams) (*metadata.ResourceMetadata[AssistantsV1Knowledge], error) {
+	path := "/v1/Knowledge/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1UpdateKnowledgeRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1UpdateKnowledgeRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Knowledge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Knowledge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

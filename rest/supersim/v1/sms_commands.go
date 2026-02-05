@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSmsCommand'
@@ -89,6 +90,49 @@ func (c *ApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*Supersim
 	return ps, err
 }
 
+// CreateSmsCommandWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSmsCommandWithMetadata(params *CreateSmsCommandParams) (*metadata.ResourceMetadata[SupersimV1SmsCommand], error) {
+	path := "/v1/SmsCommands"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Payload != nil {
+		data.Set("Payload", *params.Payload)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1SmsCommand{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1SmsCommand](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch SMS Command instance from your account.
 func (c *ApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) {
 	path := "/v1/SmsCommands/{Sid}"
@@ -112,6 +156,37 @@ func (c *ApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) 
 	}
 
 	return ps, err
+}
+
+// FetchSmsCommandWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSmsCommandWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1SmsCommand], error) {
+	path := "/v1/SmsCommands/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1SmsCommand{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1SmsCommand](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSmsCommand'
@@ -193,6 +268,56 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pag
 	return ps, err
 }
 
+// PageSmsCommandWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSmsCommandWithMetadata(params *ListSmsCommandParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSmsCommandResponse], error) {
+	path := "/v1/SmsCommands"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", fmt.Sprint(*params.Direction))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSmsCommandResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSmsCommandResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams) ([]SupersimV1SmsCommand, error) {
 	response, errors := c.StreamSmsCommand(params)
@@ -207,6 +332,29 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams) ([]SupersimV1S
 	}
 
 	return records, nil
+}
+
+// ListSmsCommandWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSmsCommandWithMetadata(params *ListSmsCommandParams) (*metadata.ResourceMetadata[[]SupersimV1SmsCommand], error) {
+	response, errors := c.StreamSmsCommandWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1SmsCommand, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1SmsCommand](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -229,6 +377,35 @@ func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams) (chan Supers
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSmsCommandWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSmsCommandWithMetadata(params *ListSmsCommandParams) (*metadata.ResourceMetadata[chan SupersimV1SmsCommand], chan error) {
+	if params == nil {
+		params = &ListSmsCommandParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1SmsCommand, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSmsCommandWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSmsCommand(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1SmsCommand](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSmsCommand(response *ListSmsCommandResponse, params *ListSmsCommandParams, recordChannel chan SupersimV1SmsCommand, errorChannel chan error) {

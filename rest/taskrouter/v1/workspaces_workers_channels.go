@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -48,6 +49,39 @@ func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchWorkerChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWorkerChannelWithMetadata(WorkspaceSid string, WorkerSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1WorkerChannel], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1WorkerChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1WorkerChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListWorkerChannel'
@@ -105,6 +139,50 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 	return ps, err
 }
 
+// PageWorkerChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageWorkerChannelWithMetadata(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListWorkerChannelResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkerChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListWorkerChannelResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
 	response, errors := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
@@ -119,6 +197,29 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListWorkerChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListWorkerChannelWithMetadata(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (*metadata.ResourceMetadata[[]TaskrouterV1WorkerChannel], error) {
+	response, errors := c.StreamWorkerChannelWithMetadata(WorkspaceSid, WorkerSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1WorkerChannel, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1WorkerChannel](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +242,35 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamWorkerChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamWorkerChannelWithMetadata(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (*metadata.ResourceMetadata[chan TaskrouterV1WorkerChannel], chan error) {
+	if params == nil {
+		params = &ListWorkerChannelParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1WorkerChannel, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageWorkerChannelWithMetadata(WorkspaceSid, WorkerSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamWorkerChannel(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1WorkerChannel](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamWorkerChannel(response *ListWorkerChannelResponse, params *ListWorkerChannelParams, recordChannel chan TaskrouterV1WorkerChannel, errorChannel chan error) {
@@ -240,4 +370,44 @@ func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, 
 	}
 
 	return ps, err
+}
+
+// UpdateWorkerChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateWorkerChannelWithMetadata(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*metadata.ResourceMetadata[TaskrouterV1WorkerChannel], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Capacity != nil {
+		data.Set("Capacity", fmt.Sprint(*params.Capacity))
+	}
+	if params != nil && params.Available != nil {
+		data.Set("Available", fmt.Sprint(*params.Available))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1WorkerChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1WorkerChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

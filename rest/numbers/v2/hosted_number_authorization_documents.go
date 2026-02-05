@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateAuthorizationDocument'
@@ -111,6 +112,59 @@ func (c *ApiService) CreateAuthorizationDocument(params *CreateAuthorizationDocu
 	return ps, err
 }
 
+// CreateAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateAuthorizationDocumentWithMetadata(params *CreateAuthorizationDocumentParams) (*metadata.ResourceMetadata[NumbersV2AuthorizationDocument], error) {
+	path := "/v2/HostedNumber/AuthorizationDocuments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.ContactPhoneNumber != nil {
+		data.Set("ContactPhoneNumber", *params.ContactPhoneNumber)
+	}
+	if params != nil && params.HostedNumberOrderSids != nil {
+		for _, item := range *params.HostedNumberOrderSids {
+			data.Add("HostedNumberOrderSids", item)
+		}
+	}
+	if params != nil && params.ContactTitle != nil {
+		data.Set("ContactTitle", *params.ContactTitle)
+	}
+	if params != nil && params.CcEmails != nil {
+		for _, item := range *params.CcEmails {
+			data.Add("CcEmails", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2AuthorizationDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2AuthorizationDocument](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Cancel the AuthorizationDocument request.
 func (c *ApiService) DeleteAuthorizationDocument(Sid string) error {
 	path := "/v2/HostedNumber/AuthorizationDocuments/{Sid}"
@@ -129,6 +183,32 @@ func (c *ApiService) DeleteAuthorizationDocument(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteAuthorizationDocumentWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/HostedNumber/AuthorizationDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific AuthorizationDocument.
@@ -154,6 +234,37 @@ func (c *ApiService) FetchAuthorizationDocument(Sid string) (*NumbersV2Authoriza
 	}
 
 	return ps, err
+}
+
+// FetchAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAuthorizationDocumentWithMetadata(Sid string) (*metadata.ResourceMetadata[NumbersV2AuthorizationDocument], error) {
+	path := "/v2/HostedNumber/AuthorizationDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2AuthorizationDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2AuthorizationDocument](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAuthorizationDocument'
@@ -226,6 +337,53 @@ func (c *ApiService) PageAuthorizationDocument(params *ListAuthorizationDocument
 	return ps, err
 }
 
+// PageAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAuthorizationDocumentWithMetadata(params *ListAuthorizationDocumentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAuthorizationDocumentResponse], error) {
+	path := "/v2/HostedNumber/AuthorizationDocuments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAuthorizationDocumentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAuthorizationDocumentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AuthorizationDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizationDocument(params *ListAuthorizationDocumentParams) ([]NumbersV2AuthorizationDocument, error) {
 	response, errors := c.StreamAuthorizationDocument(params)
@@ -240,6 +398,29 @@ func (c *ApiService) ListAuthorizationDocument(params *ListAuthorizationDocument
 	}
 
 	return records, nil
+}
+
+// ListAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAuthorizationDocumentWithMetadata(params *ListAuthorizationDocumentParams) (*metadata.ResourceMetadata[[]NumbersV2AuthorizationDocument], error) {
+	response, errors := c.StreamAuthorizationDocumentWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2AuthorizationDocument, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2AuthorizationDocument](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AuthorizationDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -262,6 +443,35 @@ func (c *ApiService) StreamAuthorizationDocument(params *ListAuthorizationDocume
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAuthorizationDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAuthorizationDocumentWithMetadata(params *ListAuthorizationDocumentParams) (*metadata.ResourceMetadata[chan NumbersV2AuthorizationDocument], chan error) {
+	if params == nil {
+		params = &ListAuthorizationDocumentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2AuthorizationDocument, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAuthorizationDocumentWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAuthorizationDocument(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2AuthorizationDocument](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAuthorizationDocument(response *ListAuthorizationDocumentResponse, params *ListAuthorizationDocumentParams, recordChannel chan NumbersV2AuthorizationDocument, errorChannel chan error) {

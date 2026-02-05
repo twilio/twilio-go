@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNewSigningKey'
@@ -73,6 +74,45 @@ func (c *ApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*Ap
 	return ps, err
 }
 
+// CreateNewSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNewSigningKeyWithMetadata(params *CreateNewSigningKeyParams) (*metadata.ResourceMetadata[ApiV2010NewSigningKey], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010NewSigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010NewSigningKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSigningKey'
 type DeleteSigningKeyParams struct {
 	//
@@ -107,6 +147,37 @@ func (c *ApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSigningKeyWithMetadata(Sid string, params *DeleteSigningKeyParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchSigningKey'
@@ -148,6 +219,42 @@ func (c *ApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) 
 	}
 
 	return ps, err
+}
+
+// FetchSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSigningKeyWithMetadata(Sid string, params *FetchSigningKeyParams) (*metadata.ResourceMetadata[ApiV2010SigningKey], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SigningKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSigningKey'
@@ -214,6 +321,53 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 	return ps, err
 }
 
+// PageSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSigningKeyWithMetadata(params *ListSigningKeyParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSigningKeyResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSigningKeyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSigningKeyResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010SigningKey, error) {
 	response, errors := c.StreamSigningKey(params)
@@ -228,6 +382,29 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010Sig
 	}
 
 	return records, nil
+}
+
+// ListSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSigningKeyWithMetadata(params *ListSigningKeyParams) (*metadata.ResourceMetadata[[]ApiV2010SigningKey], error) {
+	response, errors := c.StreamSigningKeyWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010SigningKey, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010SigningKey](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -250,6 +427,35 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSigningKeyWithMetadata(params *ListSigningKeyParams) (*metadata.ResourceMetadata[chan ApiV2010SigningKey], chan error) {
+	if params == nil {
+		params = &ListSigningKeyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010SigningKey, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSigningKeyWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSigningKey(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010SigningKey](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSigningKey(response *ListSigningKeyResponse, params *ListSigningKeyParams, recordChannel chan ApiV2010SigningKey, errorChannel chan error) {
@@ -349,4 +555,44 @@ func (c *ApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams
 	}
 
 	return ps, err
+}
+
+// UpdateSigningKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSigningKeyWithMetadata(Sid string, params *UpdateSigningKeyParams) (*metadata.ResourceMetadata[ApiV2010SigningKey], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SigningKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SigningKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

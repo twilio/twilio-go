@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific Export Configuration.
@@ -44,6 +46,37 @@ func (c *ApiService) FetchExportConfiguration(ResourceType string) (*Bulkexports
 	}
 
 	return ps, err
+}
+
+// FetchExportConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchExportConfigurationWithMetadata(ResourceType string) (*metadata.ResourceMetadata[BulkexportsV1ExportConfiguration], error) {
+	path := "/v1/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1ExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1ExportConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateExportConfiguration'
@@ -102,4 +135,45 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 	}
 
 	return ps, err
+}
+
+// UpdateExportConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateExportConfigurationWithMetadata(ResourceType string, params *UpdateExportConfigurationParams) (*metadata.ResourceMetadata[BulkexportsV1ExportConfiguration], error) {
+	path := "/v1/Exports/{ResourceType}/Configuration"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1ExportConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1ExportConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

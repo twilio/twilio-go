@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateAsset'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (
 	return ps, err
 }
 
+// CreateAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateAssetWithMetadata(ServiceSid string, params *CreateAssetParams) (*metadata.ResourceMetadata[ServerlessV1Asset], error) {
+	path := "/v1/Services/{ServiceSid}/Assets"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Asset{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Asset](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete an Asset resource.
 func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteAssetWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific Asset resource.
@@ -108,6 +171,38 @@ func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Ass
 	}
 
 	return ps, err
+}
+
+// FetchAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAssetWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Asset], error) {
+	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Asset{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Asset](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAsset'
@@ -164,6 +259,49 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 	return ps, err
 }
 
+// PageAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAssetWithMetadata(ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAssetResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Assets"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAssetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAssetResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]ServerlessV1Asset, error) {
 	response, errors := c.StreamAsset(ServiceSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]Se
 	}
 
 	return records, nil
+}
+
+// ListAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAssetWithMetadata(ServiceSid string, params *ListAssetParams) (*metadata.ResourceMetadata[[]ServerlessV1Asset], error) {
+	response, errors := c.StreamAssetWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Asset, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Asset](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAssetWithMetadata(ServiceSid string, params *ListAssetParams) (*metadata.ResourceMetadata[chan ServerlessV1Asset], chan error) {
+	if params == nil {
+		params = &ListAssetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Asset, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAssetWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAsset(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Asset](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAsset(response *ListAssetResponse, params *ListAssetParams, recordChannel chan ServerlessV1Asset, errorChannel chan error) {
@@ -289,4 +479,40 @@ func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAs
 	}
 
 	return ps, err
+}
+
+// UpdateAssetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAssetWithMetadata(ServiceSid string, Sid string, params *UpdateAssetParams) (*metadata.ResourceMetadata[ServerlessV1Asset], error) {
+	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Asset{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Asset](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

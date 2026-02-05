@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateExternalCampaign'
@@ -75,4 +77,44 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
 	}
 
 	return ps, err
+}
+
+// CreateExternalCampaignWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateExternalCampaignWithMetadata(params *CreateExternalCampaignParams) (*metadata.ResourceMetadata[MessagingV1ExternalCampaign], error) {
+	path := "/v1/Services/PreregisteredUsa2p"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CampaignId != nil {
+		data.Set("CampaignId", *params.CampaignId)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+	if params != nil && params.CnpMigration != nil {
+		data.Set("CnpMigration", fmt.Sprint(*params.CnpMigration))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1ExternalCampaign{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1ExternalCampaign](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

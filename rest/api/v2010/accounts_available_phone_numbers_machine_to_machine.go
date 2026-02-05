@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
@@ -250,6 +251,108 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 	return ps, err
 }
 
+// PageAvailablePhoneNumberMachineToMachineWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachineWithMetadata(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAvailablePhoneNumberMachineToMachineResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AreaCode != nil {
+		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
+	}
+	if params != nil && params.Contains != nil {
+		data.Set("Contains", *params.Contains)
+	}
+	if params != nil && params.SmsEnabled != nil {
+		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
+	}
+	if params != nil && params.MmsEnabled != nil {
+		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
+	}
+	if params != nil && params.VoiceEnabled != nil {
+		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
+	}
+	if params != nil && params.ExcludeAllAddressRequired != nil {
+		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
+	}
+	if params != nil && params.ExcludeLocalAddressRequired != nil {
+		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
+	}
+	if params != nil && params.ExcludeForeignAddressRequired != nil {
+		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
+	}
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", fmt.Sprint(*params.Beta))
+	}
+	if params != nil && params.NearNumber != nil {
+		data.Set("NearNumber", *params.NearNumber)
+	}
+	if params != nil && params.NearLatLong != nil {
+		data.Set("NearLatLong", *params.NearLatLong)
+	}
+	if params != nil && params.Distance != nil {
+		data.Set("Distance", fmt.Sprint(*params.Distance))
+	}
+	if params != nil && params.InPostalCode != nil {
+		data.Set("InPostalCode", *params.InPostalCode)
+	}
+	if params != nil && params.InRegion != nil {
+		data.Set("InRegion", *params.InRegion)
+	}
+	if params != nil && params.InRateCenter != nil {
+		data.Set("InRateCenter", *params.InRateCenter)
+	}
+	if params != nil && params.InLata != nil {
+		data.Set("InLata", *params.InLata)
+	}
+	if params != nil && params.InLocality != nil {
+		data.Set("InLocality", *params.InLocality)
+	}
+	if params != nil && params.FaxEnabled != nil {
+		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberMachineToMachineResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAvailablePhoneNumberMachineToMachineResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
 	response, errors := c.StreamAvailablePhoneNumberMachineToMachine(CountryCode, params)
@@ -264,6 +367,29 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 	}
 
 	return records, nil
+}
+
+// ListAvailablePhoneNumberMachineToMachineWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachineWithMetadata(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*metadata.ResourceMetadata[[]ApiV2010AvailablePhoneNumberMachineToMachine], error) {
+	response, errors := c.StreamAvailablePhoneNumberMachineToMachineWithMetadata(CountryCode, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010AvailablePhoneNumberMachineToMachine, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010AvailablePhoneNumberMachineToMachine](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -286,6 +412,35 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAvailablePhoneNumberMachineToMachineWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachineWithMetadata(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*metadata.ResourceMetadata[chan ApiV2010AvailablePhoneNumberMachineToMachine], chan error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberMachineToMachineParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010AvailablePhoneNumberMachineToMachine, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAvailablePhoneNumberMachineToMachineWithMetadata(CountryCode, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAvailablePhoneNumberMachineToMachine(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010AvailablePhoneNumberMachineToMachine](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAvailablePhoneNumberMachineToMachine(response *ListAvailablePhoneNumberMachineToMachineResponse, params *ListAvailablePhoneNumberMachineToMachineParams, recordChannel chan ApiV2010AvailablePhoneNumberMachineToMachine, errorChannel chan error) {

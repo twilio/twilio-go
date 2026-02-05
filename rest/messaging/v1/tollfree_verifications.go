@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTollfreeVerification'
@@ -71,13 +72,13 @@ type CreateTollfreeVerificationParams struct {
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// An optional external reference ID supplied by customer and echoed back on status retrieval.
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
-	// A legally recognized business registration number
+	// A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
 	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
-	// The organizational authority for business registrations
+	// The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
 	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
-	// Country business is registered in
+	// The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
 	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
-	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
 	BusinessType *string `json:"BusinessType,omitempty"`
 	// The E.164 formatted number associated with the business.
 	BusinessRegistrationPhoneNumber *string `json:"BusinessRegistrationPhoneNumber,omitempty"`
@@ -392,6 +393,154 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 	return ps, err
 }
 
+// CreateTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTollfreeVerificationWithMetadata(params *CreateTollfreeVerificationParams) (*metadata.ResourceMetadata[MessagingV1TollfreeVerification], error) {
+	path := "/v1/Tollfree/Verifications"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BusinessName != nil {
+		data.Set("BusinessName", *params.BusinessName)
+	}
+	if params != nil && params.BusinessWebsite != nil {
+		data.Set("BusinessWebsite", *params.BusinessWebsite)
+	}
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.UseCaseCategories != nil {
+		for _, item := range *params.UseCaseCategories {
+			data.Add("UseCaseCategories", item)
+		}
+	}
+	if params != nil && params.UseCaseSummary != nil {
+		data.Set("UseCaseSummary", *params.UseCaseSummary)
+	}
+	if params != nil && params.ProductionMessageSample != nil {
+		data.Set("ProductionMessageSample", *params.ProductionMessageSample)
+	}
+	if params != nil && params.OptInImageUrls != nil {
+		for _, item := range *params.OptInImageUrls {
+			data.Add("OptInImageUrls", item)
+		}
+	}
+	if params != nil && params.OptInType != nil {
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
+	}
+	if params != nil && params.MessageVolume != nil {
+		data.Set("MessageVolume", *params.MessageVolume)
+	}
+	if params != nil && params.TollfreePhoneNumberSid != nil {
+		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
+	}
+	if params != nil && params.CustomerProfileSid != nil {
+		data.Set("CustomerProfileSid", *params.CustomerProfileSid)
+	}
+	if params != nil && params.BusinessStreetAddress != nil {
+		data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
+	}
+	if params != nil && params.BusinessStreetAddress2 != nil {
+		data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
+	}
+	if params != nil && params.BusinessCity != nil {
+		data.Set("BusinessCity", *params.BusinessCity)
+	}
+	if params != nil && params.BusinessStateProvinceRegion != nil {
+		data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
+	}
+	if params != nil && params.BusinessPostalCode != nil {
+		data.Set("BusinessPostalCode", *params.BusinessPostalCode)
+	}
+	if params != nil && params.BusinessCountry != nil {
+		data.Set("BusinessCountry", *params.BusinessCountry)
+	}
+	if params != nil && params.AdditionalInformation != nil {
+		data.Set("AdditionalInformation", *params.AdditionalInformation)
+	}
+	if params != nil && params.BusinessContactFirstName != nil {
+		data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
+	}
+	if params != nil && params.BusinessContactLastName != nil {
+		data.Set("BusinessContactLastName", *params.BusinessContactLastName)
+	}
+	if params != nil && params.BusinessContactEmail != nil {
+		data.Set("BusinessContactEmail", *params.BusinessContactEmail)
+	}
+	if params != nil && params.BusinessContactPhone != nil {
+		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", *params.BusinessType)
+	}
+	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
+		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1TollfreeVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1TollfreeVerification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a tollfree verification
 func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	path := "/v1/Tollfree/Verifications/{Sid}"
@@ -410,6 +559,32 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTollfreeVerificationWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Tollfree/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a tollfree verification
@@ -435,6 +610,37 @@ func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1Tollfree
 	}
 
 	return ps, err
+}
+
+// FetchTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTollfreeVerificationWithMetadata(Sid string) (*metadata.ResourceMetadata[MessagingV1TollfreeVerification], error) {
+	path := "/v1/Tollfree/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1TollfreeVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1TollfreeVerification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTollfreeVerification'
@@ -536,6 +742,64 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 	return ps, err
 }
 
+// PageTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTollfreeVerificationWithMetadata(params *ListTollfreeVerificationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTollfreeVerificationResponse], error) {
+	path := "/v1/Tollfree/Verifications"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TollfreePhoneNumberSid != nil {
+		data.Set("TollfreePhoneNumberSid", *params.TollfreePhoneNumberSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.ExternalReferenceId != nil {
+		data.Set("ExternalReferenceId", *params.ExternalReferenceId)
+	}
+	if params != nil && params.IncludeSubAccounts != nil {
+		data.Set("IncludeSubAccounts", fmt.Sprint(*params.IncludeSubAccounts))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.TrustProductSid != nil {
+		for _, item := range *params.TrustProductSid {
+			data.Add("TrustProductSid", item)
+		}
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTollfreeVerificationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTollfreeVerificationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TollfreeVerification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTollfreeVerification(params *ListTollfreeVerificationParams) ([]MessagingV1TollfreeVerification, error) {
 	response, errors := c.StreamTollfreeVerification(params)
@@ -550,6 +814,29 @@ func (c *ApiService) ListTollfreeVerification(params *ListTollfreeVerificationPa
 	}
 
 	return records, nil
+}
+
+// ListTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTollfreeVerificationWithMetadata(params *ListTollfreeVerificationParams) (*metadata.ResourceMetadata[[]MessagingV1TollfreeVerification], error) {
+	response, errors := c.StreamTollfreeVerificationWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MessagingV1TollfreeVerification, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1TollfreeVerification](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TollfreeVerification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -572,6 +859,35 @@ func (c *ApiService) StreamTollfreeVerification(params *ListTollfreeVerification
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTollfreeVerificationWithMetadata(params *ListTollfreeVerificationParams) (*metadata.ResourceMetadata[chan MessagingV1TollfreeVerification], chan error) {
+	if params == nil {
+		params = &ListTollfreeVerificationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MessagingV1TollfreeVerification, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTollfreeVerificationWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTollfreeVerification(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1TollfreeVerification](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTollfreeVerification(response *ListTollfreeVerificationResponse, params *ListTollfreeVerificationParams, recordChannel chan MessagingV1TollfreeVerification, errorChannel chan error) {
@@ -972,4 +1288,147 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 	}
 
 	return ps, err
+}
+
+// UpdateTollfreeVerificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTollfreeVerificationWithMetadata(Sid string, params *UpdateTollfreeVerificationParams) (*metadata.ResourceMetadata[MessagingV1TollfreeVerification], error) {
+	path := "/v1/Tollfree/Verifications/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BusinessName != nil {
+		data.Set("BusinessName", *params.BusinessName)
+	}
+	if params != nil && params.BusinessWebsite != nil {
+		data.Set("BusinessWebsite", *params.BusinessWebsite)
+	}
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.UseCaseCategories != nil {
+		for _, item := range *params.UseCaseCategories {
+			data.Add("UseCaseCategories", item)
+		}
+	}
+	if params != nil && params.UseCaseSummary != nil {
+		data.Set("UseCaseSummary", *params.UseCaseSummary)
+	}
+	if params != nil && params.ProductionMessageSample != nil {
+		data.Set("ProductionMessageSample", *params.ProductionMessageSample)
+	}
+	if params != nil && params.OptInImageUrls != nil {
+		for _, item := range *params.OptInImageUrls {
+			data.Add("OptInImageUrls", item)
+		}
+	}
+	if params != nil && params.OptInType != nil {
+		data.Set("OptInType", fmt.Sprint(*params.OptInType))
+	}
+	if params != nil && params.MessageVolume != nil {
+		data.Set("MessageVolume", *params.MessageVolume)
+	}
+	if params != nil && params.BusinessStreetAddress != nil {
+		data.Set("BusinessStreetAddress", *params.BusinessStreetAddress)
+	}
+	if params != nil && params.BusinessStreetAddress2 != nil {
+		data.Set("BusinessStreetAddress2", *params.BusinessStreetAddress2)
+	}
+	if params != nil && params.BusinessCity != nil {
+		data.Set("BusinessCity", *params.BusinessCity)
+	}
+	if params != nil && params.BusinessStateProvinceRegion != nil {
+		data.Set("BusinessStateProvinceRegion", *params.BusinessStateProvinceRegion)
+	}
+	if params != nil && params.BusinessPostalCode != nil {
+		data.Set("BusinessPostalCode", *params.BusinessPostalCode)
+	}
+	if params != nil && params.BusinessCountry != nil {
+		data.Set("BusinessCountry", *params.BusinessCountry)
+	}
+	if params != nil && params.AdditionalInformation != nil {
+		data.Set("AdditionalInformation", *params.AdditionalInformation)
+	}
+	if params != nil && params.BusinessContactFirstName != nil {
+		data.Set("BusinessContactFirstName", *params.BusinessContactFirstName)
+	}
+	if params != nil && params.BusinessContactLastName != nil {
+		data.Set("BusinessContactLastName", *params.BusinessContactLastName)
+	}
+	if params != nil && params.BusinessContactEmail != nil {
+		data.Set("BusinessContactEmail", *params.BusinessContactEmail)
+	}
+	if params != nil && params.BusinessContactPhone != nil {
+		data.Set("BusinessContactPhone", *params.BusinessContactPhone)
+	}
+	if params != nil && params.EditReason != nil {
+		data.Set("EditReason", *params.EditReason)
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+	}
+	if params != nil && params.BusinessRegistrationCountry != nil {
+		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
+	}
+	if params != nil && params.BusinessType != nil {
+		data.Set("BusinessType", *params.BusinessType)
+	}
+	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
+		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
+	}
+	if params != nil && params.DoingBusinessAs != nil {
+		data.Set("DoingBusinessAs", *params.DoingBusinessAs)
+	}
+	if params != nil && params.OptInConfirmationMessage != nil {
+		data.Set("OptInConfirmationMessage", *params.OptInConfirmationMessage)
+	}
+	if params != nil && params.HelpMessageSample != nil {
+		data.Set("HelpMessageSample", *params.HelpMessageSample)
+	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
+	if params != nil && params.AgeGatedContent != nil {
+		data.Set("AgeGatedContent", fmt.Sprint(*params.AgeGatedContent))
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1TollfreeVerification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1TollfreeVerification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

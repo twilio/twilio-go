@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateEsimProfile'
@@ -89,6 +90,49 @@ func (c *ApiService) CreateEsimProfile(params *CreateEsimProfileParams) (*Supers
 	return ps, err
 }
 
+// CreateEsimProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateEsimProfileWithMetadata(params *CreateEsimProfileParams) (*metadata.ResourceMetadata[SupersimV1EsimProfile], error) {
+	path := "/v1/ESimProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.GenerateMatchingId != nil {
+		data.Set("GenerateMatchingId", fmt.Sprint(*params.GenerateMatchingId))
+	}
+	if params != nil && params.Eid != nil {
+		data.Set("Eid", *params.Eid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1EsimProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1EsimProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch an eSIM Profile.
 func (c *ApiService) FetchEsimProfile(Sid string) (*SupersimV1EsimProfile, error) {
 	path := "/v1/ESimProfiles/{Sid}"
@@ -112,6 +156,37 @@ func (c *ApiService) FetchEsimProfile(Sid string) (*SupersimV1EsimProfile, error
 	}
 
 	return ps, err
+}
+
+// FetchEsimProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEsimProfileWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1EsimProfile], error) {
+	path := "/v1/ESimProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1EsimProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1EsimProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEsimProfile'
@@ -193,6 +268,56 @@ func (c *ApiService) PageEsimProfile(params *ListEsimProfileParams, pageToken, p
 	return ps, err
 }
 
+// PageEsimProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEsimProfileWithMetadata(params *ListEsimProfileParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEsimProfileResponse], error) {
+	path := "/v1/ESimProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Eid != nil {
+		data.Set("Eid", *params.Eid)
+	}
+	if params != nil && params.SimSid != nil {
+		data.Set("SimSid", *params.SimSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEsimProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEsimProfileResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists EsimProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEsimProfile(params *ListEsimProfileParams) ([]SupersimV1EsimProfile, error) {
 	response, errors := c.StreamEsimProfile(params)
@@ -207,6 +332,29 @@ func (c *ApiService) ListEsimProfile(params *ListEsimProfileParams) ([]SupersimV
 	}
 
 	return records, nil
+}
+
+// ListEsimProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEsimProfileWithMetadata(params *ListEsimProfileParams) (*metadata.ResourceMetadata[[]SupersimV1EsimProfile], error) {
+	response, errors := c.StreamEsimProfileWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1EsimProfile, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1EsimProfile](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams EsimProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -229,6 +377,35 @@ func (c *ApiService) StreamEsimProfile(params *ListEsimProfileParams) (chan Supe
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEsimProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEsimProfileWithMetadata(params *ListEsimProfileParams) (*metadata.ResourceMetadata[chan SupersimV1EsimProfile], chan error) {
+	if params == nil {
+		params = &ListEsimProfileParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1EsimProfile, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEsimProfileWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEsimProfile(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1EsimProfile](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEsimProfile(response *ListEsimProfileResponse, params *ListEsimProfileParams, recordChannel chan SupersimV1EsimProfile, errorChannel chan error) {

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Delete a Recording resource identified by a Recording SID.
@@ -42,6 +43,32 @@ func (c *ApiService) DeleteRecording(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteRecordingWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Returns a single Recording resource identified by a Recording SID.
@@ -67,6 +94,37 @@ func (c *ApiService) FetchRecording(Sid string) (*VideoV1Recording, error) {
 	}
 
 	return ps, err
+}
+
+// FetchRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRecordingWithMetadata(Sid string) (*metadata.ResourceMetadata[VideoV1Recording], error) {
+	path := "/v1/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1Recording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1Recording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRecording'
@@ -177,6 +235,67 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 	return ps, err
 }
 
+// PageRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRecordingWithMetadata(params *ListRecordingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRecordingResponse], error) {
+	path := "/v1/Recordings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
+	}
+	if params != nil && params.GroupingSid != nil {
+		for _, item := range *params.GroupingSid {
+			data.Add("GroupingSid", item)
+		}
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.MediaType != nil {
+		data.Set("MediaType", fmt.Sprint(*params.MediaType))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRecordingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecording(params *ListRecordingParams) ([]VideoV1Recording, error) {
 	response, errors := c.StreamRecording(params)
@@ -191,6 +310,29 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) ([]VideoV1Record
 	}
 
 	return records, nil
+}
+
+// ListRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRecordingWithMetadata(params *ListRecordingParams) (*metadata.ResourceMetadata[[]VideoV1Recording], error) {
+	response, errors := c.StreamRecordingWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VideoV1Recording, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VideoV1Recording](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -213,6 +355,35 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan VideoV1R
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRecordingWithMetadata(params *ListRecordingParams) (*metadata.ResourceMetadata[chan VideoV1Recording], chan error) {
+	if params == nil {
+		params = &ListRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VideoV1Recording, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRecordingWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRecording(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VideoV1Recording](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRecording(response *ListRecordingResponse, params *ListRecordingParams, recordChannel chan VideoV1Recording, errorChannel chan error) {

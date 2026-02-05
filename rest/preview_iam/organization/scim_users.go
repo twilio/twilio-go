@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateOrganizationUser'
@@ -67,6 +68,46 @@ func (c *ApiService) CreateOrganizationUser(OrganizationSid string, params *Crea
 	return ps, err
 }
 
+// CreateOrganizationUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateOrganizationUserWithMetadata(OrganizationSid string, params *CreateOrganizationUserParams) (*metadata.ResourceMetadata[ScimUser], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ScimUser != nil {
+		b, err := json.Marshal(*params.ScimUser)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ScimUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) error {
 	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
 	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
@@ -85,6 +126,33 @@ func (c *ApiService) DeleteOrganizationUser(OrganizationSid string, Id string) e
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteOrganizationUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteOrganizationUserWithMetadata(OrganizationSid string, Id string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 func (c *ApiService) FetchOrganizationUser(OrganizationSid string, Id string) (*ScimUser, error) {
@@ -110,6 +178,38 @@ func (c *ApiService) FetchOrganizationUser(OrganizationSid string, Id string) (*
 	}
 
 	return ps, err
+}
+
+// FetchOrganizationUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchOrganizationUserWithMetadata(OrganizationSid string, Id string) (*metadata.ResourceMetadata[ScimUser], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ScimUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListOrganizationUsers'
@@ -175,6 +275,52 @@ func (c *ApiService) PageOrganizationUsers(OrganizationSid string, params *ListO
 	return ps, err
 }
 
+// PageOrganizationUsersWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageOrganizationUsersWithMetadata(OrganizationSid string, params *ListOrganizationUsersParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ScimUserPage], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users"
+
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Filter != nil {
+		data.Set("filter", *params.Filter)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUserPage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ScimUserPage](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists OrganizationUsers records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOrganizationUsers(OrganizationSid string, params *ListOrganizationUsersParams) ([]ScimUser, error) {
 	response, errors := c.StreamOrganizationUsers(OrganizationSid, params)
@@ -189,6 +335,29 @@ func (c *ApiService) ListOrganizationUsers(OrganizationSid string, params *ListO
 	}
 
 	return records, nil
+}
+
+// ListOrganizationUsersWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListOrganizationUsersWithMetadata(OrganizationSid string, params *ListOrganizationUsersParams) (*metadata.ResourceMetadata[[]ScimUser], error) {
+	response, errors := c.StreamOrganizationUsersWithMetadata(OrganizationSid, params)
+	resource := response.GetResource()
+
+	records := make([]ScimUser, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ScimUser](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams OrganizationUsers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -211,6 +380,35 @@ func (c *ApiService) StreamOrganizationUsers(OrganizationSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamOrganizationUsersWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamOrganizationUsersWithMetadata(OrganizationSid string, params *ListOrganizationUsersParams) (*metadata.ResourceMetadata[chan ScimUser], chan error) {
+	if params == nil {
+		params = &ListOrganizationUsersParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ScimUser, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageOrganizationUsersWithMetadata(OrganizationSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamOrganizationUsers(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ScimUser](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamOrganizationUsers(response *ScimUserPage, params *ListOrganizationUsersParams, recordChannel chan ScimUser, errorChannel chan error) {
@@ -313,4 +511,48 @@ func (c *ApiService) UpdateOrganizationUser(OrganizationSid string, Id string, p
 	}
 
 	return ps, err
+}
+
+// UpdateOrganizationUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateOrganizationUserWithMetadata(OrganizationSid string, Id string, params *UpdateOrganizationUserParams) (*metadata.ResourceMetadata[ScimUser], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ScimUser != nil {
+		b, err := json.Marshal(*params.ScimUser)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ScimUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

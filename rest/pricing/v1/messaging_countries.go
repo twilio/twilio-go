@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -46,6 +47,37 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 	}
 
 	return ps, err
+}
+
+// FetchMessagingCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessagingCountryWithMetadata(IsoCountry string) (*metadata.ResourceMetadata[PricingV1MessagingCountryInstance], error) {
+	path := "/v1/Messaging/Countries/{IsoCountry}"
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &PricingV1MessagingCountryInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[PricingV1MessagingCountryInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMessagingCountry'
@@ -100,6 +132,47 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 	return ps, err
 }
 
+// PageMessagingCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMessagingCountryWithMetadata(params *ListMessagingCountryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMessagingCountryResponse], error) {
+	path := "/v1/Messaging/Countries"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessagingCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMessagingCountryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
 	response, errors := c.StreamMessagingCountry(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 	}
 
 	return records, nil
+}
+
+// ListMessagingCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMessagingCountryWithMetadata(params *ListMessagingCountryParams) (*metadata.ResourceMetadata[[]PricingV1MessagingCountry], error) {
+	response, errors := c.StreamMessagingCountryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]PricingV1MessagingCountry, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]PricingV1MessagingCountry](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMessagingCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMessagingCountryWithMetadata(params *ListMessagingCountryParams) (*metadata.ResourceMetadata[chan PricingV1MessagingCountry], chan error) {
+	if params == nil {
+		params = &ListMessagingCountryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan PricingV1MessagingCountry, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMessagingCountryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMessagingCountry(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan PricingV1MessagingCountry](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMessagingCountry(response *ListMessagingCountryResponse, params *ListMessagingCountryParams, recordChannel chan PricingV1MessagingCountry, errorChannel chan error) {

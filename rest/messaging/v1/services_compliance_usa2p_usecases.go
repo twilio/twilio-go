@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchUsAppToPersonUsecase'
@@ -58,4 +60,39 @@ func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, param
 	}
 
 	return ps, err
+}
+
+// FetchUsAppToPersonUsecaseWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchUsAppToPersonUsecaseWithMetadata(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPersonUsecase], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BrandRegistrationSid != nil {
+		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1UsAppToPersonUsecase{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPersonUsecase](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

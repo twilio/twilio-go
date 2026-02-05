@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -46,6 +48,38 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 	return ps, err
 }
 
+// CreateLinkshorteningMessagingServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateLinkshorteningMessagingServiceWithMetadata(DomainSid string, MessagingServiceSid string) (*metadata.ResourceMetadata[MessagingV1LinkshorteningMessagingService], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1LinkshorteningMessagingService{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1LinkshorteningMessagingService](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
@@ -65,4 +99,31 @@ func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, Mess
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteLinkshorteningMessagingServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteLinkshorteningMessagingServiceWithMetadata(DomainSid string, MessagingServiceSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

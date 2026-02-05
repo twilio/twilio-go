@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -128,6 +129,63 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	return ps, err
 }
 
+// CreateMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessageWithMetadata(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*metadata.ResourceMetadata[IpMessagingV2Message], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.LastUpdatedBy != nil {
+		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.MediaSid != nil {
+		data.Set("MediaSid", *params.MediaSid)
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
 	// The X-Twilio-Webhook-Enabled HTTP request header
@@ -164,6 +222,37 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 	return nil
 }
 
+// DeleteMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteMessageWithMetadata(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
@@ -189,6 +278,39 @@ func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid stri
 	}
 
 	return ps, err
+}
+
+// FetchMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessageWithMetadata(ServiceSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[IpMessagingV2Message], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMessage'
@@ -255,6 +377,53 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 	return ps, err
 }
 
+// PageMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMessageWithMetadata(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMessageResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Order != nil {
+		data.Set("Order", fmt.Sprint(*params.Order))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMessageResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]IpMessagingV2Message, error) {
 	response, errors := c.StreamMessage(ServiceSid, ChannelSid, params)
@@ -269,6 +438,29 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 
 	return records, nil
+}
+
+// ListMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMessageWithMetadata(ServiceSid string, ChannelSid string, params *ListMessageParams) (*metadata.ResourceMetadata[[]IpMessagingV2Message], error) {
+	response, errors := c.StreamMessageWithMetadata(ServiceSid, ChannelSid, params)
+	resource := response.GetResource()
+
+	records := make([]IpMessagingV2Message, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IpMessagingV2Message](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -291,6 +483,35 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMessageWithMetadata(ServiceSid string, ChannelSid string, params *ListMessageParams) (*metadata.ResourceMetadata[chan IpMessagingV2Message], chan error) {
+	if params == nil {
+		params = &ListMessageParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IpMessagingV2Message, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMessageWithMetadata(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMessage(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IpMessagingV2Message](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMessage(response *ListMessageResponse, params *ListMessageParams, recordChannel chan IpMessagingV2Message, errorChannel chan error) {
@@ -435,4 +656,59 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	}
 
 	return ps, err
+}
+
+// UpdateMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateMessageWithMetadata(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*metadata.ResourceMetadata[IpMessagingV2Message], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Attributes != nil {
+		data.Set("Attributes", *params.Attributes)
+	}
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
+	}
+	if params != nil && params.LastUpdatedBy != nil {
+		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2Message{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2Message](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

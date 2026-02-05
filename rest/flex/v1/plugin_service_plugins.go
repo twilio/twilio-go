@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreatePlugin'
@@ -89,6 +90,49 @@ func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, er
 	return ps, err
 }
 
+// CreatePluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreatePluginWithMetadata(params *CreatePluginParams) (*metadata.ResourceMetadata[FlexV1Plugin], error) {
+	path := "/v1/PluginService/Plugins"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	if params != nil && params.FlexMetadata != nil {
+		headers["Flex-Metadata"] = *params.FlexMetadata
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Plugin{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Plugin](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'FetchPlugin'
 type FetchPluginParams struct {
 	// The Flex-Metadata HTTP request header
@@ -126,6 +170,40 @@ func (c *ApiService) FetchPlugin(Sid string, params *FetchPluginParams) (*FlexV1
 	}
 
 	return ps, err
+}
+
+// FetchPluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPluginWithMetadata(Sid string, params *FetchPluginParams) (*metadata.ResourceMetadata[FlexV1Plugin], error) {
+	path := "/v1/PluginService/Plugins/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FlexMetadata != nil {
+		headers["Flex-Metadata"] = *params.FlexMetadata
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Plugin{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Plugin](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListPlugin'
@@ -186,6 +264,47 @@ func (c *ApiService) PagePlugin(params *ListPluginParams, pageToken, pageNumber 
 	return ps, err
 }
 
+// PagePluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PagePluginWithMetadata(params *ListPluginParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListPluginResponse], error) {
+	path := "/v1/PluginService/Plugins"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPluginResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListPluginResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Plugin records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPlugin(params *ListPluginParams) ([]FlexV1Plugin, error) {
 	response, errors := c.StreamPlugin(params)
@@ -200,6 +319,29 @@ func (c *ApiService) ListPlugin(params *ListPluginParams) ([]FlexV1Plugin, error
 	}
 
 	return records, nil
+}
+
+// ListPluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListPluginWithMetadata(params *ListPluginParams) (*metadata.ResourceMetadata[[]FlexV1Plugin], error) {
+	response, errors := c.StreamPluginWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1Plugin, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1Plugin](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Plugin records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -222,6 +364,35 @@ func (c *ApiService) StreamPlugin(params *ListPluginParams) (chan FlexV1Plugin, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamPluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamPluginWithMetadata(params *ListPluginParams) (*metadata.ResourceMetadata[chan FlexV1Plugin], chan error) {
+	if params == nil {
+		params = &ListPluginParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1Plugin, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PagePluginWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamPlugin(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1Plugin](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamPlugin(response *ListPluginResponse, params *ListPluginParams, recordChannel chan FlexV1Plugin, errorChannel chan error) {
@@ -328,4 +499,45 @@ func (c *ApiService) UpdatePlugin(Sid string, params *UpdatePluginParams) (*Flex
 	}
 
 	return ps, err
+}
+
+// UpdatePluginWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdatePluginWithMetadata(Sid string, params *UpdatePluginParams) (*metadata.ResourceMetadata[FlexV1Plugin], error) {
+	path := "/v1/PluginService/Plugins/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	if params != nil && params.FlexMetadata != nil {
+		headers["Flex-Metadata"] = *params.FlexMetadata
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Plugin{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Plugin](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

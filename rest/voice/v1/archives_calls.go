@@ -18,6 +18,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Delete an archived call record from Bulk Export. Note: this does not also delete the record from the Voice API.
@@ -39,4 +41,31 @@ func (c *ApiService) DeleteArchivedCall(Date string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteArchivedCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteArchivedCallWithMetadata(Date string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Archives/{Date}/Calls/{Sid}"
+	path = strings.Replace(path, "{"+"Date"+"}", fmt.Sprint(Date), -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

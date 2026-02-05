@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchInsightsSettingsComment'
@@ -55,4 +57,37 @@ func (c *ApiService) FetchInsightsSettingsComment(params *FetchInsightsSettingsC
 	}
 
 	return ps, err
+}
+
+// FetchInsightsSettingsCommentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInsightsSettingsCommentWithMetadata(params *FetchInsightsSettingsCommentParams) (*metadata.ResourceMetadata[FlexV1InsightsSettingsComment], error) {
+	path := "/v1/Insights/QualityManagement/Settings/CommentTags"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsSettingsComment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsSettingsComment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

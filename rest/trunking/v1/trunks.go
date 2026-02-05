@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTrunk'
@@ -125,6 +126,61 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	return ps, err
 }
 
+// CreateTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTrunkWithMetadata(params *CreateTrunkParams) (*metadata.ResourceMetadata[TrunkingV1Trunk], error) {
+	path := "/v1/Trunks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.DisasterRecoveryUrl != nil {
+		data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+	}
+	if params != nil && params.DisasterRecoveryMethod != nil {
+		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+	}
+	if params != nil && params.TransferMode != nil {
+		data.Set("TransferMode", fmt.Sprint(*params.TransferMode))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.TransferCallerId != nil {
+		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1Trunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteTrunk(Sid string) error {
 	path := "/v1/Trunks/{Sid}"
@@ -143,6 +199,32 @@ func (c *ApiService) DeleteTrunk(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTrunkWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -168,6 +250,37 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	}
 
 	return ps, err
+}
+
+// FetchTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTrunkWithMetadata(Sid string) (*metadata.ResourceMetadata[TrunkingV1Trunk], error) {
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1Trunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTrunk'
@@ -222,6 +335,47 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTrunkWithMetadata(params *ListTrunkParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTrunkResponse], error) {
+	path := "/v1/Trunks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrunkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTrunkResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
 	response, errors := c.StreamTrunk(params)
@@ -236,6 +390,29 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, erro
 	}
 
 	return records, nil
+}
+
+// ListTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTrunkWithMetadata(params *ListTrunkParams) (*metadata.ResourceMetadata[[]TrunkingV1Trunk], error) {
+	response, errors := c.StreamTrunkWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]TrunkingV1Trunk, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrunkingV1Trunk](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -258,6 +435,35 @@ func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk,
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTrunkWithMetadata(params *ListTrunkParams) (*metadata.ResourceMetadata[chan TrunkingV1Trunk], chan error) {
+	if params == nil {
+		params = &ListTrunkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrunkingV1Trunk, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTrunkWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTrunk(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrunkingV1Trunk](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTrunk(response *ListTrunkResponse, params *ListTrunkParams, recordChannel chan TrunkingV1Trunk, errorChannel chan error) {
@@ -409,4 +615,60 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 	}
 
 	return ps, err
+}
+
+// UpdateTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTrunkWithMetadata(Sid string, params *UpdateTrunkParams) (*metadata.ResourceMetadata[TrunkingV1Trunk], error) {
+	path := "/v1/Trunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.DisasterRecoveryUrl != nil {
+		data.Set("DisasterRecoveryUrl", *params.DisasterRecoveryUrl)
+	}
+	if params != nil && params.DisasterRecoveryMethod != nil {
+		data.Set("DisasterRecoveryMethod", *params.DisasterRecoveryMethod)
+	}
+	if params != nil && params.TransferMode != nil {
+		data.Set("TransferMode", fmt.Sprint(*params.TransferMode))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.TransferCallerId != nil {
+		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1Trunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1Trunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

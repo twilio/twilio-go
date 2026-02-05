@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchConfiguration'
@@ -56,6 +58,40 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 	}
 
 	return ps, err
+}
+
+// FetchConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConfigurationWithMetadata(params *FetchConfigurationParams) (*metadata.ResourceMetadata[FlexV1Configuration], error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UiVersion != nil {
+		data.Set("UiVersion", *params.UiVersion)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Configuration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateConfiguration'
@@ -100,4 +136,43 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Fl
 	}
 
 	return ps, err
+}
+
+// UpdateConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConfigurationWithMetadata(params *UpdateConfigurationParams) (*metadata.ResourceMetadata[FlexV1Configuration], error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1Configuration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

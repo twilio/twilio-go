@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTranscript'
@@ -96,6 +97,55 @@ func (c *ApiService) CreateTranscript(params *CreateTranscriptParams) (*Intellig
 	return ps, err
 }
 
+// CreateTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTranscriptWithMetadata(params *CreateTranscriptParams) (*metadata.ResourceMetadata[IntelligenceV2Transcript], error) {
+	path := "/v2/Transcripts"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ServiceSid != nil {
+		data.Set("ServiceSid", *params.ServiceSid)
+	}
+	if params != nil && params.Channel != nil {
+		v, err := json.Marshal(params.Channel)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Channel", string(v))
+	}
+	if params != nil && params.CustomerKey != nil {
+		data.Set("CustomerKey", *params.CustomerKey)
+	}
+	if params != nil && params.MediaStartTime != nil {
+		data.Set("MediaStartTime", fmt.Sprint((*params.MediaStartTime).Format(time.RFC3339)))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2Transcript{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2Transcript](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Transcript.
 func (c *ApiService) DeleteTranscript(Sid string) error {
 	path := "/v2/Transcripts/{Sid}"
@@ -114,6 +164,32 @@ func (c *ApiService) DeleteTranscript(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTranscriptWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Transcripts/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Transcript.
@@ -139,6 +215,37 @@ func (c *ApiService) FetchTranscript(Sid string) (*IntelligenceV2Transcript, err
 	}
 
 	return ps, err
+}
+
+// FetchTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTranscriptWithMetadata(Sid string) (*metadata.ResourceMetadata[IntelligenceV2Transcript], error) {
+	path := "/v2/Transcripts/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IntelligenceV2Transcript{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IntelligenceV2Transcript](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTranscript'
@@ -265,6 +372,71 @@ func (c *ApiService) PageTranscript(params *ListTranscriptParams, pageToken, pag
 	return ps, err
 }
 
+// PageTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTranscriptWithMetadata(params *ListTranscriptParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTranscriptResponse], error) {
+	path := "/v2/Transcripts"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ServiceSid != nil {
+		data.Set("ServiceSid", *params.ServiceSid)
+	}
+	if params != nil && params.BeforeStartTime != nil {
+		data.Set("BeforeStartTime", *params.BeforeStartTime)
+	}
+	if params != nil && params.AfterStartTime != nil {
+		data.Set("AfterStartTime", *params.AfterStartTime)
+	}
+	if params != nil && params.BeforeDateCreated != nil {
+		data.Set("BeforeDateCreated", *params.BeforeDateCreated)
+	}
+	if params != nil && params.AfterDateCreated != nil {
+		data.Set("AfterDateCreated", *params.AfterDateCreated)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("LanguageCode", *params.LanguageCode)
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTranscriptResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTranscriptResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Transcript records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTranscript(params *ListTranscriptParams) ([]IntelligenceV2Transcript, error) {
 	response, errors := c.StreamTranscript(params)
@@ -279,6 +451,29 @@ func (c *ApiService) ListTranscript(params *ListTranscriptParams) ([]Intelligenc
 	}
 
 	return records, nil
+}
+
+// ListTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTranscriptWithMetadata(params *ListTranscriptParams) (*metadata.ResourceMetadata[[]IntelligenceV2Transcript], error) {
+	response, errors := c.StreamTranscriptWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]IntelligenceV2Transcript, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IntelligenceV2Transcript](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Transcript records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -301,6 +496,35 @@ func (c *ApiService) StreamTranscript(params *ListTranscriptParams) (chan Intell
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTranscriptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTranscriptWithMetadata(params *ListTranscriptParams) (*metadata.ResourceMetadata[chan IntelligenceV2Transcript], chan error) {
+	if params == nil {
+		params = &ListTranscriptParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IntelligenceV2Transcript, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTranscriptWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTranscript(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IntelligenceV2Transcript](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTranscript(response *ListTranscriptResponse, params *ListTranscriptParams, recordChannel chan IntelligenceV2Transcript, errorChannel chan error) {

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -47,6 +48,37 @@ func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	}
 
 	return ps, err
+}
+
+// FetchEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEventWithMetadata(Sid string) (*metadata.ResourceMetadata[MonitorV1Event], error) {
+	path := "/v1/Events/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MonitorV1Event{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MonitorV1Event](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEvent'
@@ -155,6 +187,65 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEventWithMetadata(params *ListEventParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEventResponse], error) {
+	path := "/v1/Events"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ActorSid != nil {
+		data.Set("ActorSid", *params.ActorSid)
+	}
+	if params != nil && params.EventType != nil {
+		data.Set("EventType", *params.EventType)
+	}
+	if params != nil && params.ResourceSid != nil {
+		data.Set("ResourceSid", *params.ResourceSid)
+	}
+	if params != nil && params.SourceIpAddress != nil {
+		data.Set("SourceIpAddress", *params.SourceIpAddress)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEventResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error) {
 	response, errors := c.StreamEvent(params)
@@ -169,6 +260,29 @@ func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error
 	}
 
 	return records, nil
+}
+
+// ListEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEventWithMetadata(params *ListEventParams) (*metadata.ResourceMetadata[[]MonitorV1Event], error) {
+	response, errors := c.StreamEventWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MonitorV1Event, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MonitorV1Event](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -191,6 +305,35 @@ func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEventWithMetadata(params *ListEventParams) (*metadata.ResourceMetadata[chan MonitorV1Event], chan error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MonitorV1Event, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEventWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEvent(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MonitorV1Event](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan MonitorV1Event, errorChannel chan error) {

@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateDialingPermissionsCountryBulkUpdate'
@@ -56,4 +58,38 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDia
 	}
 
 	return ps, err
+}
+
+// CreateDialingPermissionsCountryBulkUpdateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateDialingPermissionsCountryBulkUpdateWithMetadata(params *CreateDialingPermissionsCountryBulkUpdateParams) (*metadata.ResourceMetadata[VoiceV1DialingPermissionsCountryBulkUpdate], error) {
+	path := "/v1/DialingPermissions/BulkCountryUpdates"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UpdateRequest != nil {
+		data.Set("UpdateRequest", *params.UpdateRequest)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1DialingPermissionsCountryBulkUpdate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1DialingPermissionsCountryBulkUpdate](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

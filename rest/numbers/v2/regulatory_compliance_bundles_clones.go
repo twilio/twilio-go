@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBundleClone'
@@ -77,4 +79,45 @@ func (c *ApiService) CreateBundleClone(BundleSid string, params *CreateBundleClo
 	}
 
 	return ps, err
+}
+
+// CreateBundleCloneWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBundleCloneWithMetadata(BundleSid string, params *CreateBundleCloneParams) (*metadata.ResourceMetadata[NumbersV2BundleClone], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Clones"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TargetAccountSid != nil {
+		data.Set("TargetAccountSid", *params.TargetAccountSid)
+	}
+	if params != nil && params.MoveToDraft != nil {
+		data.Set("MoveToDraft", fmt.Sprint(*params.MoveToDraft))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2BundleClone{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2BundleClone](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateWebChannel'
@@ -107,6 +108,55 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1We
 	return ps, err
 }
 
+// CreateWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateWebChannelWithMetadata(params *CreateWebChannelParams) (*metadata.ResourceMetadata[FlexV1WebChannel], error) {
+	path := "/v1/WebChannels"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FlexFlowSid != nil {
+		data.Set("FlexFlowSid", *params.FlexFlowSid)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.CustomerFriendlyName != nil {
+		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+	}
+	if params != nil && params.ChatFriendlyName != nil {
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+	}
+	if params != nil && params.ChatUniqueName != nil {
+		data.Set("ChatUniqueName", *params.ChatUniqueName)
+	}
+	if params != nil && params.PreEngagementData != nil {
+		data.Set("PreEngagementData", *params.PreEngagementData)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1WebChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
@@ -125,6 +175,32 @@ func (c *ApiService) DeleteWebChannel(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteWebChannelWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -150,6 +226,37 @@ func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	}
 
 	return ps, err
+}
+
+// FetchWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWebChannelWithMetadata(Sid string) (*metadata.ResourceMetadata[FlexV1WebChannel], error) {
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1WebChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListWebChannel'
@@ -204,6 +311,47 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken, pag
 	return ps, err
 }
 
+// PageWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageWebChannelWithMetadata(params *ListWebChannelParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListWebChannelResponse], error) {
+	path := "/v1/WebChannels"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWebChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListWebChannelResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebChannel(params *ListWebChannelParams) ([]FlexV1WebChannel, error) {
 	response, errors := c.StreamWebChannel(params)
@@ -218,6 +366,29 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams) ([]FlexV1WebCh
 	}
 
 	return records, nil
+}
+
+// ListWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListWebChannelWithMetadata(params *ListWebChannelParams) (*metadata.ResourceMetadata[[]FlexV1WebChannel], error) {
+	response, errors := c.StreamWebChannelWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1WebChannel, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1WebChannel](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -240,6 +411,35 @@ func (c *ApiService) StreamWebChannel(params *ListWebChannelParams) (chan FlexV1
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamWebChannelWithMetadata(params *ListWebChannelParams) (*metadata.ResourceMetadata[chan FlexV1WebChannel], chan error) {
+	if params == nil {
+		params = &ListWebChannelParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1WebChannel, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageWebChannelWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamWebChannel(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1WebChannel](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamWebChannel(response *ListWebChannelResponse, params *ListWebChannelParams, recordChannel chan FlexV1WebChannel, errorChannel chan error) {
@@ -337,4 +537,42 @@ func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams
 	}
 
 	return ps, err
+}
+
+// UpdateWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateWebChannelWithMetadata(Sid string, params *UpdateWebChannelParams) (*metadata.ResourceMetadata[FlexV1WebChannel], error) {
+	path := "/v1/WebChannels/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ChatStatus != nil {
+		data.Set("ChatStatus", fmt.Sprint(*params.ChatStatus))
+	}
+	if params != nil && params.PostEngagementData != nil {
+		data.Set("PostEngagementData", *params.PostEngagementData)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1WebChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

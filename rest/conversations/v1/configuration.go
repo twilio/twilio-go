@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch the global configuration of conversations on your account
@@ -41,6 +43,36 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 	}
 
 	return ps, err
+}
+
+// FetchConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConfigurationWithMetadata() (*metadata.ResourceMetadata[ConversationsV1Configuration], error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1Configuration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateConfiguration'
@@ -107,4 +139,47 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 	}
 
 	return ps, err
+}
+
+// UpdateConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConfigurationWithMetadata(params *UpdateConfigurationParams) (*metadata.ResourceMetadata[ConversationsV1Configuration], error) {
+	path := "/v1/Configuration"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DefaultChatServiceSid != nil {
+		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
+	}
+	if params != nil && params.DefaultMessagingServiceSid != nil {
+		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
+	}
+	if params != nil && params.DefaultInactiveTimer != nil {
+		data.Set("DefaultInactiveTimer", *params.DefaultInactiveTimer)
+	}
+	if params != nil && params.DefaultClosedTimer != nil {
+		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1Configuration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1Configuration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

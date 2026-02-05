@@ -14,8 +14,16 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // Auth0RefreshTokenHeartbeatResponse struct for Auth0RefreshTokenHeartbeatResponse
 type Auth0RefreshTokenHeartbeatResponse struct {
 	// True if session is valid, false if expired or invalid
 	IsValid bool `json:"isValid"`
+	// datetime string when the session expires, only present if isValid is true
+	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	// datetime string when the session was refreshed, only present if isValid is true
+	LastActiveAt *time.Time `json:"lastActiveAt,omitempty"`
 }

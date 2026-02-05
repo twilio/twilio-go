@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -48,6 +49,38 @@ func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1E
 	}
 
 	return ps, err
+}
+
+// FetchEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEventWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1Event], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Event{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Event](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEvent'
@@ -203,6 +236,82 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 	return ps, err
 }
 
+// PageEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEventWithMetadata(WorkspaceSid string, params *ListEventParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEventResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Events"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EventType != nil {
+		data.Set("EventType", *params.EventType)
+	}
+	if params != nil && params.Minutes != nil {
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+	}
+	if params != nil && params.ReservationSid != nil {
+		data.Set("ReservationSid", *params.ReservationSid)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.TaskQueueSid != nil {
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
+	}
+	if params != nil && params.TaskSid != nil {
+		data.Set("TaskSid", *params.TaskSid)
+	}
+	if params != nil && params.WorkerSid != nil {
+		data.Set("WorkerSid", *params.WorkerSid)
+	}
+	if params != nil && params.WorkflowSid != nil {
+		data.Set("WorkflowSid", *params.WorkflowSid)
+	}
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEventResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]TaskrouterV1Event, error) {
 	response, errors := c.StreamEvent(WorkspaceSid, params)
@@ -217,6 +326,29 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]
 	}
 
 	return records, nil
+}
+
+// ListEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEventWithMetadata(WorkspaceSid string, params *ListEventParams) (*metadata.ResourceMetadata[[]TaskrouterV1Event], error) {
+	response, errors := c.StreamEventWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1Event, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1Event](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -239,6 +371,35 @@ func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEventWithMetadata(WorkspaceSid string, params *ListEventParams) (*metadata.ResourceMetadata[chan TaskrouterV1Event], chan error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1Event, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEventWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEvent(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1Event](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan TaskrouterV1Event, errorChannel chan error) {

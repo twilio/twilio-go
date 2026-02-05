@@ -314,6 +314,7 @@ Class | Method | HTTP request | Description
  - [ListSipAuthCallsCredentialListMappingResponse](docs/ListSipAuthCallsCredentialListMappingResponse.md)
  - [ListIncomingPhoneNumberTollFreeResponse](docs/ListIncomingPhoneNumberTollFreeResponse.md)
  - [ApiV2010Payments](docs/ApiV2010Payments.md)
+ - [UpdateCallRecordingResponse](docs/UpdateCallRecordingResponse.md)
  - [ApiV2010Account](docs/ApiV2010Account.md)
  - [ListSipIpAccessControlListMappingResponse](docs/ListSipIpAccessControlListMappingResponse.md)
  - [ApiV2010Participant](docs/ApiV2010Participant.md)

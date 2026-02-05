@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -38,6 +40,32 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteDomainCertV4WithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteDomainCertV4WithMetadata(DomainSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -63,6 +91,37 @@ func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCert
 	}
 
 	return ps, err
+}
+
+// FetchDomainCertV4WithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDomainCertV4WithMetadata(DomainSid string) (*metadata.ResourceMetadata[MessagingV1DomainCertV4], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1DomainCertV4{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1DomainCertV4](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateDomainCertV4'
@@ -103,4 +162,39 @@ func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCe
 	}
 
 	return ps, err
+}
+
+// UpdateDomainCertV4WithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateDomainCertV4WithMetadata(DomainSid string, params *UpdateDomainCertV4Params) (*metadata.ResourceMetadata[MessagingV1DomainCertV4], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TlsCert != nil {
+		data.Set("TlsCert", *params.TlsCert)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1DomainCertV4{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1DomainCertV4](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

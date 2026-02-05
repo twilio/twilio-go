@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateParticipant'
@@ -523,6 +524,201 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	return ps, err
 }
 
+// CreateParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateParticipantWithMetadata(ConferenceSid string, params *CreateParticipantParams) (*metadata.ResourceMetadata[ApiV2010Participant], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.StatusCallbackEvent != nil {
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.Label != nil {
+		data.Set("Label", *params.Label)
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+	}
+	if params != nil && params.Record != nil {
+		data.Set("Record", fmt.Sprint(*params.Record))
+	}
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", fmt.Sprint(*params.Muted))
+	}
+	if params != nil && params.Beep != nil {
+		data.Set("Beep", *params.Beep)
+	}
+	if params != nil && params.StartConferenceOnEnter != nil {
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter))
+	}
+	if params != nil && params.EndConferenceOnExit != nil {
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
+	}
+	if params != nil && params.WaitUrl != nil {
+		data.Set("WaitUrl", *params.WaitUrl)
+	}
+	if params != nil && params.WaitMethod != nil {
+		data.Set("WaitMethod", *params.WaitMethod)
+	}
+	if params != nil && params.EarlyMedia != nil {
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia))
+	}
+	if params != nil && params.MaxParticipants != nil {
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
+	}
+	if params != nil && params.ConferenceRecord != nil {
+		data.Set("ConferenceRecord", *params.ConferenceRecord)
+	}
+	if params != nil && params.ConferenceTrim != nil {
+		data.Set("ConferenceTrim", *params.ConferenceTrim)
+	}
+	if params != nil && params.ConferenceStatusCallback != nil {
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+	}
+	if params != nil && params.ConferenceStatusCallbackMethod != nil {
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+	}
+	if params != nil && params.ConferenceStatusCallbackEvent != nil {
+		for _, item := range *params.ConferenceStatusCallbackEvent {
+			data.Add("ConferenceStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallback != nil {
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+	}
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.ConferenceRecordingStatusCallbackEvent != nil {
+		for _, item := range *params.ConferenceRecordingStatusCallbackEvent {
+			data.Add("ConferenceRecordingStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+	}
+	if params != nil && params.CallSidToCoach != nil {
+		data.Set("CallSidToCoach", *params.CallSidToCoach)
+	}
+	if params != nil && params.JitterBufferSize != nil {
+		data.Set("JitterBufferSize", *params.JitterBufferSize)
+	}
+	if params != nil && params.Byoc != nil {
+		data.Set("Byoc", *params.Byoc)
+	}
+	if params != nil && params.CallerId != nil {
+		data.Set("CallerId", *params.CallerId)
+	}
+	if params != nil && params.CallReason != nil {
+		data.Set("CallReason", *params.CallReason)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+	if params != nil && params.MachineDetection != nil {
+		data.Set("MachineDetection", *params.MachineDetection)
+	}
+	if params != nil && params.MachineDetectionTimeout != nil {
+		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
+	}
+	if params != nil && params.MachineDetectionSpeechThreshold != nil {
+		data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
+	}
+	if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
+		data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
+	}
+	if params != nil && params.MachineDetectionSilenceTimeout != nil {
+		data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
+	}
+	if params != nil && params.AmdStatusCallback != nil {
+		data.Set("AmdStatusCallback", *params.AmdStatusCallback)
+	}
+	if params != nil && params.AmdStatusCallbackMethod != nil {
+		data.Set("AmdStatusCallbackMethod", *params.AmdStatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
+	if params != nil && params.CallToken != nil {
+		data.Set("CallToken", *params.CallToken)
+	}
+	if params != nil && params.ClientNotificationUrl != nil {
+		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
+	}
+	if params != nil && params.CallerDisplayName != nil {
+		data.Set("CallerDisplayName", *params.CallerDisplayName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Participant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Participant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteParticipant'
 type DeleteParticipantParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete.
@@ -558,6 +754,38 @@ func (c *ApiService) DeleteParticipant(ConferenceSid string, CallSid string, par
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteParticipantWithMetadata(ConferenceSid string, CallSid string, params *DeleteParticipantParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchParticipant'
@@ -600,6 +828,43 @@ func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, para
 	}
 
 	return ps, err
+}
+
+// FetchParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchParticipantWithMetadata(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*metadata.ResourceMetadata[ApiV2010Participant], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Participant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Participant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListParticipant'
@@ -694,6 +959,63 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	return ps, err
 }
 
+// PageParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageParticipantWithMetadata(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListParticipantResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", fmt.Sprint(*params.Muted))
+	}
+	if params != nil && params.Hold != nil {
+		data.Set("Hold", fmt.Sprint(*params.Hold))
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListParticipantResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListParticipantResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) ([]ApiV2010Participant, error) {
 	response, errors := c.StreamParticipant(ConferenceSid, params)
@@ -708,6 +1030,29 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 	}
 
 	return records, nil
+}
+
+// ListParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListParticipantWithMetadata(ConferenceSid string, params *ListParticipantParams) (*metadata.ResourceMetadata[[]ApiV2010Participant], error) {
+	response, errors := c.StreamParticipantWithMetadata(ConferenceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Participant, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Participant](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -730,6 +1075,35 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamParticipantWithMetadata(ConferenceSid string, params *ListParticipantParams) (*metadata.ResourceMetadata[chan ApiV2010Participant], chan error) {
+	if params == nil {
+		params = &ListParticipantParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Participant, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageParticipantWithMetadata(ConferenceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamParticipant(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Participant](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamParticipant(response *ListParticipantResponse, params *ListParticipantParams, recordChannel chan ApiV2010Participant, errorChannel chan error) {
@@ -929,4 +1303,78 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 	}
 
 	return ps, err
+}
+
+// UpdateParticipantWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateParticipantWithMetadata(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*metadata.ResourceMetadata[ApiV2010Participant], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", fmt.Sprint(*params.Muted))
+	}
+	if params != nil && params.Hold != nil {
+		data.Set("Hold", fmt.Sprint(*params.Hold))
+	}
+	if params != nil && params.HoldUrl != nil {
+		data.Set("HoldUrl", *params.HoldUrl)
+	}
+	if params != nil && params.HoldMethod != nil {
+		data.Set("HoldMethod", *params.HoldMethod)
+	}
+	if params != nil && params.AnnounceUrl != nil {
+		data.Set("AnnounceUrl", *params.AnnounceUrl)
+	}
+	if params != nil && params.AnnounceMethod != nil {
+		data.Set("AnnounceMethod", *params.AnnounceMethod)
+	}
+	if params != nil && params.WaitUrl != nil {
+		data.Set("WaitUrl", *params.WaitUrl)
+	}
+	if params != nil && params.WaitMethod != nil {
+		data.Set("WaitMethod", *params.WaitMethod)
+	}
+	if params != nil && params.BeepOnExit != nil {
+		data.Set("BeepOnExit", fmt.Sprint(*params.BeepOnExit))
+	}
+	if params != nil && params.EndConferenceOnExit != nil {
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
+	}
+	if params != nil && params.Coaching != nil {
+		data.Set("Coaching", fmt.Sprint(*params.Coaching))
+	}
+	if params != nil && params.CallSidToCoach != nil {
+		data.Set("CallSidToCoach", *params.CallSidToCoach)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Participant{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Participant](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

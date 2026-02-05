@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateUsageTrigger'
@@ -127,6 +128,63 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	return ps, err
 }
 
+// CreateUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateUsageTriggerWithMetadata(params *CreateUsageTriggerParams) (*metadata.ResourceMetadata[ApiV2010UsageTrigger], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.TriggerValue != nil {
+		data.Set("TriggerValue", *params.TriggerValue)
+	}
+	if params != nil && params.UsageCategory != nil {
+		data.Set("UsageCategory", *params.UsageCategory)
+	}
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Recurring != nil {
+		data.Set("Recurring", fmt.Sprint(*params.Recurring))
+	}
+	if params != nil && params.TriggerBy != nil {
+		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010UsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010UsageTrigger](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteUsageTrigger'
 type DeleteUsageTriggerParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete.
@@ -161,6 +219,37 @@ func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerPa
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteUsageTriggerWithMetadata(Sid string, params *DeleteUsageTriggerParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchUsageTrigger'
@@ -202,6 +291,42 @@ func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerPara
 	}
 
 	return ps, err
+}
+
+// FetchUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchUsageTriggerWithMetadata(Sid string, params *FetchUsageTriggerParams) (*metadata.ResourceMetadata[ApiV2010UsageTrigger], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010UsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010UsageTrigger](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListUsageTrigger'
@@ -295,6 +420,62 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 	return ps, err
 }
 
+// PageUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageUsageTriggerWithMetadata(params *ListUsageTriggerParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListUsageTriggerResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Recurring != nil {
+		data.Set("Recurring", fmt.Sprint(*params.Recurring))
+	}
+	if params != nil && params.TriggerBy != nil {
+		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
+	}
+	if params != nil && params.UsageCategory != nil {
+		data.Set("UsageCategory", *params.UsageCategory)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageTriggerResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListUsageTriggerResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV2010UsageTrigger, error) {
 	response, errors := c.StreamUsageTrigger(params)
@@ -309,6 +490,29 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV201
 	}
 
 	return records, nil
+}
+
+// ListUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListUsageTriggerWithMetadata(params *ListUsageTriggerParams) (*metadata.ResourceMetadata[[]ApiV2010UsageTrigger], error) {
+	response, errors := c.StreamUsageTriggerWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010UsageTrigger, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010UsageTrigger](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -331,6 +535,35 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamUsageTriggerWithMetadata(params *ListUsageTriggerParams) (*metadata.ResourceMetadata[chan ApiV2010UsageTrigger], chan error) {
+	if params == nil {
+		params = &ListUsageTriggerParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010UsageTrigger, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageUsageTriggerWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamUsageTrigger(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010UsageTrigger](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamUsageTrigger(response *ListUsageTriggerResponse, params *ListUsageTriggerParams, recordChannel chan ApiV2010UsageTrigger, errorChannel chan error) {
@@ -448,4 +681,50 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 	}
 
 	return ps, err
+}
+
+// UpdateUsageTriggerWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateUsageTriggerWithMetadata(Sid string, params *UpdateUsageTriggerParams) (*metadata.ResourceMetadata[ApiV2010UsageTrigger], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CallbackMethod != nil {
+		data.Set("CallbackMethod", *params.CallbackMethod)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010UsageTrigger{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010UsageTrigger](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

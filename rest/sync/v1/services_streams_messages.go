@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateStreamMessage'
@@ -65,4 +67,46 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 	}
 
 	return ps, err
+}
+
+// CreateStreamMessageWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateStreamMessageWithMetadata(ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*metadata.ResourceMetadata[SyncV1StreamMessage], error) {
+	path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"StreamSid"+"}", StreamSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1StreamMessage{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1StreamMessage](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

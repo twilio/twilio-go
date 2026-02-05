@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific verification attempt.
@@ -47,6 +48,37 @@ func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verification
 	}
 
 	return ps, err
+}
+
+// FetchVerificationAttemptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVerificationAttemptWithMetadata(Sid string) (*metadata.ResourceMetadata[VerifyV2VerificationAttempt], error) {
+	path := "/v2/Attempts/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2VerificationAttempt{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2VerificationAttempt](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListVerificationAttempt'
@@ -173,6 +205,71 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	return ps, err
 }
 
+// PageVerificationAttemptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageVerificationAttemptWithMetadata(params *ListVerificationAttemptParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListVerificationAttemptResponse], error) {
+	path := "/v2/Attempts"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.ChannelDataTo != nil {
+		data.Set("ChannelData.To", *params.ChannelDataTo)
+	}
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.Channel != nil {
+		data.Set("Channel", fmt.Sprint(*params.Channel))
+	}
+	if params != nil && params.VerifyServiceSid != nil {
+		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVerificationAttemptResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListVerificationAttemptResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams) ([]VerifyV2VerificationAttempt, error) {
 	response, errors := c.StreamVerificationAttempt(params)
@@ -187,6 +284,29 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 	}
 
 	return records, nil
+}
+
+// ListVerificationAttemptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListVerificationAttemptWithMetadata(params *ListVerificationAttemptParams) (*metadata.ResourceMetadata[[]VerifyV2VerificationAttempt], error) {
+	response, errors := c.StreamVerificationAttemptWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2VerificationAttempt, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2VerificationAttempt](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +329,35 @@ func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamVerificationAttemptWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamVerificationAttemptWithMetadata(params *ListVerificationAttemptParams) (*metadata.ResourceMetadata[chan VerifyV2VerificationAttempt], chan error) {
+	if params == nil {
+		params = &ListVerificationAttemptParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2VerificationAttempt, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageVerificationAttemptWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamVerificationAttempt(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2VerificationAttempt](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamVerificationAttempt(response *ListVerificationAttemptResponse, params *ListVerificationAttemptParams, recordChannel chan VerifyV2VerificationAttempt, errorChannel chan error) {

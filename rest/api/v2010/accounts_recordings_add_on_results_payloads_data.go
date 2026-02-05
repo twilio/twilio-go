@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchRecordingAddOnResultPayloadData'
@@ -61,4 +63,42 @@ func (c *ApiService) FetchRecordingAddOnResultPayloadData(ReferenceSid string, A
 	}
 
 	return ps, err
+}
+
+// FetchRecordingAddOnResultPayloadDataWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRecordingAddOnResultPayloadDataWithMetadata(ReferenceSid string, AddOnResultSid string, PayloadSid string, params *FetchRecordingAddOnResultPayloadDataParams) (*metadata.ResourceMetadata[ApiV2010RecordingAddOnResultPayloadData], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{PayloadSid}/Data.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
+	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
+	path = strings.Replace(path, "{"+"PayloadSid"+"}", PayloadSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010RecordingAddOnResultPayloadData{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010RecordingAddOnResultPayloadData](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

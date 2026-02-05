@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateFleet'
@@ -134,6 +135,64 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 	return ps, err
 }
 
+// CreateFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateFleetWithMetadata(params *CreateFleetParams) (*metadata.ResourceMetadata[SupersimV1Fleet], error) {
+	path := "/v1/Fleets"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.DataEnabled != nil {
+		data.Set("DataEnabled", fmt.Sprint(*params.DataEnabled))
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
+	}
+	if params != nil && params.IpCommandsUrl != nil {
+		data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+	}
+	if params != nil && params.IpCommandsMethod != nil {
+		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
+	}
+	if params != nil && params.SmsCommandsEnabled != nil {
+		data.Set("SmsCommandsEnabled", fmt.Sprint(*params.SmsCommandsEnabled))
+	}
+	if params != nil && params.SmsCommandsUrl != nil {
+		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
+	}
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Fleet](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a Fleet instance from your account.
 func (c *ApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
@@ -157,6 +216,37 @@ func (c *ApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	}
 
 	return ps, err
+}
+
+// FetchFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFleetWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1Fleet], error) {
+	path := "/v1/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Fleet](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFleet'
@@ -220,6 +310,50 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFleetWithMetadata(params *ListFleetParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFleetResponse], error) {
+	path := "/v1/Fleets"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFleetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFleetResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFleet(params *ListFleetParams) ([]SupersimV1Fleet, error) {
 	response, errors := c.StreamFleet(params)
@@ -234,6 +368,29 @@ func (c *ApiService) ListFleet(params *ListFleetParams) ([]SupersimV1Fleet, erro
 	}
 
 	return records, nil
+}
+
+// ListFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFleetWithMetadata(params *ListFleetParams) (*metadata.ResourceMetadata[[]SupersimV1Fleet], error) {
+	response, errors := c.StreamFleetWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1Fleet, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1Fleet](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -256,6 +413,35 @@ func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet,
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFleetWithMetadata(params *ListFleetParams) (*metadata.ResourceMetadata[chan SupersimV1Fleet], chan error) {
+	if params == nil {
+		params = &ListFleetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1Fleet, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFleetWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFleet(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1Fleet](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFleet(response *ListFleetResponse, params *ListFleetParams, recordChannel chan SupersimV1Fleet, errorChannel chan error) {
@@ -398,4 +584,57 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 	}
 
 	return ps, err
+}
+
+// UpdateFleetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFleetWithMetadata(Sid string, params *UpdateFleetParams) (*metadata.ResourceMetadata[SupersimV1Fleet], error) {
+	path := "/v1/Fleets/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.NetworkAccessProfile != nil {
+		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
+	}
+	if params != nil && params.IpCommandsUrl != nil {
+		data.Set("IpCommandsUrl", *params.IpCommandsUrl)
+	}
+	if params != nil && params.IpCommandsMethod != nil {
+		data.Set("IpCommandsMethod", *params.IpCommandsMethod)
+	}
+	if params != nil && params.SmsCommandsUrl != nil {
+		data.Set("SmsCommandsUrl", *params.SmsCommandsUrl)
+	}
+	if params != nil && params.SmsCommandsMethod != nil {
+		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
+	}
+	if params != nil && params.DataLimit != nil {
+		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1Fleet{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1Fleet](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

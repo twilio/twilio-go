@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBulkHostedNumberOrder'
@@ -64,6 +66,45 @@ func (c *ApiService) CreateBulkHostedNumberOrder(params *CreateBulkHostedNumberO
 	return ps, err
 }
 
+// CreateBulkHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBulkHostedNumberOrderWithMetadata(params *CreateBulkHostedNumberOrderParams) (*metadata.ResourceMetadata[NumbersV2BulkHostedNumberOrder], error) {
+	path := "/v2/HostedNumber/Orders/Bulk"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2BulkHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2BulkHostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'FetchBulkHostedNumberOrder'
 type FetchBulkHostedNumberOrderParams struct {
 	// Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
@@ -102,4 +143,39 @@ func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *F
 	}
 
 	return ps, err
+}
+
+// FetchBulkHostedNumberOrderWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBulkHostedNumberOrderWithMetadata(BulkHostingSid string, params *FetchBulkHostedNumberOrderParams) (*metadata.ResourceMetadata[NumbersV2BulkHostedNumberOrder], error) {
+	path := "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}"
+	path = strings.Replace(path, "{"+"BulkHostingSid"+"}", BulkHostingSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.OrderStatus != nil {
+		data.Set("OrderStatus", *params.OrderStatus)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2BulkHostedNumberOrder{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2BulkHostedNumberOrder](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

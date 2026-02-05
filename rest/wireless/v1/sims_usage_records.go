@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListUsageRecord'
@@ -105,6 +106,58 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 	return ps, err
 }
 
+// PageUsageRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageUsageRecordWithMetadata(SimSid string, params *ListUsageRecordParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListUsageRecordResponse], error) {
+	path := "/v1/Sims/{SimSid}/UsageRecords"
+
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.End != nil {
+		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
+	}
+	if params != nil && params.Start != nil {
+		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", fmt.Sprint(*params.Granularity))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListUsageRecordResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) ([]WirelessV1UsageRecord, error) {
 	response, errors := c.StreamUsageRecord(SimSid, params)
@@ -119,6 +172,29 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 	}
 
 	return records, nil
+}
+
+// ListUsageRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListUsageRecordWithMetadata(SimSid string, params *ListUsageRecordParams) (*metadata.ResourceMetadata[[]WirelessV1UsageRecord], error) {
+	response, errors := c.StreamUsageRecordWithMetadata(SimSid, params)
+	resource := response.GetResource()
+
+	records := make([]WirelessV1UsageRecord, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]WirelessV1UsageRecord](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -141,6 +217,35 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamUsageRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamUsageRecordWithMetadata(SimSid string, params *ListUsageRecordParams) (*metadata.ResourceMetadata[chan WirelessV1UsageRecord], chan error) {
+	if params == nil {
+		params = &ListUsageRecordParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan WirelessV1UsageRecord, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageUsageRecordWithMetadata(SimSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamUsageRecord(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan WirelessV1UsageRecord](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamUsageRecord(response *ListUsageRecordResponse, params *ListUsageRecordParams, recordChannel chan WirelessV1UsageRecord, errorChannel chan error) {

@@ -78,4 +78,6 @@ type ApiV2010IncomingPhoneNumber struct {
 	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 	BundleSid *string `json:"bundle_sid,omitempty"`
 	Status    *string `json:"status,omitempty"`
+	// The phone number type.
+	Type *string `json:"type,omitempty"`
 }

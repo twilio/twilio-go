@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'UpdateFlowValidate'
@@ -90,4 +92,53 @@ func (c *ApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*Stud
 	}
 
 	return ps, err
+}
+
+// UpdateFlowValidateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFlowValidateWithMetadata(params *UpdateFlowValidateParams) (*metadata.ResourceMetadata[StudioV2FlowValidate], error) {
+	path := "/v2/Flows/Validate"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Definition != nil {
+		v, err := json.Marshal(params.Definition)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Definition", string(v))
+	}
+	if params != nil && params.CommitMessage != nil {
+		data.Set("CommitMessage", *params.CommitMessage)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2FlowValidate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2FlowValidate](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

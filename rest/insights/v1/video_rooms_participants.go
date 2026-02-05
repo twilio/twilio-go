@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Get Video Log Analyzer data for a Room Participant.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 	}
 
 	return ps, err
+}
+
+// FetchVideoParticipantSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVideoParticipantSummaryWithMetadata(RoomSid string, ParticipantSid string) (*metadata.ResourceMetadata[InsightsV1VideoParticipantSummary], error) {
+	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1VideoParticipantSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1VideoParticipantSummary](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListVideoParticipantSummary'
@@ -103,6 +136,49 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 	return ps, err
 }
 
+// PageVideoParticipantSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageVideoParticipantSummaryWithMetadata(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListVideoParticipantSummaryResponse], error) {
+	path := "/v1/Video/Rooms/{RoomSid}/Participants"
+
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVideoParticipantSummaryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListVideoParticipantSummaryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoParticipantSummary, error) {
 	response, errors := c.StreamVideoParticipantSummary(RoomSid, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 	}
 
 	return records, nil
+}
+
+// ListVideoParticipantSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListVideoParticipantSummaryWithMetadata(RoomSid string, params *ListVideoParticipantSummaryParams) (*metadata.ResourceMetadata[[]InsightsV1VideoParticipantSummary], error) {
+	response, errors := c.StreamVideoParticipantSummaryWithMetadata(RoomSid, params)
+	resource := response.GetResource()
+
+	records := make([]InsightsV1VideoParticipantSummary, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]InsightsV1VideoParticipantSummary](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamVideoParticipantSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamVideoParticipantSummaryWithMetadata(RoomSid string, params *ListVideoParticipantSummaryParams) (*metadata.ResourceMetadata[chan InsightsV1VideoParticipantSummary], chan error) {
+	if params == nil {
+		params = &ListVideoParticipantSummaryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan InsightsV1VideoParticipantSummary, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageVideoParticipantSummaryWithMetadata(RoomSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamVideoParticipantSummary(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan InsightsV1VideoParticipantSummary](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamVideoParticipantSummary(response *ListVideoParticipantSummaryResponse, params *ListVideoParticipantSummaryParams, recordChannel chan InsightsV1VideoParticipantSummary, errorChannel chan error) {

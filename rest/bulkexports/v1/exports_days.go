@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific Day.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchDay(ResourceType string, Day string) (*BulkexportsV1Da
 	}
 
 	return ps, err
+}
+
+// FetchDayWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDayWithMetadata(ResourceType string, Day string) (*metadata.ResourceMetadata[BulkexportsV1DayInstance], error) {
+	path := "/v1/Exports/{ResourceType}/Days/{Day}"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1DayInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1DayInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListDay'
@@ -103,6 +136,49 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 	return ps, err
 }
 
+// PageDayWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageDayWithMetadata(ResourceType string, params *ListDayParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListDayResponse], error) {
+	path := "/v1/Exports/{ResourceType}/Days"
+
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDayResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListDayResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1Day, error) {
 	response, errors := c.StreamDay(ResourceType, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]Bulk
 	}
 
 	return records, nil
+}
+
+// ListDayWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListDayWithMetadata(ResourceType string, params *ListDayParams) (*metadata.ResourceMetadata[[]BulkexportsV1Day], error) {
+	response, errors := c.StreamDayWithMetadata(ResourceType, params)
+	resource := response.GetResource()
+
+	records := make([]BulkexportsV1Day, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]BulkexportsV1Day](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamDayWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamDayWithMetadata(ResourceType string, params *ListDayParams) (*metadata.ResourceMetadata[chan BulkexportsV1Day], chan error) {
+	if params == nil {
+		params = &ListDayParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan BulkexportsV1Day, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageDayWithMetadata(ResourceType, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamDay(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan BulkexportsV1Day](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamDay(response *ListDayResponse, params *ListDayParams, recordChannel chan BulkexportsV1Day, errorChannel chan error) {

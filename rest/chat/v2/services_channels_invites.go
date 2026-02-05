@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInvite'
@@ -73,6 +74,45 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 	return ps, err
 }
 
+// CreateInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInviteWithMetadata(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*metadata.ResourceMetadata[ChatV2Invite], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.RoleSid != nil {
+		data.Set("RoleSid", *params.RoleSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Invite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Invite](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
@@ -93,6 +133,34 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteInviteWithMetadata(ServiceSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -120,6 +188,39 @@ func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid strin
 	}
 
 	return ps, err
+}
+
+// FetchInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInviteWithMetadata(ServiceSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[ChatV2Invite], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Invite{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Invite](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInvite'
@@ -188,6 +289,55 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 	return ps, err
 }
 
+// PageInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInviteWithMetadata(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInviteResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Identity != nil {
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInviteResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInviteResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]ChatV2Invite, error) {
 	response, errors := c.StreamInvite(ServiceSid, ChannelSid, params)
@@ -202,6 +352,29 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	return records, nil
+}
+
+// ListInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInviteWithMetadata(ServiceSid string, ChannelSid string, params *ListInviteParams) (*metadata.ResourceMetadata[[]ChatV2Invite], error) {
+	response, errors := c.StreamInviteWithMetadata(ServiceSid, ChannelSid, params)
+	resource := response.GetResource()
+
+	records := make([]ChatV2Invite, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ChatV2Invite](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -224,6 +397,35 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInviteWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInviteWithMetadata(ServiceSid string, ChannelSid string, params *ListInviteParams) (*metadata.ResourceMetadata[chan ChatV2Invite], chan error) {
+	if params == nil {
+		params = &ListInviteParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ChatV2Invite, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInviteWithMetadata(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInvite(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ChatV2Invite](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInvite(response *ListInviteResponse, params *ListInviteParams, recordChannel chan ChatV2Invite, errorChannel chan error) {

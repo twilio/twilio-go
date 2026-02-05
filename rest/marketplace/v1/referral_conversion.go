@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateReferralConversion'
@@ -61,4 +63,43 @@ func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionPa
 	}
 
 	return ps, err
+}
+
+// CreateReferralConversionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateReferralConversionWithMetadata(params *CreateReferralConversionParams) (*metadata.ResourceMetadata[MarketplaceV1ReferralConversion], error) {
+	path := "/v1/ReferralConversion"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.CreateReferralConversionRequest != nil {
+		b, err := json.Marshal(*params.CreateReferralConversionRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1ReferralConversion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1ReferralConversion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

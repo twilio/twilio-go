@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -42,6 +43,33 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteBindingWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -68,6 +96,38 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2Binding
 	}
 
 	return ps, err
+}
+
+// FetchBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBindingWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ChatV2Binding], error) {
+	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Binding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Binding](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBinding'
@@ -146,6 +206,59 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 	return ps, err
 }
 
+// PageBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBindingWithMetadata(ServiceSid string, params *ListBindingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBindingResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Bindings"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BindingType != nil {
+		for _, item := range *params.BindingType {
+			data.Add("BindingType", item)
+		}
+	}
+	if params != nil && params.Identity != nil {
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBindingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBindingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]ChatV2Binding, error) {
 	response, errors := c.StreamBinding(ServiceSid, params)
@@ -160,6 +273,29 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 	}
 
 	return records, nil
+}
+
+// ListBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBindingWithMetadata(ServiceSid string, params *ListBindingParams) (*metadata.ResourceMetadata[[]ChatV2Binding], error) {
+	response, errors := c.StreamBindingWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ChatV2Binding, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ChatV2Binding](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -182,6 +318,35 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBindingWithMetadata(ServiceSid string, params *ListBindingParams) (*metadata.ResourceMetadata[chan ChatV2Binding], chan error) {
+	if params == nil {
+		params = &ListBindingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ChatV2Binding, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBindingWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBinding(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ChatV2Binding](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBinding(response *ListBindingResponse, params *ListBindingParams, recordChannel chan ChatV2Binding, errorChannel chan error) {

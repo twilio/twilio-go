@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Allows to cancel a port in request phone number by SID
@@ -39,6 +41,33 @@ func (c *ApiService) DeletePortingPortInPhoneNumber(PortInRequestSid string, Pho
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeletePortingPortInPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeletePortingPortInPhoneNumberWithMetadata(PortInRequestSid string, PhoneNumberSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+	path = strings.Replace(path, "{"+"PhoneNumberSid"+"}", PhoneNumberSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a phone number by port in request SID and phone number SID
@@ -65,4 +94,36 @@ func (c *ApiService) FetchPortingPortInPhoneNumber(PortInRequestSid string, Phon
 	}
 
 	return ps, err
+}
+
+// FetchPortingPortInPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPortingPortInPhoneNumberWithMetadata(PortInRequestSid string, PhoneNumberSid string) (*metadata.ResourceMetadata[NumbersV1PortingPortInPhoneNumber], error) {
+	path := "/v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid}"
+	path = strings.Replace(path, "{"+"PortInRequestSid"+"}", PortInRequestSid, -1)
+	path = strings.Replace(path, "{"+"PhoneNumberSid"+"}", PhoneNumberSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortInPhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingPortInPhoneNumber](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

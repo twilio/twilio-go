@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateActivity'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 	return ps, err
 }
 
+// CreateActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateActivityWithMetadata(WorkspaceSid string, params *CreateActivityParams) (*metadata.ResourceMetadata[TaskrouterV1Activity], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Available != nil {
+		data.Set("Available", fmt.Sprint(*params.Available))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Activity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Activity](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
@@ -91,6 +130,33 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteActivityWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -117,6 +183,38 @@ func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*Taskrouter
 	}
 
 	return ps, err
+}
+
+// FetchActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchActivityWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1Activity], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Activity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Activity](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListActivity'
@@ -191,6 +289,55 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 	return ps, err
 }
 
+// PageActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageActivityWithMetadata(WorkspaceSid string, params *ListActivityParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListActivityResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Available != nil {
+		data.Set("Available", *params.Available)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListActivityResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListActivityResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1Activity, error) {
 	response, errors := c.StreamActivity(WorkspaceSid, params)
@@ -205,6 +352,29 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 	}
 
 	return records, nil
+}
+
+// ListActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListActivityWithMetadata(WorkspaceSid string, params *ListActivityParams) (*metadata.ResourceMetadata[[]TaskrouterV1Activity], error) {
+	response, errors := c.StreamActivityWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1Activity, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1Activity](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -227,6 +397,35 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamActivityWithMetadata(WorkspaceSid string, params *ListActivityParams) (*metadata.ResourceMetadata[chan TaskrouterV1Activity], chan error) {
+	if params == nil {
+		params = &ListActivityParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1Activity, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageActivityWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamActivity(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1Activity](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamActivity(response *ListActivityResponse, params *ListActivityParams, recordChannel chan TaskrouterV1Activity, errorChannel chan error) {
@@ -316,4 +515,40 @@ func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *Upd
 	}
 
 	return ps, err
+}
+
+// UpdateActivityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateActivityWithMetadata(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*metadata.ResourceMetadata[TaskrouterV1Activity], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Activity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Activity](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

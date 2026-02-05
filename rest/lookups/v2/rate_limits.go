@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchLookupAccountRateLimits'
@@ -58,4 +60,40 @@ func (c *ApiService) FetchLookupAccountRateLimits(params *FetchLookupAccountRate
 	}
 
 	return ps, err
+}
+
+// FetchLookupAccountRateLimitsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchLookupAccountRateLimitsWithMetadata(params *FetchLookupAccountRateLimitsParams) (*metadata.ResourceMetadata[RateLimitListResponse], error) {
+	path := "/v2/RateLimits"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Fields != nil {
+		for _, item := range *params.Fields {
+			data.Add("Fields", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &RateLimitListResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[RateLimitListResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

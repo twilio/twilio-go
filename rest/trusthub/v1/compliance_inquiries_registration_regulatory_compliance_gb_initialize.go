@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateComplianceRegistration'
@@ -402,6 +404,154 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 	return ps, err
 }
 
+// CreateComplianceRegistrationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateComplianceRegistrationWithMetadata(params *CreateComplianceRegistrationParams) (*metadata.ResourceMetadata[TrusthubV1ComplianceRegistration], error) {
+	path := "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", fmt.Sprint(*params.EndUserType))
+	}
+	if params != nil && params.PhoneNumberType != nil {
+		data.Set("PhoneNumberType", fmt.Sprint(*params.PhoneNumberType))
+	}
+	if params != nil && params.BusinessIdentityType != nil {
+		data.Set("BusinessIdentityType", fmt.Sprint(*params.BusinessIdentityType))
+	}
+	if params != nil && params.BusinessRegistrationAuthority != nil {
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
+	}
+	if params != nil && params.BusinessLegalName != nil {
+		data.Set("BusinessLegalName", *params.BusinessLegalName)
+	}
+	if params != nil && params.NotificationEmail != nil {
+		data.Set("NotificationEmail", *params.NotificationEmail)
+	}
+	if params != nil && params.AcceptedNotificationReceipt != nil {
+		data.Set("AcceptedNotificationReceipt", fmt.Sprint(*params.AcceptedNotificationReceipt))
+	}
+	if params != nil && params.BusinessRegistrationNumber != nil {
+		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
+	}
+	if params != nil && params.BusinessWebsiteUrl != nil {
+		data.Set("BusinessWebsiteUrl", *params.BusinessWebsiteUrl)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AuthorizedRepresentative1FirstName != nil {
+		data.Set("AuthorizedRepresentative1FirstName", *params.AuthorizedRepresentative1FirstName)
+	}
+	if params != nil && params.AuthorizedRepresentative1LastName != nil {
+		data.Set("AuthorizedRepresentative1LastName", *params.AuthorizedRepresentative1LastName)
+	}
+	if params != nil && params.AuthorizedRepresentative1Phone != nil {
+		data.Set("AuthorizedRepresentative1Phone", *params.AuthorizedRepresentative1Phone)
+	}
+	if params != nil && params.AuthorizedRepresentative1Email != nil {
+		data.Set("AuthorizedRepresentative1Email", *params.AuthorizedRepresentative1Email)
+	}
+	if params != nil && params.AuthorizedRepresentative1DateOfBirth != nil {
+		data.Set("AuthorizedRepresentative1DateOfBirth", *params.AuthorizedRepresentative1DateOfBirth)
+	}
+	if params != nil && params.AddressStreet != nil {
+		data.Set("AddressStreet", *params.AddressStreet)
+	}
+	if params != nil && params.AddressStreetSecondary != nil {
+		data.Set("AddressStreetSecondary", *params.AddressStreetSecondary)
+	}
+	if params != nil && params.AddressCity != nil {
+		data.Set("AddressCity", *params.AddressCity)
+	}
+	if params != nil && params.AddressSubdivision != nil {
+		data.Set("AddressSubdivision", *params.AddressSubdivision)
+	}
+	if params != nil && params.AddressPostalCode != nil {
+		data.Set("AddressPostalCode", *params.AddressPostalCode)
+	}
+	if params != nil && params.AddressCountryCode != nil {
+		data.Set("AddressCountryCode", *params.AddressCountryCode)
+	}
+	if params != nil && params.EmergencyAddressStreet != nil {
+		data.Set("EmergencyAddressStreet", *params.EmergencyAddressStreet)
+	}
+	if params != nil && params.EmergencyAddressStreetSecondary != nil {
+		data.Set("EmergencyAddressStreetSecondary", *params.EmergencyAddressStreetSecondary)
+	}
+	if params != nil && params.EmergencyAddressCity != nil {
+		data.Set("EmergencyAddressCity", *params.EmergencyAddressCity)
+	}
+	if params != nil && params.EmergencyAddressSubdivision != nil {
+		data.Set("EmergencyAddressSubdivision", *params.EmergencyAddressSubdivision)
+	}
+	if params != nil && params.EmergencyAddressPostalCode != nil {
+		data.Set("EmergencyAddressPostalCode", *params.EmergencyAddressPostalCode)
+	}
+	if params != nil && params.EmergencyAddressCountryCode != nil {
+		data.Set("EmergencyAddressCountryCode", *params.EmergencyAddressCountryCode)
+	}
+	if params != nil && params.UseAddressAsEmergencyAddress != nil {
+		data.Set("UseAddressAsEmergencyAddress", fmt.Sprint(*params.UseAddressAsEmergencyAddress))
+	}
+	if params != nil && params.FileName != nil {
+		data.Set("FileName", *params.FileName)
+	}
+	if params != nil && params.File != nil {
+		data.Set("File", *params.File)
+	}
+	if params != nil && params.FirstName != nil {
+		data.Set("FirstName", *params.FirstName)
+	}
+	if params != nil && params.LastName != nil {
+		data.Set("LastName", *params.LastName)
+	}
+	if params != nil && params.DateOfBirth != nil {
+		data.Set("DateOfBirth", *params.DateOfBirth)
+	}
+	if params != nil && params.IndividualEmail != nil {
+		data.Set("IndividualEmail", *params.IndividualEmail)
+	}
+	if params != nil && params.IndividualPhone != nil {
+		data.Set("IndividualPhone", *params.IndividualPhone)
+	}
+	if params != nil && params.IsIsvEmbed != nil {
+		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
+	}
+	if params != nil && params.IsvRegisteringForSelfOrTenant != nil {
+		data.Set("IsvRegisteringForSelfOrTenant", *params.IsvRegisteringForSelfOrTenant)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceRegistration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1ComplianceRegistration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdateComplianceRegistration'
 type UpdateComplianceRegistrationParams struct {
 	// Indicates if the inquiry is being started from an ISV embedded component.
@@ -449,4 +599,42 @@ func (c *ApiService) UpdateComplianceRegistration(RegistrationId string, params 
 	}
 
 	return ps, err
+}
+
+// UpdateComplianceRegistrationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateComplianceRegistrationWithMetadata(RegistrationId string, params *UpdateComplianceRegistrationParams) (*metadata.ResourceMetadata[TrusthubV1ComplianceRegistration], error) {
+	path := "/v1/ComplianceInquiries/Registration/{RegistrationId}/RegulatoryCompliance/GB/Initialize"
+	path = strings.Replace(path, "{"+"RegistrationId"+"}", RegistrationId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IsIsvEmbed != nil {
+		data.Set("IsIsvEmbed", fmt.Sprint(*params.IsIsvEmbed))
+	}
+	if params != nil && params.ThemeSetId != nil {
+		data.Set("ThemeSetId", *params.ThemeSetId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1ComplianceRegistration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1ComplianceRegistration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

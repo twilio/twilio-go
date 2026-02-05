@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateFlexFlow'
@@ -206,6 +207,88 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	return ps, err
 }
 
+// CreateFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateFlexFlowWithMetadata(params *CreateFlexFlowParams) (*metadata.ResourceMetadata[FlexV1FlexFlow], error) {
+	path := "/v1/FlexFlows"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ChatServiceSid != nil {
+		data.Set("ChatServiceSid", *params.ChatServiceSid)
+	}
+	if params != nil && params.ChannelType != nil {
+		data.Set("ChannelType", fmt.Sprint(*params.ChannelType))
+	}
+	if params != nil && params.ContactIdentity != nil {
+		data.Set("ContactIdentity", *params.ContactIdentity)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.IntegrationType != nil {
+		data.Set("IntegrationType", fmt.Sprint(*params.IntegrationType))
+	}
+	if params != nil && params.IntegrationFlowSid != nil {
+		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
+	}
+	if params != nil && params.IntegrationUrl != nil {
+		data.Set("Integration.Url", *params.IntegrationUrl)
+	}
+	if params != nil && params.IntegrationWorkspaceSid != nil {
+		data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
+	}
+	if params != nil && params.IntegrationWorkflowSid != nil {
+		data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
+	}
+	if params != nil && params.IntegrationChannel != nil {
+		data.Set("Integration.Channel", *params.IntegrationChannel)
+	}
+	if params != nil && params.IntegrationTimeout != nil {
+		data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
+	}
+	if params != nil && params.IntegrationPriority != nil {
+		data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
+	}
+	if params != nil && params.IntegrationCreationOnMessage != nil {
+		data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+	}
+	if params != nil && params.LongLived != nil {
+		data.Set("LongLived", fmt.Sprint(*params.LongLived))
+	}
+	if params != nil && params.JanitorEnabled != nil {
+		data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
+	}
+	if params != nil && params.IntegrationRetryCount != nil {
+		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1FlexFlow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
@@ -224,6 +307,32 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteFlexFlowWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -249,6 +358,37 @@ func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	}
 
 	return ps, err
+}
+
+// FetchFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFlexFlowWithMetadata(Sid string) (*metadata.ResourceMetadata[FlexV1FlexFlow], error) {
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1FlexFlow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListFlexFlow'
@@ -312,6 +452,50 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 	return ps, err
 }
 
+// PageFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageFlexFlowWithMetadata(params *ListFlexFlowParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListFlexFlowResponse], error) {
+	path := "/v1/FlexFlows"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFlexFlowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListFlexFlowResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow, error) {
 	response, errors := c.StreamFlexFlow(params)
@@ -326,6 +510,29 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow,
 	}
 
 	return records, nil
+}
+
+// ListFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListFlexFlowWithMetadata(params *ListFlexFlowParams) (*metadata.ResourceMetadata[[]FlexV1FlexFlow], error) {
+	response, errors := c.StreamFlexFlowWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1FlexFlow, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1FlexFlow](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -348,6 +555,35 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1Flex
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamFlexFlowWithMetadata(params *ListFlexFlowParams) (*metadata.ResourceMetadata[chan FlexV1FlexFlow], chan error) {
+	if params == nil {
+		params = &ListFlexFlowParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1FlexFlow, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageFlexFlowWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamFlexFlow(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1FlexFlow](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamFlexFlow(response *ListFlexFlowResponse, params *ListFlexFlowParams, recordChannel chan FlexV1FlexFlow, errorChannel chan error) {
@@ -580,4 +816,87 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 	}
 
 	return ps, err
+}
+
+// UpdateFlexFlowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateFlexFlowWithMetadata(Sid string, params *UpdateFlexFlowParams) (*metadata.ResourceMetadata[FlexV1FlexFlow], error) {
+	path := "/v1/FlexFlows/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ChatServiceSid != nil {
+		data.Set("ChatServiceSid", *params.ChatServiceSid)
+	}
+	if params != nil && params.ChannelType != nil {
+		data.Set("ChannelType", fmt.Sprint(*params.ChannelType))
+	}
+	if params != nil && params.ContactIdentity != nil {
+		data.Set("ContactIdentity", *params.ContactIdentity)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.IntegrationType != nil {
+		data.Set("IntegrationType", fmt.Sprint(*params.IntegrationType))
+	}
+	if params != nil && params.IntegrationFlowSid != nil {
+		data.Set("Integration.FlowSid", *params.IntegrationFlowSid)
+	}
+	if params != nil && params.IntegrationUrl != nil {
+		data.Set("Integration.Url", *params.IntegrationUrl)
+	}
+	if params != nil && params.IntegrationWorkspaceSid != nil {
+		data.Set("Integration.WorkspaceSid", *params.IntegrationWorkspaceSid)
+	}
+	if params != nil && params.IntegrationWorkflowSid != nil {
+		data.Set("Integration.WorkflowSid", *params.IntegrationWorkflowSid)
+	}
+	if params != nil && params.IntegrationChannel != nil {
+		data.Set("Integration.Channel", *params.IntegrationChannel)
+	}
+	if params != nil && params.IntegrationTimeout != nil {
+		data.Set("Integration.Timeout", fmt.Sprint(*params.IntegrationTimeout))
+	}
+	if params != nil && params.IntegrationPriority != nil {
+		data.Set("Integration.Priority", fmt.Sprint(*params.IntegrationPriority))
+	}
+	if params != nil && params.IntegrationCreationOnMessage != nil {
+		data.Set("Integration.CreationOnMessage", fmt.Sprint(*params.IntegrationCreationOnMessage))
+	}
+	if params != nil && params.LongLived != nil {
+		data.Set("LongLived", fmt.Sprint(*params.LongLived))
+	}
+	if params != nil && params.JanitorEnabled != nil {
+		data.Set("JanitorEnabled", fmt.Sprint(*params.JanitorEnabled))
+	}
+	if params != nil && params.IntegrationRetryCount != nil {
+		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1FlexFlow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1FlexFlow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

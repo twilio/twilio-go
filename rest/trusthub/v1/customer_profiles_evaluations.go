@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCustomerProfileEvaluation'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 	return ps, err
 }
 
+// CreateCustomerProfileEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCustomerProfileEvaluationWithMetadata(CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*metadata.ResourceMetadata[TrusthubV1CustomerProfileEvaluation], error) {
+	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
+	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PolicySid != nil {
+		data.Set("PolicySid", *params.PolicySid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1CustomerProfileEvaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1CustomerProfileEvaluation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch specific Evaluation Instance.
 func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}"
@@ -87,6 +123,38 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchCustomerProfileEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCustomerProfileEvaluationWithMetadata(CustomerProfileSid string, Sid string) (*metadata.ResourceMetadata[TrusthubV1CustomerProfileEvaluation], error) {
+	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}"
+	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1CustomerProfileEvaluation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1CustomerProfileEvaluation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCustomerProfileEvaluation'
@@ -143,6 +211,49 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 	return ps, err
 }
 
+// PageCustomerProfileEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCustomerProfileEvaluationWithMetadata(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCustomerProfileEvaluationResponse], error) {
+	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
+
+	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCustomerProfileEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCustomerProfileEvaluationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
 	response, errors := c.StreamCustomerProfileEvaluation(CustomerProfileSid, params)
@@ -157,6 +268,29 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListCustomerProfileEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCustomerProfileEvaluationWithMetadata(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (*metadata.ResourceMetadata[[]TrusthubV1CustomerProfileEvaluation], error) {
+	response, errors := c.StreamCustomerProfileEvaluationWithMetadata(CustomerProfileSid, params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1CustomerProfileEvaluation, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1CustomerProfileEvaluation](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -179,6 +313,35 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCustomerProfileEvaluationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCustomerProfileEvaluationWithMetadata(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (*metadata.ResourceMetadata[chan TrusthubV1CustomerProfileEvaluation], chan error) {
+	if params == nil {
+		params = &ListCustomerProfileEvaluationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCustomerProfileEvaluationWithMetadata(CustomerProfileSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCustomerProfileEvaluation(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1CustomerProfileEvaluation](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCustomerProfileEvaluation(response *ListCustomerProfileEvaluationResponse, params *ListCustomerProfileEvaluationParams, recordChannel chan TrusthubV1CustomerProfileEvaluation, errorChannel chan error) {

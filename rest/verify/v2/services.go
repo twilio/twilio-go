@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -287,6 +288,115 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	return ps, err
 }
 
+// CreateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateServiceWithMetadata(params *CreateServiceParams) (*metadata.ResourceMetadata[VerifyV2Service], error) {
+	path := "/v2/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CodeLength != nil {
+		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
+	}
+	if params != nil && params.LookupEnabled != nil {
+		data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
+	}
+	if params != nil && params.SkipSmsToLandlines != nil {
+		data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
+	}
+	if params != nil && params.DtmfInputRequired != nil {
+		data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
+	}
+	if params != nil && params.TtsName != nil {
+		data.Set("TtsName", *params.TtsName)
+	}
+	if params != nil && params.Psd2Enabled != nil {
+		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+	}
+	if params != nil && params.DoNotShareWarningEnabled != nil {
+		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
+	}
+	if params != nil && params.CustomCodeEnabled != nil {
+		data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.PushIncludeDate != nil {
+		data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
+	}
+	if params != nil && params.PushApnCredentialSid != nil {
+		data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
+	}
+	if params != nil && params.PushFcmCredentialSid != nil {
+		data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
+	}
+	if params != nil && params.TotpIssuer != nil {
+		data.Set("Totp.Issuer", *params.TotpIssuer)
+	}
+	if params != nil && params.TotpTimeStep != nil {
+		data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
+	}
+	if params != nil && params.TotpCodeLength != nil {
+		data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
+	}
+	if params != nil && params.TotpSkew != nil {
+		data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
+	}
+	if params != nil && params.DefaultTemplateSid != nil {
+		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
+	}
+	if params != nil && params.PasskeysRelyingPartyId != nil {
+		data.Set("Passkeys.RelyingParty.Id", *params.PasskeysRelyingPartyId)
+	}
+	if params != nil && params.PasskeysRelyingPartyName != nil {
+		data.Set("Passkeys.RelyingParty.Name", *params.PasskeysRelyingPartyName)
+	}
+	if params != nil && params.PasskeysRelyingPartyOrigins != nil {
+		data.Set("Passkeys.RelyingParty.Origins", *params.PasskeysRelyingPartyOrigins)
+	}
+	if params != nil && params.PasskeysAuthenticatorAttachment != nil {
+		data.Set("Passkeys.AuthenticatorAttachment", *params.PasskeysAuthenticatorAttachment)
+	}
+	if params != nil && params.PasskeysDiscoverableCredentials != nil {
+		data.Set("Passkeys.DiscoverableCredentials", *params.PasskeysDiscoverableCredentials)
+	}
+	if params != nil && params.PasskeysUserVerification != nil {
+		data.Set("Passkeys.UserVerification", *params.PasskeysUserVerification)
+	}
+	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
+		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Verification Service Instance.
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v2/Services/{Sid}"
@@ -305,6 +415,32 @@ func (c *ApiService) DeleteService(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch specific Verification Service Instance.
@@ -330,6 +466,37 @@ func (c *ApiService) FetchService(Sid string) (*VerifyV2Service, error) {
 	}
 
 	return ps, err
+}
+
+// FetchServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[VerifyV2Service], error) {
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListService'
@@ -384,6 +551,47 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceWithMetadata(params *ListServiceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceResponse], error) {
+	path := "/v2/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]VerifyV2Service, error) {
 	response, errors := c.StreamService(params)
@@ -398,6 +606,29 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]VerifyV2Service, 
 	}
 
 	return records, nil
+}
+
+// ListServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[[]VerifyV2Service], error) {
+	response, errors := c.StreamServiceWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2Service, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2Service](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -420,6 +651,35 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan VerifyV2Serv
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[chan VerifyV2Service], chan error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2Service, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamService(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2Service](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan VerifyV2Service, errorChannel chan error) {
@@ -733,4 +993,114 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 
 	return ps, err
+}
+
+// UpdateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceWithMetadata(Sid string, params *UpdateServiceParams) (*metadata.ResourceMetadata[VerifyV2Service], error) {
+	path := "/v2/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CodeLength != nil {
+		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
+	}
+	if params != nil && params.LookupEnabled != nil {
+		data.Set("LookupEnabled", fmt.Sprint(*params.LookupEnabled))
+	}
+	if params != nil && params.SkipSmsToLandlines != nil {
+		data.Set("SkipSmsToLandlines", fmt.Sprint(*params.SkipSmsToLandlines))
+	}
+	if params != nil && params.DtmfInputRequired != nil {
+		data.Set("DtmfInputRequired", fmt.Sprint(*params.DtmfInputRequired))
+	}
+	if params != nil && params.TtsName != nil {
+		data.Set("TtsName", *params.TtsName)
+	}
+	if params != nil && params.Psd2Enabled != nil {
+		data.Set("Psd2Enabled", fmt.Sprint(*params.Psd2Enabled))
+	}
+	if params != nil && params.DoNotShareWarningEnabled != nil {
+		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
+	}
+	if params != nil && params.CustomCodeEnabled != nil {
+		data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.PushIncludeDate != nil {
+		data.Set("Push.IncludeDate", fmt.Sprint(*params.PushIncludeDate))
+	}
+	if params != nil && params.PushApnCredentialSid != nil {
+		data.Set("Push.ApnCredentialSid", *params.PushApnCredentialSid)
+	}
+	if params != nil && params.PushFcmCredentialSid != nil {
+		data.Set("Push.FcmCredentialSid", *params.PushFcmCredentialSid)
+	}
+	if params != nil && params.TotpIssuer != nil {
+		data.Set("Totp.Issuer", *params.TotpIssuer)
+	}
+	if params != nil && params.TotpTimeStep != nil {
+		data.Set("Totp.TimeStep", fmt.Sprint(*params.TotpTimeStep))
+	}
+	if params != nil && params.TotpCodeLength != nil {
+		data.Set("Totp.CodeLength", fmt.Sprint(*params.TotpCodeLength))
+	}
+	if params != nil && params.TotpSkew != nil {
+		data.Set("Totp.Skew", fmt.Sprint(*params.TotpSkew))
+	}
+	if params != nil && params.DefaultTemplateSid != nil {
+		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
+	}
+	if params != nil && params.WhatsappMsgServiceSid != nil {
+		data.Set("Whatsapp.MsgServiceSid", *params.WhatsappMsgServiceSid)
+	}
+	if params != nil && params.WhatsappFrom != nil {
+		data.Set("Whatsapp.From", *params.WhatsappFrom)
+	}
+	if params != nil && params.PasskeysRelyingPartyId != nil {
+		data.Set("Passkeys.RelyingParty.Id", *params.PasskeysRelyingPartyId)
+	}
+	if params != nil && params.PasskeysRelyingPartyName != nil {
+		data.Set("Passkeys.RelyingParty.Name", *params.PasskeysRelyingPartyName)
+	}
+	if params != nil && params.PasskeysRelyingPartyOrigins != nil {
+		data.Set("Passkeys.RelyingParty.Origins", *params.PasskeysRelyingPartyOrigins)
+	}
+	if params != nil && params.PasskeysAuthenticatorAttachment != nil {
+		data.Set("Passkeys.AuthenticatorAttachment", *params.PasskeysAuthenticatorAttachment)
+	}
+	if params != nil && params.PasskeysDiscoverableCredentials != nil {
+		data.Set("Passkeys.DiscoverableCredentials", *params.PasskeysDiscoverableCredentials)
+	}
+	if params != nil && params.PasskeysUserVerification != nil {
+		data.Set("Passkeys.UserVerification", *params.PasskeysUserVerification)
+	}
+	if params != nil && params.VerifyEventSubscriptionEnabled != nil {
+		data.Set("VerifyEventSubscriptionEnabled", fmt.Sprint(*params.VerifyEventSubscriptionEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

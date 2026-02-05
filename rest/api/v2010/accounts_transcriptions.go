@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'DeleteTranscription'
@@ -57,6 +58,37 @@ func (c *ApiService) DeleteTranscription(Sid string, params *DeleteTranscription
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTranscriptionWithMetadata(Sid string, params *DeleteTranscriptionParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchTranscription'
@@ -98,6 +130,42 @@ func (c *ApiService) FetchTranscription(Sid string, params *FetchTranscriptionPa
 	}
 
 	return ps, err
+}
+
+// FetchTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTranscriptionWithMetadata(Sid string, params *FetchTranscriptionParams) (*metadata.ResourceMetadata[ApiV2010Transcription], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Transcription{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Transcription](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTranscription'
@@ -164,6 +232,53 @@ func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToke
 	return ps, err
 }
 
+// PageTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTranscriptionWithMetadata(params *ListTranscriptionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTranscriptionResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTranscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTranscriptionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Transcription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2010Transcription, error) {
 	response, errors := c.StreamTranscription(params)
@@ -178,6 +293,29 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2
 	}
 
 	return records, nil
+}
+
+// ListTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTranscriptionWithMetadata(params *ListTranscriptionParams) (*metadata.ResourceMetadata[[]ApiV2010Transcription], error) {
+	response, errors := c.StreamTranscriptionWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Transcription, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Transcription](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +338,35 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTranscriptionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTranscriptionWithMetadata(params *ListTranscriptionParams) (*metadata.ResourceMetadata[chan ApiV2010Transcription], chan error) {
+	if params == nil {
+		params = &ListTranscriptionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Transcription, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTranscriptionWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTranscription(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Transcription](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTranscription(response *ListTranscriptionResponse, params *ListTranscriptionParams, recordChannel chan ApiV2010Transcription, errorChannel chan error) {

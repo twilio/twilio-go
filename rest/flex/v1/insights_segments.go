@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListInsightsSegments'
@@ -100,6 +101,55 @@ func (c *ApiService) PageInsightsSegments(params *ListInsightsSegmentsParams, pa
 	return ps, err
 }
 
+// PageInsightsSegmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInsightsSegmentsWithMetadata(params *ListInsightsSegmentsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInsightsSegmentsResponse], error) {
+	path := "/v1/Insights/Segments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SegmentId != nil {
+		data.Set("SegmentId", *params.SegmentId)
+	}
+	if params != nil && params.ReservationId != nil {
+		for _, item := range *params.ReservationId {
+			data.Add("ReservationId", item)
+		}
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsSegmentsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInsightsSegmentsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InsightsSegments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsSegments(params *ListInsightsSegmentsParams) ([]FlexV1InsightsSegments, error) {
 	response, errors := c.StreamInsightsSegments(params)
@@ -114,6 +164,29 @@ func (c *ApiService) ListInsightsSegments(params *ListInsightsSegmentsParams) ([
 	}
 
 	return records, nil
+}
+
+// ListInsightsSegmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInsightsSegmentsWithMetadata(params *ListInsightsSegmentsParams) (*metadata.ResourceMetadata[[]FlexV1InsightsSegments], error) {
+	response, errors := c.StreamInsightsSegmentsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InsightsSegments, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InsightsSegments](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InsightsSegments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +209,35 @@ func (c *ApiService) StreamInsightsSegments(params *ListInsightsSegmentsParams) 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInsightsSegmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInsightsSegmentsWithMetadata(params *ListInsightsSegmentsParams) (*metadata.ResourceMetadata[chan FlexV1InsightsSegments], chan error) {
+	if params == nil {
+		params = &ListInsightsSegmentsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsSegments, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsSegmentsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInsightsSegments(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InsightsSegments](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInsightsSegments(response *ListInsightsSegmentsResponse, params *ListInsightsSegmentsParams, recordChannel chan FlexV1InsightsSegments, errorChannel chan error) {

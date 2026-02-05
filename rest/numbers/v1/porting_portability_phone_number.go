@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchPortingPortability'
@@ -67,4 +69,42 @@ func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPo
 	}
 
 	return ps, err
+}
+
+// FetchPortingPortabilityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPortingPortabilityWithMetadata(PhoneNumber string, params *FetchPortingPortabilityParams) (*metadata.ResourceMetadata[NumbersV1PortingPortability], error) {
+	path := "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}"
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TargetAccountSid != nil {
+		data.Set("TargetAccountSid", *params.TargetAccountSid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1PortingPortability{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1PortingPortability](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -31,12 +31,14 @@ All URIs are relative to *https://oauth.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AuthorizeApi* | [**FetchOauth2Authorize**](docs/AuthorizeApi.md#fetchoauth2authorize) | **Get** /v2/authorize | Retrieves authorize uri
 *TokenApi* | [**CreateOauth2Token**](docs/TokenApi.md#createoauth2token) | **Post** /v2/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
 ## Documentation For Models
 
  - [V2OauthAuth0CallbackResponse](docs/V2OauthAuth0CallbackResponse.md)
+ - [OauthV2Authorize](docs/OauthV2Authorize.md)
  - [Auth0RefreshTokenHeartbeatResponse](docs/Auth0RefreshTokenHeartbeatResponse.md)
  - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)
  - [Error](docs/Error.md)
@@ -45,6 +47,7 @@ Class | Method | HTTP request | Description
  - [Auth0TestLoginResponse](docs/Auth0TestLoginResponse.md)
  - [Auth0RefreshScopedTokenRequest](docs/Auth0RefreshScopedTokenRequest.md)
  - [Auth0TestLoginRequest](docs/Auth0TestLoginRequest.md)
+ - [V2Oauth2ServiceTokenResponse](docs/V2Oauth2ServiceTokenResponse.md)
  - [Auth0AuthorizeResponse](docs/Auth0AuthorizeResponse.md)
  - [Auth0AuthenticationCodeExchangeRequest](docs/Auth0AuthenticationCodeExchangeRequest.md)
  - [Auth0LoginEmailRequest](docs/Auth0LoginEmailRequest.md)

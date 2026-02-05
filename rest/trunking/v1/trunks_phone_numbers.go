@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreatePhoneNumber'
@@ -63,6 +64,41 @@ func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumbe
 	return ps, err
 }
 
+// CreatePhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreatePhoneNumberWithMetadata(TrunkSid string, params *CreatePhoneNumberParams) (*metadata.ResourceMetadata[TrunkingV1PhoneNumber], error) {
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumberSid != nil {
+		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1PhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1PhoneNumber](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeletePhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeletePhoneNumberWithMetadata(TrunkSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -108,6 +171,38 @@ func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1P
 	}
 
 	return ps, err
+}
+
+// FetchPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPhoneNumberWithMetadata(TrunkSid string, Sid string) (*metadata.ResourceMetadata[TrunkingV1PhoneNumber], error) {
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1PhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1PhoneNumber](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListPhoneNumber'
@@ -164,6 +259,49 @@ func (c *ApiService) PagePhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 	return ps, err
 }
 
+// PagePhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PagePhoneNumberWithMetadata(TrunkSid string, params *ListPhoneNumberParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListPhoneNumberResponse], error) {
+	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
+
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPhoneNumberResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListPhoneNumberResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) ([]TrunkingV1PhoneNumber, error) {
 	response, errors := c.StreamPhoneNumber(TrunkSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 	}
 
 	return records, nil
+}
+
+// ListPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListPhoneNumberWithMetadata(TrunkSid string, params *ListPhoneNumberParams) (*metadata.ResourceMetadata[[]TrunkingV1PhoneNumber], error) {
+	response, errors := c.StreamPhoneNumberWithMetadata(TrunkSid, params)
+	resource := response.GetResource()
+
+	records := make([]TrunkingV1PhoneNumber, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrunkingV1PhoneNumber](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberP
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamPhoneNumberWithMetadata(TrunkSid string, params *ListPhoneNumberParams) (*metadata.ResourceMetadata[chan TrunkingV1PhoneNumber], chan error) {
+	if params == nil {
+		params = &ListPhoneNumberParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrunkingV1PhoneNumber, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PagePhoneNumberWithMetadata(TrunkSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamPhoneNumber(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrunkingV1PhoneNumber](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamPhoneNumber(response *ListPhoneNumberResponse, params *ListPhoneNumberParams, recordChannel chan TrunkingV1PhoneNumber, errorChannel chan error) {

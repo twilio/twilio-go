@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListSentence'
@@ -95,6 +96,55 @@ func (c *ApiService) PageSentence(TranscriptSid string, params *ListSentencePara
 	return ps, err
 }
 
+// PageSentenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSentenceWithMetadata(TranscriptSid string, params *ListSentenceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSentenceResponse], error) {
+	path := "/v2/Transcripts/{TranscriptSid}/Sentences"
+
+	path = strings.Replace(path, "{"+"TranscriptSid"+"}", TranscriptSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Redacted != nil {
+		data.Set("Redacted", fmt.Sprint(*params.Redacted))
+	}
+	if params != nil && params.WordTimestamps != nil {
+		data.Set("WordTimestamps", fmt.Sprint(*params.WordTimestamps))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSentenceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSentenceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Sentence records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSentence(TranscriptSid string, params *ListSentenceParams) ([]IntelligenceV2Sentence, error) {
 	response, errors := c.StreamSentence(TranscriptSid, params)
@@ -109,6 +159,29 @@ func (c *ApiService) ListSentence(TranscriptSid string, params *ListSentencePara
 	}
 
 	return records, nil
+}
+
+// ListSentenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSentenceWithMetadata(TranscriptSid string, params *ListSentenceParams) (*metadata.ResourceMetadata[[]IntelligenceV2Sentence], error) {
+	response, errors := c.StreamSentenceWithMetadata(TranscriptSid, params)
+	resource := response.GetResource()
+
+	records := make([]IntelligenceV2Sentence, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IntelligenceV2Sentence](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Sentence records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -131,6 +204,35 @@ func (c *ApiService) StreamSentence(TranscriptSid string, params *ListSentencePa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSentenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSentenceWithMetadata(TranscriptSid string, params *ListSentenceParams) (*metadata.ResourceMetadata[chan IntelligenceV2Sentence], chan error) {
+	if params == nil {
+		params = &ListSentenceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IntelligenceV2Sentence, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSentenceWithMetadata(TranscriptSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSentence(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IntelligenceV2Sentence](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSentence(response *ListSentenceResponse, params *ListSentenceParams, recordChannel chan IntelligenceV2Sentence, errorChannel chan error) {

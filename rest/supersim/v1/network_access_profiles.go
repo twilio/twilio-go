@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNetworkAccessProfile'
@@ -73,6 +74,45 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 	return ps, err
 }
 
+// CreateNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNetworkAccessProfileWithMetadata(params *CreateNetworkAccessProfileParams) (*metadata.ResourceMetadata[SupersimV1NetworkAccessProfile], error) {
+	path := "/v1/NetworkAccessProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Networks != nil {
+		for _, item := range *params.Networks {
+			data.Add("Networks", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1NetworkAccessProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a Network Access Profile instance from your account.
 func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
@@ -96,6 +136,37 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAc
 	}
 
 	return ps, err
+}
+
+// FetchNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchNetworkAccessProfileWithMetadata(Sid string) (*metadata.ResourceMetadata[SupersimV1NetworkAccessProfile], error) {
+	path := "/v1/NetworkAccessProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1NetworkAccessProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListNetworkAccessProfile'
@@ -150,6 +221,47 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	return ps, err
 }
 
+// PageNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageNetworkAccessProfileWithMetadata(params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListNetworkAccessProfileResponse], error) {
+	path := "/v1/NetworkAccessProfiles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListNetworkAccessProfileResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) ([]SupersimV1NetworkAccessProfile, error) {
 	response, errors := c.StreamNetworkAccessProfile(params)
@@ -164,6 +276,29 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	}
 
 	return records, nil
+}
+
+// ListNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListNetworkAccessProfileWithMetadata(params *ListNetworkAccessProfileParams) (*metadata.ResourceMetadata[[]SupersimV1NetworkAccessProfile], error) {
+	response, errors := c.StreamNetworkAccessProfileWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1NetworkAccessProfile, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1NetworkAccessProfile](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -186,6 +321,35 @@ func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfile
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamNetworkAccessProfileWithMetadata(params *ListNetworkAccessProfileParams) (*metadata.ResourceMetadata[chan SupersimV1NetworkAccessProfile], chan error) {
+	if params == nil {
+		params = &ListNetworkAccessProfileParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1NetworkAccessProfile, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageNetworkAccessProfileWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamNetworkAccessProfile(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1NetworkAccessProfile](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamNetworkAccessProfile(response *ListNetworkAccessProfileResponse, params *ListNetworkAccessProfileParams, recordChannel chan SupersimV1NetworkAccessProfile, errorChannel chan error) {
@@ -274,4 +438,39 @@ func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetwor
 	}
 
 	return ps, err
+}
+
+// UpdateNetworkAccessProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateNetworkAccessProfileWithMetadata(Sid string, params *UpdateNetworkAccessProfileParams) (*metadata.ResourceMetadata[SupersimV1NetworkAccessProfile], error) {
+	path := "/v1/NetworkAccessProfiles/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SupersimV1NetworkAccessProfile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SupersimV1NetworkAccessProfile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -43,6 +44,33 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRoomRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteRoomRecordingWithMetadata(RoomSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -69,6 +97,38 @@ func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1Roo
 	}
 
 	return ps, err
+}
+
+// FetchRoomRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoomRecordingWithMetadata(RoomSid string, Sid string) (*metadata.ResourceMetadata[VideoV1RoomRecording], error) {
+	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1RoomRecording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1RoomRecording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRoomRecording'
@@ -161,6 +221,61 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	return ps, err
 }
 
+// PageRoomRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRoomRecordingWithMetadata(RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRoomRecordingResponse], error) {
+	path := "/v1/Rooms/{RoomSid}/Recordings"
+
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRoomRecordingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRecording, error) {
 	response, errors := c.StreamRoomRecording(RoomSid, params)
@@ -175,6 +290,29 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 	}
 
 	return records, nil
+}
+
+// ListRoomRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRoomRecordingWithMetadata(RoomSid string, params *ListRoomRecordingParams) (*metadata.ResourceMetadata[[]VideoV1RoomRecording], error) {
+	response, errors := c.StreamRoomRecordingWithMetadata(RoomSid, params)
+	resource := response.GetResource()
+
+	records := make([]VideoV1RoomRecording, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VideoV1RoomRecording](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -197,6 +335,35 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRoomRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRoomRecordingWithMetadata(RoomSid string, params *ListRoomRecordingParams) (*metadata.ResourceMetadata[chan VideoV1RoomRecording], chan error) {
+	if params == nil {
+		params = &ListRoomRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VideoV1RoomRecording, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRoomRecordingWithMetadata(RoomSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRoomRecording(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VideoV1RoomRecording](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRoomRecording(response *ListRoomRecordingResponse, params *ListRoomRecordingParams, recordChannel chan VideoV1RoomRecording, errorChannel chan error) {

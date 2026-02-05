@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSupportingDocument'
@@ -86,6 +87,52 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 	return ps, err
 }
 
+// CreateSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSupportingDocumentWithMetadata(params *CreateSupportingDocumentParams) (*metadata.ResourceMetadata[TrusthubV1SupportingDocument], error) {
+	path := "/v1/SupportingDocuments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", *params.Type)
+	}
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Attributes", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1SupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1SupportingDocument](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Supporting Document.
 func (c *ApiService) DeleteSupportingDocument(Sid string) error {
 	path := "/v1/SupportingDocuments/{Sid}"
@@ -104,6 +151,32 @@ func (c *ApiService) DeleteSupportingDocument(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSupportingDocumentWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch specific Supporting Document Instance.
@@ -129,6 +202,37 @@ func (c *ApiService) FetchSupportingDocument(Sid string) (*TrusthubV1SupportingD
 	}
 
 	return ps, err
+}
+
+// FetchSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSupportingDocumentWithMetadata(Sid string) (*metadata.ResourceMetadata[TrusthubV1SupportingDocument], error) {
+	path := "/v1/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1SupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1SupportingDocument](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSupportingDocument'
@@ -183,6 +287,47 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 	return ps, err
 }
 
+// PageSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSupportingDocumentWithMetadata(params *ListSupportingDocumentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSupportingDocumentResponse], error) {
+	path := "/v1/SupportingDocuments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSupportingDocumentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSupportingDocumentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams) ([]TrusthubV1SupportingDocument, error) {
 	response, errors := c.StreamSupportingDocument(params)
@@ -197,6 +342,29 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 	}
 
 	return records, nil
+}
+
+// ListSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSupportingDocumentWithMetadata(params *ListSupportingDocumentParams) (*metadata.ResourceMetadata[[]TrusthubV1SupportingDocument], error) {
+	response, errors := c.StreamSupportingDocumentWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1SupportingDocument, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1SupportingDocument](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -219,6 +387,35 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSupportingDocumentWithMetadata(params *ListSupportingDocumentParams) (*metadata.ResourceMetadata[chan TrusthubV1SupportingDocument], chan error) {
+	if params == nil {
+		params = &ListSupportingDocumentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1SupportingDocument, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSupportingDocumentWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSupportingDocument(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1SupportingDocument](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSupportingDocument(response *ListSupportingDocumentResponse, params *ListSupportingDocumentParams, recordChannel chan TrusthubV1SupportingDocument, errorChannel chan error) {
@@ -322,4 +519,48 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 	}
 
 	return ps, err
+}
+
+// UpdateSupportingDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSupportingDocumentWithMetadata(Sid string, params *UpdateSupportingDocumentParams) (*metadata.ResourceMetadata[TrusthubV1SupportingDocument], error) {
+	path := "/v1/SupportingDocuments/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Attributes != nil {
+		v, err := json.Marshal(params.Attributes)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Attributes", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1SupportingDocument{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1SupportingDocument](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

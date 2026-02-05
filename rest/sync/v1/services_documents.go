@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateDocument'
@@ -87,6 +88,53 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	return ps, err
 }
 
+// CreateDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateDocumentWithMetadata(ServiceSid string, params *CreateDocumentParams) (*metadata.ResourceMetadata[SyncV1Document], error) {
+	path := "/v1/Services/{ServiceSid}/Documents"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1Document{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1Document](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
@@ -106,6 +154,33 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteDocumentWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -132,6 +207,38 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Docume
 	}
 
 	return ps, err
+}
+
+// FetchDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDocumentWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[SyncV1Document], error) {
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1Document{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1Document](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListDocument'
@@ -188,6 +295,49 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	return ps, err
 }
 
+// PageDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageDocumentWithMetadata(ServiceSid string, params *ListDocumentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListDocumentResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Documents"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDocumentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListDocumentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1Document, error) {
 	response, errors := c.StreamDocument(ServiceSid, params)
@@ -202,6 +352,29 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 	}
 
 	return records, nil
+}
+
+// ListDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListDocumentWithMetadata(ServiceSid string, params *ListDocumentParams) (*metadata.ResourceMetadata[[]SyncV1Document], error) {
+	response, errors := c.StreamDocumentWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]SyncV1Document, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SyncV1Document](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -224,6 +397,35 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamDocumentWithMetadata(ServiceSid string, params *ListDocumentParams) (*metadata.ResourceMetadata[chan SyncV1Document], chan error) {
+	if params == nil {
+		params = &ListDocumentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SyncV1Document, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageDocumentWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamDocument(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SyncV1Document](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamDocument(response *ListDocumentResponse, params *ListDocumentParams, recordChannel chan SyncV1Document, errorChannel chan error) {
@@ -337,4 +539,52 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	}
 
 	return ps, err
+}
+
+// UpdateDocumentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateDocumentWithMetadata(ServiceSid string, Sid string, params *UpdateDocumentParams) (*metadata.ResourceMetadata[SyncV1Document], error) {
+	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1Document{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1Document](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

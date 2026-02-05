@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateServiceConversationScopedWebhook'
@@ -122,6 +123,64 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 	return ps, err
 }
 
+// CreateServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationScopedWebhookParams) (*metadata.ResourceMetadata[ConversationsV1ServiceConversationScopedWebhook], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Target != nil {
+		data.Set("Target", fmt.Sprint(*params.Target))
+	}
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	}
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
+	}
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
+	}
+	if params != nil && params.ConfigurationTriggers != nil {
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
+	}
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	}
+	if params != nil && params.ConfigurationReplayAfter != nil {
+		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConversationScopedWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an existing webhook scoped to the conversation
 func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
@@ -142,6 +201,34 @@ func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid strin
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch the configuration of a conversation-scoped webhook
@@ -169,6 +256,39 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 	}
 
 	return ps, err
+}
+
+// FetchServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, Sid string) (*metadata.ResourceMetadata[ConversationsV1ServiceConversationScopedWebhook], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConversationScopedWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListServiceConversationScopedWebhook'
@@ -226,6 +346,50 @@ func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string,
 	return ps, err
 }
 
+// PageServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceConversationScopedWebhookResponse], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
+
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceConversationScopedWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceConversationScopedWebhookResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ServiceConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) ([]ConversationsV1ServiceConversationScopedWebhook, error) {
 	response, errors := c.StreamServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params)
@@ -240,6 +404,29 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 	}
 
 	return records, nil
+}
+
+// ListServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (*metadata.ResourceMetadata[[]ConversationsV1ServiceConversationScopedWebhook], error) {
+	response, errors := c.StreamServiceConversationScopedWebhookWithMetadata(ChatServiceSid, ConversationSid, params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1ServiceConversationScopedWebhook, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1ServiceConversationScopedWebhook](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ServiceConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -262,6 +449,35 @@ func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid strin
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (*metadata.ResourceMetadata[chan ConversationsV1ServiceConversationScopedWebhook], chan error) {
+	if params == nil {
+		params = &ListServiceConversationScopedWebhookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1ServiceConversationScopedWebhook, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceConversationScopedWebhookWithMetadata(ChatServiceSid, ConversationSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamServiceConversationScopedWebhook(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1ServiceConversationScopedWebhook](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamServiceConversationScopedWebhook(response *ListServiceConversationScopedWebhookResponse, params *ListServiceConversationScopedWebhookParams, recordChannel chan ConversationsV1ServiceConversationScopedWebhook, errorChannel chan error) {
@@ -392,4 +608,57 @@ func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid strin
 	}
 
 	return ps, err
+}
+
+// UpdateServiceConversationScopedWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceConversationScopedWebhookWithMetadata(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*metadata.ResourceMetadata[ConversationsV1ServiceConversationScopedWebhook], error) {
+	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	}
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
+	}
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
+	}
+	if params != nil && params.ConfigurationTriggers != nil {
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
+	}
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConversationScopedWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConversationScopedWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

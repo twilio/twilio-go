@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateRole'
@@ -83,6 +84,49 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*C
 	return ps, err
 }
 
+// CreateRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateRoleWithMetadata(ServiceSid string, params *CreateRoleParams) (*metadata.ResourceMetadata[ChatV2Role], error) {
+	path := "/v2/Services/{ServiceSid}/Roles"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Type != nil {
+		data.Set("Type", fmt.Sprint(*params.Type))
+	}
+	if params != nil && params.Permission != nil {
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Role](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
@@ -102,6 +146,33 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteRoleWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -128,6 +199,38 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*ChatV2Role, erro
 	}
 
 	return ps, err
+}
+
+// FetchRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRoleWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[ChatV2Role], error) {
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Role](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRole'
@@ -184,6 +287,49 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 	return ps, err
 }
 
+// PageRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRoleWithMetadata(ServiceSid string, params *ListRoleParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRoleResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Roles"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRoleResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]ChatV2Role, error) {
 	response, errors := c.StreamRole(ServiceSid, params)
@@ -198,6 +344,29 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]Chat
 	}
 
 	return records, nil
+}
+
+// ListRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRoleWithMetadata(ServiceSid string, params *ListRoleParams) (*metadata.ResourceMetadata[[]ChatV2Role], error) {
+	response, errors := c.StreamRoleWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ChatV2Role, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ChatV2Role](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -220,6 +389,35 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRoleWithMetadata(ServiceSid string, params *ListRoleParams) (*metadata.ResourceMetadata[chan ChatV2Role], chan error) {
+	if params == nil {
+		params = &ListRoleParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ChatV2Role, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRoleWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRole(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ChatV2Role](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRole(response *ListRoleResponse, params *ListRoleParams, recordChannel chan ChatV2Role, errorChannel chan error) {
@@ -311,4 +509,42 @@ func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRol
 	}
 
 	return ps, err
+}
+
+// UpdateRoleWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRoleWithMetadata(ServiceSid string, Sid string, params *UpdateRoleParams) (*metadata.ResourceMetadata[ChatV2Role], error) {
+	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Permission != nil {
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ChatV2Role{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ChatV2Role](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

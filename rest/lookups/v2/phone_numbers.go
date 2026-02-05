@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchPhoneNumber'
@@ -184,4 +186,81 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	}
 
 	return ps, err
+}
+
+// FetchPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPhoneNumberWithMetadata(PhoneNumber string, params *FetchPhoneNumberParams) (*metadata.ResourceMetadata[LookupResponse], error) {
+	path := "/v2/PhoneNumbers/{PhoneNumber}"
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Fields != nil {
+		data.Set("Fields", *params.Fields)
+	}
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+	if params != nil && params.FirstName != nil {
+		data.Set("FirstName", *params.FirstName)
+	}
+	if params != nil && params.LastName != nil {
+		data.Set("LastName", *params.LastName)
+	}
+	if params != nil && params.AddressLine1 != nil {
+		data.Set("AddressLine1", *params.AddressLine1)
+	}
+	if params != nil && params.AddressLine2 != nil {
+		data.Set("AddressLine2", *params.AddressLine2)
+	}
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.AddressCountryCode != nil {
+		data.Set("AddressCountryCode", *params.AddressCountryCode)
+	}
+	if params != nil && params.NationalId != nil {
+		data.Set("NationalId", *params.NationalId)
+	}
+	if params != nil && params.DateOfBirth != nil {
+		data.Set("DateOfBirth", *params.DateOfBirth)
+	}
+	if params != nil && params.LastVerifiedDate != nil {
+		data.Set("LastVerifiedDate", *params.LastVerifiedDate)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
+	if params != nil && params.PartnerSubId != nil {
+		data.Set("PartnerSubId", *params.PartnerSubId)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &LookupResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[LookupResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

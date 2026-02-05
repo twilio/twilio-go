@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateIpRecord'
@@ -80,6 +81,46 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	return ps, err
 }
 
+// CreateIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateIpRecordWithMetadata(params *CreateIpRecordParams) (*metadata.ResourceMetadata[VoiceV1IpRecord], error) {
+	path := "/v1/IpRecords"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IpAddress != nil {
+		data.Set("IpAddress", *params.IpAddress)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CidrPrefixLength != nil {
+		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1IpRecord](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteIpRecord(Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
@@ -98,6 +139,32 @@ func (c *ApiService) DeleteIpRecord(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteIpRecordWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -123,6 +190,37 @@ func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	}
 
 	return ps, err
+}
+
+// FetchIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchIpRecordWithMetadata(Sid string) (*metadata.ResourceMetadata[VoiceV1IpRecord], error) {
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1IpRecord](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListIpRecord'
@@ -177,6 +275,47 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 	return ps, err
 }
 
+// PageIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageIpRecordWithMetadata(params *ListIpRecordParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListIpRecordResponse], error) {
+	path := "/v1/IpRecords"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIpRecordResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListIpRecordResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord, error) {
 	response, errors := c.StreamIpRecord(params)
@@ -191,6 +330,29 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord
 	}
 
 	return records, nil
+}
+
+// ListIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListIpRecordWithMetadata(params *ListIpRecordParams) (*metadata.ResourceMetadata[[]VoiceV1IpRecord], error) {
+	response, errors := c.StreamIpRecordWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV1IpRecord, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV1IpRecord](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -213,6 +375,35 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpR
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamIpRecordWithMetadata(params *ListIpRecordParams) (*metadata.ResourceMetadata[chan VoiceV1IpRecord], chan error) {
+	if params == nil {
+		params = &ListIpRecordParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV1IpRecord, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageIpRecordWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamIpRecord(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV1IpRecord](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamIpRecord(response *ListIpRecordResponse, params *ListIpRecordParams, recordChannel chan VoiceV1IpRecord, errorChannel chan error) {
@@ -301,4 +492,39 @@ func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*
 	}
 
 	return ps, err
+}
+
+// UpdateIpRecordWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateIpRecordWithMetadata(Sid string, params *UpdateIpRecordParams) (*metadata.ResourceMetadata[VoiceV1IpRecord], error) {
+	path := "/v1/IpRecords/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1IpRecord{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1IpRecord](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

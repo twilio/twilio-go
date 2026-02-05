@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInsightsSession'
@@ -55,4 +57,37 @@ func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) 
 	}
 
 	return ps, err
+}
+
+// CreateInsightsSessionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInsightsSessionWithMetadata(params *CreateInsightsSessionParams) (*metadata.ResourceMetadata[FlexV1InsightsSession], error) {
+	path := "/v1/Insights/Session"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsSession{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsSession](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

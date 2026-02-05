@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateReplaceItems'
@@ -58,4 +60,39 @@ func (c *ApiService) CreateReplaceItems(BundleSid string, params *CreateReplaceI
 	}
 
 	return ps, err
+}
+
+// CreateReplaceItemsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateReplaceItemsWithMetadata(BundleSid string, params *CreateReplaceItemsParams) (*metadata.ResourceMetadata[NumbersV2ReplaceItems], error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems"
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FromBundleSid != nil {
+		data.Set("FromBundleSid", *params.FromBundleSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2ReplaceItems{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2ReplaceItems](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

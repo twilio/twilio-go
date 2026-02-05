@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCompositionHook'
@@ -154,6 +155,77 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 	return ps, err
 }
 
+// CreateCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCompositionHookWithMetadata(params *CreateCompositionHookParams) (*metadata.ResourceMetadata[VideoV1CompositionHook], error) {
+	path := "/v1/CompositionHooks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.VideoLayout != nil {
+		v, err := json.Marshal(params.VideoLayout)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("VideoLayout", string(v))
+	}
+	if params != nil && params.AudioSources != nil {
+		for _, item := range *params.AudioSources {
+			data.Add("AudioSources", item)
+		}
+	}
+	if params != nil && params.AudioSourcesExcluded != nil {
+		for _, item := range *params.AudioSourcesExcluded {
+			data.Add("AudioSourcesExcluded", item)
+		}
+	}
+	if params != nil && params.Resolution != nil {
+		data.Set("Resolution", *params.Resolution)
+	}
+	if params != nil && params.Format != nil {
+		data.Set("Format", fmt.Sprint(*params.Format))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", fmt.Sprint(*params.Trim))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1CompositionHook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a Recording CompositionHook resource identified by a `CompositionHook SID`.
 func (c *ApiService) DeleteCompositionHook(Sid string) error {
 	path := "/v1/CompositionHooks/{Sid}"
@@ -172,6 +244,32 @@ func (c *ApiService) DeleteCompositionHook(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCompositionHookWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Returns a single CompositionHook resource identified by a CompositionHook SID.
@@ -197,6 +295,37 @@ func (c *ApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, 
 	}
 
 	return ps, err
+}
+
+// FetchCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCompositionHookWithMetadata(Sid string) (*metadata.ResourceMetadata[VideoV1CompositionHook], error) {
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1CompositionHook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListCompositionHook'
@@ -287,6 +416,59 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 	return ps, err
 }
 
+// PageCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCompositionHookWithMetadata(params *ListCompositionHookParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCompositionHookResponse], error) {
+	path := "/v1/CompositionHooks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCompositionHookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCompositionHookResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) ([]VideoV1CompositionHook, error) {
 	response, errors := c.StreamCompositionHook(params)
@@ -301,6 +483,29 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) ([]V
 	}
 
 	return records, nil
+}
+
+// ListCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCompositionHookWithMetadata(params *ListCompositionHookParams) (*metadata.ResourceMetadata[[]VideoV1CompositionHook], error) {
+	response, errors := c.StreamCompositionHookWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VideoV1CompositionHook, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VideoV1CompositionHook](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -323,6 +528,35 @@ func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams) (c
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCompositionHookWithMetadata(params *ListCompositionHookParams) (*metadata.ResourceMetadata[chan VideoV1CompositionHook], chan error) {
+	if params == nil {
+		params = &ListCompositionHookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VideoV1CompositionHook, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCompositionHookWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCompositionHook(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VideoV1CompositionHook](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCompositionHook(response *ListCompositionHookResponse, params *ListCompositionHookParams, recordChannel chan VideoV1CompositionHook, errorChannel chan error) {
@@ -502,4 +736,76 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 	}
 
 	return ps, err
+}
+
+// UpdateCompositionHookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCompositionHookWithMetadata(Sid string, params *UpdateCompositionHookParams) (*metadata.ResourceMetadata[VideoV1CompositionHook], error) {
+	path := "/v1/CompositionHooks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+	if params != nil && params.VideoLayout != nil {
+		v, err := json.Marshal(params.VideoLayout)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("VideoLayout", string(v))
+	}
+	if params != nil && params.AudioSources != nil {
+		for _, item := range *params.AudioSources {
+			data.Add("AudioSources", item)
+		}
+	}
+	if params != nil && params.AudioSourcesExcluded != nil {
+		for _, item := range *params.AudioSourcesExcluded {
+			data.Add("AudioSourcesExcluded", item)
+		}
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", fmt.Sprint(*params.Trim))
+	}
+	if params != nil && params.Format != nil {
+		data.Set("Format", fmt.Sprint(*params.Format))
+	}
+	if params != nil && params.Resolution != nil {
+		data.Set("Resolution", *params.Resolution)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1CompositionHook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1CompositionHook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

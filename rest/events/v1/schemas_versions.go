@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific schema and version.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1
 	}
 
 	return ps, err
+}
+
+// FetchSchemaVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSchemaVersionWithMetadata(Id string, SchemaVersion int) (*metadata.ResourceMetadata[EventsV1SchemaVersion], error) {
+	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SchemaVersion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1SchemaVersion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSchemaVersion'
@@ -103,6 +136,49 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 	return ps, err
 }
 
+// PageSchemaVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSchemaVersionWithMetadata(Id string, params *ListSchemaVersionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSchemaVersionResponse], error) {
+	path := "/v1/Schemas/{Id}/Versions"
+
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSchemaVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSchemaVersionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
 	response, errors := c.StreamSchemaVersion(Id, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 	}
 
 	return records, nil
+}
+
+// ListSchemaVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSchemaVersionWithMetadata(Id string, params *ListSchemaVersionParams) (*metadata.ResourceMetadata[[]EventsV1SchemaVersion], error) {
+	response, errors := c.StreamSchemaVersionWithMetadata(Id, params)
+	resource := response.GetResource()
+
+	records := make([]EventsV1SchemaVersion, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]EventsV1SchemaVersion](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSchemaVersionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSchemaVersionWithMetadata(Id string, params *ListSchemaVersionParams) (*metadata.ResourceMetadata[chan EventsV1SchemaVersion], chan error) {
+	if params == nil {
+		params = &ListSchemaVersionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan EventsV1SchemaVersion, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSchemaVersionWithMetadata(Id, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSchemaVersion(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan EventsV1SchemaVersion](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSchemaVersion(response *ListSchemaVersionResponse, params *ListSchemaVersionParams, recordChannel chan EventsV1SchemaVersion, errorChannel chan error) {

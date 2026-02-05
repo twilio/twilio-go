@@ -21,17 +21,24 @@ import (
 type ApiService struct {
 	baseURL        string
 	requestHandler *twilio.RequestHandler
+	apiVersion     string
 }
 
 func (c *ApiService) RequestHandler() *twilio.RequestHandler {
 	return c.requestHandler
 }
 
-func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+// ApiVersion returns the API Standards version for this service
+func (c *ApiService) ApiVersion() string {
+	return c.apiVersion
+}
 
+func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
+	requestHandler.SetApiVersion("v1.0")
 	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://verify.twilio.com",
+		apiVersion:     "v1.0",
 	}
 }
 

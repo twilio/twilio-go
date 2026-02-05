@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'UpdatePluginVersionArchive'
@@ -58,4 +60,39 @@ func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, pa
 	}
 
 	return ps, err
+}
+
+// UpdatePluginVersionArchiveWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdatePluginVersionArchiveWithMetadata(PluginSid string, Sid string, params *UpdatePluginVersionArchiveParams) (*metadata.ResourceMetadata[FlexV1PluginVersionArchive], error) {
+	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}/Archive"
+	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FlexMetadata != nil {
+		headers["Flex-Metadata"] = *params.FlexMetadata
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1PluginVersionArchive{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1PluginVersionArchive](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

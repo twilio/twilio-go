@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateVerificationCheck'
@@ -103,4 +105,54 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 	}
 
 	return ps, err
+}
+
+// CreateVerificationCheckWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateVerificationCheckWithMetadata(ServiceSid string, params *CreateVerificationCheckParams) (*metadata.ResourceMetadata[VerifyV2VerificationCheck], error) {
+	path := "/v2/Services/{ServiceSid}/VerificationCheck"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Code != nil {
+		data.Set("Code", *params.Code)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
+	if params != nil && params.Amount != nil {
+		data.Set("Amount", *params.Amount)
+	}
+	if params != nil && params.Payee != nil {
+		data.Set("Payee", *params.Payee)
+	}
+	if params != nil && params.SnaClientToken != nil {
+		data.Set("SnaClientToken", *params.SnaClientToken)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2VerificationCheck{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2VerificationCheck](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

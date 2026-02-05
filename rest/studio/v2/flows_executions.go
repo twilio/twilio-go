@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateExecution'
@@ -88,6 +89,53 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 	return ps, err
 }
 
+// CreateExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateExecutionWithMetadata(FlowSid string, params *CreateExecutionParams) (*metadata.ResourceMetadata[StudioV2Execution], error) {
+	path := "/v2/Flows/{FlowSid}/Executions"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Parameters != nil {
+		v, err := json.Marshal(params.Parameters)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Parameters", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Execution{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Execution](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete the Execution and all Steps relating to it.
 func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
@@ -107,6 +155,33 @@ func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteExecutionWithMetadata(FlowSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve an Execution
@@ -133,6 +208,38 @@ func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV2Execut
 	}
 
 	return ps, err
+}
+
+// FetchExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchExecutionWithMetadata(FlowSid string, Sid string) (*metadata.ResourceMetadata[StudioV2Execution], error) {
+	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Execution{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Execution](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListExecution'
@@ -207,6 +314,55 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 	return ps, err
 }
 
+// PageExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageExecutionWithMetadata(FlowSid string, params *ListExecutionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListExecutionResponse], error) {
+	path := "/v2/Flows/{FlowSid}/Executions"
+
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreatedFrom != nil {
+		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedTo != nil {
+		data.Set("DateCreatedTo", fmt.Sprint((*params.DateCreatedTo).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListExecutionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListExecutionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV2Execution, error) {
 	response, errors := c.StreamExecution(FlowSid, params)
@@ -221,6 +377,29 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 	}
 
 	return records, nil
+}
+
+// ListExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListExecutionWithMetadata(FlowSid string, params *ListExecutionParams) (*metadata.ResourceMetadata[[]StudioV2Execution], error) {
+	response, errors := c.StreamExecutionWithMetadata(FlowSid, params)
+	resource := response.GetResource()
+
+	records := make([]StudioV2Execution, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]StudioV2Execution](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -243,6 +422,35 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamExecutionWithMetadata(FlowSid string, params *ListExecutionParams) (*metadata.ResourceMetadata[chan StudioV2Execution], chan error) {
+	if params == nil {
+		params = &ListExecutionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan StudioV2Execution, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageExecutionWithMetadata(FlowSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamExecution(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan StudioV2Execution](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamExecution(response *ListExecutionResponse, params *ListExecutionParams, recordChannel chan StudioV2Execution, errorChannel chan error) {
@@ -332,4 +540,40 @@ func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateE
 	}
 
 	return ps, err
+}
+
+// UpdateExecutionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateExecutionWithMetadata(FlowSid string, Sid string, params *UpdateExecutionParams) (*metadata.ResourceMetadata[StudioV2Execution], error) {
+	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV2Execution{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV2Execution](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

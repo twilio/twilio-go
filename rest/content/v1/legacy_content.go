@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListLegacyContent'
@@ -74,6 +75,47 @@ func (c *ApiService) PageLegacyContent(params *ListLegacyContentParams, pageToke
 	return ps, err
 }
 
+// PageLegacyContentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageLegacyContentWithMetadata(params *ListLegacyContentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListLegacyContentResponse], error) {
+	path := "/v1/LegacyContent"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListLegacyContentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListLegacyContentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists LegacyContent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListLegacyContent(params *ListLegacyContentParams) ([]ContentV1LegacyContent, error) {
 	response, errors := c.StreamLegacyContent(params)
@@ -88,6 +130,29 @@ func (c *ApiService) ListLegacyContent(params *ListLegacyContentParams) ([]Conte
 	}
 
 	return records, nil
+}
+
+// ListLegacyContentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListLegacyContentWithMetadata(params *ListLegacyContentParams) (*metadata.ResourceMetadata[[]ContentV1LegacyContent], error) {
+	response, errors := c.StreamLegacyContentWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ContentV1LegacyContent, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ContentV1LegacyContent](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams LegacyContent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -110,6 +175,35 @@ func (c *ApiService) StreamLegacyContent(params *ListLegacyContentParams) (chan 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamLegacyContentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamLegacyContentWithMetadata(params *ListLegacyContentParams) (*metadata.ResourceMetadata[chan ContentV1LegacyContent], chan error) {
+	if params == nil {
+		params = &ListLegacyContentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ContentV1LegacyContent, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageLegacyContentWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamLegacyContent(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ContentV1LegacyContent](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamLegacyContent(response *ListLegacyContentResponse, params *ListLegacyContentParams, recordChannel chan ContentV1LegacyContent, errorChannel chan error) {

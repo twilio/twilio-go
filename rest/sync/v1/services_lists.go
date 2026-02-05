@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSyncList'
@@ -81,6 +82,47 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 	return ps, err
 }
 
+// CreateSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSyncListWithMetadata(ServiceSid string, params *CreateSyncListParams) (*metadata.ResourceMetadata[SyncV1SyncList], error) {
+	path := "/v1/Services/{ServiceSid}/Lists"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncList](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
@@ -100,6 +142,33 @@ func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSyncListWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -126,6 +195,38 @@ func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncLi
 	}
 
 	return ps, err
+}
+
+// FetchSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSyncListWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[SyncV1SyncList], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncList](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSyncList'
@@ -182,6 +283,49 @@ func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams,
 	return ps, err
 }
 
+// PageSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSyncListWithMetadata(ServiceSid string, params *ListSyncListParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSyncListResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Lists"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncListResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSyncListResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
 	response, errors := c.StreamSyncList(ServiceSid, params)
@@ -196,6 +340,29 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams)
 	}
 
 	return records, nil
+}
+
+// ListSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSyncListWithMetadata(ServiceSid string, params *ListSyncListParams) (*metadata.ResourceMetadata[[]SyncV1SyncList], error) {
+	response, errors := c.StreamSyncListWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]SyncV1SyncList, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SyncV1SyncList](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -218,6 +385,35 @@ func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParam
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSyncListWithMetadata(ServiceSid string, params *ListSyncListParams) (*metadata.ResourceMetadata[chan SyncV1SyncList], chan error) {
+	if params == nil {
+		params = &ListSyncListParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SyncV1SyncList, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSyncListWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSyncList(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SyncV1SyncList](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSyncList(response *ListSyncListResponse, params *ListSyncListParams, recordChannel chan SyncV1SyncList, errorChannel chan error) {
@@ -316,4 +512,43 @@ func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *Updat
 	}
 
 	return ps, err
+}
+
+// UpdateSyncListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSyncListWithMetadata(ServiceSid string, Sid string, params *UpdateSyncListParams) (*metadata.ResourceMetadata[SyncV1SyncList], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncList](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

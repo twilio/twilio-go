@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSyncListItem'
@@ -97,6 +98,57 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 	return ps, err
 }
 
+// CreateSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSyncListItemWithMetadata(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*metadata.ResourceMetadata[SyncV1SyncListItem], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncListItem](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
@@ -133,6 +185,37 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	return nil
 }
 
+// DeleteSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSyncListItemWithMetadata(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
@@ -158,6 +241,39 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 	}
 
 	return ps, err
+}
+
+// FetchSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSyncListItemWithMetadata(ServiceSid string, ListSid string, Index int) (*metadata.ResourceMetadata[SyncV1SyncListItem], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncListItem](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSyncListItem'
@@ -242,6 +358,59 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 	return ps, err
 }
 
+// PageSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSyncListItemWithMetadata(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSyncListItemResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Order != nil {
+		data.Set("Order", fmt.Sprint(*params.Order))
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Bounds != nil {
+		data.Set("Bounds", fmt.Sprint(*params.Bounds))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncListItemResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSyncListItemResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1SyncListItem, error) {
 	response, errors := c.StreamSyncListItem(ServiceSid, ListSid, params)
@@ -256,6 +425,29 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 	}
 
 	return records, nil
+}
+
+// ListSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSyncListItemWithMetadata(ServiceSid string, ListSid string, params *ListSyncListItemParams) (*metadata.ResourceMetadata[[]SyncV1SyncListItem], error) {
+	response, errors := c.StreamSyncListItemWithMetadata(ServiceSid, ListSid, params)
+	resource := response.GetResource()
+
+	records := make([]SyncV1SyncListItem, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SyncV1SyncListItem](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -278,6 +470,35 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSyncListItemWithMetadata(ServiceSid string, ListSid string, params *ListSyncListItemParams) (*metadata.ResourceMetadata[chan SyncV1SyncListItem], chan error) {
+	if params == nil {
+		params = &ListSyncListItemParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SyncV1SyncListItem, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSyncListItemWithMetadata(ServiceSid, ListSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSyncListItem(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SyncV1SyncListItem](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSyncListItem(response *ListSyncListItemResponse, params *ListSyncListItemParams, recordChannel chan SyncV1SyncListItem, errorChannel chan error) {
@@ -410,4 +631,59 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	}
 
 	return ps, err
+}
+
+// UpdateSyncListItemWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSyncListItemWithMetadata(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*metadata.ResourceMetadata[SyncV1SyncListItem], error) {
+	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
+	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.ItemTtl != nil {
+		data.Set("ItemTtl", fmt.Sprint(*params.ItemTtl))
+	}
+	if params != nil && params.CollectionTtl != nil {
+		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &SyncV1SyncListItem{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[SyncV1SyncListItem](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

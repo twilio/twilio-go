@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -44,6 +46,37 @@ func (c *ApiService) FetchDomainConfig(DomainSid string) (*MessagingV1DomainConf
 	}
 
 	return ps, err
+}
+
+// FetchDomainConfigWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDomainConfigWithMetadata(DomainSid string) (*metadata.ResourceMetadata[MessagingV1DomainConfig], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1DomainConfig{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1DomainConfig](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateDomainConfig'
@@ -111,4 +144,48 @@ func (c *ApiService) UpdateDomainConfig(DomainSid string, params *UpdateDomainCo
 	}
 
 	return ps, err
+}
+
+// UpdateDomainConfigWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateDomainConfigWithMetadata(DomainSid string, params *UpdateDomainConfigParams) (*metadata.ResourceMetadata[MessagingV1DomainConfig], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/Config"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.CallbackUrl != nil {
+		data.Set("CallbackUrl", *params.CallbackUrl)
+	}
+	if params != nil && params.ContinueOnFailure != nil {
+		data.Set("ContinueOnFailure", fmt.Sprint(*params.ContinueOnFailure))
+	}
+	if params != nil && params.DisableHttps != nil {
+		data.Set("DisableHttps", fmt.Sprint(*params.DisableHttps))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1DomainConfig{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1DomainConfig](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

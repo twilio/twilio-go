@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchInsightsUserRoles'
@@ -55,4 +57,37 @@ func (c *ApiService) FetchInsightsUserRoles(params *FetchInsightsUserRolesParams
 	}
 
 	return ps, err
+}
+
+// FetchInsightsUserRolesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInsightsUserRolesWithMetadata(params *FetchInsightsUserRolesParams) (*metadata.ResourceMetadata[FlexV1InsightsUserRoles], error) {
+	path := "/v1/Insights/UserRoles"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsUserRoles{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsUserRoles](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

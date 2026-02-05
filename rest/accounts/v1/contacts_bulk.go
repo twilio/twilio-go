@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBulkContacts'
@@ -64,4 +66,46 @@ func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*Acco
 	}
 
 	return ps, err
+}
+
+// CreateBulkContactsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBulkContactsWithMetadata(params *CreateBulkContactsParams) (*metadata.ResourceMetadata[AccountsV1BulkContacts], error) {
+	path := "/v1/Contacts/Bulk"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Items != nil {
+		for _, item := range *params.Items {
+			v, err := json.Marshal(item)
+
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Items", string(v))
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1BulkContacts{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1BulkContacts](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

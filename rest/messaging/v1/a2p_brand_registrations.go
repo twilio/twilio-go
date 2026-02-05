@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBrandRegistrations'
@@ -98,6 +99,52 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	return ps, err
 }
 
+// CreateBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBrandRegistrationsWithMetadata(params *CreateBrandRegistrationsParams) (*metadata.ResourceMetadata[MessagingV1BrandRegistrations], error) {
+	path := "/v1/a2p/BrandRegistrations"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CustomerProfileBundleSid != nil {
+		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
+	}
+	if params != nil && params.A2PProfileBundleSid != nil {
+		data.Set("A2PProfileBundleSid", *params.A2PProfileBundleSid)
+	}
+	if params != nil && params.BrandType != nil {
+		data.Set("BrandType", *params.BrandType)
+	}
+	if params != nil && params.Mock != nil {
+		data.Set("Mock", fmt.Sprint(*params.Mock))
+	}
+	if params != nil && params.SkipAutomaticSecVet != nil {
+		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandRegistrations{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1BrandRegistrations](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
@@ -121,6 +168,37 @@ func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegis
 	}
 
 	return ps, err
+}
+
+// FetchBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBrandRegistrationsWithMetadata(Sid string) (*metadata.ResourceMetadata[MessagingV1BrandRegistrations], error) {
+	path := "/v1/a2p/BrandRegistrations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandRegistrations{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1BrandRegistrations](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBrandRegistrations'
@@ -175,6 +253,47 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 	return ps, err
 }
 
+// PageBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBrandRegistrationsWithMetadata(params *ListBrandRegistrationsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBrandRegistrationsResponse], error) {
+	path := "/v1/a2p/BrandRegistrations"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBrandRegistrationsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBrandRegistrationsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists BrandRegistrations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams) ([]MessagingV1BrandRegistrations, error) {
 	response, errors := c.StreamBrandRegistrations(params)
@@ -189,6 +308,29 @@ func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams
 	}
 
 	return records, nil
+}
+
+// ListBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBrandRegistrationsWithMetadata(params *ListBrandRegistrationsParams) (*metadata.ResourceMetadata[[]MessagingV1BrandRegistrations], error) {
+	response, errors := c.StreamBrandRegistrationsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MessagingV1BrandRegistrations, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1BrandRegistrations](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams BrandRegistrations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -211,6 +353,35 @@ func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsPara
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBrandRegistrationsWithMetadata(params *ListBrandRegistrationsParams) (*metadata.ResourceMetadata[chan MessagingV1BrandRegistrations], chan error) {
+	if params == nil {
+		params = &ListBrandRegistrationsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MessagingV1BrandRegistrations, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBrandRegistrationsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBrandRegistrations(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1BrandRegistrations](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBrandRegistrations(response *ListBrandRegistrationsResponse, params *ListBrandRegistrationsParams, recordChannel chan MessagingV1BrandRegistrations, errorChannel chan error) {
@@ -284,4 +455,35 @@ func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegi
 	}
 
 	return ps, err
+}
+
+// UpdateBrandRegistrationsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateBrandRegistrationsWithMetadata(Sid string) (*metadata.ResourceMetadata[MessagingV1BrandRegistrations], error) {
+	path := "/v1/a2p/BrandRegistrations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandRegistrations{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1BrandRegistrations](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

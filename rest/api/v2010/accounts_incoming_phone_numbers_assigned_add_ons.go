@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
@@ -74,6 +75,46 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	return ps, err
 }
 
+// CreateIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*metadata.ResourceMetadata[ApiV2010IncomingPhoneNumberAssignedAddOn], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.InstalledAddOnSid != nil {
+		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010IncomingPhoneNumberAssignedAddOn](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
 type DeleteIncomingPhoneNumberAssignedAddOnParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
@@ -109,6 +150,38 @@ func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
@@ -151,6 +224,43 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*metadata.ResourceMetadata[ApiV2010IncomingPhoneNumberAssignedAddOn], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010IncomingPhoneNumberAssignedAddOn](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
@@ -218,6 +328,54 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	return ps, err
 }
 
+// PageIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListIncomingPhoneNumberAssignedAddOnResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListIncomingPhoneNumberAssignedAddOnResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	response, errors := c.StreamIncomingPhoneNumberAssignedAddOn(ResourceSid, params)
@@ -232,6 +390,29 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*metadata.ResourceMetadata[[]ApiV2010IncomingPhoneNumberAssignedAddOn], error) {
+	response, errors := c.StreamIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010IncomingPhoneNumberAssignedAddOn, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010IncomingPhoneNumberAssignedAddOn](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -254,6 +435,35 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamIncomingPhoneNumberAssignedAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*metadata.ResourceMetadata[chan ApiV2010IncomingPhoneNumberAssignedAddOn], chan error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010IncomingPhoneNumberAssignedAddOn, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamIncomingPhoneNumberAssignedAddOn(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010IncomingPhoneNumberAssignedAddOn](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamIncomingPhoneNumberAssignedAddOn(response *ListIncomingPhoneNumberAssignedAddOnResponse, params *ListIncomingPhoneNumberAssignedAddOnParams, recordChannel chan ApiV2010IncomingPhoneNumberAssignedAddOn, errorChannel chan error) {

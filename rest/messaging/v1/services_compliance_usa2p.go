@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateUsAppToPerson'
@@ -206,6 +207,94 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	return ps, err
 }
 
+// CreateUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BrandRegistrationSid != nil {
+		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.MessageFlow != nil {
+		data.Set("MessageFlow", *params.MessageFlow)
+	}
+	if params != nil && params.MessageSamples != nil {
+		for _, item := range *params.MessageSamples {
+			data.Add("MessageSamples", item)
+		}
+	}
+	if params != nil && params.UsAppToPersonUsecase != nil {
+		data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
+	}
+	if params != nil && params.HasEmbeddedLinks != nil {
+		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+	}
+	if params != nil && params.HasEmbeddedPhone != nil {
+		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+	}
+	if params != nil && params.OptInMessage != nil {
+		data.Set("OptInMessage", *params.OptInMessage)
+	}
+	if params != nil && params.OptOutMessage != nil {
+		data.Set("OptOutMessage", *params.OptOutMessage)
+	}
+	if params != nil && params.HelpMessage != nil {
+		data.Set("HelpMessage", *params.HelpMessage)
+	}
+	if params != nil && params.OptInKeywords != nil {
+		for _, item := range *params.OptInKeywords {
+			data.Add("OptInKeywords", item)
+		}
+	}
+	if params != nil && params.OptOutKeywords != nil {
+		for _, item := range *params.OptOutKeywords {
+			data.Add("OptOutKeywords", item)
+		}
+	}
+	if params != nil && params.HelpKeywords != nil {
+		for _, item := range *params.HelpKeywords {
+			data.Add("HelpKeywords", item)
+		}
+	}
+	if params != nil && params.SubscriberOptIn != nil {
+		data.Set("SubscriberOptIn", fmt.Sprint(*params.SubscriberOptIn))
+	}
+	if params != nil && params.AgeGated != nil {
+		data.Set("AgeGated", fmt.Sprint(*params.AgeGated))
+	}
+	if params != nil && params.DirectLending != nil {
+		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1UsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
@@ -225,6 +314,33 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -251,6 +367,38 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 	}
 
 	return ps, err
+}
+
+// FetchUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1UsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListUsAppToPerson'
@@ -307,6 +455,49 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 	return ps, err
 }
 
+// PageUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListUsAppToPersonResponse], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsAppToPersonResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListUsAppToPersonResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
 	response, errors := c.StreamUsAppToPerson(MessagingServiceSid, params)
@@ -321,6 +512,29 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 	}
 
 	return records, nil
+}
+
+// ListUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[[]MessagingV1UsAppToPerson], error) {
+	response, errors := c.StreamUsAppToPersonWithMetadata(MessagingServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]MessagingV1UsAppToPerson, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1UsAppToPerson](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -343,6 +557,35 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[chan MessagingV1UsAppToPerson], chan error) {
+	if params == nil {
+		params = &ListUsAppToPersonParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MessagingV1UsAppToPerson, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageUsAppToPersonWithMetadata(MessagingServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamUsAppToPerson(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1UsAppToPerson](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
@@ -488,4 +731,60 @@ func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string,
 	}
 
 	return ps, err
+}
+
+// UpdateUsAppToPersonWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.HasEmbeddedLinks != nil {
+		data.Set("HasEmbeddedLinks", fmt.Sprint(*params.HasEmbeddedLinks))
+	}
+	if params != nil && params.HasEmbeddedPhone != nil {
+		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
+	}
+	if params != nil && params.MessageSamples != nil {
+		for _, item := range *params.MessageSamples {
+			data.Add("MessageSamples", item)
+		}
+	}
+	if params != nil && params.MessageFlow != nil {
+		data.Set("MessageFlow", *params.MessageFlow)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.AgeGated != nil {
+		data.Set("AgeGated", fmt.Sprint(*params.AgeGated))
+	}
+	if params != nil && params.DirectLending != nil {
+		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1UsAppToPerson{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCall'
@@ -393,6 +394,154 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	return ps, err
 }
 
+// CreateCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCallWithMetadata(params *CreateCallParams) (*metadata.ResourceMetadata[ApiV2010Call], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackEvent != nil {
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.SendDigits != nil {
+		data.Set("SendDigits", *params.SendDigits)
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+	}
+	if params != nil && params.Record != nil {
+		data.Set("Record", fmt.Sprint(*params.Record))
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.MachineDetection != nil {
+		data.Set("MachineDetection", *params.MachineDetection)
+	}
+	if params != nil && params.MachineDetectionTimeout != nil {
+		data.Set("MachineDetectionTimeout", fmt.Sprint(*params.MachineDetectionTimeout))
+	}
+	if params != nil && params.RecordingStatusCallbackEvent != nil {
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", *params.Trim)
+	}
+	if params != nil && params.CallerId != nil {
+		data.Set("CallerId", *params.CallerId)
+	}
+	if params != nil && params.MachineDetectionSpeechThreshold != nil {
+		data.Set("MachineDetectionSpeechThreshold", fmt.Sprint(*params.MachineDetectionSpeechThreshold))
+	}
+	if params != nil && params.MachineDetectionSpeechEndThreshold != nil {
+		data.Set("MachineDetectionSpeechEndThreshold", fmt.Sprint(*params.MachineDetectionSpeechEndThreshold))
+	}
+	if params != nil && params.MachineDetectionSilenceTimeout != nil {
+		data.Set("MachineDetectionSilenceTimeout", fmt.Sprint(*params.MachineDetectionSilenceTimeout))
+	}
+	if params != nil && params.AsyncAmd != nil {
+		data.Set("AsyncAmd", *params.AsyncAmd)
+	}
+	if params != nil && params.AsyncAmdStatusCallback != nil {
+		data.Set("AsyncAmdStatusCallback", *params.AsyncAmdStatusCallback)
+	}
+	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
+		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+	}
+	if params != nil && params.Byoc != nil {
+		data.Set("Byoc", *params.Byoc)
+	}
+	if params != nil && params.CallReason != nil {
+		data.Set("CallReason", *params.CallReason)
+	}
+	if params != nil && params.CallToken != nil {
+		data.Set("CallToken", *params.CallToken)
+	}
+	if params != nil && params.RecordingTrack != nil {
+		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+	if params != nil && params.ClientNotificationUrl != nil {
+		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
+	}
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
+	if params != nil && params.Twiml != nil {
+		data.Set("Twiml", *params.Twiml)
+	}
+	if params != nil && params.ApplicationSid != nil {
+		data.Set("ApplicationSid", *params.ApplicationSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Call{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Call](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteCall'
 type DeleteCallParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete.
@@ -427,6 +576,37 @@ func (c *ApiService) DeleteCall(Sid string, params *DeleteCallParams) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteCallWithMetadata(Sid string, params *DeleteCallParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchCall'
@@ -470,6 +650,42 @@ func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Ca
 	return ps, err
 }
 
+// FetchCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCallWithMetadata(Sid string, params *FetchCallParams) (*metadata.ResourceMetadata[ApiV2010Call], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Call{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Call](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'ListCall'
 type ListCallParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
@@ -484,15 +700,15 @@ type ListCallParams struct {
 	Status *string `json:"Status,omitempty"`
 	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 	StartTime *time.Time `json:"StartTime,omitempty"`
-	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+	// Only include calls that started before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started before this date.
 	StartTimeBefore *time.Time `json:"StartTime&lt;,omitempty"`
-	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+	// Only include calls that started on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that started on or after this date.
 	StartTimeAfter *time.Time `json:"StartTime&gt;,omitempty"`
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 	EndTime *time.Time `json:"EndTime,omitempty"`
-	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+	// Only include calls that ended before this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended before this date.
 	EndTimeBefore *time.Time `json:"EndTime&lt;,omitempty"`
-	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+	// Only include calls that ended on or after this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only calls that ended on or after this date.
 	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
@@ -624,6 +840,83 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 	return ps, err
 }
 
+// PageCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCallWithMetadata(params *ListCallParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCallResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.ParentCallSid != nil {
+		data.Set("ParentCallSid", *params.ParentCallSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.StartTimeBefore != nil {
+		data.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.StartTimeAfter != nil {
+		data.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTimeBefore != nil {
+		data.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTimeAfter != nil {
+		data.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCallResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
 	response, errors := c.StreamCall(params)
@@ -638,6 +931,29 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
 	}
 
 	return records, nil
+}
+
+// ListCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCallWithMetadata(params *ListCallParams) (*metadata.ResourceMetadata[[]ApiV2010Call], error) {
+	response, errors := c.StreamCallWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Call, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Call](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -660,6 +976,35 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, chan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCallWithMetadata(params *ListCallParams) (*metadata.ResourceMetadata[chan ApiV2010Call], chan error) {
+	if params == nil {
+		params = &ListCallParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Call, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCallWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCall(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Call](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCall(response *ListCallResponse, params *ListCallParams, recordChannel chan ApiV2010Call, errorChannel chan error) {
@@ -831,4 +1176,68 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	}
 
 	return ps, err
+}
+
+// UpdateCallWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateCallWithMetadata(Sid string, params *UpdateCallParams) (*metadata.ResourceMetadata[ApiV2010Call], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Url != nil {
+		data.Set("Url", *params.Url)
+	}
+	if params != nil && params.Method != nil {
+		data.Set("Method", *params.Method)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.FallbackUrl != nil {
+		data.Set("FallbackUrl", *params.FallbackUrl)
+	}
+	if params != nil && params.FallbackMethod != nil {
+		data.Set("FallbackMethod", *params.FallbackMethod)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Twiml != nil {
+		data.Set("Twiml", *params.Twiml)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Call{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Call](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

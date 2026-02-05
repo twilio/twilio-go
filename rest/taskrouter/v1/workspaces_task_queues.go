@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTaskQueue'
@@ -108,6 +109,56 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 	return ps, err
 }
 
+// CreateTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTaskQueueWithMetadata(WorkspaceSid string, params *CreateTaskQueueParams) (*metadata.ResourceMetadata[TaskrouterV1TaskQueue], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.TargetWorkers != nil {
+		data.Set("TargetWorkers", *params.TargetWorkers)
+	}
+	if params != nil && params.MaxReservedWorkers != nil {
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+	}
+	if params != nil && params.TaskOrder != nil {
+		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
+	}
+	if params != nil && params.ReservationActivitySid != nil {
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+	}
+	if params != nil && params.AssignmentActivitySid != nil {
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
@@ -127,6 +178,33 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTaskQueueWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -153,6 +231,38 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Taskroute
 	}
 
 	return ps, err
+}
+
+// FetchTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTaskQueueWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1TaskQueue], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTaskQueue'
@@ -245,6 +355,61 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	return ps, err
 }
 
+// PageTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTaskQueueWithMetadata(WorkspaceSid string, params *ListTaskQueueParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTaskQueueResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EvaluateWorkerAttributes != nil {
+		data.Set("EvaluateWorkerAttributes", *params.EvaluateWorkerAttributes)
+	}
+	if params != nil && params.WorkerSid != nil {
+		data.Set("WorkerSid", *params.WorkerSid)
+	}
+	if params != nil && params.Ordering != nil {
+		data.Set("Ordering", *params.Ordering)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTaskQueueResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1TaskQueue, error) {
 	response, errors := c.StreamTaskQueue(WorkspaceSid, params)
@@ -259,6 +424,29 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	}
 
 	return records, nil
+}
+
+// ListTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTaskQueueWithMetadata(WorkspaceSid string, params *ListTaskQueueParams) (*metadata.ResourceMetadata[[]TaskrouterV1TaskQueue], error) {
+	response, errors := c.StreamTaskQueueWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1TaskQueue, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1TaskQueue](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -281,6 +469,35 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTaskQueueWithMetadata(WorkspaceSid string, params *ListTaskQueueParams) (*metadata.ResourceMetadata[chan TaskrouterV1TaskQueue], chan error) {
+	if params == nil {
+		params = &ListTaskQueueParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1TaskQueue, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTaskQueueWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTaskQueue(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1TaskQueue](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTaskQueue(response *ListTaskQueueResponse, params *ListTaskQueueParams, recordChannel chan TaskrouterV1TaskQueue, errorChannel chan error) {
@@ -415,4 +632,55 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 	}
 
 	return ps, err
+}
+
+// UpdateTaskQueueWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTaskQueueWithMetadata(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*metadata.ResourceMetadata[TaskrouterV1TaskQueue], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.TargetWorkers != nil {
+		data.Set("TargetWorkers", *params.TargetWorkers)
+	}
+	if params != nil && params.ReservationActivitySid != nil {
+		data.Set("ReservationActivitySid", *params.ReservationActivitySid)
+	}
+	if params != nil && params.AssignmentActivitySid != nil {
+		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
+	}
+	if params != nil && params.MaxReservedWorkers != nil {
+		data.Set("MaxReservedWorkers", fmt.Sprint(*params.MaxReservedWorkers))
+	}
+	if params != nil && params.TaskOrder != nil {
+		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueue{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueue](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

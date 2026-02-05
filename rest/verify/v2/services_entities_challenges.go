@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateChallenge'
@@ -124,6 +125,71 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 	return ps, err
 }
 
+// CreateChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateChallengeWithMetadata(ServiceSid string, Identity string, params *CreateChallengeParams) (*metadata.ResourceMetadata[VerifyV2Challenge], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FactorSid != nil {
+		data.Set("FactorSid", *params.FactorSid)
+	}
+	if params != nil && params.ExpirationDate != nil {
+		data.Set("ExpirationDate", fmt.Sprint((*params.ExpirationDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.DetailsMessage != nil {
+		data.Set("Details.Message", *params.DetailsMessage)
+	}
+	if params != nil && params.DetailsFields != nil {
+		for _, item := range *params.DetailsFields {
+			v, err := json.Marshal(item)
+
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Details.Fields", string(v))
+		}
+	}
+	if params != nil && params.HiddenDetails != nil {
+		v, err := json.Marshal(params.HiddenDetails)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("HiddenDetails", string(v))
+	}
+	if params != nil && params.AuthPayload != nil {
+		data.Set("AuthPayload", *params.AuthPayload)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Challenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Challenge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a specific Challenge.
 func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid string) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
@@ -149,6 +215,39 @@ func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid stri
 	}
 
 	return ps, err
+}
+
+// FetchChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchChallengeWithMetadata(ServiceSid string, Identity string, Sid string) (*metadata.ResourceMetadata[VerifyV2Challenge], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Challenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Challenge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListChallenge'
@@ -233,6 +332,59 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	return ps, err
 }
 
+// PageChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageChallengeWithMetadata(ServiceSid string, Identity string, params *ListChallengeParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListChallengeResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FactorSid != nil {
+		data.Set("FactorSid", *params.FactorSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Order != nil {
+		data.Set("Order", fmt.Sprint(*params.Order))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListChallengeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListChallengeResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2Challenge, error) {
 	response, errors := c.StreamChallenge(ServiceSid, Identity, params)
@@ -247,6 +399,29 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	}
 
 	return records, nil
+}
+
+// ListChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListChallengeWithMetadata(ServiceSid string, Identity string, params *ListChallengeParams) (*metadata.ResourceMetadata[[]VerifyV2Challenge], error) {
+	response, errors := c.StreamChallengeWithMetadata(ServiceSid, Identity, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2Challenge, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2Challenge](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -269,6 +444,35 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamChallengeWithMetadata(ServiceSid string, Identity string, params *ListChallengeParams) (*metadata.ResourceMetadata[chan VerifyV2Challenge], chan error) {
+	if params == nil {
+		params = &ListChallengeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2Challenge, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageChallengeWithMetadata(ServiceSid, Identity, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamChallenge(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2Challenge](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamChallenge(response *ListChallengeResponse, params *ListChallengeParams, recordChannel chan VerifyV2Challenge, errorChannel chan error) {
@@ -374,4 +578,50 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 	}
 
 	return ps, err
+}
+
+// UpdateChallengeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateChallengeWithMetadata(ServiceSid string, Identity string, Sid string, params *UpdateChallengeParams) (*metadata.ResourceMetadata[VerifyV2Challenge], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AuthPayload != nil {
+		data.Set("AuthPayload", *params.AuthPayload)
+	}
+	if params != nil && params.Metadata != nil {
+		v, err := json.Marshal(params.Metadata)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Metadata", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Challenge{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Challenge](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

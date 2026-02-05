@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateVariable'
@@ -73,6 +74,45 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 	return ps, err
 }
 
+// CreateVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateVariableWithMetadata(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*metadata.ResourceMetadata[ServerlessV1Variable], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Key != nil {
+		data.Set("Key", *params.Key)
+	}
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Variable{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Variable](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Variable.
 func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
@@ -93,6 +133,34 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteVariableWithMetadata(ServiceSid string, EnvironmentSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Retrieve a specific Variable.
@@ -120,6 +188,39 @@ func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid
 	}
 
 	return ps, err
+}
+
+// FetchVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVariableWithMetadata(ServiceSid string, EnvironmentSid string, Sid string) (*metadata.ResourceMetadata[ServerlessV1Variable], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Variable{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Variable](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListVariable'
@@ -177,6 +278,50 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 	return ps, err
 }
 
+// PageVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageVariableWithMetadata(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListVariableResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVariableResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListVariableResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1Variable, error) {
 	response, errors := c.StreamVariable(ServiceSid, EnvironmentSid, params)
@@ -191,6 +336,29 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 	}
 
 	return records, nil
+}
+
+// ListVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListVariableWithMetadata(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (*metadata.ResourceMetadata[[]ServerlessV1Variable], error) {
+	response, errors := c.StreamVariableWithMetadata(ServiceSid, EnvironmentSid, params)
+	resource := response.GetResource()
+
+	records := make([]ServerlessV1Variable, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ServerlessV1Variable](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -213,6 +381,35 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamVariableWithMetadata(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (*metadata.ResourceMetadata[chan ServerlessV1Variable], chan error) {
+	if params == nil {
+		params = &ListVariableParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ServerlessV1Variable, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageVariableWithMetadata(ServiceSid, EnvironmentSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamVariable(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ServerlessV1Variable](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamVariable(response *ListVariableResponse, params *ListVariableParams, recordChannel chan ServerlessV1Variable, errorChannel chan error) {
@@ -312,4 +509,44 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 	}
 
 	return ps, err
+}
+
+// UpdateVariableWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateVariableWithMetadata(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*metadata.ResourceMetadata[ServerlessV1Variable], error) {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Key != nil {
+		data.Set("Key", *params.Key)
+	}
+	if params != nil && params.Value != nil {
+		data.Set("Value", *params.Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ServerlessV1Variable{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ServerlessV1Variable](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

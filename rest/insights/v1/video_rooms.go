@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Get Video Log Analyzer data for a Room.
@@ -47,6 +48,37 @@ func (c *ApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoom
 	}
 
 	return ps, err
+}
+
+// FetchVideoRoomSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVideoRoomSummaryWithMetadata(RoomSid string) (*metadata.ResourceMetadata[InsightsV1VideoRoomSummary], error) {
+	path := "/v1/Video/Rooms/{RoomSid}"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &InsightsV1VideoRoomSummary{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[InsightsV1VideoRoomSummary](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListVideoRoomSummary'
@@ -150,6 +182,66 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 	return ps, err
 }
 
+// PageVideoRoomSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageVideoRoomSummaryWithMetadata(params *ListVideoRoomSummaryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListVideoRoomSummaryResponse], error) {
+	path := "/v1/Video/Rooms"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.RoomType != nil {
+		for _, item := range *params.RoomType {
+			data.Add("RoomType", item)
+		}
+	}
+	if params != nil && params.Codec != nil {
+		for _, item := range *params.Codec {
+			data.Add("Codec", item)
+		}
+	}
+	if params != nil && params.RoomName != nil {
+		data.Set("RoomName", *params.RoomName)
+	}
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVideoRoomSummaryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListVideoRoomSummaryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) ([]InsightsV1VideoRoomSummary, error) {
 	response, errors := c.StreamVideoRoomSummary(params)
@@ -164,6 +256,29 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) ([
 	}
 
 	return records, nil
+}
+
+// ListVideoRoomSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListVideoRoomSummaryWithMetadata(params *ListVideoRoomSummaryParams) (*metadata.ResourceMetadata[[]InsightsV1VideoRoomSummary], error) {
+	response, errors := c.StreamVideoRoomSummaryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]InsightsV1VideoRoomSummary, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]InsightsV1VideoRoomSummary](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -186,6 +301,35 @@ func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams) 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamVideoRoomSummaryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamVideoRoomSummaryWithMetadata(params *ListVideoRoomSummaryParams) (*metadata.ResourceMetadata[chan InsightsV1VideoRoomSummary], chan error) {
+	if params == nil {
+		params = &ListVideoRoomSummaryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan InsightsV1VideoRoomSummary, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageVideoRoomSummaryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamVideoRoomSummary(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan InsightsV1VideoRoomSummary](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamVideoRoomSummary(response *ListVideoRoomSummaryResponse, params *ListVideoRoomSummaryParams, recordChannel chan InsightsV1VideoRoomSummary, errorChannel chan error) {

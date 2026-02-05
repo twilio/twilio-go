@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchAuthorize'
@@ -92,4 +94,50 @@ func (c *ApiService) FetchAuthorize(params *FetchAuthorizeParams) (*OauthV1Autho
 	}
 
 	return ps, err
+}
+
+// FetchAuthorizeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAuthorizeWithMetadata(params *FetchAuthorizeParams) (*metadata.ResourceMetadata[OauthV1Authorize], error) {
+	path := "/v1/authorize"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ResponseType != nil {
+		data.Set("ResponseType", *params.ResponseType)
+	}
+	if params != nil && params.ClientId != nil {
+		data.Set("ClientId", *params.ClientId)
+	}
+	if params != nil && params.RedirectUri != nil {
+		data.Set("RedirectUri", *params.RedirectUri)
+	}
+	if params != nil && params.Scope != nil {
+		data.Set("Scope", *params.Scope)
+	}
+	if params != nil && params.State != nil {
+		data.Set("State", *params.State)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &OauthV1Authorize{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[OauthV1Authorize](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

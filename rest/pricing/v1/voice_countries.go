@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -46,6 +47,37 @@ func (c *ApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceCountr
 	}
 
 	return ps, err
+}
+
+// FetchVoiceCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVoiceCountryWithMetadata(IsoCountry string) (*metadata.ResourceMetadata[PricingV1VoiceCountryInstance], error) {
+	path := "/v1/Voice/Countries/{IsoCountry}"
+	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &PricingV1VoiceCountryInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[PricingV1VoiceCountryInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListVoiceCountry'
@@ -100,6 +132,47 @@ func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken,
 	return ps, err
 }
 
+// PageVoiceCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageVoiceCountryWithMetadata(params *ListVoiceCountryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListVoiceCountryResponse], error) {
+	path := "/v1/Voice/Countries"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVoiceCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListVoiceCountryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams) ([]PricingV1VoiceCountry, error) {
 	response, errors := c.StreamVoiceCountry(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams) ([]Pricing
 	}
 
 	return records, nil
+}
+
+// ListVoiceCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListVoiceCountryWithMetadata(params *ListVoiceCountryParams) (*metadata.ResourceMetadata[[]PricingV1VoiceCountry], error) {
+	response, errors := c.StreamVoiceCountryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]PricingV1VoiceCountry, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]PricingV1VoiceCountry](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams) (chan Pr
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamVoiceCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamVoiceCountryWithMetadata(params *ListVoiceCountryParams) (*metadata.ResourceMetadata[chan PricingV1VoiceCountry], chan error) {
+	if params == nil {
+		params = &ListVoiceCountryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan PricingV1VoiceCountry, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageVoiceCountryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamVoiceCountry(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan PricingV1VoiceCountry](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamVoiceCountry(response *ListVoiceCountryResponse, params *ListVoiceCountryParams, recordChannel chan PricingV1VoiceCountry, errorChannel chan error) {

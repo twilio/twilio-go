@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBrandVetting'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	return ps, err
 }
 
+// CreateBrandVettingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBrandVettingWithMetadata(BrandSid string, params *CreateBrandVettingParams) (*metadata.ResourceMetadata[MessagingV1BrandVetting], error) {
+	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
+	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.VettingId != nil {
+		data.Set("VettingId", *params.VettingId)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandVetting{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1BrandVetting](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
@@ -96,6 +135,38 @@ func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) 
 	}
 
 	return ps, err
+}
+
+// FetchBrandVettingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchBrandVettingWithMetadata(BrandSid string, BrandVettingSid string) (*metadata.ResourceMetadata[MessagingV1BrandVetting], error) {
+	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
+	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+	path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandVetting{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1BrandVetting](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListBrandVetting'
@@ -161,6 +232,52 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 	return ps, err
 }
 
+// PageBrandVettingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageBrandVettingWithMetadata(BrandSid string, params *ListBrandVettingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListBrandVettingResponse], error) {
+	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
+
+	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.VettingProvider != nil {
+		data.Set("VettingProvider", fmt.Sprint(*params.VettingProvider))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBrandVettingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListBrandVettingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists BrandVetting records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandVetting(BrandSid string, params *ListBrandVettingParams) ([]MessagingV1BrandVetting, error) {
 	response, errors := c.StreamBrandVetting(BrandSid, params)
@@ -175,6 +292,29 @@ func (c *ApiService) ListBrandVetting(BrandSid string, params *ListBrandVettingP
 	}
 
 	return records, nil
+}
+
+// ListBrandVettingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListBrandVettingWithMetadata(BrandSid string, params *ListBrandVettingParams) (*metadata.ResourceMetadata[[]MessagingV1BrandVetting], error) {
+	response, errors := c.StreamBrandVettingWithMetadata(BrandSid, params)
+	resource := response.GetResource()
+
+	records := make([]MessagingV1BrandVetting, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1BrandVetting](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams BrandVetting records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -197,6 +337,35 @@ func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettin
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamBrandVettingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamBrandVettingWithMetadata(BrandSid string, params *ListBrandVettingParams) (*metadata.ResourceMetadata[chan MessagingV1BrandVetting], chan error) {
+	if params == nil {
+		params = &ListBrandVettingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MessagingV1BrandVetting, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageBrandVettingWithMetadata(BrandSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamBrandVetting(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1BrandVetting](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamBrandVetting(response *ListBrandVettingResponse, params *ListBrandVettingParams, recordChannel chan MessagingV1BrandVetting, errorChannel chan error) {

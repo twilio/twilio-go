@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchWorkersRealTimeStatistics'
@@ -58,4 +60,39 @@ func (c *ApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params 
 	}
 
 	return ps, err
+}
+
+// FetchWorkersRealTimeStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWorkersRealTimeStatisticsWithMetadata(WorkspaceSid string, params *FetchWorkersRealTimeStatisticsParams) (*metadata.ResourceMetadata[TaskrouterV1WorkersRealTimeStatistics], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1WorkersRealTimeStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1WorkersRealTimeStatistics](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

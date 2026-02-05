@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesCategory'
@@ -71,6 +72,43 @@ func (c *ApiService) CreateInsightsQuestionnairesCategory(params *CreateInsights
 	return ps, err
 }
 
+// CreateInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInsightsQuestionnairesCategoryWithMetadata(params *CreateInsightsQuestionnairesCategoryParams) (*metadata.ResourceMetadata[FlexV1InsightsQuestionnairesCategory], error) {
+	path := "/v1/Insights/QualityManagement/Categories"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Name != nil {
+		data.Set("Name", *params.Name)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsQuestionnairesCategory{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsQuestionnairesCategory](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteInsightsQuestionnairesCategory'
 type DeleteInsightsQuestionnairesCategoryParams struct {
 	// The Authorization HTTP request header
@@ -103,6 +141,35 @@ func (c *ApiService) DeleteInsightsQuestionnairesCategory(CategorySid string, pa
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteInsightsQuestionnairesCategoryWithMetadata(CategorySid string, params *DeleteInsightsQuestionnairesCategoryParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
+	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInsightsQuestionnairesCategory'
@@ -163,6 +230,47 @@ func (c *ApiService) PageInsightsQuestionnairesCategory(params *ListInsightsQues
 	return ps, err
 }
 
+// PageInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInsightsQuestionnairesCategoryWithMetadata(params *ListInsightsQuestionnairesCategoryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInsightsQuestionnairesCategoryResponse], error) {
+	path := "/v1/Insights/QualityManagement/Categories"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsQuestionnairesCategoryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInsightsQuestionnairesCategoryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InsightsQuestionnairesCategory records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsQuestionnairesCategory(params *ListInsightsQuestionnairesCategoryParams) ([]FlexV1InsightsQuestionnairesCategory, error) {
 	response, errors := c.StreamInsightsQuestionnairesCategory(params)
@@ -177,6 +285,29 @@ func (c *ApiService) ListInsightsQuestionnairesCategory(params *ListInsightsQues
 	}
 
 	return records, nil
+}
+
+// ListInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInsightsQuestionnairesCategoryWithMetadata(params *ListInsightsQuestionnairesCategoryParams) (*metadata.ResourceMetadata[[]FlexV1InsightsQuestionnairesCategory], error) {
+	response, errors := c.StreamInsightsQuestionnairesCategoryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InsightsQuestionnairesCategory, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InsightsQuestionnairesCategory](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InsightsQuestionnairesCategory records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -199,6 +330,35 @@ func (c *ApiService) StreamInsightsQuestionnairesCategory(params *ListInsightsQu
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInsightsQuestionnairesCategoryWithMetadata(params *ListInsightsQuestionnairesCategoryParams) (*metadata.ResourceMetadata[chan FlexV1InsightsQuestionnairesCategory], chan error) {
+	if params == nil {
+		params = &ListInsightsQuestionnairesCategoryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsQuestionnairesCategory, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsQuestionnairesCategoryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInsightsQuestionnairesCategory(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InsightsQuestionnairesCategory](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInsightsQuestionnairesCategory(response *ListInsightsQuestionnairesCategoryResponse, params *ListInsightsQuestionnairesCategoryParams, recordChannel chan FlexV1InsightsQuestionnairesCategory, errorChannel chan error) {
@@ -296,4 +456,42 @@ func (c *ApiService) UpdateInsightsQuestionnairesCategory(CategorySid string, pa
 	}
 
 	return ps, err
+}
+
+// UpdateInsightsQuestionnairesCategoryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInsightsQuestionnairesCategoryWithMetadata(CategorySid string, params *UpdateInsightsQuestionnairesCategoryParams) (*metadata.ResourceMetadata[FlexV1InsightsQuestionnairesCategory], error) {
+	path := "/v1/Insights/QualityManagement/Categories/{CategorySid}"
+	path = strings.Replace(path, "{"+"CategorySid"+"}", CategorySid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Name != nil {
+		data.Set("Name", *params.Name)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsQuestionnairesCategory{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsQuestionnairesCategory](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

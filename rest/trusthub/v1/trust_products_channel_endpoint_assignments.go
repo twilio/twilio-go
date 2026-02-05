@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTrustProductChannelEndpointAssignment'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid
 	return ps, err
 }
 
+// CreateTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, params *CreateTrustProductChannelEndpointAssignmentParams) (*metadata.ResourceMetadata[TrusthubV1TrustProductChannelEndpointAssignment], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ChannelEndpointType != nil {
+		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
+	}
+	if params != nil && params.ChannelEndpointSid != nil {
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1TrustProductChannelEndpointAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1TrustProductChannelEndpointAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an Assignment Item Instance.
 func (c *ApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
@@ -91,6 +130,33 @@ func (c *ApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch specific Assigned Item Instance.
@@ -117,6 +183,38 @@ func (c *ApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid 
 	}
 
 	return ps, err
+}
+
+// FetchTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, Sid string) (*metadata.ResourceMetadata[TrusthubV1TrustProductChannelEndpointAssignment], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrusthubV1TrustProductChannelEndpointAssignment{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrusthubV1TrustProductChannelEndpointAssignment](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTrustProductChannelEndpointAssignment'
@@ -191,6 +289,55 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 	return ps, err
 }
 
+// PageTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTrustProductChannelEndpointAssignmentResponse], error) {
+	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
+
+	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ChannelEndpointSid != nil {
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
+	}
+	if params != nil && params.ChannelEndpointSids != nil {
+		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductChannelEndpointAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTrustProductChannelEndpointAssignmentResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) ([]TrusthubV1TrustProductChannelEndpointAssignment, error) {
 	response, errors := c.StreamTrustProductChannelEndpointAssignment(TrustProductSid, params)
@@ -205,6 +352,29 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 	}
 
 	return records, nil
+}
+
+// ListTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (*metadata.ResourceMetadata[[]TrusthubV1TrustProductChannelEndpointAssignment], error) {
+	response, errors := c.StreamTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid, params)
+	resource := response.GetResource()
+
+	records := make([]TrusthubV1TrustProductChannelEndpointAssignment, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrusthubV1TrustProductChannelEndpointAssignment](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -227,6 +397,35 @@ func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTrustProductChannelEndpointAssignmentWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (*metadata.ResourceMetadata[chan TrusthubV1TrustProductChannelEndpointAssignment], chan error) {
+	if params == nil {
+		params = &ListTrustProductChannelEndpointAssignmentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrusthubV1TrustProductChannelEndpointAssignment, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTrustProductChannelEndpointAssignmentWithMetadata(TrustProductSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTrustProductChannelEndpointAssignment(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrusthubV1TrustProductChannelEndpointAssignment](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTrustProductChannelEndpointAssignment(response *ListTrustProductChannelEndpointAssignmentResponse, params *ListTrustProductChannelEndpointAssignmentParams, recordChannel chan TrusthubV1TrustProductChannelEndpointAssignment, errorChannel chan error) {

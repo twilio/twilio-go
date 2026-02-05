@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateIpAccessControlList'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 	return ps, err
 }
 
+// CreateIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateIpAccessControlListWithMetadata(TrunkSid string, params *CreateIpAccessControlListParams) (*metadata.ResourceMetadata[TrunkingV1IpAccessControlList], error) {
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IpAccessControlListSid != nil {
+		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1IpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1IpAccessControlList](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Remove an associated IP Access Control List from a Trunk
 func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteIpAccessControlListWithMetadata(TrunkSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -108,6 +171,38 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*Tru
 	}
 
 	return ps, err
+}
+
+// FetchIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchIpAccessControlListWithMetadata(TrunkSid string, Sid string) (*metadata.ResourceMetadata[TrunkingV1IpAccessControlList], error) {
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1IpAccessControlList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1IpAccessControlList](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListIpAccessControlList'
@@ -164,6 +259,49 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 	return ps, err
 }
 
+// PageIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageIpAccessControlListWithMetadata(TrunkSid string, params *ListIpAccessControlListParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListIpAccessControlListResponse], error) {
+	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
+
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIpAccessControlListResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListIpAccessControlListResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1IpAccessControlList, error) {
 	response, errors := c.StreamIpAccessControlList(TrunkSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 	}
 
 	return records, nil
+}
+
+// ListIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListIpAccessControlListWithMetadata(TrunkSid string, params *ListIpAccessControlListParams) (*metadata.ResourceMetadata[[]TrunkingV1IpAccessControlList], error) {
+	response, errors := c.StreamIpAccessControlListWithMetadata(TrunkSid, params)
+	resource := response.GetResource()
+
+	records := make([]TrunkingV1IpAccessControlList, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TrunkingV1IpAccessControlList](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamIpAccessControlListWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamIpAccessControlListWithMetadata(TrunkSid string, params *ListIpAccessControlListParams) (*metadata.ResourceMetadata[chan TrunkingV1IpAccessControlList], chan error) {
+	if params == nil {
+		params = &ListIpAccessControlListParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TrunkingV1IpAccessControlList, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageIpAccessControlListWithMetadata(TrunkSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamIpAccessControlList(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TrunkingV1IpAccessControlList](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamIpAccessControlList(response *ListIpAccessControlListResponse, params *ListIpAccessControlListParams, recordChannel chan TrunkingV1IpAccessControlList, errorChannel chan error) {

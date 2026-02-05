@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSiprec'
@@ -1890,6 +1892,652 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 	return ps, err
 }
 
+// CreateSiprecWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSiprecWithMetadata(CallSid string, params *CreateSiprecParams) (*metadata.ResourceMetadata[ApiV2010Siprec], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Name != nil {
+		data.Set("Name", *params.Name)
+	}
+	if params != nil && params.ConnectorName != nil {
+		data.Set("ConnectorName", *params.ConnectorName)
+	}
+	if params != nil && params.Track != nil {
+		data.Set("Track", fmt.Sprint(*params.Track))
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.Parameter1Name != nil {
+		data.Set("Parameter1.Name", *params.Parameter1Name)
+	}
+	if params != nil && params.Parameter1Value != nil {
+		data.Set("Parameter1.Value", *params.Parameter1Value)
+	}
+	if params != nil && params.Parameter2Name != nil {
+		data.Set("Parameter2.Name", *params.Parameter2Name)
+	}
+	if params != nil && params.Parameter2Value != nil {
+		data.Set("Parameter2.Value", *params.Parameter2Value)
+	}
+	if params != nil && params.Parameter3Name != nil {
+		data.Set("Parameter3.Name", *params.Parameter3Name)
+	}
+	if params != nil && params.Parameter3Value != nil {
+		data.Set("Parameter3.Value", *params.Parameter3Value)
+	}
+	if params != nil && params.Parameter4Name != nil {
+		data.Set("Parameter4.Name", *params.Parameter4Name)
+	}
+	if params != nil && params.Parameter4Value != nil {
+		data.Set("Parameter4.Value", *params.Parameter4Value)
+	}
+	if params != nil && params.Parameter5Name != nil {
+		data.Set("Parameter5.Name", *params.Parameter5Name)
+	}
+	if params != nil && params.Parameter5Value != nil {
+		data.Set("Parameter5.Value", *params.Parameter5Value)
+	}
+	if params != nil && params.Parameter6Name != nil {
+		data.Set("Parameter6.Name", *params.Parameter6Name)
+	}
+	if params != nil && params.Parameter6Value != nil {
+		data.Set("Parameter6.Value", *params.Parameter6Value)
+	}
+	if params != nil && params.Parameter7Name != nil {
+		data.Set("Parameter7.Name", *params.Parameter7Name)
+	}
+	if params != nil && params.Parameter7Value != nil {
+		data.Set("Parameter7.Value", *params.Parameter7Value)
+	}
+	if params != nil && params.Parameter8Name != nil {
+		data.Set("Parameter8.Name", *params.Parameter8Name)
+	}
+	if params != nil && params.Parameter8Value != nil {
+		data.Set("Parameter8.Value", *params.Parameter8Value)
+	}
+	if params != nil && params.Parameter9Name != nil {
+		data.Set("Parameter9.Name", *params.Parameter9Name)
+	}
+	if params != nil && params.Parameter9Value != nil {
+		data.Set("Parameter9.Value", *params.Parameter9Value)
+	}
+	if params != nil && params.Parameter10Name != nil {
+		data.Set("Parameter10.Name", *params.Parameter10Name)
+	}
+	if params != nil && params.Parameter10Value != nil {
+		data.Set("Parameter10.Value", *params.Parameter10Value)
+	}
+	if params != nil && params.Parameter11Name != nil {
+		data.Set("Parameter11.Name", *params.Parameter11Name)
+	}
+	if params != nil && params.Parameter11Value != nil {
+		data.Set("Parameter11.Value", *params.Parameter11Value)
+	}
+	if params != nil && params.Parameter12Name != nil {
+		data.Set("Parameter12.Name", *params.Parameter12Name)
+	}
+	if params != nil && params.Parameter12Value != nil {
+		data.Set("Parameter12.Value", *params.Parameter12Value)
+	}
+	if params != nil && params.Parameter13Name != nil {
+		data.Set("Parameter13.Name", *params.Parameter13Name)
+	}
+	if params != nil && params.Parameter13Value != nil {
+		data.Set("Parameter13.Value", *params.Parameter13Value)
+	}
+	if params != nil && params.Parameter14Name != nil {
+		data.Set("Parameter14.Name", *params.Parameter14Name)
+	}
+	if params != nil && params.Parameter14Value != nil {
+		data.Set("Parameter14.Value", *params.Parameter14Value)
+	}
+	if params != nil && params.Parameter15Name != nil {
+		data.Set("Parameter15.Name", *params.Parameter15Name)
+	}
+	if params != nil && params.Parameter15Value != nil {
+		data.Set("Parameter15.Value", *params.Parameter15Value)
+	}
+	if params != nil && params.Parameter16Name != nil {
+		data.Set("Parameter16.Name", *params.Parameter16Name)
+	}
+	if params != nil && params.Parameter16Value != nil {
+		data.Set("Parameter16.Value", *params.Parameter16Value)
+	}
+	if params != nil && params.Parameter17Name != nil {
+		data.Set("Parameter17.Name", *params.Parameter17Name)
+	}
+	if params != nil && params.Parameter17Value != nil {
+		data.Set("Parameter17.Value", *params.Parameter17Value)
+	}
+	if params != nil && params.Parameter18Name != nil {
+		data.Set("Parameter18.Name", *params.Parameter18Name)
+	}
+	if params != nil && params.Parameter18Value != nil {
+		data.Set("Parameter18.Value", *params.Parameter18Value)
+	}
+	if params != nil && params.Parameter19Name != nil {
+		data.Set("Parameter19.Name", *params.Parameter19Name)
+	}
+	if params != nil && params.Parameter19Value != nil {
+		data.Set("Parameter19.Value", *params.Parameter19Value)
+	}
+	if params != nil && params.Parameter20Name != nil {
+		data.Set("Parameter20.Name", *params.Parameter20Name)
+	}
+	if params != nil && params.Parameter20Value != nil {
+		data.Set("Parameter20.Value", *params.Parameter20Value)
+	}
+	if params != nil && params.Parameter21Name != nil {
+		data.Set("Parameter21.Name", *params.Parameter21Name)
+	}
+	if params != nil && params.Parameter21Value != nil {
+		data.Set("Parameter21.Value", *params.Parameter21Value)
+	}
+	if params != nil && params.Parameter22Name != nil {
+		data.Set("Parameter22.Name", *params.Parameter22Name)
+	}
+	if params != nil && params.Parameter22Value != nil {
+		data.Set("Parameter22.Value", *params.Parameter22Value)
+	}
+	if params != nil && params.Parameter23Name != nil {
+		data.Set("Parameter23.Name", *params.Parameter23Name)
+	}
+	if params != nil && params.Parameter23Value != nil {
+		data.Set("Parameter23.Value", *params.Parameter23Value)
+	}
+	if params != nil && params.Parameter24Name != nil {
+		data.Set("Parameter24.Name", *params.Parameter24Name)
+	}
+	if params != nil && params.Parameter24Value != nil {
+		data.Set("Parameter24.Value", *params.Parameter24Value)
+	}
+	if params != nil && params.Parameter25Name != nil {
+		data.Set("Parameter25.Name", *params.Parameter25Name)
+	}
+	if params != nil && params.Parameter25Value != nil {
+		data.Set("Parameter25.Value", *params.Parameter25Value)
+	}
+	if params != nil && params.Parameter26Name != nil {
+		data.Set("Parameter26.Name", *params.Parameter26Name)
+	}
+	if params != nil && params.Parameter26Value != nil {
+		data.Set("Parameter26.Value", *params.Parameter26Value)
+	}
+	if params != nil && params.Parameter27Name != nil {
+		data.Set("Parameter27.Name", *params.Parameter27Name)
+	}
+	if params != nil && params.Parameter27Value != nil {
+		data.Set("Parameter27.Value", *params.Parameter27Value)
+	}
+	if params != nil && params.Parameter28Name != nil {
+		data.Set("Parameter28.Name", *params.Parameter28Name)
+	}
+	if params != nil && params.Parameter28Value != nil {
+		data.Set("Parameter28.Value", *params.Parameter28Value)
+	}
+	if params != nil && params.Parameter29Name != nil {
+		data.Set("Parameter29.Name", *params.Parameter29Name)
+	}
+	if params != nil && params.Parameter29Value != nil {
+		data.Set("Parameter29.Value", *params.Parameter29Value)
+	}
+	if params != nil && params.Parameter30Name != nil {
+		data.Set("Parameter30.Name", *params.Parameter30Name)
+	}
+	if params != nil && params.Parameter30Value != nil {
+		data.Set("Parameter30.Value", *params.Parameter30Value)
+	}
+	if params != nil && params.Parameter31Name != nil {
+		data.Set("Parameter31.Name", *params.Parameter31Name)
+	}
+	if params != nil && params.Parameter31Value != nil {
+		data.Set("Parameter31.Value", *params.Parameter31Value)
+	}
+	if params != nil && params.Parameter32Name != nil {
+		data.Set("Parameter32.Name", *params.Parameter32Name)
+	}
+	if params != nil && params.Parameter32Value != nil {
+		data.Set("Parameter32.Value", *params.Parameter32Value)
+	}
+	if params != nil && params.Parameter33Name != nil {
+		data.Set("Parameter33.Name", *params.Parameter33Name)
+	}
+	if params != nil && params.Parameter33Value != nil {
+		data.Set("Parameter33.Value", *params.Parameter33Value)
+	}
+	if params != nil && params.Parameter34Name != nil {
+		data.Set("Parameter34.Name", *params.Parameter34Name)
+	}
+	if params != nil && params.Parameter34Value != nil {
+		data.Set("Parameter34.Value", *params.Parameter34Value)
+	}
+	if params != nil && params.Parameter35Name != nil {
+		data.Set("Parameter35.Name", *params.Parameter35Name)
+	}
+	if params != nil && params.Parameter35Value != nil {
+		data.Set("Parameter35.Value", *params.Parameter35Value)
+	}
+	if params != nil && params.Parameter36Name != nil {
+		data.Set("Parameter36.Name", *params.Parameter36Name)
+	}
+	if params != nil && params.Parameter36Value != nil {
+		data.Set("Parameter36.Value", *params.Parameter36Value)
+	}
+	if params != nil && params.Parameter37Name != nil {
+		data.Set("Parameter37.Name", *params.Parameter37Name)
+	}
+	if params != nil && params.Parameter37Value != nil {
+		data.Set("Parameter37.Value", *params.Parameter37Value)
+	}
+	if params != nil && params.Parameter38Name != nil {
+		data.Set("Parameter38.Name", *params.Parameter38Name)
+	}
+	if params != nil && params.Parameter38Value != nil {
+		data.Set("Parameter38.Value", *params.Parameter38Value)
+	}
+	if params != nil && params.Parameter39Name != nil {
+		data.Set("Parameter39.Name", *params.Parameter39Name)
+	}
+	if params != nil && params.Parameter39Value != nil {
+		data.Set("Parameter39.Value", *params.Parameter39Value)
+	}
+	if params != nil && params.Parameter40Name != nil {
+		data.Set("Parameter40.Name", *params.Parameter40Name)
+	}
+	if params != nil && params.Parameter40Value != nil {
+		data.Set("Parameter40.Value", *params.Parameter40Value)
+	}
+	if params != nil && params.Parameter41Name != nil {
+		data.Set("Parameter41.Name", *params.Parameter41Name)
+	}
+	if params != nil && params.Parameter41Value != nil {
+		data.Set("Parameter41.Value", *params.Parameter41Value)
+	}
+	if params != nil && params.Parameter42Name != nil {
+		data.Set("Parameter42.Name", *params.Parameter42Name)
+	}
+	if params != nil && params.Parameter42Value != nil {
+		data.Set("Parameter42.Value", *params.Parameter42Value)
+	}
+	if params != nil && params.Parameter43Name != nil {
+		data.Set("Parameter43.Name", *params.Parameter43Name)
+	}
+	if params != nil && params.Parameter43Value != nil {
+		data.Set("Parameter43.Value", *params.Parameter43Value)
+	}
+	if params != nil && params.Parameter44Name != nil {
+		data.Set("Parameter44.Name", *params.Parameter44Name)
+	}
+	if params != nil && params.Parameter44Value != nil {
+		data.Set("Parameter44.Value", *params.Parameter44Value)
+	}
+	if params != nil && params.Parameter45Name != nil {
+		data.Set("Parameter45.Name", *params.Parameter45Name)
+	}
+	if params != nil && params.Parameter45Value != nil {
+		data.Set("Parameter45.Value", *params.Parameter45Value)
+	}
+	if params != nil && params.Parameter46Name != nil {
+		data.Set("Parameter46.Name", *params.Parameter46Name)
+	}
+	if params != nil && params.Parameter46Value != nil {
+		data.Set("Parameter46.Value", *params.Parameter46Value)
+	}
+	if params != nil && params.Parameter47Name != nil {
+		data.Set("Parameter47.Name", *params.Parameter47Name)
+	}
+	if params != nil && params.Parameter47Value != nil {
+		data.Set("Parameter47.Value", *params.Parameter47Value)
+	}
+	if params != nil && params.Parameter48Name != nil {
+		data.Set("Parameter48.Name", *params.Parameter48Name)
+	}
+	if params != nil && params.Parameter48Value != nil {
+		data.Set("Parameter48.Value", *params.Parameter48Value)
+	}
+	if params != nil && params.Parameter49Name != nil {
+		data.Set("Parameter49.Name", *params.Parameter49Name)
+	}
+	if params != nil && params.Parameter49Value != nil {
+		data.Set("Parameter49.Value", *params.Parameter49Value)
+	}
+	if params != nil && params.Parameter50Name != nil {
+		data.Set("Parameter50.Name", *params.Parameter50Name)
+	}
+	if params != nil && params.Parameter50Value != nil {
+		data.Set("Parameter50.Value", *params.Parameter50Value)
+	}
+	if params != nil && params.Parameter51Name != nil {
+		data.Set("Parameter51.Name", *params.Parameter51Name)
+	}
+	if params != nil && params.Parameter51Value != nil {
+		data.Set("Parameter51.Value", *params.Parameter51Value)
+	}
+	if params != nil && params.Parameter52Name != nil {
+		data.Set("Parameter52.Name", *params.Parameter52Name)
+	}
+	if params != nil && params.Parameter52Value != nil {
+		data.Set("Parameter52.Value", *params.Parameter52Value)
+	}
+	if params != nil && params.Parameter53Name != nil {
+		data.Set("Parameter53.Name", *params.Parameter53Name)
+	}
+	if params != nil && params.Parameter53Value != nil {
+		data.Set("Parameter53.Value", *params.Parameter53Value)
+	}
+	if params != nil && params.Parameter54Name != nil {
+		data.Set("Parameter54.Name", *params.Parameter54Name)
+	}
+	if params != nil && params.Parameter54Value != nil {
+		data.Set("Parameter54.Value", *params.Parameter54Value)
+	}
+	if params != nil && params.Parameter55Name != nil {
+		data.Set("Parameter55.Name", *params.Parameter55Name)
+	}
+	if params != nil && params.Parameter55Value != nil {
+		data.Set("Parameter55.Value", *params.Parameter55Value)
+	}
+	if params != nil && params.Parameter56Name != nil {
+		data.Set("Parameter56.Name", *params.Parameter56Name)
+	}
+	if params != nil && params.Parameter56Value != nil {
+		data.Set("Parameter56.Value", *params.Parameter56Value)
+	}
+	if params != nil && params.Parameter57Name != nil {
+		data.Set("Parameter57.Name", *params.Parameter57Name)
+	}
+	if params != nil && params.Parameter57Value != nil {
+		data.Set("Parameter57.Value", *params.Parameter57Value)
+	}
+	if params != nil && params.Parameter58Name != nil {
+		data.Set("Parameter58.Name", *params.Parameter58Name)
+	}
+	if params != nil && params.Parameter58Value != nil {
+		data.Set("Parameter58.Value", *params.Parameter58Value)
+	}
+	if params != nil && params.Parameter59Name != nil {
+		data.Set("Parameter59.Name", *params.Parameter59Name)
+	}
+	if params != nil && params.Parameter59Value != nil {
+		data.Set("Parameter59.Value", *params.Parameter59Value)
+	}
+	if params != nil && params.Parameter60Name != nil {
+		data.Set("Parameter60.Name", *params.Parameter60Name)
+	}
+	if params != nil && params.Parameter60Value != nil {
+		data.Set("Parameter60.Value", *params.Parameter60Value)
+	}
+	if params != nil && params.Parameter61Name != nil {
+		data.Set("Parameter61.Name", *params.Parameter61Name)
+	}
+	if params != nil && params.Parameter61Value != nil {
+		data.Set("Parameter61.Value", *params.Parameter61Value)
+	}
+	if params != nil && params.Parameter62Name != nil {
+		data.Set("Parameter62.Name", *params.Parameter62Name)
+	}
+	if params != nil && params.Parameter62Value != nil {
+		data.Set("Parameter62.Value", *params.Parameter62Value)
+	}
+	if params != nil && params.Parameter63Name != nil {
+		data.Set("Parameter63.Name", *params.Parameter63Name)
+	}
+	if params != nil && params.Parameter63Value != nil {
+		data.Set("Parameter63.Value", *params.Parameter63Value)
+	}
+	if params != nil && params.Parameter64Name != nil {
+		data.Set("Parameter64.Name", *params.Parameter64Name)
+	}
+	if params != nil && params.Parameter64Value != nil {
+		data.Set("Parameter64.Value", *params.Parameter64Value)
+	}
+	if params != nil && params.Parameter65Name != nil {
+		data.Set("Parameter65.Name", *params.Parameter65Name)
+	}
+	if params != nil && params.Parameter65Value != nil {
+		data.Set("Parameter65.Value", *params.Parameter65Value)
+	}
+	if params != nil && params.Parameter66Name != nil {
+		data.Set("Parameter66.Name", *params.Parameter66Name)
+	}
+	if params != nil && params.Parameter66Value != nil {
+		data.Set("Parameter66.Value", *params.Parameter66Value)
+	}
+	if params != nil && params.Parameter67Name != nil {
+		data.Set("Parameter67.Name", *params.Parameter67Name)
+	}
+	if params != nil && params.Parameter67Value != nil {
+		data.Set("Parameter67.Value", *params.Parameter67Value)
+	}
+	if params != nil && params.Parameter68Name != nil {
+		data.Set("Parameter68.Name", *params.Parameter68Name)
+	}
+	if params != nil && params.Parameter68Value != nil {
+		data.Set("Parameter68.Value", *params.Parameter68Value)
+	}
+	if params != nil && params.Parameter69Name != nil {
+		data.Set("Parameter69.Name", *params.Parameter69Name)
+	}
+	if params != nil && params.Parameter69Value != nil {
+		data.Set("Parameter69.Value", *params.Parameter69Value)
+	}
+	if params != nil && params.Parameter70Name != nil {
+		data.Set("Parameter70.Name", *params.Parameter70Name)
+	}
+	if params != nil && params.Parameter70Value != nil {
+		data.Set("Parameter70.Value", *params.Parameter70Value)
+	}
+	if params != nil && params.Parameter71Name != nil {
+		data.Set("Parameter71.Name", *params.Parameter71Name)
+	}
+	if params != nil && params.Parameter71Value != nil {
+		data.Set("Parameter71.Value", *params.Parameter71Value)
+	}
+	if params != nil && params.Parameter72Name != nil {
+		data.Set("Parameter72.Name", *params.Parameter72Name)
+	}
+	if params != nil && params.Parameter72Value != nil {
+		data.Set("Parameter72.Value", *params.Parameter72Value)
+	}
+	if params != nil && params.Parameter73Name != nil {
+		data.Set("Parameter73.Name", *params.Parameter73Name)
+	}
+	if params != nil && params.Parameter73Value != nil {
+		data.Set("Parameter73.Value", *params.Parameter73Value)
+	}
+	if params != nil && params.Parameter74Name != nil {
+		data.Set("Parameter74.Name", *params.Parameter74Name)
+	}
+	if params != nil && params.Parameter74Value != nil {
+		data.Set("Parameter74.Value", *params.Parameter74Value)
+	}
+	if params != nil && params.Parameter75Name != nil {
+		data.Set("Parameter75.Name", *params.Parameter75Name)
+	}
+	if params != nil && params.Parameter75Value != nil {
+		data.Set("Parameter75.Value", *params.Parameter75Value)
+	}
+	if params != nil && params.Parameter76Name != nil {
+		data.Set("Parameter76.Name", *params.Parameter76Name)
+	}
+	if params != nil && params.Parameter76Value != nil {
+		data.Set("Parameter76.Value", *params.Parameter76Value)
+	}
+	if params != nil && params.Parameter77Name != nil {
+		data.Set("Parameter77.Name", *params.Parameter77Name)
+	}
+	if params != nil && params.Parameter77Value != nil {
+		data.Set("Parameter77.Value", *params.Parameter77Value)
+	}
+	if params != nil && params.Parameter78Name != nil {
+		data.Set("Parameter78.Name", *params.Parameter78Name)
+	}
+	if params != nil && params.Parameter78Value != nil {
+		data.Set("Parameter78.Value", *params.Parameter78Value)
+	}
+	if params != nil && params.Parameter79Name != nil {
+		data.Set("Parameter79.Name", *params.Parameter79Name)
+	}
+	if params != nil && params.Parameter79Value != nil {
+		data.Set("Parameter79.Value", *params.Parameter79Value)
+	}
+	if params != nil && params.Parameter80Name != nil {
+		data.Set("Parameter80.Name", *params.Parameter80Name)
+	}
+	if params != nil && params.Parameter80Value != nil {
+		data.Set("Parameter80.Value", *params.Parameter80Value)
+	}
+	if params != nil && params.Parameter81Name != nil {
+		data.Set("Parameter81.Name", *params.Parameter81Name)
+	}
+	if params != nil && params.Parameter81Value != nil {
+		data.Set("Parameter81.Value", *params.Parameter81Value)
+	}
+	if params != nil && params.Parameter82Name != nil {
+		data.Set("Parameter82.Name", *params.Parameter82Name)
+	}
+	if params != nil && params.Parameter82Value != nil {
+		data.Set("Parameter82.Value", *params.Parameter82Value)
+	}
+	if params != nil && params.Parameter83Name != nil {
+		data.Set("Parameter83.Name", *params.Parameter83Name)
+	}
+	if params != nil && params.Parameter83Value != nil {
+		data.Set("Parameter83.Value", *params.Parameter83Value)
+	}
+	if params != nil && params.Parameter84Name != nil {
+		data.Set("Parameter84.Name", *params.Parameter84Name)
+	}
+	if params != nil && params.Parameter84Value != nil {
+		data.Set("Parameter84.Value", *params.Parameter84Value)
+	}
+	if params != nil && params.Parameter85Name != nil {
+		data.Set("Parameter85.Name", *params.Parameter85Name)
+	}
+	if params != nil && params.Parameter85Value != nil {
+		data.Set("Parameter85.Value", *params.Parameter85Value)
+	}
+	if params != nil && params.Parameter86Name != nil {
+		data.Set("Parameter86.Name", *params.Parameter86Name)
+	}
+	if params != nil && params.Parameter86Value != nil {
+		data.Set("Parameter86.Value", *params.Parameter86Value)
+	}
+	if params != nil && params.Parameter87Name != nil {
+		data.Set("Parameter87.Name", *params.Parameter87Name)
+	}
+	if params != nil && params.Parameter87Value != nil {
+		data.Set("Parameter87.Value", *params.Parameter87Value)
+	}
+	if params != nil && params.Parameter88Name != nil {
+		data.Set("Parameter88.Name", *params.Parameter88Name)
+	}
+	if params != nil && params.Parameter88Value != nil {
+		data.Set("Parameter88.Value", *params.Parameter88Value)
+	}
+	if params != nil && params.Parameter89Name != nil {
+		data.Set("Parameter89.Name", *params.Parameter89Name)
+	}
+	if params != nil && params.Parameter89Value != nil {
+		data.Set("Parameter89.Value", *params.Parameter89Value)
+	}
+	if params != nil && params.Parameter90Name != nil {
+		data.Set("Parameter90.Name", *params.Parameter90Name)
+	}
+	if params != nil && params.Parameter90Value != nil {
+		data.Set("Parameter90.Value", *params.Parameter90Value)
+	}
+	if params != nil && params.Parameter91Name != nil {
+		data.Set("Parameter91.Name", *params.Parameter91Name)
+	}
+	if params != nil && params.Parameter91Value != nil {
+		data.Set("Parameter91.Value", *params.Parameter91Value)
+	}
+	if params != nil && params.Parameter92Name != nil {
+		data.Set("Parameter92.Name", *params.Parameter92Name)
+	}
+	if params != nil && params.Parameter92Value != nil {
+		data.Set("Parameter92.Value", *params.Parameter92Value)
+	}
+	if params != nil && params.Parameter93Name != nil {
+		data.Set("Parameter93.Name", *params.Parameter93Name)
+	}
+	if params != nil && params.Parameter93Value != nil {
+		data.Set("Parameter93.Value", *params.Parameter93Value)
+	}
+	if params != nil && params.Parameter94Name != nil {
+		data.Set("Parameter94.Name", *params.Parameter94Name)
+	}
+	if params != nil && params.Parameter94Value != nil {
+		data.Set("Parameter94.Value", *params.Parameter94Value)
+	}
+	if params != nil && params.Parameter95Name != nil {
+		data.Set("Parameter95.Name", *params.Parameter95Name)
+	}
+	if params != nil && params.Parameter95Value != nil {
+		data.Set("Parameter95.Value", *params.Parameter95Value)
+	}
+	if params != nil && params.Parameter96Name != nil {
+		data.Set("Parameter96.Name", *params.Parameter96Name)
+	}
+	if params != nil && params.Parameter96Value != nil {
+		data.Set("Parameter96.Value", *params.Parameter96Value)
+	}
+	if params != nil && params.Parameter97Name != nil {
+		data.Set("Parameter97.Name", *params.Parameter97Name)
+	}
+	if params != nil && params.Parameter97Value != nil {
+		data.Set("Parameter97.Value", *params.Parameter97Value)
+	}
+	if params != nil && params.Parameter98Name != nil {
+		data.Set("Parameter98.Name", *params.Parameter98Name)
+	}
+	if params != nil && params.Parameter98Value != nil {
+		data.Set("Parameter98.Value", *params.Parameter98Value)
+	}
+	if params != nil && params.Parameter99Name != nil {
+		data.Set("Parameter99.Name", *params.Parameter99Name)
+	}
+	if params != nil && params.Parameter99Value != nil {
+		data.Set("Parameter99.Value", *params.Parameter99Value)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Siprec{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Siprec](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdateSiprec'
 type UpdateSiprecParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
@@ -1940,4 +2588,45 @@ func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSipr
 	}
 
 	return ps, err
+}
+
+// UpdateSiprecWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSiprecWithMetadata(CallSid string, Sid string, params *UpdateSiprecParams) (*metadata.ResourceMetadata[ApiV2010Siprec], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Siprec{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Siprec](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchShortCode'
@@ -62,6 +63,42 @@ func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*
 	}
 
 	return ps, err
+}
+
+// FetchShortCodeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchShortCodeWithMetadata(Sid string, params *FetchShortCodeParams) (*metadata.ResourceMetadata[ApiV2010ShortCode], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010ShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010ShortCode](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListShortCode'
@@ -146,6 +183,59 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageN
 	return ps, err
 }
 
+// PageShortCodeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageShortCodeWithMetadata(params *ListShortCodeParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListShortCodeResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ShortCode != nil {
+		data.Set("ShortCode", *params.ShortCode)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListShortCodeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListShortCodeResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010ShortCode, error) {
 	response, errors := c.StreamShortCode(params)
@@ -160,6 +250,29 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010Short
 	}
 
 	return records, nil
+}
+
+// ListShortCodeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListShortCodeWithMetadata(params *ListShortCodeParams) (*metadata.ResourceMetadata[[]ApiV2010ShortCode], error) {
+	response, errors := c.StreamShortCodeWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010ShortCode, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010ShortCode](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -182,6 +295,35 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamShortCodeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamShortCodeWithMetadata(params *ListShortCodeParams) (*metadata.ResourceMetadata[chan ApiV2010ShortCode], chan error) {
+	if params == nil {
+		params = &ListShortCodeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010ShortCode, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageShortCodeWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamShortCode(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010ShortCode](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamShortCode(response *ListShortCodeResponse, params *ListShortCodeParams, recordChannel chan ApiV2010ShortCode, errorChannel chan error) {
@@ -326,4 +468,59 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 	}
 
 	return ps, err
+}
+
+// UpdateShortCodeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateShortCodeWithMetadata(Sid string, params *UpdateShortCodeParams) (*metadata.ResourceMetadata[ApiV2010ShortCode], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010ShortCode{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010ShortCode](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

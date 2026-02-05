@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Get knowledge status
@@ -43,4 +45,35 @@ func (c *ApiService) FetchKnowledgeStatus(Id string) (*KnowledgeV1KnowledgeStatu
 	}
 
 	return ps, err
+}
+
+// FetchKnowledgeStatusWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchKnowledgeStatusWithMetadata(Id string) (*metadata.ResourceMetadata[KnowledgeV1KnowledgeStatus], error) {
+	path := "/v1/Knowledge/{id}/Status"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &KnowledgeV1KnowledgeStatus{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[KnowledgeV1KnowledgeStatus](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

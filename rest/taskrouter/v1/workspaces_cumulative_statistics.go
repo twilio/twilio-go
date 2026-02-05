@@ -20,6 +20,8 @@ import (
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchWorkspaceCumulativeStatistics'
@@ -96,4 +98,51 @@ func (c *ApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, par
 	}
 
 	return ps, err
+}
+
+// FetchWorkspaceCumulativeStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWorkspaceCumulativeStatisticsWithMetadata(WorkspaceSid string, params *FetchWorkspaceCumulativeStatisticsParams) (*metadata.ResourceMetadata[TaskrouterV1WorkspaceCumulativeStatistics], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.Minutes != nil {
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+	if params != nil && params.SplitByWaitTime != nil {
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1WorkspaceCumulativeStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1WorkspaceCumulativeStatistics](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

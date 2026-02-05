@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchMessagingGeopermissions'
@@ -56,6 +58,40 @@ func (c *ApiService) FetchMessagingGeopermissions(params *FetchMessagingGeopermi
 	}
 
 	return ps, err
+}
+
+// FetchMessagingGeopermissionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessagingGeopermissionsWithMetadata(params *FetchMessagingGeopermissionsParams) (*metadata.ResourceMetadata[AccountsV1MessagingGeopermissions], error) {
+	path := "/v1/Messaging/GeoPermissions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1MessagingGeopermissions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1MessagingGeopermissions](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateMessagingGeopermissions'
@@ -103,4 +139,46 @@ func (c *ApiService) UpdateMessagingGeopermissions(params *UpdateMessagingGeoper
 	}
 
 	return ps, err
+}
+
+// UpdateMessagingGeopermissionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateMessagingGeopermissionsWithMetadata(params *UpdateMessagingGeopermissionsParams) (*metadata.ResourceMetadata[AccountsV1MessagingGeopermissions], error) {
+	path := "/v1/Messaging/GeoPermissions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Permissions != nil {
+		for _, item := range *params.Permissions {
+			v, err := json.Marshal(item)
+
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Permissions", string(v))
+		}
+	}
+
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AccountsV1MessagingGeopermissions{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AccountsV1MessagingGeopermissions](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

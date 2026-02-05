@@ -1,0 +1,11 @@
+# CreateInstanceRequestBodyConversation
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Default** | **bool** | Set newly created conversation service as the default conversation service |[optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

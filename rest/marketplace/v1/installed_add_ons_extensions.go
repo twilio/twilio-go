@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch an instance of an Extension for the Installed Add-on.
@@ -47,6 +48,38 @@ func (c *ApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid 
 	}
 
 	return ps, err
+}
+
+// FetchInstalledAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInstalledAddOnExtensionWithMetadata(InstalledAddOnSid string, Sid string) (*metadata.ResourceMetadata[MarketplaceV1InstalledAddOnExtension], error) {
+	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1InstalledAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1InstalledAddOnExtension](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInstalledAddOnExtension'
@@ -103,6 +136,49 @@ func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, param
 	return ps, err
 }
 
+// PageInstalledAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInstalledAddOnExtensionWithMetadata(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInstalledAddOnExtensionResponse], error) {
+	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions"
+
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInstalledAddOnExtensionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInstalledAddOnExtensionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InstalledAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) ([]MarketplaceV1InstalledAddOnExtension, error) {
 	response, errors := c.StreamInstalledAddOnExtension(InstalledAddOnSid, params)
@@ -117,6 +193,29 @@ func (c *ApiService) ListInstalledAddOnExtension(InstalledAddOnSid string, param
 	}
 
 	return records, nil
+}
+
+// ListInstalledAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInstalledAddOnExtensionWithMetadata(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (*metadata.ResourceMetadata[[]MarketplaceV1InstalledAddOnExtension], error) {
+	response, errors := c.StreamInstalledAddOnExtensionWithMetadata(InstalledAddOnSid, params)
+	resource := response.GetResource()
+
+	records := make([]MarketplaceV1InstalledAddOnExtension, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MarketplaceV1InstalledAddOnExtension](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InstalledAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -139,6 +238,35 @@ func (c *ApiService) StreamInstalledAddOnExtension(InstalledAddOnSid string, par
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInstalledAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInstalledAddOnExtensionWithMetadata(InstalledAddOnSid string, params *ListInstalledAddOnExtensionParams) (*metadata.ResourceMetadata[chan MarketplaceV1InstalledAddOnExtension], chan error) {
+	if params == nil {
+		params = &ListInstalledAddOnExtensionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MarketplaceV1InstalledAddOnExtension, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInstalledAddOnExtensionWithMetadata(InstalledAddOnSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInstalledAddOnExtension(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MarketplaceV1InstalledAddOnExtension](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInstalledAddOnExtension(response *ListInstalledAddOnExtensionResponse, params *ListInstalledAddOnExtensionParams, recordChannel chan MarketplaceV1InstalledAddOnExtension, errorChannel chan error) {
@@ -228,4 +356,40 @@ func (c *ApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid
 	}
 
 	return ps, err
+}
+
+// UpdateInstalledAddOnExtensionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInstalledAddOnExtensionWithMetadata(InstalledAddOnSid string, Sid string, params *UpdateInstalledAddOnExtensionParams) (*metadata.ResourceMetadata[MarketplaceV1InstalledAddOnExtension], error) {
+	path := "/v1/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}"
+	path = strings.Replace(path, "{"+"InstalledAddOnSid"+"}", InstalledAddOnSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1InstalledAddOnExtension{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1InstalledAddOnExtension](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

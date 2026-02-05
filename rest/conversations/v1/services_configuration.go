@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch the configuration of a conversation service
@@ -44,6 +46,37 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*Conversa
 	}
 
 	return ps, err
+}
+
+// FetchServiceConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceConfigurationWithMetadata(ChatServiceSid string) (*metadata.ResourceMetadata[ConversationsV1ServiceConfiguration], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateServiceConfiguration'
@@ -111,4 +144,48 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 	}
 
 	return ps, err
+}
+
+// UpdateServiceConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceConfigurationWithMetadata(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*metadata.ResourceMetadata[ConversationsV1ServiceConfiguration], error) {
+	path := "/v1/Services/{ChatServiceSid}/Configuration"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DefaultConversationCreatorRoleSid != nil {
+		data.Set("DefaultConversationCreatorRoleSid", *params.DefaultConversationCreatorRoleSid)
+	}
+	if params != nil && params.DefaultConversationRoleSid != nil {
+		data.Set("DefaultConversationRoleSid", *params.DefaultConversationRoleSid)
+	}
+	if params != nil && params.DefaultChatServiceRoleSid != nil {
+		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
+	}
+	if params != nil && params.ReachabilityEnabled != nil {
+		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

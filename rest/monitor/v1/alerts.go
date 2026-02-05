@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -47,6 +48,37 @@ func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
 	}
 
 	return ps, err
+}
+
+// FetchAlertWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAlertWithMetadata(Sid string) (*metadata.ResourceMetadata[MonitorV1AlertInstance], error) {
+	path := "/v1/Alerts/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MonitorV1AlertInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MonitorV1AlertInstance](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAlert'
@@ -128,6 +160,56 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageAlertWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAlertWithMetadata(params *ListAlertParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAlertResponse], error) {
+	path := "/v1/Alerts"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.LogLevel != nil {
+		data.Set("LogLevel", *params.LogLevel)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAlertResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAlertResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error) {
 	response, errors := c.StreamAlert(params)
@@ -142,6 +224,29 @@ func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error
 	}
 
 	return records, nil
+}
+
+// ListAlertWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAlertWithMetadata(params *ListAlertParams) (*metadata.ResourceMetadata[[]MonitorV1Alert], error) {
+	response, errors := c.StreamAlertWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MonitorV1Alert, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MonitorV1Alert](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -164,6 +269,35 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAlertWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAlertWithMetadata(params *ListAlertParams) (*metadata.ResourceMetadata[chan MonitorV1Alert], chan error) {
+	if params == nil {
+		params = &ListAlertParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MonitorV1Alert, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAlertWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAlert(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MonitorV1Alert](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAlert(response *ListAlertResponse, params *ListAlertParams, recordChannel chan MonitorV1Alert, errorChannel chan error) {

@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'UpdateChallengePasskeys'
@@ -63,4 +65,44 @@ func (c *ApiService) UpdateChallengePasskeys(ServiceSid string, params *UpdateCh
 	}
 
 	return ps, err
+}
+
+// UpdateChallengePasskeysWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateChallengePasskeysWithMetadata(ServiceSid string, params *UpdateChallengePasskeysParams) (*metadata.ResourceMetadata[CreateChallengePasskeysResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Passkeys/ApproveChallenge"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ApprovePasskeysChallengeRequest != nil {
+		b, err := json.Marshal(*params.ApprovePasskeysChallengeRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CreateChallengePasskeysResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[CreateChallengePasskeysResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

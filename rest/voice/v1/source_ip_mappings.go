@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSourceIpMapping'
@@ -71,6 +72,43 @@ func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) 
 	return ps, err
 }
 
+// CreateSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSourceIpMappingWithMetadata(params *CreateSourceIpMappingParams) (*metadata.ResourceMetadata[VoiceV1SourceIpMapping], error) {
+	path := "/v1/SourceIpMappings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IpRecordSid != nil {
+		data.Set("IpRecordSid", *params.IpRecordSid)
+	}
+	if params != nil && params.SipDomainSid != nil {
+		data.Set("SipDomainSid", *params.SipDomainSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1SourceIpMapping](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
@@ -89,6 +127,32 @@ func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSourceIpMappingWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -114,6 +178,37 @@ func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, 
 	}
 
 	return ps, err
+}
+
+// FetchSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSourceIpMappingWithMetadata(Sid string) (*metadata.ResourceMetadata[VoiceV1SourceIpMapping], error) {
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1SourceIpMapping](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSourceIpMapping'
@@ -168,6 +263,47 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 	return ps, err
 }
 
+// PageSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSourceIpMappingWithMetadata(params *ListSourceIpMappingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSourceIpMappingResponse], error) {
+	path := "/v1/SourceIpMappings"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSourceIpMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSourceIpMappingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
 	response, errors := c.StreamSourceIpMapping(params)
@@ -182,6 +318,29 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]V
 	}
 
 	return records, nil
+}
+
+// ListSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSourceIpMappingWithMetadata(params *ListSourceIpMappingParams) (*metadata.ResourceMetadata[[]VoiceV1SourceIpMapping], error) {
+	response, errors := c.StreamSourceIpMappingWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV1SourceIpMapping, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV1SourceIpMapping](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -204,6 +363,35 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (c
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSourceIpMappingWithMetadata(params *ListSourceIpMappingParams) (*metadata.ResourceMetadata[chan VoiceV1SourceIpMapping], chan error) {
+	if params == nil {
+		params = &ListSourceIpMappingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV1SourceIpMapping, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSourceIpMappingWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSourceIpMapping(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV1SourceIpMapping](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSourceIpMapping(response *ListSourceIpMappingResponse, params *ListSourceIpMappingParams, recordChannel chan VoiceV1SourceIpMapping, errorChannel chan error) {
@@ -292,4 +480,39 @@ func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMap
 	}
 
 	return ps, err
+}
+
+// UpdateSourceIpMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSourceIpMappingWithMetadata(Sid string, params *UpdateSourceIpMappingParams) (*metadata.ResourceMetadata[VoiceV1SourceIpMapping], error) {
+	path := "/v1/SourceIpMappings/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SipDomainSid != nil {
+		data.Set("SipDomainSid", *params.SipDomainSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1SourceIpMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1SourceIpMapping](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

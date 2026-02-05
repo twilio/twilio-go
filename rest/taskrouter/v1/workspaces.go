@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateWorkspace'
@@ -107,6 +108,55 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 	return ps, err
 }
 
+// CreateWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateWorkspaceWithMetadata(params *CreateWorkspaceParams) (*metadata.ResourceMetadata[TaskrouterV1Workspace], error) {
+	path := "/v1/Workspaces"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EventCallbackUrl != nil {
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+	}
+	if params != nil && params.EventsFilter != nil {
+		data.Set("EventsFilter", *params.EventsFilter)
+	}
+	if params != nil && params.MultiTaskEnabled != nil {
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
+	}
+	if params != nil && params.Template != nil {
+		data.Set("Template", *params.Template)
+	}
+	if params != nil && params.PrioritizeQueueOrder != nil {
+		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workspace{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workspace](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteWorkspace(Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
@@ -125,6 +175,32 @@ func (c *ApiService) DeleteWorkspace(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteWorkspaceWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Workspaces/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -150,6 +226,37 @@ func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) 
 	}
 
 	return ps, err
+}
+
+// FetchWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWorkspaceWithMetadata(Sid string) (*metadata.ResourceMetadata[TaskrouterV1Workspace], error) {
+	path := "/v1/Workspaces/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workspace{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workspace](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListWorkspace'
@@ -213,6 +320,50 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
 	return ps, err
 }
 
+// PageWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageWorkspaceWithMetadata(params *ListWorkspaceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListWorkspaceResponse], error) {
+	path := "/v1/Workspaces"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkspaceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListWorkspaceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Workspace records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) ([]TaskrouterV1Workspace, error) {
 	response, errors := c.StreamWorkspace(params)
@@ -227,6 +378,29 @@ func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) ([]TaskrouterV1W
 	}
 
 	return records, nil
+}
+
+// ListWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListWorkspaceWithMetadata(params *ListWorkspaceParams) (*metadata.ResourceMetadata[[]TaskrouterV1Workspace], error) {
+	response, errors := c.StreamWorkspaceWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1Workspace, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1Workspace](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Workspace records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -249,6 +423,35 @@ func (c *ApiService) StreamWorkspace(params *ListWorkspaceParams) (chan Taskrout
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamWorkspaceWithMetadata(params *ListWorkspaceParams) (*metadata.ResourceMetadata[chan TaskrouterV1Workspace], chan error) {
+	if params == nil {
+		params = &ListWorkspaceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1Workspace, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageWorkspaceWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamWorkspace(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1Workspace](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamWorkspace(response *ListWorkspaceResponse, params *ListWorkspaceParams, recordChannel chan TaskrouterV1Workspace, errorChannel chan error) {
@@ -391,4 +594,57 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 	}
 
 	return ps, err
+}
+
+// UpdateWorkspaceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateWorkspaceWithMetadata(Sid string, params *UpdateWorkspaceParams) (*metadata.ResourceMetadata[TaskrouterV1Workspace], error) {
+	path := "/v1/Workspaces/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DefaultActivitySid != nil {
+		data.Set("DefaultActivitySid", *params.DefaultActivitySid)
+	}
+	if params != nil && params.EventCallbackUrl != nil {
+		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
+	}
+	if params != nil && params.EventsFilter != nil {
+		data.Set("EventsFilter", *params.EventsFilter)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.MultiTaskEnabled != nil {
+		data.Set("MultiTaskEnabled", fmt.Sprint(*params.MultiTaskEnabled))
+	}
+	if params != nil && params.TimeoutActivitySid != nil {
+		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
+	}
+	if params != nil && params.PrioritizeQueueOrder != nil {
+		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workspace{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workspace](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

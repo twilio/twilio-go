@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListPortInRequests'
@@ -128,6 +129,65 @@ func (c *ApiService) PagePortInRequests(params *ListPortInRequestsParams, pageTo
 	return ps, err
 }
 
+// PagePortInRequestsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PagePortInRequestsWithMetadata(params *ListPortInRequestsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListPortInRequestsResponse], error) {
+	path := "/v1/Porting/PortIn/PortInRequests"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Token != nil {
+		data.Set("Token", *params.Token)
+	}
+	if params != nil && params.Size != nil {
+		data.Set("Size", fmt.Sprint(*params.Size))
+	}
+	if params != nil && params.PortInRequestSid != nil {
+		data.Set("PortInRequestSid", *params.PortInRequestSid)
+	}
+	if params != nil && params.PortInRequestStatus != nil {
+		data.Set("PortInRequestStatus", *params.PortInRequestStatus)
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("CreatedBefore", *params.CreatedBefore)
+	}
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("CreatedAfter", *params.CreatedAfter)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPortInRequestsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListPortInRequestsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists PortInRequests records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPortInRequests(params *ListPortInRequestsParams) ([]NumbersV1PortInRequestList, error) {
 	response, errors := c.StreamPortInRequests(params)
@@ -142,6 +202,29 @@ func (c *ApiService) ListPortInRequests(params *ListPortInRequestsParams) ([]Num
 	}
 
 	return records, nil
+}
+
+// ListPortInRequestsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListPortInRequestsWithMetadata(params *ListPortInRequestsParams) (*metadata.ResourceMetadata[[]NumbersV1PortInRequestList], error) {
+	response, errors := c.StreamPortInRequestsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV1PortInRequestList, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV1PortInRequestList](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams PortInRequests records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -164,6 +247,35 @@ func (c *ApiService) StreamPortInRequests(params *ListPortInRequestsParams) (cha
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamPortInRequestsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamPortInRequestsWithMetadata(params *ListPortInRequestsParams) (*metadata.ResourceMetadata[chan NumbersV1PortInRequestList], chan error) {
+	if params == nil {
+		params = &ListPortInRequestsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV1PortInRequestList, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PagePortInRequestsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamPortInRequests(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV1PortInRequestList](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamPortInRequests(response *ListPortInRequestsResponse, params *ListPortInRequestsParams, recordChannel chan NumbersV1PortInRequestList, errorChannel chan error) {

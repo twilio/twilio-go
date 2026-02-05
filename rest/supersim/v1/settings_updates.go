@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListSettingsUpdate'
@@ -92,6 +93,53 @@ func (c *ApiService) PageSettingsUpdate(params *ListSettingsUpdateParams, pageTo
 	return ps, err
 }
 
+// PageSettingsUpdateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSettingsUpdateWithMetadata(params *ListSettingsUpdateParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSettingsUpdateResponse], error) {
+	path := "/v1/SettingsUpdates"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSettingsUpdateResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSettingsUpdateResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SettingsUpdate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSettingsUpdate(params *ListSettingsUpdateParams) ([]SupersimV1SettingsUpdate, error) {
 	response, errors := c.StreamSettingsUpdate(params)
@@ -106,6 +154,29 @@ func (c *ApiService) ListSettingsUpdate(params *ListSettingsUpdateParams) ([]Sup
 	}
 
 	return records, nil
+}
+
+// ListSettingsUpdateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSettingsUpdateWithMetadata(params *ListSettingsUpdateParams) (*metadata.ResourceMetadata[[]SupersimV1SettingsUpdate], error) {
+	response, errors := c.StreamSettingsUpdateWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]SupersimV1SettingsUpdate, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]SupersimV1SettingsUpdate](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SettingsUpdate records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -128,6 +199,35 @@ func (c *ApiService) StreamSettingsUpdate(params *ListSettingsUpdateParams) (cha
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSettingsUpdateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSettingsUpdateWithMetadata(params *ListSettingsUpdateParams) (*metadata.ResourceMetadata[chan SupersimV1SettingsUpdate], chan error) {
+	if params == nil {
+		params = &ListSettingsUpdateParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan SupersimV1SettingsUpdate, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSettingsUpdateWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSettingsUpdate(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan SupersimV1SettingsUpdate](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSettingsUpdate(response *ListSettingsUpdateResponse, params *ListSettingsUpdateParams, recordChannel chan SupersimV1SettingsUpdate, errorChannel chan error) {

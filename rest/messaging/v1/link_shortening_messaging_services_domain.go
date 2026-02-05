@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -43,4 +45,35 @@ func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(Messag
 	}
 
 	return ps, err
+}
+
+// FetchLinkshorteningMessagingServiceDomainAssociationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociationWithMetadata(MessagingServiceSid string) (*metadata.ResourceMetadata[MessagingV1LinkshorteningMessagingServiceDomainAssociation], error) {
+	path := "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1LinkshorteningMessagingServiceDomainAssociation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1LinkshorteningMessagingServiceDomainAssociation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

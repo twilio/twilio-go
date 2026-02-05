@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateChannelWebhook'
@@ -122,6 +123,64 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
+// CreateChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*metadata.ResourceMetadata[IpMessagingV2ChannelWebhook], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Type != nil {
+		data.Set("Type", fmt.Sprint(*params.Type))
+	}
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	}
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
+	}
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
+	}
+	if params != nil && params.ConfigurationTriggers != nil {
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
+	}
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	}
+	if params != nil && params.ConfigurationRetryCount != nil {
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2ChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2ChannelWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
@@ -142,6 +201,34 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -169,6 +256,39 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[IpMessagingV2ChannelWebhook], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2ChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2ChannelWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListChannelWebhook'
@@ -226,6 +346,50 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 	return ps, err
 }
 
+// PageChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListChannelWebhookResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListChannelWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListChannelWebhookResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]IpMessagingV2ChannelWebhook, error) {
 	response, errors := c.StreamChannelWebhook(ServiceSid, ChannelSid, params)
@@ -240,6 +404,29 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (*metadata.ResourceMetadata[[]IpMessagingV2ChannelWebhook], error) {
+	response, errors := c.StreamChannelWebhookWithMetadata(ServiceSid, ChannelSid, params)
+	resource := response.GetResource()
+
+	records := make([]IpMessagingV2ChannelWebhook, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IpMessagingV2ChannelWebhook](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -262,6 +449,35 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (*metadata.ResourceMetadata[chan IpMessagingV2ChannelWebhook], chan error) {
+	if params == nil {
+		params = &ListChannelWebhookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IpMessagingV2ChannelWebhook, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageChannelWebhookWithMetadata(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamChannelWebhook(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IpMessagingV2ChannelWebhook](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamChannelWebhook(response *ListChannelWebhookResponse, params *ListChannelWebhookParams, recordChannel chan IpMessagingV2ChannelWebhook, errorChannel chan error) {
@@ -401,4 +617,60 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 	}
 
 	return ps, err
+}
+
+// UpdateChannelWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateChannelWebhookWithMetadata(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*metadata.ResourceMetadata[IpMessagingV2ChannelWebhook], error) {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ConfigurationUrl != nil {
+		data.Set("Configuration.Url", *params.ConfigurationUrl)
+	}
+	if params != nil && params.ConfigurationMethod != nil {
+		data.Set("Configuration.Method", fmt.Sprint(*params.ConfigurationMethod))
+	}
+	if params != nil && params.ConfigurationFilters != nil {
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
+	}
+	if params != nil && params.ConfigurationTriggers != nil {
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
+	}
+	if params != nil && params.ConfigurationFlowSid != nil {
+		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
+	}
+	if params != nil && params.ConfigurationRetryCount != nil {
+		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV2ChannelWebhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV2ChannelWebhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

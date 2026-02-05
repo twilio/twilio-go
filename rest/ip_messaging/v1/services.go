@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -62,6 +63,40 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1S
 	return ps, err
 }
 
+// CreateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateServiceWithMetadata(params *CreateServiceParams) (*metadata.ResourceMetadata[IpMessagingV1Service], error) {
+	path := "/v1/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
@@ -80,6 +115,32 @@ func (c *ApiService) DeleteService(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -105,6 +166,37 @@ func (c *ApiService) FetchService(Sid string) (*IpMessagingV1Service, error) {
 	}
 
 	return ps, err
+}
+
+// FetchServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceWithMetadata(Sid string) (*metadata.ResourceMetadata[IpMessagingV1Service], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListService'
@@ -159,6 +251,47 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceWithMetadata(params *ListServiceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceResponse], error) {
+	path := "/v1/Services"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]IpMessagingV1Service, error) {
 	response, errors := c.StreamService(params)
@@ -173,6 +306,29 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]IpMessagingV1Serv
 	}
 
 	return records, nil
+}
+
+// ListServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[[]IpMessagingV1Service], error) {
+	response, errors := c.StreamServiceWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]IpMessagingV1Service, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IpMessagingV1Service](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -195,6 +351,35 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan IpMessagingV
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceWithMetadata(params *ListServiceParams) (*metadata.ResourceMetadata[chan IpMessagingV1Service], chan error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IpMessagingV1Service, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamService(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IpMessagingV1Service](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamService(response *ListServiceResponse, params *ListServiceParams, recordChannel chan IpMessagingV1Service, errorChannel chan error) {
@@ -762,4 +947,200 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 	}
 
 	return ps, err
+}
+
+// UpdateServiceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateServiceWithMetadata(Sid string, params *UpdateServiceParams) (*metadata.ResourceMetadata[IpMessagingV1Service], error) {
+	path := "/v1/Services/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.DefaultServiceRoleSid != nil {
+		data.Set("DefaultServiceRoleSid", *params.DefaultServiceRoleSid)
+	}
+	if params != nil && params.DefaultChannelRoleSid != nil {
+		data.Set("DefaultChannelRoleSid", *params.DefaultChannelRoleSid)
+	}
+	if params != nil && params.DefaultChannelCreatorRoleSid != nil {
+		data.Set("DefaultChannelCreatorRoleSid", *params.DefaultChannelCreatorRoleSid)
+	}
+	if params != nil && params.ReadStatusEnabled != nil {
+		data.Set("ReadStatusEnabled", fmt.Sprint(*params.ReadStatusEnabled))
+	}
+	if params != nil && params.ReachabilityEnabled != nil {
+		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
+	}
+	if params != nil && params.TypingIndicatorTimeout != nil {
+		data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
+	}
+	if params != nil && params.ConsumptionReportInterval != nil {
+		data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
+	}
+	if params != nil && params.NotificationsNewMessageEnabled != nil {
+		data.Set("Notifications.NewMessage.Enabled", fmt.Sprint(*params.NotificationsNewMessageEnabled))
+	}
+	if params != nil && params.NotificationsNewMessageTemplate != nil {
+		data.Set("Notifications.NewMessage.Template", *params.NotificationsNewMessageTemplate)
+	}
+	if params != nil && params.NotificationsAddedToChannelEnabled != nil {
+		data.Set("Notifications.AddedToChannel.Enabled", fmt.Sprint(*params.NotificationsAddedToChannelEnabled))
+	}
+	if params != nil && params.NotificationsAddedToChannelTemplate != nil {
+		data.Set("Notifications.AddedToChannel.Template", *params.NotificationsAddedToChannelTemplate)
+	}
+	if params != nil && params.NotificationsRemovedFromChannelEnabled != nil {
+		data.Set("Notifications.RemovedFromChannel.Enabled", fmt.Sprint(*params.NotificationsRemovedFromChannelEnabled))
+	}
+	if params != nil && params.NotificationsRemovedFromChannelTemplate != nil {
+		data.Set("Notifications.RemovedFromChannel.Template", *params.NotificationsRemovedFromChannelTemplate)
+	}
+	if params != nil && params.NotificationsInvitedToChannelEnabled != nil {
+		data.Set("Notifications.InvitedToChannel.Enabled", fmt.Sprint(*params.NotificationsInvitedToChannelEnabled))
+	}
+	if params != nil && params.NotificationsInvitedToChannelTemplate != nil {
+		data.Set("Notifications.InvitedToChannel.Template", *params.NotificationsInvitedToChannelTemplate)
+	}
+	if params != nil && params.PreWebhookUrl != nil {
+		data.Set("PreWebhookUrl", *params.PreWebhookUrl)
+	}
+	if params != nil && params.PostWebhookUrl != nil {
+		data.Set("PostWebhookUrl", *params.PostWebhookUrl)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.WebhookFilters != nil {
+		for _, item := range *params.WebhookFilters {
+			data.Add("WebhookFilters", item)
+		}
+	}
+	if params != nil && params.WebhooksOnMessageSendUrl != nil {
+		data.Set("Webhooks.OnMessageSend.Url", *params.WebhooksOnMessageSendUrl)
+	}
+	if params != nil && params.WebhooksOnMessageSendMethod != nil {
+		data.Set("Webhooks.OnMessageSend.Method", *params.WebhooksOnMessageSendMethod)
+	}
+	if params != nil && params.WebhooksOnMessageUpdateUrl != nil {
+		data.Set("Webhooks.OnMessageUpdate.Url", *params.WebhooksOnMessageUpdateUrl)
+	}
+	if params != nil && params.WebhooksOnMessageUpdateMethod != nil {
+		data.Set("Webhooks.OnMessageUpdate.Method", *params.WebhooksOnMessageUpdateMethod)
+	}
+	if params != nil && params.WebhooksOnMessageRemoveUrl != nil {
+		data.Set("Webhooks.OnMessageRemove.Url", *params.WebhooksOnMessageRemoveUrl)
+	}
+	if params != nil && params.WebhooksOnMessageRemoveMethod != nil {
+		data.Set("Webhooks.OnMessageRemove.Method", *params.WebhooksOnMessageRemoveMethod)
+	}
+	if params != nil && params.WebhooksOnChannelAddUrl != nil {
+		data.Set("Webhooks.OnChannelAdd.Url", *params.WebhooksOnChannelAddUrl)
+	}
+	if params != nil && params.WebhooksOnChannelAddMethod != nil {
+		data.Set("Webhooks.OnChannelAdd.Method", *params.WebhooksOnChannelAddMethod)
+	}
+	if params != nil && params.WebhooksOnChannelDestroyUrl != nil {
+		data.Set("Webhooks.OnChannelDestroy.Url", *params.WebhooksOnChannelDestroyUrl)
+	}
+	if params != nil && params.WebhooksOnChannelDestroyMethod != nil {
+		data.Set("Webhooks.OnChannelDestroy.Method", *params.WebhooksOnChannelDestroyMethod)
+	}
+	if params != nil && params.WebhooksOnChannelUpdateUrl != nil {
+		data.Set("Webhooks.OnChannelUpdate.Url", *params.WebhooksOnChannelUpdateUrl)
+	}
+	if params != nil && params.WebhooksOnChannelUpdateMethod != nil {
+		data.Set("Webhooks.OnChannelUpdate.Method", *params.WebhooksOnChannelUpdateMethod)
+	}
+	if params != nil && params.WebhooksOnMemberAddUrl != nil {
+		data.Set("Webhooks.OnMemberAdd.Url", *params.WebhooksOnMemberAddUrl)
+	}
+	if params != nil && params.WebhooksOnMemberAddMethod != nil {
+		data.Set("Webhooks.OnMemberAdd.Method", *params.WebhooksOnMemberAddMethod)
+	}
+	if params != nil && params.WebhooksOnMemberRemoveUrl != nil {
+		data.Set("Webhooks.OnMemberRemove.Url", *params.WebhooksOnMemberRemoveUrl)
+	}
+	if params != nil && params.WebhooksOnMemberRemoveMethod != nil {
+		data.Set("Webhooks.OnMemberRemove.Method", *params.WebhooksOnMemberRemoveMethod)
+	}
+	if params != nil && params.WebhooksOnMessageSentUrl != nil {
+		data.Set("Webhooks.OnMessageSent.Url", *params.WebhooksOnMessageSentUrl)
+	}
+	if params != nil && params.WebhooksOnMessageSentMethod != nil {
+		data.Set("Webhooks.OnMessageSent.Method", *params.WebhooksOnMessageSentMethod)
+	}
+	if params != nil && params.WebhooksOnMessageUpdatedUrl != nil {
+		data.Set("Webhooks.OnMessageUpdated.Url", *params.WebhooksOnMessageUpdatedUrl)
+	}
+	if params != nil && params.WebhooksOnMessageUpdatedMethod != nil {
+		data.Set("Webhooks.OnMessageUpdated.Method", *params.WebhooksOnMessageUpdatedMethod)
+	}
+	if params != nil && params.WebhooksOnMessageRemovedUrl != nil {
+		data.Set("Webhooks.OnMessageRemoved.Url", *params.WebhooksOnMessageRemovedUrl)
+	}
+	if params != nil && params.WebhooksOnMessageRemovedMethod != nil {
+		data.Set("Webhooks.OnMessageRemoved.Method", *params.WebhooksOnMessageRemovedMethod)
+	}
+	if params != nil && params.WebhooksOnChannelAddedUrl != nil {
+		data.Set("Webhooks.OnChannelAdded.Url", *params.WebhooksOnChannelAddedUrl)
+	}
+	if params != nil && params.WebhooksOnChannelAddedMethod != nil {
+		data.Set("Webhooks.OnChannelAdded.Method", *params.WebhooksOnChannelAddedMethod)
+	}
+	if params != nil && params.WebhooksOnChannelDestroyedUrl != nil {
+		data.Set("Webhooks.OnChannelDestroyed.Url", *params.WebhooksOnChannelDestroyedUrl)
+	}
+	if params != nil && params.WebhooksOnChannelDestroyedMethod != nil {
+		data.Set("Webhooks.OnChannelDestroyed.Method", *params.WebhooksOnChannelDestroyedMethod)
+	}
+	if params != nil && params.WebhooksOnChannelUpdatedUrl != nil {
+		data.Set("Webhooks.OnChannelUpdated.Url", *params.WebhooksOnChannelUpdatedUrl)
+	}
+	if params != nil && params.WebhooksOnChannelUpdatedMethod != nil {
+		data.Set("Webhooks.OnChannelUpdated.Method", *params.WebhooksOnChannelUpdatedMethod)
+	}
+	if params != nil && params.WebhooksOnMemberAddedUrl != nil {
+		data.Set("Webhooks.OnMemberAdded.Url", *params.WebhooksOnMemberAddedUrl)
+	}
+	if params != nil && params.WebhooksOnMemberAddedMethod != nil {
+		data.Set("Webhooks.OnMemberAdded.Method", *params.WebhooksOnMemberAddedMethod)
+	}
+	if params != nil && params.WebhooksOnMemberRemovedUrl != nil {
+		data.Set("Webhooks.OnMemberRemoved.Url", *params.WebhooksOnMemberRemovedUrl)
+	}
+	if params != nil && params.WebhooksOnMemberRemovedMethod != nil {
+		data.Set("Webhooks.OnMemberRemoved.Method", *params.WebhooksOnMemberRemovedMethod)
+	}
+	if params != nil && params.LimitsChannelMembers != nil {
+		data.Set("Limits.ChannelMembers", fmt.Sprint(*params.LimitsChannelMembers))
+	}
+	if params != nil && params.LimitsUserChannels != nil {
+		data.Set("Limits.UserChannels", fmt.Sprint(*params.LimitsUserChannels))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IpMessagingV1Service{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IpMessagingV1Service](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

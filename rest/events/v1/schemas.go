@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch a specific schema with its nested versions.
@@ -43,4 +45,35 @@ func (c *ApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 	}
 
 	return ps, err
+}
+
+// FetchSchemaWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSchemaWithMetadata(Id string) (*metadata.ResourceMetadata[EventsV1Schema], error) {
+	path := "/v1/Schemas/{Id}"
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Schema{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[EventsV1Schema](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

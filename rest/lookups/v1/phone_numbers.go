@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchPhoneNumber'
@@ -95,4 +97,58 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 	}
 
 	return ps, err
+}
+
+// FetchPhoneNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchPhoneNumberWithMetadata(PhoneNumber string, params *FetchPhoneNumberParams) (*metadata.ResourceMetadata[LookupsV1PhoneNumber], error) {
+	path := "/v1/PhoneNumbers/{PhoneNumber}"
+	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CountryCode != nil {
+		data.Set("CountryCode", *params.CountryCode)
+	}
+	if params != nil && params.Type != nil {
+		for _, item := range *params.Type {
+			data.Add("Type", item)
+		}
+	}
+	if params != nil && params.AddOns != nil {
+		for _, item := range *params.AddOns {
+			data.Add("AddOns", item)
+		}
+	}
+	if params != nil && params.AddOnsData != nil {
+		v, err := json.Marshal(params.AddOnsData)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("AddOnsData", string(v))
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &LookupsV1PhoneNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[LookupsV1PhoneNumber](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

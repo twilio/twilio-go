@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateEligibility'
@@ -61,4 +63,43 @@ func (c *ApiService) CreateEligibility(params *CreateEligibilityParams) (*Number
 	}
 
 	return ps, err
+}
+
+// CreateEligibilityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateEligibilityWithMetadata(params *CreateEligibilityParams) (*metadata.ResourceMetadata[NumbersV1Eligibility], error) {
+	path := "/v1/HostedNumber/Eligibility"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV1Eligibility{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV1Eligibility](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListEvent'
@@ -86,6 +87,52 @@ func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToke
 	return ps, err
 }
 
+// PageEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEventWithMetadata(CallSid string, params *ListEventParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEventResponse], error) {
+	path := "/v1/Voice/{CallSid}/Events"
+
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Edge != nil {
+		data.Set("Edge", *params.Edge)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEventResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]InsightsV1Event, error) {
 	response, errors := c.StreamEvent(CallSid, params)
@@ -100,6 +147,29 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]Insig
 	}
 
 	return records, nil
+}
+
+// ListEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEventWithMetadata(CallSid string, params *ListEventParams) (*metadata.ResourceMetadata[[]InsightsV1Event], error) {
+	response, errors := c.StreamEventWithMetadata(CallSid, params)
+	resource := response.GetResource()
+
+	records := make([]InsightsV1Event, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]InsightsV1Event](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -122,6 +192,35 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEventWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEventWithMetadata(CallSid string, params *ListEventParams) (*metadata.ResourceMetadata[chan InsightsV1Event], chan error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan InsightsV1Event, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEventWithMetadata(CallSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEvent(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan InsightsV1Event](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEvent(response *ListEventResponse, params *ListEventParams, recordChannel chan InsightsV1Event, errorChannel chan error) {

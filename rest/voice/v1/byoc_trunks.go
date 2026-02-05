@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateByocTrunk'
@@ -143,6 +144,67 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 	return ps, err
 }
 
+// CreateByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateByocTrunkWithMetadata(params *CreateByocTrunkParams) (*metadata.ResourceMetadata[VoiceV1ByocTrunk], error) {
+	path := "/v1/ByocTrunks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.ConnectionPolicySid != nil {
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+	}
+	if params != nil && params.FromDomainSid != nil {
+		data.Set("FromDomainSid", *params.FromDomainSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ByocTrunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
@@ -161,6 +223,32 @@ func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteByocTrunkWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -186,6 +274,37 @@ func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	}
 
 	return ps, err
+}
+
+// FetchByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchByocTrunkWithMetadata(Sid string) (*metadata.ResourceMetadata[VoiceV1ByocTrunk], error) {
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ByocTrunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListByocTrunk'
@@ -240,6 +359,47 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
 	return ps, err
 }
 
+// PageByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageByocTrunkWithMetadata(params *ListByocTrunkParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListByocTrunkResponse], error) {
+	path := "/v1/ByocTrunks"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListByocTrunkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListByocTrunkResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTrunk, error) {
 	response, errors := c.StreamByocTrunk(params)
@@ -254,6 +414,29 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTr
 	}
 
 	return records, nil
+}
+
+// ListByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListByocTrunkWithMetadata(params *ListByocTrunkParams) (*metadata.ResourceMetadata[[]VoiceV1ByocTrunk], error) {
+	response, errors := c.StreamByocTrunkWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV1ByocTrunk, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV1ByocTrunk](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -276,6 +459,35 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1B
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamByocTrunkWithMetadata(params *ListByocTrunkParams) (*metadata.ResourceMetadata[chan VoiceV1ByocTrunk], chan error) {
+	if params == nil {
+		params = &ListByocTrunkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV1ByocTrunk, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageByocTrunkWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamByocTrunk(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV1ByocTrunk](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamByocTrunk(response *ListByocTrunkResponse, params *ListByocTrunkParams, recordChannel chan VoiceV1ByocTrunk, errorChannel chan error) {
@@ -445,4 +657,66 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 	}
 
 	return ps, err
+}
+
+// UpdateByocTrunkWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateByocTrunkWithMetadata(Sid string, params *UpdateByocTrunkParams) (*metadata.ResourceMetadata[VoiceV1ByocTrunk], error) {
+	path := "/v1/ByocTrunks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.StatusCallbackUrl != nil {
+		data.Set("StatusCallbackUrl", *params.StatusCallbackUrl)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.CnamLookupEnabled != nil {
+		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
+	}
+	if params != nil && params.ConnectionPolicySid != nil {
+		data.Set("ConnectionPolicySid", *params.ConnectionPolicySid)
+	}
+	if params != nil && params.FromDomainSid != nil {
+		data.Set("FromDomainSid", *params.FromDomainSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ByocTrunk{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ByocTrunk](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTaskQueueBulkRealTimeStatistics'
@@ -65,6 +67,46 @@ func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, 
 	return ps, err
 }
 
+// CreateTaskQueueBulkRealTimeStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTaskQueueBulkRealTimeStatisticsWithMetadata(WorkspaceSid string, params *CreateTaskQueueBulkRealTimeStatisticsParams) (*metadata.ResourceMetadata[TaskrouterV1TaskQueueBulkRealTimeStatistics], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/RealTimeStatistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueueBulkRealTimeStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueueBulkRealTimeStatistics](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'FetchTaskQueueRealTimeStatistics'
 type FetchTaskQueueRealTimeStatisticsParams struct {
 	// The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -104,4 +146,40 @@ func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQ
 	}
 
 	return ps, err
+}
+
+// FetchTaskQueueRealTimeStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTaskQueueRealTimeStatisticsWithMetadata(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*metadata.ResourceMetadata[TaskrouterV1TaskQueueRealTimeStatistics], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueueRealTimeStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueueRealTimeStatistics](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

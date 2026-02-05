@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInsightsQuestionnairesQuestion'
@@ -107,6 +108,55 @@ func (c *ApiService) CreateInsightsQuestionnairesQuestion(params *CreateInsights
 	return ps, err
 }
 
+// CreateInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInsightsQuestionnairesQuestionWithMetadata(params *CreateInsightsQuestionnairesQuestionParams) (*metadata.ResourceMetadata[FlexV1InsightsQuestionnairesQuestion], error) {
+	path := "/v1/Insights/QualityManagement/Questions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
+	}
+	if params != nil && params.Question != nil {
+		data.Set("Question", *params.Question)
+	}
+	if params != nil && params.AnswerSetId != nil {
+		data.Set("AnswerSetId", *params.AnswerSetId)
+	}
+	if params != nil && params.AllowNa != nil {
+		data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsQuestionnairesQuestion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsQuestionnairesQuestion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteInsightsQuestionnairesQuestion'
 type DeleteInsightsQuestionnairesQuestionParams struct {
 	// The Authorization HTTP request header
@@ -139,6 +189,35 @@ func (c *ApiService) DeleteInsightsQuestionnairesQuestion(QuestionSid string, pa
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteInsightsQuestionnairesQuestionWithMetadata(QuestionSid string, params *DeleteInsightsQuestionnairesQuestionParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
+	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListInsightsQuestionnairesQuestion'
@@ -210,6 +289,52 @@ func (c *ApiService) PageInsightsQuestionnairesQuestion(params *ListInsightsQues
 	return ps, err
 }
 
+// PageInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInsightsQuestionnairesQuestionWithMetadata(params *ListInsightsQuestionnairesQuestionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInsightsQuestionnairesQuestionResponse], error) {
+	path := "/v1/Insights/QualityManagement/Questions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CategorySid != nil {
+		for _, item := range *params.CategorySid {
+			data.Add("CategorySid", item)
+		}
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsQuestionnairesQuestionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInsightsQuestionnairesQuestionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InsightsQuestionnairesQuestion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsQuestionnairesQuestion(params *ListInsightsQuestionnairesQuestionParams) ([]FlexV1InsightsQuestionnairesQuestion, error) {
 	response, errors := c.StreamInsightsQuestionnairesQuestion(params)
@@ -224,6 +349,29 @@ func (c *ApiService) ListInsightsQuestionnairesQuestion(params *ListInsightsQues
 	}
 
 	return records, nil
+}
+
+// ListInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInsightsQuestionnairesQuestionWithMetadata(params *ListInsightsQuestionnairesQuestionParams) (*metadata.ResourceMetadata[[]FlexV1InsightsQuestionnairesQuestion], error) {
+	response, errors := c.StreamInsightsQuestionnairesQuestionWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InsightsQuestionnairesQuestion, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InsightsQuestionnairesQuestion](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InsightsQuestionnairesQuestion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -246,6 +394,35 @@ func (c *ApiService) StreamInsightsQuestionnairesQuestion(params *ListInsightsQu
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInsightsQuestionnairesQuestionWithMetadata(params *ListInsightsQuestionnairesQuestionParams) (*metadata.ResourceMetadata[chan FlexV1InsightsQuestionnairesQuestion], chan error) {
+	if params == nil {
+		params = &ListInsightsQuestionnairesQuestionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsQuestionnairesQuestion, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsQuestionnairesQuestionWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInsightsQuestionnairesQuestion(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InsightsQuestionnairesQuestion](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInsightsQuestionnairesQuestion(response *ListInsightsQuestionnairesQuestionResponse, params *ListInsightsQuestionnairesQuestionParams, recordChannel chan FlexV1InsightsQuestionnairesQuestion, errorChannel chan error) {
@@ -379,4 +556,54 @@ func (c *ApiService) UpdateInsightsQuestionnairesQuestion(QuestionSid string, pa
 	}
 
 	return ps, err
+}
+
+// UpdateInsightsQuestionnairesQuestionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInsightsQuestionnairesQuestionWithMetadata(QuestionSid string, params *UpdateInsightsQuestionnairesQuestionParams) (*metadata.ResourceMetadata[FlexV1InsightsQuestionnairesQuestion], error) {
+	path := "/v1/Insights/QualityManagement/Questions/{QuestionSid}"
+	path = strings.Replace(path, "{"+"QuestionSid"+"}", QuestionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AllowNa != nil {
+		data.Set("AllowNa", fmt.Sprint(*params.AllowNa))
+	}
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
+	}
+	if params != nil && params.Question != nil {
+		data.Set("Question", *params.Question)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+	if params != nil && params.AnswerSetId != nil {
+		data.Set("AnswerSetId", *params.AnswerSetId)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsQuestionnairesQuestion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsQuestionnairesQuestion](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch the forms for a specific Form Type.
@@ -44,4 +46,35 @@ func (c *ApiService) FetchForm(FormType string) (*VerifyV2Form, error) {
 	}
 
 	return ps, err
+}
+
+// FetchFormWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchFormWithMetadata(FormType string) (*metadata.ResourceMetadata[VerifyV2Form], error) {
+	path := "/v2/Forms/{FormType}"
+	path = strings.Replace(path, "{"+"FormType"+"}", fmt.Sprint(FormType), -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Form{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Form](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

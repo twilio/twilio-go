@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -43,4 +45,35 @@ func (c *ApiService) FetchDomainDnsValidation(DomainSid string) (*MessagingV1Dom
 	}
 
 	return ps, err
+}
+
+// FetchDomainDnsValidationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchDomainDnsValidationWithMetadata(DomainSid string) (*metadata.ResourceMetadata[MessagingV1DomainDnsValidation], error) {
+	path := "/v1/LinkShortening/Domains/{DomainSid}/ValidateDns"
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1DomainDnsValidation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1DomainDnsValidation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

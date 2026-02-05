@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTaskChannel'
@@ -81,6 +82,47 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	return ps, err
 }
 
+// CreateTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateTaskChannelWithMetadata(WorkspaceSid string, params *CreateTaskChannelParams) (*metadata.ResourceMetadata[TaskrouterV1TaskChannel], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.ChannelOptimizedRouting != nil {
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
@@ -100,6 +142,33 @@ func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteTaskChannelWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -126,6 +195,38 @@ func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*Taskrou
 	}
 
 	return ps, err
+}
+
+// FetchTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTaskChannelWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1TaskChannel], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTaskChannel'
@@ -182,6 +283,49 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	return ps, err
 }
 
+// PageTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTaskChannelWithMetadata(WorkspaceSid string, params *ListTaskChannelParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTaskChannelResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTaskChannelResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1TaskChannel, error) {
 	response, errors := c.StreamTaskChannel(WorkspaceSid, params)
@@ -196,6 +340,29 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	}
 
 	return records, nil
+}
+
+// ListTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTaskChannelWithMetadata(WorkspaceSid string, params *ListTaskChannelParams) (*metadata.ResourceMetadata[[]TaskrouterV1TaskChannel], error) {
+	response, errors := c.StreamTaskChannelWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1TaskChannel, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1TaskChannel](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -218,6 +385,35 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTaskChannelWithMetadata(WorkspaceSid string, params *ListTaskChannelParams) (*metadata.ResourceMetadata[chan TaskrouterV1TaskChannel], chan error) {
+	if params == nil {
+		params = &ListTaskChannelParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1TaskChannel, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTaskChannelWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTaskChannel(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1TaskChannel](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTaskChannel(response *ListTaskChannelResponse, params *ListTaskChannelParams, recordChannel chan TaskrouterV1TaskChannel, errorChannel chan error) {
@@ -316,4 +512,43 @@ func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *
 	}
 
 	return ps, err
+}
+
+// UpdateTaskChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTaskChannelWithMetadata(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*metadata.ResourceMetadata[TaskrouterV1TaskChannel], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.ChannelOptimizedRouting != nil {
+		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

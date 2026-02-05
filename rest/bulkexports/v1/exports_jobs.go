@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateExportCustomJob'
@@ -108,6 +109,56 @@ func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateEx
 	return ps, err
 }
 
+// CreateExportCustomJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateExportCustomJobWithMetadata(ResourceType string, params *CreateExportCustomJobParams) (*metadata.ResourceMetadata[BulkexportsV1ExportCustomJob], error) {
+	path := "/v1/Exports/{ResourceType}/Jobs"
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.StartDay != nil {
+		data.Set("StartDay", *params.StartDay)
+	}
+	if params != nil && params.EndDay != nil {
+		data.Set("EndDay", *params.EndDay)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.WebhookMethod != nil {
+		data.Set("WebhookMethod", *params.WebhookMethod)
+	}
+	if params != nil && params.Email != nil {
+		data.Set("Email", *params.Email)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1ExportCustomJob{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1ExportCustomJob](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteJob(JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
@@ -126,6 +177,32 @@ func (c *ApiService) DeleteJob(JobSid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteJobWithMetadata(JobSid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -151,6 +228,37 @@ func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 	}
 
 	return ps, err
+}
+
+// FetchJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchJobWithMetadata(JobSid string) (*metadata.ResourceMetadata[BulkexportsV1Job], error) {
+	path := "/v1/Exports/Jobs/{JobSid}"
+	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &BulkexportsV1Job{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[BulkexportsV1Job](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListExportCustomJob'
@@ -207,6 +315,49 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 	return ps, err
 }
 
+// PageExportCustomJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageExportCustomJobWithMetadata(ResourceType string, params *ListExportCustomJobParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListExportCustomJobResponse], error) {
+	path := "/v1/Exports/{ResourceType}/Jobs"
+
+	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListExportCustomJobResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListExportCustomJobResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams) ([]BulkexportsV1ExportCustomJob, error) {
 	response, errors := c.StreamExportCustomJob(ResourceType, params)
@@ -221,6 +372,29 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 	}
 
 	return records, nil
+}
+
+// ListExportCustomJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListExportCustomJobWithMetadata(ResourceType string, params *ListExportCustomJobParams) (*metadata.ResourceMetadata[[]BulkexportsV1ExportCustomJob], error) {
+	response, errors := c.StreamExportCustomJobWithMetadata(ResourceType, params)
+	resource := response.GetResource()
+
+	records := make([]BulkexportsV1ExportCustomJob, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]BulkexportsV1ExportCustomJob](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -243,6 +417,35 @@ func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExpo
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamExportCustomJobWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamExportCustomJobWithMetadata(ResourceType string, params *ListExportCustomJobParams) (*metadata.ResourceMetadata[chan BulkexportsV1ExportCustomJob], chan error) {
+	if params == nil {
+		params = &ListExportCustomJobParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan BulkexportsV1ExportCustomJob, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageExportCustomJobWithMetadata(ResourceType, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamExportCustomJob(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan BulkexportsV1ExportCustomJob](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamExportCustomJob(response *ListExportCustomJobResponse, params *ListExportCustomJobParams, recordChannel chan BulkexportsV1ExportCustomJob, errorChannel chan error) {

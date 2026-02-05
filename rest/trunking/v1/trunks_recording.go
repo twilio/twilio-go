@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -44,6 +46,37 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, erro
 	}
 
 	return ps, err
+}
+
+// FetchRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRecordingWithMetadata(TrunkSid string) (*metadata.ResourceMetadata[TrunkingV1Recording], error) {
+	path := "/v1/Trunks/{TrunkSid}/Recording"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1Recording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1Recording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateRecording'
@@ -93,4 +126,42 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 	}
 
 	return ps, err
+}
+
+// UpdateRecordingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRecordingWithMetadata(TrunkSid string, params *UpdateRecordingParams) (*metadata.ResourceMetadata[TrunkingV1Recording], error) {
+	path := "/v1/Trunks/{TrunkSid}/Recording"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Mode != nil {
+		data.Set("Mode", fmt.Sprint(*params.Mode))
+	}
+	if params != nil && params.Trim != nil {
+		data.Set("Trim", fmt.Sprint(*params.Trim))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TrunkingV1Recording{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TrunkingV1Recording](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

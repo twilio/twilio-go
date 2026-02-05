@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateRateLimit'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitP
 	return ps, err
 }
 
+// CreateRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateRateLimitWithMetadata(ServiceSid string, params *CreateRateLimitParams) (*metadata.ResourceMetadata[VerifyV2RateLimit], error) {
+	path := "/v2/Services/{ServiceSid}/RateLimits"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.UniqueName != nil {
+		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2RateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2RateLimit](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Rate Limit.
 func (c *ApiService) DeleteRateLimit(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
@@ -91,6 +130,33 @@ func (c *ApiService) DeleteRateLimit(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteRateLimitWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Rate Limit.
@@ -117,6 +183,38 @@ func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2Rat
 	}
 
 	return ps, err
+}
+
+// FetchRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRateLimitWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[VerifyV2RateLimit], error) {
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2RateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2RateLimit](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRateLimit'
@@ -173,6 +271,49 @@ func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParam
 	return ps, err
 }
 
+// PageRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRateLimitWithMetadata(ServiceSid string, params *ListRateLimitParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRateLimitResponse], error) {
+	path := "/v2/Services/{ServiceSid}/RateLimits"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRateLimitResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRateLimitResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams) ([]VerifyV2RateLimit, error) {
 	response, errors := c.StreamRateLimit(ServiceSid, params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 	}
 
 	return records, nil
+}
+
+// ListRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRateLimitWithMetadata(ServiceSid string, params *ListRateLimitParams) (*metadata.ResourceMetadata[[]VerifyV2RateLimit], error) {
+	response, errors := c.StreamRateLimitWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2RateLimit, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2RateLimit](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitPar
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRateLimitWithMetadata(ServiceSid string, params *ListRateLimitParams) (*metadata.ResourceMetadata[chan VerifyV2RateLimit], chan error) {
+	if params == nil {
+		params = &ListRateLimitParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2RateLimit, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRateLimitWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRateLimit(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2RateLimit](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRateLimit(response *ListRateLimitResponse, params *ListRateLimitParams, recordChannel chan VerifyV2RateLimit, errorChannel chan error) {
@@ -298,4 +491,40 @@ func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *Upda
 	}
 
 	return ps, err
+}
+
+// UpdateRateLimitWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateRateLimitWithMetadata(ServiceSid string, Sid string, params *UpdateRateLimitParams) (*metadata.ResourceMetadata[VerifyV2RateLimit], error) {
+	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2RateLimit{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2RateLimit](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

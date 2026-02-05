@@ -20,6 +20,7 @@ import (
 	"net/url"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'ListCallSummaries'
@@ -398,6 +399,155 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	return ps, err
 }
 
+// PageCallSummariesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCallSummariesWithMetadata(params *ListCallSummariesParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListCallSummariesResponse], error) {
+	path := "/v1/Voice/Summaries"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.FromCarrier != nil {
+		data.Set("FromCarrier", *params.FromCarrier)
+	}
+	if params != nil && params.ToCarrier != nil {
+		data.Set("ToCarrier", *params.ToCarrier)
+	}
+	if params != nil && params.FromCountryCode != nil {
+		data.Set("FromCountryCode", *params.FromCountryCode)
+	}
+	if params != nil && params.ToCountryCode != nil {
+		data.Set("ToCountryCode", *params.ToCountryCode)
+	}
+	if params != nil && params.VerifiedCaller != nil {
+		data.Set("VerifiedCaller", fmt.Sprint(*params.VerifiedCaller))
+	}
+	if params != nil && params.HasTag != nil {
+		data.Set("HasTag", fmt.Sprint(*params.HasTag))
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", *params.StartTime)
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", *params.EndTime)
+	}
+	if params != nil && params.CallType != nil {
+		data.Set("CallType", *params.CallType)
+	}
+	if params != nil && params.CallState != nil {
+		data.Set("CallState", *params.CallState)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.ProcessingState != nil {
+		data.Set("ProcessingState", *params.ProcessingState)
+	}
+	if params != nil && params.SortBy != nil {
+		data.Set("SortBy", *params.SortBy)
+	}
+	if params != nil && params.Subaccount != nil {
+		data.Set("Subaccount", *params.Subaccount)
+	}
+	if params != nil && params.AbnormalSession != nil {
+		data.Set("AbnormalSession", fmt.Sprint(*params.AbnormalSession))
+	}
+	if params != nil && params.AnsweredBy != nil {
+		data.Set("AnsweredBy", *params.AnsweredBy)
+	}
+	if params != nil && params.AnsweredByAnnotation != nil {
+		data.Set("AnsweredByAnnotation", *params.AnsweredByAnnotation)
+	}
+	if params != nil && params.ConnectivityIssueAnnotation != nil {
+		data.Set("ConnectivityIssueAnnotation", *params.ConnectivityIssueAnnotation)
+	}
+	if params != nil && params.QualityIssueAnnotation != nil {
+		data.Set("QualityIssueAnnotation", *params.QualityIssueAnnotation)
+	}
+	if params != nil && params.SpamAnnotation != nil {
+		data.Set("SpamAnnotation", fmt.Sprint(*params.SpamAnnotation))
+	}
+	if params != nil && params.CallScoreAnnotation != nil {
+		data.Set("CallScoreAnnotation", *params.CallScoreAnnotation)
+	}
+	if params != nil && params.BrandedEnabled != nil {
+		data.Set("BrandedEnabled", fmt.Sprint(*params.BrandedEnabled))
+	}
+	if params != nil && params.VoiceIntegrityEnabled != nil {
+		data.Set("VoiceIntegrityEnabled", fmt.Sprint(*params.VoiceIntegrityEnabled))
+	}
+	if params != nil && params.BrandedBundleSid != nil {
+		data.Set("BrandedBundleSid", *params.BrandedBundleSid)
+	}
+	if params != nil && params.BrandedLogo != nil {
+		data.Set("BrandedLogo", fmt.Sprint(*params.BrandedLogo))
+	}
+	if params != nil && params.BrandedType != nil {
+		data.Set("BrandedType", *params.BrandedType)
+	}
+	if params != nil && params.BrandedUseCase != nil {
+		data.Set("BrandedUseCase", *params.BrandedUseCase)
+	}
+	if params != nil && params.BrandedCallReason != nil {
+		data.Set("BrandedCallReason", *params.BrandedCallReason)
+	}
+	if params != nil && params.VoiceIntegrityBundleSid != nil {
+		data.Set("VoiceIntegrityBundleSid", *params.VoiceIntegrityBundleSid)
+	}
+	if params != nil && params.VoiceIntegrityUseCase != nil {
+		data.Set("VoiceIntegrityUseCase", *params.VoiceIntegrityUseCase)
+	}
+	if params != nil && params.BusinessProfileIdentity != nil {
+		data.Set("BusinessProfileIdentity", *params.BusinessProfileIdentity)
+	}
+	if params != nil && params.BusinessProfileIndustry != nil {
+		data.Set("BusinessProfileIndustry", *params.BusinessProfileIndustry)
+	}
+	if params != nil && params.BusinessProfileBundleSid != nil {
+		data.Set("BusinessProfileBundleSid", *params.BusinessProfileBundleSid)
+	}
+	if params != nil && params.BusinessProfileType != nil {
+		data.Set("BusinessProfileType", *params.BusinessProfileType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallSummariesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListCallSummariesResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists CallSummaries records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallSummaries(params *ListCallSummariesParams) ([]InsightsV1CallSummaries, error) {
 	response, errors := c.StreamCallSummaries(params)
@@ -412,6 +562,29 @@ func (c *ApiService) ListCallSummaries(params *ListCallSummariesParams) ([]Insig
 	}
 
 	return records, nil
+}
+
+// ListCallSummariesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCallSummariesWithMetadata(params *ListCallSummariesParams) (*metadata.ResourceMetadata[[]InsightsV1CallSummaries], error) {
+	response, errors := c.StreamCallSummariesWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]InsightsV1CallSummaries, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]InsightsV1CallSummaries](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams CallSummaries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -434,6 +607,35 @@ func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamCallSummariesWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCallSummariesWithMetadata(params *ListCallSummariesParams) (*metadata.ResourceMetadata[chan InsightsV1CallSummaries], chan error) {
+	if params == nil {
+		params = &ListCallSummariesParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan InsightsV1CallSummaries, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCallSummariesWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamCallSummaries(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan InsightsV1CallSummaries](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamCallSummaries(response *ListCallSummariesResponse, params *ListCallSummariesParams, recordChannel chan InsightsV1CallSummaries, errorChannel chan error) {

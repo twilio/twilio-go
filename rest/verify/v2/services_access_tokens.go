@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateAccessToken'
@@ -88,6 +90,50 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 	return ps, err
 }
 
+// CreateAccessTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateAccessTokenWithMetadata(ServiceSid string, params *CreateAccessTokenParams) (*metadata.ResourceMetadata[VerifyV2AccessToken], error) {
+	path := "/v2/Services/{ServiceSid}/AccessTokens"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+	if params != nil && params.FactorType != nil {
+		data.Set("FactorType", fmt.Sprint(*params.FactorType))
+	}
+	if params != nil && params.FactorFriendlyName != nil {
+		data.Set("FactorFriendlyName", *params.FactorFriendlyName)
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2AccessToken{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2AccessToken](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch an Access Token for the Entity
 func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens/{Sid}"
@@ -112,4 +158,36 @@ func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2A
 	}
 
 	return ps, err
+}
+
+// FetchAccessTokenWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAccessTokenWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[VerifyV2AccessToken], error) {
+	path := "/v2/Services/{ServiceSid}/AccessTokens/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2AccessToken{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2AccessToken](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

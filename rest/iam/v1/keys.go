@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNewKey'
@@ -95,6 +96,55 @@ func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*IamV1NewKey, err
 	return ps, err
 }
 
+// CreateNewKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNewKeyWithMetadata(params *CreateNewKeyParams) (*metadata.ResourceMetadata[IamV1NewKey], error) {
+	path := "/v1/Keys"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.KeyType != nil {
+		data.Set("KeyType", *params.KeyType)
+	}
+	if params != nil && params.Policy != nil {
+		v, err := json.Marshal(params.Policy)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Policy", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IamV1NewKey{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IamV1NewKey](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Key.
 func (c *ApiService) DeleteKey(Sid string) error {
 	path := "/v1/Keys/{Sid}"
@@ -113,6 +163,32 @@ func (c *ApiService) DeleteKey(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteKeyWithMetadata(Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Key.
@@ -138,6 +214,37 @@ func (c *ApiService) FetchKey(Sid string) (*IamV1Key, error) {
 	}
 
 	return ps, err
+}
+
+// FetchKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchKeyWithMetadata(Sid string) (*metadata.ResourceMetadata[IamV1Key], error) {
+	path := "/v1/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IamV1Key{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IamV1Key](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListGetKeys'
@@ -201,6 +308,50 @@ func (c *ApiService) PageGetKeys(params *ListGetKeysParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageGetKeysWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageGetKeysWithMetadata(params *ListGetKeysParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListGetKeysResponse], error) {
+	path := "/v1/Keys"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListGetKeysResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListGetKeysResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists GetKeys records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListGetKeys(params *ListGetKeysParams) ([]IamV1GetKeys, error) {
 	response, errors := c.StreamGetKeys(params)
@@ -215,6 +366,29 @@ func (c *ApiService) ListGetKeys(params *ListGetKeysParams) ([]IamV1GetKeys, err
 	}
 
 	return records, nil
+}
+
+// ListGetKeysWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListGetKeysWithMetadata(params *ListGetKeysParams) (*metadata.ResourceMetadata[[]IamV1GetKeys], error) {
+	response, errors := c.StreamGetKeysWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]IamV1GetKeys, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]IamV1GetKeys](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams GetKeys records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -237,6 +411,35 @@ func (c *ApiService) StreamGetKeys(params *ListGetKeysParams) (chan IamV1GetKeys
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamGetKeysWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamGetKeysWithMetadata(params *ListGetKeysParams) (*metadata.ResourceMetadata[chan IamV1GetKeys], chan error) {
+	if params == nil {
+		params = &ListGetKeysParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan IamV1GetKeys, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageGetKeysWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamGetKeys(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan IamV1GetKeys](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamGetKeys(response *ListGetKeysResponse, params *ListGetKeysParams, recordChannel chan IamV1GetKeys, errorChannel chan error) {
@@ -340,4 +543,48 @@ func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*IamV1Key, 
 	}
 
 	return ps, err
+}
+
+// UpdateKeyWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateKeyWithMetadata(Sid string, params *UpdateKeyParams) (*metadata.ResourceMetadata[IamV1Key], error) {
+	path := "/v1/Keys/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Policy != nil {
+		v, err := json.Marshal(params.Policy)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Policy", string(v))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &IamV1Key{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[IamV1Key](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

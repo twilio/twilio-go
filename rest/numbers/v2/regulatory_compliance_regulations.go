@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchRegulation'
@@ -61,6 +62,41 @@ func (c *ApiService) FetchRegulation(Sid string, params *FetchRegulationParams) 
 	}
 
 	return ps, err
+}
+
+// FetchRegulationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchRegulationWithMetadata(Sid string, params *FetchRegulationParams) (*metadata.ResourceMetadata[NumbersV2Regulation], error) {
+	path := "/v2/RegulatoryCompliance/Regulations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.IncludeConstraints != nil {
+		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NumbersV2Regulation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NumbersV2Regulation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListRegulation'
@@ -151,6 +187,59 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 	return ps, err
 }
 
+// PageRegulationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageRegulationWithMetadata(params *ListRegulationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListRegulationResponse], error) {
+	path := "/v2/RegulatoryCompliance/Regulations"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", fmt.Sprint(*params.EndUserType))
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.IncludeConstraints != nil {
+		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRegulationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListRegulationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRegulation(params *ListRegulationParams) ([]NumbersV2Regulation, error) {
 	response, errors := c.StreamRegulation(params)
@@ -165,6 +254,29 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) ([]NumbersV2Re
 	}
 
 	return records, nil
+}
+
+// ListRegulationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListRegulationWithMetadata(params *ListRegulationParams) (*metadata.ResourceMetadata[[]NumbersV2Regulation], error) {
+	response, errors := c.StreamRegulationWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]NumbersV2Regulation, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]NumbersV2Regulation](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -187,6 +299,35 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan Number
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamRegulationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamRegulationWithMetadata(params *ListRegulationParams) (*metadata.ResourceMetadata[chan NumbersV2Regulation], chan error) {
+	if params == nil {
+		params = &ListRegulationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan NumbersV2Regulation, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageRegulationWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamRegulation(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan NumbersV2Regulation](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamRegulation(response *ListRegulationResponse, params *ListRegulationParams, recordChannel chan NumbersV2Regulation, errorChannel chan error) {

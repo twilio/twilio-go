@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateCompositionSettings'
@@ -104,6 +106,55 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	return ps, err
 }
 
+// CreateCompositionSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateCompositionSettingsWithMetadata(params *CreateCompositionSettingsParams) (*metadata.ResourceMetadata[VideoV1CompositionSettings], error) {
+	path := "/v1/CompositionSettings/Default"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AwsCredentialsSid != nil {
+		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
+	}
+	if params != nil && params.EncryptionKeySid != nil {
+		data.Set("EncryptionKeySid", *params.EncryptionKeySid)
+	}
+	if params != nil && params.AwsS3Url != nil {
+		data.Set("AwsS3Url", *params.AwsS3Url)
+	}
+	if params != nil && params.AwsStorageEnabled != nil {
+		data.Set("AwsStorageEnabled", fmt.Sprint(*params.AwsStorageEnabled))
+	}
+	if params != nil && params.EncryptionEnabled != nil {
+		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1CompositionSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1CompositionSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
@@ -126,4 +177,34 @@ func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, er
 	}
 
 	return ps, err
+}
+
+// FetchCompositionSettingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCompositionSettingsWithMetadata() (*metadata.ResourceMetadata[VideoV1CompositionSettings], error) {
+	path := "/v1/CompositionSettings/Default"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VideoV1CompositionSettings{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VideoV1CompositionSettings](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

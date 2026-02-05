@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateWorkflow'
@@ -99,6 +100,53 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	return ps, err
 }
 
+// CreateWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateWorkflowWithMetadata(WorkspaceSid string, params *CreateWorkflowParams) (*metadata.ResourceMetadata[TaskrouterV1Workflow], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Configuration != nil {
+		data.Set("Configuration", *params.Configuration)
+	}
+	if params != nil && params.AssignmentCallbackUrl != nil {
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+	}
+	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+	}
+	if params != nil && params.TaskReservationTimeout != nil {
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workflow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workflow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
@@ -118,6 +166,33 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteWorkflowWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -144,6 +219,38 @@ func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Taskrouter
 	}
 
 	return ps, err
+}
+
+// FetchWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWorkflowWithMetadata(WorkspaceSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1Workflow], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workflow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workflow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListWorkflow'
@@ -209,6 +316,52 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	return ps, err
 }
 
+// PageWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageWorkflowWithMetadata(WorkspaceSid string, params *ListWorkflowParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListWorkflowResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkflowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListWorkflowResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1Workflow, error) {
 	response, errors := c.StreamWorkflow(WorkspaceSid, params)
@@ -223,6 +376,29 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	}
 
 	return records, nil
+}
+
+// ListWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListWorkflowWithMetadata(WorkspaceSid string, params *ListWorkflowParams) (*metadata.ResourceMetadata[[]TaskrouterV1Workflow], error) {
+	response, errors := c.StreamWorkflowWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1Workflow, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1Workflow](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -245,6 +421,35 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamWorkflowWithMetadata(WorkspaceSid string, params *ListWorkflowParams) (*metadata.ResourceMetadata[chan TaskrouterV1Workflow], chan error) {
+	if params == nil {
+		params = &ListWorkflowParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1Workflow, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageWorkflowWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamWorkflow(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1Workflow](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamWorkflow(response *ListWorkflowResponse, params *ListWorkflowParams, recordChannel chan TaskrouterV1Workflow, errorChannel chan error) {
@@ -379,4 +584,55 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 	}
 
 	return ps, err
+}
+
+// UpdateWorkflowWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateWorkflowWithMetadata(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*metadata.ResourceMetadata[TaskrouterV1Workflow], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.AssignmentCallbackUrl != nil {
+		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
+	}
+	if params != nil && params.FallbackAssignmentCallbackUrl != nil {
+		data.Set("FallbackAssignmentCallbackUrl", *params.FallbackAssignmentCallbackUrl)
+	}
+	if params != nil && params.Configuration != nil {
+		data.Set("Configuration", *params.Configuration)
+	}
+	if params != nil && params.TaskReservationTimeout != nil {
+		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
+	}
+	if params != nil && params.ReEvaluateTasks != nil {
+		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1Workflow{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1Workflow](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

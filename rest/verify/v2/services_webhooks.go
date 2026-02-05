@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateWebhook'
@@ -101,6 +102,55 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	return ps, err
 }
 
+// CreateWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateWebhookWithMetadata(ServiceSid string, params *CreateWebhookParams) (*metadata.ResourceMetadata[VerifyV2Webhook], error) {
+	path := "/v2/Services/{ServiceSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EventTypes != nil {
+		for _, item := range *params.EventTypes {
+			data.Add("EventTypes", item)
+		}
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", fmt.Sprint(*params.Version))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Webhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Webhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Webhook.
 func (c *ApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
@@ -120,6 +170,33 @@ func (c *ApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteWebhookWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Webhook.
@@ -146,6 +223,38 @@ func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Webho
 	}
 
 	return ps, err
+}
+
+// FetchWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchWebhookWithMetadata(ServiceSid string, Sid string) (*metadata.ResourceMetadata[VerifyV2Webhook], error) {
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Webhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Webhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListWebhook'
@@ -202,6 +311,49 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 	return ps, err
 }
 
+// PageWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageWebhookWithMetadata(ServiceSid string, params *ListWebhookParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListWebhookResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Webhooks"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListWebhookResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2Webhook, error) {
 	response, errors := c.StreamWebhook(ServiceSid, params)
@@ -216,6 +368,29 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 	}
 
 	return records, nil
+}
+
+// ListWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListWebhookWithMetadata(ServiceSid string, params *ListWebhookParams) (*metadata.ResourceMetadata[[]VerifyV2Webhook], error) {
+	response, errors := c.StreamWebhookWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2Webhook, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2Webhook](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -238,6 +413,35 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamWebhookWithMetadata(ServiceSid string, params *ListWebhookParams) (*metadata.ResourceMetadata[chan VerifyV2Webhook], chan error) {
+	if params == nil {
+		params = &ListWebhookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2Webhook, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageWebhookWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamWebhook(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2Webhook](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamWebhook(response *ListWebhookResponse, params *ListWebhookParams, recordChannel chan VerifyV2Webhook, errorChannel chan error) {
@@ -365,4 +569,54 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	}
 
 	return ps, err
+}
+
+// UpdateWebhookWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateWebhookWithMetadata(ServiceSid string, Sid string, params *UpdateWebhookParams) (*metadata.ResourceMetadata[VerifyV2Webhook], error) {
+	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EventTypes != nil {
+		for _, item := range *params.EventTypes {
+			data.Add("EventTypes", item)
+		}
+	}
+	if params != nil && params.WebhookUrl != nil {
+		data.Set("WebhookUrl", *params.WebhookUrl)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", fmt.Sprint(*params.Version))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Webhook{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Webhook](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

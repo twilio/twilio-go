@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessagingConfiguration'
@@ -72,6 +73,44 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 	return ps, err
 }
 
+// CreateMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessagingConfigurationWithMetadata(ServiceSid string, params *CreateMessagingConfigurationParams) (*metadata.ResourceMetadata[VerifyV2MessagingConfiguration], error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2MessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2MessagingConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific MessagingConfiguration.
 func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country string) error {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
@@ -91,6 +130,33 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteMessagingConfigurationWithMetadata(ServiceSid string, Country string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific MessagingConfiguration.
@@ -117,6 +183,38 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 	}
 
 	return ps, err
+}
+
+// FetchMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessagingConfigurationWithMetadata(ServiceSid string, Country string) (*metadata.ResourceMetadata[VerifyV2MessagingConfiguration], error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2MessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2MessagingConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMessagingConfiguration'
@@ -173,6 +271,49 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 	return ps, err
 }
 
+// PageMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMessagingConfigurationWithMetadata(ServiceSid string, params *ListMessagingConfigurationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMessagingConfigurationResponse], error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessagingConfigurationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMessagingConfigurationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
 	response, errors := c.StreamMessagingConfiguration(ServiceSid, params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 	}
 
 	return records, nil
+}
+
+// ListMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMessagingConfigurationWithMetadata(ServiceSid string, params *ListMessagingConfigurationParams) (*metadata.ResourceMetadata[[]VerifyV2MessagingConfiguration], error) {
+	response, errors := c.StreamMessagingConfigurationWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2MessagingConfiguration, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2MessagingConfiguration](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMessagingConfigurationWithMetadata(ServiceSid string, params *ListMessagingConfigurationParams) (*metadata.ResourceMetadata[chan VerifyV2MessagingConfiguration], chan error) {
+	if params == nil {
+		params = &ListMessagingConfigurationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2MessagingConfiguration, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMessagingConfigurationWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMessagingConfiguration(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2MessagingConfiguration](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMessagingConfiguration(response *ListMessagingConfigurationResponse, params *ListMessagingConfigurationParams, recordChannel chan VerifyV2MessagingConfiguration, errorChannel chan error) {
@@ -298,4 +491,40 @@ func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country str
 	}
 
 	return ps, err
+}
+
+// UpdateMessagingConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateMessagingConfigurationWithMetadata(ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*metadata.ResourceMetadata[VerifyV2MessagingConfiguration], error) {
+	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.MessagingServiceSid != nil {
+		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2MessagingConfiguration{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2MessagingConfiguration](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchConference'
@@ -62,6 +63,42 @@ func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) 
 	}
 
 	return ps, err
+}
+
+// FetchConferenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConferenceWithMetadata(Sid string, params *FetchConferenceParams) (*metadata.ResourceMetadata[ApiV2010Conference], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Conference{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Conference](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListConference'
@@ -200,6 +237,77 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pag
 	return ps, err
 }
 
+// PageConferenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageConferenceWithMetadata(params *ListConferenceParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListConferenceResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+	}
+	if params != nil && params.DateUpdatedBefore != nil {
+		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
+	}
+	if params != nil && params.DateUpdatedAfter != nil {
+		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConferenceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListConferenceResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Conference, error) {
 	response, errors := c.StreamConference(params)
@@ -214,6 +322,29 @@ func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Con
 	}
 
 	return records, nil
+}
+
+// ListConferenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListConferenceWithMetadata(params *ListConferenceParams) (*metadata.ResourceMetadata[[]ApiV2010Conference], error) {
+	response, errors := c.StreamConferenceWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Conference, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Conference](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -236,6 +367,35 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamConferenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamConferenceWithMetadata(params *ListConferenceParams) (*metadata.ResourceMetadata[chan ApiV2010Conference], chan error) {
+	if params == nil {
+		params = &ListConferenceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Conference, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageConferenceWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamConference(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Conference](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamConference(response *ListConferenceResponse, params *ListConferenceParams, recordChannel chan ApiV2010Conference, errorChannel chan error) {
@@ -353,4 +513,50 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 	}
 
 	return ps, err
+}
+
+// UpdateConferenceWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConferenceWithMetadata(Sid string, params *UpdateConferenceParams) (*metadata.ResourceMetadata[ApiV2010Conference], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Status != nil {
+		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.AnnounceUrl != nil {
+		data.Set("AnnounceUrl", *params.AnnounceUrl)
+	}
+	if params != nil && params.AnnounceMethod != nil {
+		data.Set("AnnounceMethod", *params.AnnounceMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Conference{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Conference](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

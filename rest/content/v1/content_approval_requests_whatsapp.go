@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateApprovalCreate'
@@ -63,4 +65,44 @@ func (c *ApiService) CreateApprovalCreate(ContentSid string, params *CreateAppro
 	}
 
 	return ps, err
+}
+
+// CreateApprovalCreateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateApprovalCreateWithMetadata(ContentSid string, params *CreateApprovalCreateParams) (*metadata.ResourceMetadata[ContentV1ApprovalCreate], error) {
+	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
+	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ContentApprovalRequest != nil {
+		b, err := json.Marshal(*params.ContentApprovalRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1ApprovalCreate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ContentV1ApprovalCreate](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

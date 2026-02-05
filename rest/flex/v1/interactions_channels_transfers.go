@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInteractionTransfer'
@@ -66,6 +68,47 @@ func (c *ApiService) CreateInteractionTransfer(InteractionSid string, ChannelSid
 	return ps, err
 }
 
+// CreateInteractionTransferWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInteractionTransferWithMetadata(InteractionSid string, ChannelSid string, params *CreateInteractionTransferParams) (*metadata.ResourceMetadata[FlexV1InteractionTransfer], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionTransfer{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionTransfer](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Fetch a specific Transfer by SID.
 func (c *ApiService) FetchInteractionTransfer(InteractionSid string, ChannelSid string, Sid string) (*FlexV1InteractionTransfer, error) {
 	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}"
@@ -91,6 +134,39 @@ func (c *ApiService) FetchInteractionTransfer(InteractionSid string, ChannelSid 
 	}
 
 	return ps, err
+}
+
+// FetchInteractionTransferWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchInteractionTransferWithMetadata(InteractionSid string, ChannelSid string, Sid string) (*metadata.ResourceMetadata[FlexV1InteractionTransfer], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionTransfer{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionTransfer](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateInteractionTransfer'
@@ -138,4 +214,46 @@ func (c *ApiService) UpdateInteractionTransfer(InteractionSid string, ChannelSid
 	}
 
 	return ps, err
+}
+
+// UpdateInteractionTransferWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInteractionTransferWithMetadata(InteractionSid string, ChannelSid string, Sid string, params *UpdateInteractionTransferParams) (*metadata.ResourceMetadata[FlexV1InteractionTransfer], error) {
+	path := "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Transfers/{Sid}"
+	path = strings.Replace(path, "{"+"InteractionSid"+"}", InteractionSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.Body != nil {
+		b, err := json.Marshal(*params.Body)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InteractionTransfer{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InteractionTransfer](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

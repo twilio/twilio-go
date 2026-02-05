@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateWebChannel'
@@ -101,4 +103,53 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 	}
 
 	return ps, err
+}
+
+// CreateWebChannelWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateWebChannelWithMetadata(params *CreateWebChannelParams) (*metadata.ResourceMetadata[FlexV2WebChannel], error) {
+	path := "/v2/WebChats"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.ChatFriendlyName != nil {
+		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
+	}
+	if params != nil && params.CustomerFriendlyName != nil {
+		data.Set("CustomerFriendlyName", *params.CustomerFriendlyName)
+	}
+	if params != nil && params.PreEngagementData != nil {
+		data.Set("PreEngagementData", *params.PreEngagementData)
+	}
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+
+	if params != nil && params.UiVersion != nil {
+		headers["Ui-Version"] = *params.UiVersion
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV2WebChannel{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV2WebChannel](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

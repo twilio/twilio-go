@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Fetch an instance of an Add-on currently available to be installed.
@@ -46,6 +47,37 @@ func (c *ApiService) FetchAvailableAddOn(Sid string) (*MarketplaceV1AvailableAdd
 	}
 
 	return ps, err
+}
+
+// FetchAvailableAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAvailableAddOnWithMetadata(Sid string) (*metadata.ResourceMetadata[MarketplaceV1AvailableAddOn], error) {
+	path := "/v1/AvailableAddOns/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MarketplaceV1AvailableAddOn{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MarketplaceV1AvailableAddOn](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAvailableAddOn'
@@ -100,6 +132,47 @@ func (c *ApiService) PageAvailableAddOn(params *ListAvailableAddOnParams, pageTo
 	return ps, err
 }
 
+// PageAvailableAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAvailableAddOnWithMetadata(params *ListAvailableAddOnParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAvailableAddOnResponse], error) {
+	path := "/v1/AvailableAddOns"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailableAddOnResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAvailableAddOnResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AvailableAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) ([]MarketplaceV1AvailableAddOn, error) {
 	response, errors := c.StreamAvailableAddOn(params)
@@ -114,6 +187,29 @@ func (c *ApiService) ListAvailableAddOn(params *ListAvailableAddOnParams) ([]Mar
 	}
 
 	return records, nil
+}
+
+// ListAvailableAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAvailableAddOnWithMetadata(params *ListAvailableAddOnParams) (*metadata.ResourceMetadata[[]MarketplaceV1AvailableAddOn], error) {
+	response, errors := c.StreamAvailableAddOnWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]MarketplaceV1AvailableAddOn, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]MarketplaceV1AvailableAddOn](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AvailableAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -136,6 +232,35 @@ func (c *ApiService) StreamAvailableAddOn(params *ListAvailableAddOnParams) (cha
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAvailableAddOnWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAvailableAddOnWithMetadata(params *ListAvailableAddOnParams) (*metadata.ResourceMetadata[chan MarketplaceV1AvailableAddOn], chan error) {
+	if params == nil {
+		params = &ListAvailableAddOnParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan MarketplaceV1AvailableAddOn, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAvailableAddOnWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAvailableAddOn(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan MarketplaceV1AvailableAddOn](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAvailableAddOn(response *ListAvailableAddOnResponse, params *ListAvailableAddOnParams, recordChannel chan MarketplaceV1AvailableAddOn, errorChannel chan error) {

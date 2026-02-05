@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -48,6 +49,39 @@ func (c *ApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, S
 	}
 
 	return ps, err
+}
+
+// FetchTaskReservationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTaskReservationWithMetadata(WorkspaceSid string, TaskSid string, Sid string) (*metadata.ResourceMetadata[TaskrouterV1TaskReservation], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskReservation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskReservation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTaskReservation'
@@ -123,6 +157,56 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 	return ps, err
 }
 
+// PageTaskReservationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTaskReservationWithMetadata(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTaskReservationResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ReservationStatus != nil {
+		data.Set("ReservationStatus", fmt.Sprint(*params.ReservationStatus))
+	}
+	if params != nil && params.WorkerSid != nil {
+		data.Set("WorkerSid", *params.WorkerSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskReservationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTaskReservationResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) ([]TaskrouterV1TaskReservation, error) {
 	response, errors := c.StreamTaskReservation(WorkspaceSid, TaskSid, params)
@@ -137,6 +221,29 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 	}
 
 	return records, nil
+}
+
+// ListTaskReservationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTaskReservationWithMetadata(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (*metadata.ResourceMetadata[[]TaskrouterV1TaskReservation], error) {
+	response, errors := c.StreamTaskReservationWithMetadata(WorkspaceSid, TaskSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1TaskReservation, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1TaskReservation](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -159,6 +266,35 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTaskReservationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTaskReservationWithMetadata(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (*metadata.ResourceMetadata[chan TaskrouterV1TaskReservation], chan error) {
+	if params == nil {
+		params = &ListTaskReservationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1TaskReservation, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTaskReservationWithMetadata(WorkspaceSid, TaskSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTaskReservation(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1TaskReservation](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTaskReservation(response *ListTaskReservationResponse, params *ListTaskReservationParams, recordChannel chan TaskrouterV1TaskReservation, errorChannel chan error) {
@@ -741,4 +877,209 @@ func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, 
 	}
 
 	return ps, err
+}
+
+// UpdateTaskReservationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateTaskReservationWithMetadata(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*metadata.ResourceMetadata[TaskrouterV1TaskReservation], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.ReservationStatus != nil {
+		data.Set("ReservationStatus", fmt.Sprint(*params.ReservationStatus))
+	}
+	if params != nil && params.WorkerActivitySid != nil {
+		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
+	}
+	if params != nil && params.Instruction != nil {
+		data.Set("Instruction", *params.Instruction)
+	}
+	if params != nil && params.DequeuePostWorkActivitySid != nil {
+		data.Set("DequeuePostWorkActivitySid", *params.DequeuePostWorkActivitySid)
+	}
+	if params != nil && params.DequeueFrom != nil {
+		data.Set("DequeueFrom", *params.DequeueFrom)
+	}
+	if params != nil && params.DequeueRecord != nil {
+		data.Set("DequeueRecord", *params.DequeueRecord)
+	}
+	if params != nil && params.DequeueTimeout != nil {
+		data.Set("DequeueTimeout", fmt.Sprint(*params.DequeueTimeout))
+	}
+	if params != nil && params.DequeueTo != nil {
+		data.Set("DequeueTo", *params.DequeueTo)
+	}
+	if params != nil && params.DequeueStatusCallbackUrl != nil {
+		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
+	}
+	if params != nil && params.CallFrom != nil {
+		data.Set("CallFrom", *params.CallFrom)
+	}
+	if params != nil && params.CallRecord != nil {
+		data.Set("CallRecord", *params.CallRecord)
+	}
+	if params != nil && params.CallTimeout != nil {
+		data.Set("CallTimeout", fmt.Sprint(*params.CallTimeout))
+	}
+	if params != nil && params.CallTo != nil {
+		data.Set("CallTo", *params.CallTo)
+	}
+	if params != nil && params.CallUrl != nil {
+		data.Set("CallUrl", *params.CallUrl)
+	}
+	if params != nil && params.CallStatusCallbackUrl != nil {
+		data.Set("CallStatusCallbackUrl", *params.CallStatusCallbackUrl)
+	}
+	if params != nil && params.CallAccept != nil {
+		data.Set("CallAccept", fmt.Sprint(*params.CallAccept))
+	}
+	if params != nil && params.RedirectCallSid != nil {
+		data.Set("RedirectCallSid", *params.RedirectCallSid)
+	}
+	if params != nil && params.RedirectAccept != nil {
+		data.Set("RedirectAccept", fmt.Sprint(*params.RedirectAccept))
+	}
+	if params != nil && params.RedirectUrl != nil {
+		data.Set("RedirectUrl", *params.RedirectUrl)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.StatusCallbackEvent != nil {
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.Timeout != nil {
+		data.Set("Timeout", fmt.Sprint(*params.Timeout))
+	}
+	if params != nil && params.Record != nil {
+		data.Set("Record", fmt.Sprint(*params.Record))
+	}
+	if params != nil && params.Muted != nil {
+		data.Set("Muted", fmt.Sprint(*params.Muted))
+	}
+	if params != nil && params.Beep != nil {
+		data.Set("Beep", *params.Beep)
+	}
+	if params != nil && params.StartConferenceOnEnter != nil {
+		data.Set("StartConferenceOnEnter", fmt.Sprint(*params.StartConferenceOnEnter))
+	}
+	if params != nil && params.EndConferenceOnExit != nil {
+		data.Set("EndConferenceOnExit", fmt.Sprint(*params.EndConferenceOnExit))
+	}
+	if params != nil && params.WaitUrl != nil {
+		data.Set("WaitUrl", *params.WaitUrl)
+	}
+	if params != nil && params.WaitMethod != nil {
+		data.Set("WaitMethod", *params.WaitMethod)
+	}
+	if params != nil && params.EarlyMedia != nil {
+		data.Set("EarlyMedia", fmt.Sprint(*params.EarlyMedia))
+	}
+	if params != nil && params.MaxParticipants != nil {
+		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
+	}
+	if params != nil && params.ConferenceStatusCallback != nil {
+		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
+	}
+	if params != nil && params.ConferenceStatusCallbackMethod != nil {
+		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
+	}
+	if params != nil && params.ConferenceStatusCallbackEvent != nil {
+		for _, item := range *params.ConferenceStatusCallbackEvent {
+			data.Add("ConferenceStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.ConferenceRecord != nil {
+		data.Set("ConferenceRecord", *params.ConferenceRecord)
+	}
+	if params != nil && params.ConferenceTrim != nil {
+		data.Set("ConferenceTrim", *params.ConferenceTrim)
+	}
+	if params != nil && params.RecordingChannels != nil {
+		data.Set("RecordingChannels", *params.RecordingChannels)
+	}
+	if params != nil && params.RecordingStatusCallback != nil {
+		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
+	}
+	if params != nil && params.RecordingStatusCallbackMethod != nil {
+		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallback != nil {
+		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
+	}
+	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
+		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.SipAuthUsername != nil {
+		data.Set("SipAuthUsername", *params.SipAuthUsername)
+	}
+	if params != nil && params.SipAuthPassword != nil {
+		data.Set("SipAuthPassword", *params.SipAuthPassword)
+	}
+	if params != nil && params.DequeueStatusCallbackEvent != nil {
+		for _, item := range *params.DequeueStatusCallbackEvent {
+			data.Add("DequeueStatusCallbackEvent", item)
+		}
+	}
+	if params != nil && params.PostWorkActivitySid != nil {
+		data.Set("PostWorkActivitySid", *params.PostWorkActivitySid)
+	}
+	if params != nil && params.SupervisorMode != nil {
+		data.Set("SupervisorMode", fmt.Sprint(*params.SupervisorMode))
+	}
+	if params != nil && params.Supervisor != nil {
+		data.Set("Supervisor", *params.Supervisor)
+	}
+	if params != nil && params.EndConferenceOnCustomerExit != nil {
+		data.Set("EndConferenceOnCustomerExit", fmt.Sprint(*params.EndConferenceOnCustomerExit))
+	}
+	if params != nil && params.BeepOnCustomerEntrance != nil {
+		data.Set("BeepOnCustomerEntrance", fmt.Sprint(*params.BeepOnCustomerEntrance))
+	}
+	if params != nil && params.JitterBufferSize != nil {
+		data.Set("JitterBufferSize", *params.JitterBufferSize)
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskReservation{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskReservation](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

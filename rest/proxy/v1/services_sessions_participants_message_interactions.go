@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateMessageInteraction'
@@ -76,6 +77,48 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
+// CreateMessageInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateMessageInteractionWithMetadata(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*metadata.ResourceMetadata[ProxyV1MessageInteraction], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.MediaUrl != nil {
+		for _, item := range *params.MediaUrl {
+			data.Add("MediaUrl", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ProxyV1MessageInteraction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ProxyV1MessageInteraction](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
@@ -102,6 +145,40 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 	}
 
 	return ps, err
+}
+
+// FetchMessageInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchMessageInteractionWithMetadata(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*metadata.ResourceMetadata[ProxyV1MessageInteraction], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ProxyV1MessageInteraction{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ProxyV1MessageInteraction](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListMessageInteraction'
@@ -160,6 +237,51 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 	return ps, err
 }
 
+// PageMessageInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageMessageInteractionWithMetadata(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListMessageInteractionResponse], error) {
+	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessageInteractionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListMessageInteractionResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1MessageInteraction, error) {
 	response, errors := c.StreamMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params)
@@ -174,6 +296,29 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 	}
 
 	return records, nil
+}
+
+// ListMessageInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListMessageInteractionWithMetadata(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (*metadata.ResourceMetadata[[]ProxyV1MessageInteraction], error) {
+	response, errors := c.StreamMessageInteractionWithMetadata(ServiceSid, SessionSid, ParticipantSid, params)
+	resource := response.GetResource()
+
+	records := make([]ProxyV1MessageInteraction, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ProxyV1MessageInteraction](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -196,6 +341,35 @@ func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid stri
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamMessageInteractionWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamMessageInteractionWithMetadata(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (*metadata.ResourceMetadata[chan ProxyV1MessageInteraction], chan error) {
+	if params == nil {
+		params = &ListMessageInteractionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ProxyV1MessageInteraction, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageMessageInteractionWithMetadata(ServiceSid, SessionSid, ParticipantSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamMessageInteraction(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ProxyV1MessageInteraction](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamMessageInteraction(response *ListMessageInteractionResponse, params *ListMessageInteractionParams, recordChannel chan ProxyV1MessageInteraction, errorChannel chan error) {

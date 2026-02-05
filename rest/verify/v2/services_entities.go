@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateEntity'
@@ -63,6 +64,41 @@ func (c *ApiService) CreateEntity(ServiceSid string, params *CreateEntityParams)
 	return ps, err
 }
 
+// CreateEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateEntityWithMetadata(ServiceSid string, params *CreateEntityParams) (*metadata.ResourceMetadata[VerifyV2Entity], error) {
+	path := "/v2/Services/{ServiceSid}/Entities"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Identity != nil {
+		data.Set("Identity", *params.Identity)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Entity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Entity](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Delete a specific Entity.
 func (c *ApiService) DeleteEntity(ServiceSid string, Identity string) error {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
@@ -82,6 +118,33 @@ func (c *ApiService) DeleteEntity(ServiceSid string, Identity string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteEntityWithMetadata(ServiceSid string, Identity string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a specific Entity.
@@ -108,6 +171,38 @@ func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2E
 	}
 
 	return ps, err
+}
+
+// FetchEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEntityWithMetadata(ServiceSid string, Identity string) (*metadata.ResourceMetadata[VerifyV2Entity], error) {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VerifyV2Entity{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VerifyV2Entity](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListEntity'
@@ -164,6 +259,49 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 	return ps, err
 }
 
+// PageEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageEntityWithMetadata(ServiceSid string, params *ListEntityParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListEntityResponse], error) {
+	path := "/v2/Services/{ServiceSid}/Entities"
+
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEntityResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListEntityResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2Entity, error) {
 	response, errors := c.StreamEntity(ServiceSid, params)
@@ -178,6 +316,29 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]
 	}
 
 	return records, nil
+}
+
+// ListEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListEntityWithMetadata(ServiceSid string, params *ListEntityParams) (*metadata.ResourceMetadata[[]VerifyV2Entity], error) {
+	response, errors := c.StreamEntityWithMetadata(ServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]VerifyV2Entity, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VerifyV2Entity](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -200,6 +361,35 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamEntityWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamEntityWithMetadata(ServiceSid string, params *ListEntityParams) (*metadata.ResourceMetadata[chan VerifyV2Entity], chan error) {
+	if params == nil {
+		params = &ListEntityParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VerifyV2Entity, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageEntityWithMetadata(ServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamEntity(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VerifyV2Entity](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamEntity(response *ListEntityResponse, params *ListEntityParams, recordChannel chan VerifyV2Entity, errorChannel chan error) {

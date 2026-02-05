@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchVoiceNumber'
@@ -58,4 +60,39 @@ func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoi
 	}
 
 	return ps, err
+}
+
+// FetchVoiceNumberWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchVoiceNumberWithMetadata(DestinationNumber string, params *FetchVoiceNumberParams) (*metadata.ResourceMetadata[PricingV2VoiceNumber], error) {
+	path := "/v2/Voice/Numbers/{DestinationNumber}"
+	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.OriginationNumber != nil {
+		data.Set("OriginationNumber", *params.OriginationNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &PricingV2VoiceNumber{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[PricingV2VoiceNumber](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

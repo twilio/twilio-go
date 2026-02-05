@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve the most recent context for an Engagement.
@@ -44,4 +46,36 @@ func (c *ApiService) FetchEngagementContext(FlowSid string, EngagementSid string
 	}
 
 	return ps, err
+}
+
+// FetchEngagementContextWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchEngagementContextWithMetadata(FlowSid string, EngagementSid string) (*metadata.ResourceMetadata[StudioV1EngagementContext], error) {
+	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV1EngagementContext{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV1EngagementContext](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

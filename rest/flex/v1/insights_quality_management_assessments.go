@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateInsightsAssessments'
@@ -152,6 +153,70 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	return ps, err
 }
 
+// CreateInsightsAssessmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateInsightsAssessmentsWithMetadata(params *CreateInsightsAssessmentsParams) (*metadata.ResourceMetadata[FlexV1InsightsAssessments], error) {
+	path := "/v1/Insights/QualityManagement/Assessments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CategorySid != nil {
+		data.Set("CategorySid", *params.CategorySid)
+	}
+	if params != nil && params.CategoryName != nil {
+		data.Set("CategoryName", *params.CategoryName)
+	}
+	if params != nil && params.SegmentId != nil {
+		data.Set("SegmentId", *params.SegmentId)
+	}
+	if params != nil && params.AgentId != nil {
+		data.Set("AgentId", *params.AgentId)
+	}
+	if params != nil && params.Offset != nil {
+		data.Set("Offset", fmt.Sprint(*params.Offset))
+	}
+	if params != nil && params.MetricId != nil {
+		data.Set("MetricId", *params.MetricId)
+	}
+	if params != nil && params.MetricName != nil {
+		data.Set("MetricName", *params.MetricName)
+	}
+	if params != nil && params.AnswerText != nil {
+		data.Set("AnswerText", *params.AnswerText)
+	}
+	if params != nil && params.AnswerId != nil {
+		data.Set("AnswerId", *params.AnswerId)
+	}
+	if params != nil && params.QuestionnaireSid != nil {
+		data.Set("QuestionnaireSid", *params.QuestionnaireSid)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsAssessments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsAssessments](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'ListInsightsAssessments'
 type ListInsightsAssessmentsParams struct {
 	// The Authorization HTTP request header
@@ -219,6 +284,50 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 	return ps, err
 }
 
+// PageInsightsAssessmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageInsightsAssessmentsWithMetadata(params *ListInsightsAssessmentsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListInsightsAssessmentsResponse], error) {
+	path := "/v1/Insights/QualityManagement/Assessments"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SegmentId != nil {
+		data.Set("SegmentId", *params.SegmentId)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInsightsAssessmentsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListInsightsAssessmentsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists InsightsAssessments records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInsightsAssessments(params *ListInsightsAssessmentsParams) ([]FlexV1InsightsAssessments, error) {
 	response, errors := c.StreamInsightsAssessments(params)
@@ -233,6 +342,29 @@ func (c *ApiService) ListInsightsAssessments(params *ListInsightsAssessmentsPara
 	}
 
 	return records, nil
+}
+
+// ListInsightsAssessmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListInsightsAssessmentsWithMetadata(params *ListInsightsAssessmentsParams) (*metadata.ResourceMetadata[[]FlexV1InsightsAssessments], error) {
+	response, errors := c.StreamInsightsAssessmentsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]FlexV1InsightsAssessments, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]FlexV1InsightsAssessments](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams InsightsAssessments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -255,6 +387,35 @@ func (c *ApiService) StreamInsightsAssessments(params *ListInsightsAssessmentsPa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamInsightsAssessmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamInsightsAssessmentsWithMetadata(params *ListInsightsAssessmentsParams) (*metadata.ResourceMetadata[chan FlexV1InsightsAssessments], chan error) {
+	if params == nil {
+		params = &ListInsightsAssessmentsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan FlexV1InsightsAssessments, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageInsightsAssessmentsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamInsightsAssessments(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan FlexV1InsightsAssessments](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamInsightsAssessments(response *ListInsightsAssessmentsResponse, params *ListInsightsAssessmentsParams, recordChannel chan FlexV1InsightsAssessments, errorChannel chan error) {
@@ -370,4 +531,48 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	}
 
 	return ps, err
+}
+
+// UpdateInsightsAssessmentsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateInsightsAssessmentsWithMetadata(AssessmentSid string, params *UpdateInsightsAssessmentsParams) (*metadata.ResourceMetadata[FlexV1InsightsAssessments], error) {
+	path := "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}"
+	path = strings.Replace(path, "{"+"AssessmentSid"+"}", AssessmentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Offset != nil {
+		data.Set("Offset", fmt.Sprint(*params.Offset))
+	}
+	if params != nil && params.AnswerText != nil {
+		data.Set("AnswerText", *params.AnswerText)
+	}
+	if params != nil && params.AnswerId != nil {
+		data.Set("AnswerId", *params.AnswerId)
+	}
+
+	if params != nil && params.Authorization != nil {
+		headers["Authorization"] = *params.Authorization
+	}
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &FlexV1InsightsAssessments{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[FlexV1InsightsAssessments](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

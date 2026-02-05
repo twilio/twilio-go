@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSipDomain'
@@ -181,6 +182,81 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 	return ps, err
 }
 
+// CreateSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSipDomainWithMetadata(params *CreateSipDomainParams) (*metadata.ResourceMetadata[ApiV2010SipDomain], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackUrl != nil {
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+	}
+	if params != nil && params.VoiceStatusCallbackMethod != nil {
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipDomain](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSipDomain'
 type DeleteSipDomainParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete.
@@ -215,6 +291,37 @@ func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSipDomainWithMetadata(Sid string, params *DeleteSipDomainParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchSipDomain'
@@ -256,6 +363,42 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 	}
 
 	return ps, err
+}
+
+// FetchSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSipDomainWithMetadata(Sid string, params *FetchSipDomainParams) (*metadata.ResourceMetadata[ApiV2010SipDomain], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipDomain](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSipDomain'
@@ -322,6 +465,53 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 	return ps, err
 }
 
+// PageSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSipDomainWithMetadata(params *ListSipDomainParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSipDomainResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSipDomainResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSipDomainResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDomain, error) {
 	response, errors := c.StreamSipDomain(params)
@@ -336,6 +526,29 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDo
 	}
 
 	return records, nil
+}
+
+// ListSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSipDomainWithMetadata(params *ListSipDomainParams) (*metadata.ResourceMetadata[[]ApiV2010SipDomain], error) {
+	response, errors := c.StreamSipDomainWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010SipDomain, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010SipDomain](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -358,6 +571,35 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSipDomainWithMetadata(params *ListSipDomainParams) (*metadata.ResourceMetadata[chan ApiV2010SipDomain], chan error) {
+	if params == nil {
+		params = &ListSipDomainParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010SipDomain, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSipDomainWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSipDomain(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010SipDomain](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSipDomain(response *ListSipDomainResponse, params *ListSipDomainParams, recordChannel chan ApiV2010SipDomain, errorChannel chan error) {
@@ -565,4 +807,80 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	}
 
 	return ps, err
+}
+
+// UpdateSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSipDomainWithMetadata(Sid string, params *UpdateSipDomainParams) (*metadata.ResourceMetadata[ApiV2010SipDomain], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackMethod != nil {
+		data.Set("VoiceStatusCallbackMethod", *params.VoiceStatusCallbackMethod)
+	}
+	if params != nil && params.VoiceStatusCallbackUrl != nil {
+		data.Set("VoiceStatusCallbackUrl", *params.VoiceStatusCallbackUrl)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.SipRegistration != nil {
+		data.Set("SipRegistration", fmt.Sprint(*params.SipRegistration))
+	}
+	if params != nil && params.DomainName != nil {
+		data.Set("DomainName", *params.DomainName)
+	}
+	if params != nil && params.EmergencyCallingEnabled != nil {
+		data.Set("EmergencyCallingEnabled", fmt.Sprint(*params.EmergencyCallingEnabled))
+	}
+	if params != nil && params.Secure != nil {
+		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.ByocTrunkSid != nil {
+		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
+	}
+	if params != nil && params.EmergencyCallerSid != nil {
+		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipDomain](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

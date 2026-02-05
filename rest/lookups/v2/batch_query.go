@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateBulkLookup'
@@ -61,4 +63,43 @@ func (c *ApiService) CreateBulkLookup(params *CreateBulkLookupParams) (*LookupRe
 	}
 
 	return ps, err
+}
+
+// CreateBulkLookupWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateBulkLookupWithMetadata(params *CreateBulkLookupParams) (*metadata.ResourceMetadata[LookupResponse1], error) {
+	path := "/v2/batch/query"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.LookupRequest != nil {
+		b, err := json.Marshal(*params.LookupRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &LookupResponse1{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[LookupResponse1](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

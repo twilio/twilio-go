@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Remove a push notification binding from the conversation service
@@ -42,6 +43,33 @@ func (c *ApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) err
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteServiceBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteServiceBindingWithMetadata(ChatServiceSid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Fetch a push notification binding from the conversation service
@@ -68,6 +96,38 @@ func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*Co
 	}
 
 	return ps, err
+}
+
+// FetchServiceBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchServiceBindingWithMetadata(ChatServiceSid string, Sid string) (*metadata.ResourceMetadata[ConversationsV1ServiceBinding], error) {
+	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ConversationsV1ServiceBinding{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ConversationsV1ServiceBinding](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListServiceBinding'
@@ -146,6 +206,59 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 	return ps, err
 }
 
+// PageServiceBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageServiceBindingWithMetadata(ChatServiceSid string, params *ListServiceBindingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListServiceBindingResponse], error) {
+	path := "/v1/Services/{ChatServiceSid}/Bindings"
+
+	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.BindingType != nil {
+		for _, item := range *params.BindingType {
+			data.Add("BindingType", item)
+		}
+	}
+	if params != nil && params.Identity != nil {
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceBindingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListServiceBindingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceBinding, error) {
 	response, errors := c.StreamServiceBinding(ChatServiceSid, params)
@@ -160,6 +273,29 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	}
 
 	return records, nil
+}
+
+// ListServiceBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListServiceBindingWithMetadata(ChatServiceSid string, params *ListServiceBindingParams) (*metadata.ResourceMetadata[[]ConversationsV1ServiceBinding], error) {
+	response, errors := c.StreamServiceBindingWithMetadata(ChatServiceSid, params)
+	resource := response.GetResource()
+
+	records := make([]ConversationsV1ServiceBinding, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ConversationsV1ServiceBinding](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -182,6 +318,35 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamServiceBindingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamServiceBindingWithMetadata(ChatServiceSid string, params *ListServiceBindingParams) (*metadata.ResourceMetadata[chan ConversationsV1ServiceBinding], chan error) {
+	if params == nil {
+		params = &ListServiceBindingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ConversationsV1ServiceBinding, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageServiceBindingWithMetadata(ChatServiceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamServiceBinding(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ConversationsV1ServiceBinding](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamServiceBinding(response *ListServiceBindingResponse, params *ListServiceBindingParams, recordChannel chan ConversationsV1ServiceBinding, errorChannel chan error) {

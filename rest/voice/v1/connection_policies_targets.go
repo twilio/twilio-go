@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateConnectionPolicyTarget'
@@ -99,6 +100,53 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 	return ps, err
 }
 
+// CreateConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*metadata.ResourceMetadata[VoiceV1ConnectionPolicyTarget], error) {
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", fmt.Sprint(*params.Priority))
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", fmt.Sprint(*params.Weight))
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ConnectionPolicyTarget](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 //
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
@@ -118,6 +166,33 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, Sid string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 //
@@ -144,6 +219,38 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 	}
 
 	return ps, err
+}
+
+// FetchConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, Sid string) (*metadata.ResourceMetadata[VoiceV1ConnectionPolicyTarget], error) {
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ConnectionPolicyTarget](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListConnectionPolicyTarget'
@@ -200,6 +307,49 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 	return ps, err
 }
 
+// PageConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListConnectionPolicyTargetResponse], error) {
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConnectionPolicyTargetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListConnectionPolicyTargetResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyTarget, error) {
 	response, errors := c.StreamConnectionPolicyTarget(ConnectionPolicySid, params)
@@ -214,6 +364,29 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	}
 
 	return records, nil
+}
+
+// ListConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*metadata.ResourceMetadata[[]VoiceV1ConnectionPolicyTarget], error) {
+	response, errors := c.StreamConnectionPolicyTargetWithMetadata(ConnectionPolicySid, params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV1ConnectionPolicyTarget, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV1ConnectionPolicyTarget](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -236,6 +409,35 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*metadata.ResourceMetadata[chan VoiceV1ConnectionPolicyTarget], chan error) {
+	if params == nil {
+		params = &ListConnectionPolicyTargetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV1ConnectionPolicyTarget, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageConnectionPolicyTargetWithMetadata(ConnectionPolicySid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamConnectionPolicyTarget(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV1ConnectionPolicyTarget](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamConnectionPolicyTarget(response *ListConnectionPolicyTargetResponse, params *ListConnectionPolicyTargetParams, recordChannel chan VoiceV1ConnectionPolicyTarget, errorChannel chan error) {
@@ -361,4 +563,52 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 	}
 
 	return ps, err
+}
+
+// UpdateConnectionPolicyTargetWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateConnectionPolicyTargetWithMetadata(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*metadata.ResourceMetadata[VoiceV1ConnectionPolicyTarget], error) {
+	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
+	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Target != nil {
+		data.Set("Target", *params.Target)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", fmt.Sprint(*params.Priority))
+	}
+	if params != nil && params.Weight != nil {
+		data.Set("Weight", fmt.Sprint(*params.Weight))
+	}
+	if params != nil && params.Enabled != nil {
+		data.Set("Enabled", fmt.Sprint(*params.Enabled))
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV1ConnectionPolicyTarget{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV1ConnectionPolicyTarget](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

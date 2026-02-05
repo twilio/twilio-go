@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
@@ -271,6 +272,111 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 	return ps, err
 }
 
+// CreateIncomingPhoneNumberTollFreeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateIncomingPhoneNumberTollFreeWithMetadata(params *CreateIncomingPhoneNumberTollFreeParams) (*metadata.ResourceMetadata[ApiV2010IncomingPhoneNumberTollFree], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.ApiVersion != nil {
+		data.Set("ApiVersion", *params.ApiVersion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.SmsApplicationSid != nil {
+		data.Set("SmsApplicationSid", *params.SmsApplicationSid)
+	}
+	if params != nil && params.SmsFallbackMethod != nil {
+		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
+	}
+	if params != nil && params.SmsFallbackUrl != nil {
+		data.Set("SmsFallbackUrl", *params.SmsFallbackUrl)
+	}
+	if params != nil && params.SmsMethod != nil {
+		data.Set("SmsMethod", *params.SmsMethod)
+	}
+	if params != nil && params.SmsUrl != nil {
+		data.Set("SmsUrl", *params.SmsUrl)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.VoiceApplicationSid != nil {
+		data.Set("VoiceApplicationSid", *params.VoiceApplicationSid)
+	}
+	if params != nil && params.VoiceCallerIdLookup != nil {
+		data.Set("VoiceCallerIdLookup", fmt.Sprint(*params.VoiceCallerIdLookup))
+	}
+	if params != nil && params.VoiceFallbackMethod != nil {
+		data.Set("VoiceFallbackMethod", *params.VoiceFallbackMethod)
+	}
+	if params != nil && params.VoiceFallbackUrl != nil {
+		data.Set("VoiceFallbackUrl", *params.VoiceFallbackUrl)
+	}
+	if params != nil && params.VoiceMethod != nil {
+		data.Set("VoiceMethod", *params.VoiceMethod)
+	}
+	if params != nil && params.VoiceUrl != nil {
+		data.Set("VoiceUrl", *params.VoiceUrl)
+	}
+	if params != nil && params.IdentitySid != nil {
+		data.Set("IdentitySid", *params.IdentitySid)
+	}
+	if params != nil && params.AddressSid != nil {
+		data.Set("AddressSid", *params.AddressSid)
+	}
+	if params != nil && params.EmergencyStatus != nil {
+		data.Set("EmergencyStatus", fmt.Sprint(*params.EmergencyStatus))
+	}
+	if params != nil && params.EmergencyAddressSid != nil {
+		data.Set("EmergencyAddressSid", *params.EmergencyAddressSid)
+	}
+	if params != nil && params.TrunkSid != nil {
+		data.Set("TrunkSid", *params.TrunkSid)
+	}
+	if params != nil && params.VoiceReceiveMode != nil {
+		data.Set("VoiceReceiveMode", fmt.Sprint(*params.VoiceReceiveMode))
+	}
+	if params != nil && params.BundleSid != nil {
+		data.Set("BundleSid", *params.BundleSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010IncomingPhoneNumberTollFree{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010IncomingPhoneNumberTollFree](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
 type ListIncomingPhoneNumberTollFreeParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
@@ -371,6 +477,65 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	return ps, err
 }
 
+// PageIncomingPhoneNumberTollFreeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageIncomingPhoneNumberTollFreeWithMetadata(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListIncomingPhoneNumberTollFreeResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Beta != nil {
+		data.Set("Beta", fmt.Sprint(*params.Beta))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.Origin != nil {
+		data.Set("Origin", *params.Origin)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberTollFreeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListIncomingPhoneNumberTollFreeResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010IncomingPhoneNumberTollFree, error) {
 	response, errors := c.StreamIncomingPhoneNumberTollFree(params)
@@ -385,6 +550,29 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 
 	return records, nil
+}
+
+// ListIncomingPhoneNumberTollFreeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListIncomingPhoneNumberTollFreeWithMetadata(params *ListIncomingPhoneNumberTollFreeParams) (*metadata.ResourceMetadata[[]ApiV2010IncomingPhoneNumberTollFree], error) {
+	response, errors := c.StreamIncomingPhoneNumberTollFreeWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010IncomingPhoneNumberTollFree, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010IncomingPhoneNumberTollFree](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -407,6 +595,35 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamIncomingPhoneNumberTollFreeWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamIncomingPhoneNumberTollFreeWithMetadata(params *ListIncomingPhoneNumberTollFreeParams) (*metadata.ResourceMetadata[chan ApiV2010IncomingPhoneNumberTollFree], chan error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberTollFreeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010IncomingPhoneNumberTollFree, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageIncomingPhoneNumberTollFreeWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamIncomingPhoneNumberTollFree(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010IncomingPhoneNumberTollFree](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamIncomingPhoneNumberTollFree(response *ListIncomingPhoneNumberTollFreeResponse, params *ListIncomingPhoneNumberTollFreeParams, recordChannel chan ApiV2010IncomingPhoneNumberTollFree, errorChannel chan error) {

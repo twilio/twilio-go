@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Retrieve the most recent context for an Execution.
@@ -44,4 +46,36 @@ func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) 
 	}
 
 	return ps, err
+}
+
+// FetchExecutionContextWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchExecutionContextWithMetadata(FlowSid string, ExecutionSid string) (*metadata.ResourceMetadata[StudioV1ExecutionContext], error) {
+	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &StudioV1ExecutionContext{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[StudioV1ExecutionContext](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

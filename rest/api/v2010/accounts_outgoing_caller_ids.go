@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateValidationRequest'
@@ -118,6 +119,60 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 	return ps, err
 }
 
+// CreateValidationRequestWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateValidationRequestWithMetadata(params *CreateValidationRequestParams) (*metadata.ResourceMetadata[ApiV2010ValidationRequest], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CallDelay != nil {
+		data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
+	}
+	if params != nil && params.Extension != nil {
+		data.Set("Extension", *params.Extension)
+	}
+	if params != nil && params.StatusCallback != nil {
+		data.Set("StatusCallback", *params.StatusCallback)
+	}
+	if params != nil && params.StatusCallbackMethod != nil {
+		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010ValidationRequest{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010ValidationRequest](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteOutgoingCallerId'
 type DeleteOutgoingCallerIdParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete.
@@ -152,6 +207,37 @@ func (c *ApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCa
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteOutgoingCallerIdWithMetadata(Sid string, params *DeleteOutgoingCallerIdParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchOutgoingCallerId'
@@ -193,6 +279,42 @@ func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCall
 	}
 
 	return ps, err
+}
+
+// FetchOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchOutgoingCallerIdWithMetadata(Sid string, params *FetchOutgoingCallerIdParams) (*metadata.ResourceMetadata[ApiV2010OutgoingCallerId], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010OutgoingCallerId{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010OutgoingCallerId](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListOutgoingCallerId'
@@ -277,6 +399,59 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 	return ps, err
 }
 
+// PageOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageOutgoingCallerIdWithMetadata(params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListOutgoingCallerIdResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PhoneNumber != nil {
+		data.Set("PhoneNumber", *params.PhoneNumber)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListOutgoingCallerIdResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListOutgoingCallerIdResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([]ApiV2010OutgoingCallerId, error) {
 	response, errors := c.StreamOutgoingCallerId(params)
@@ -291,6 +466,29 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([
 	}
 
 	return records, nil
+}
+
+// ListOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListOutgoingCallerIdWithMetadata(params *ListOutgoingCallerIdParams) (*metadata.ResourceMetadata[[]ApiV2010OutgoingCallerId], error) {
+	response, errors := c.StreamOutgoingCallerIdWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010OutgoingCallerId, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010OutgoingCallerId](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -313,6 +511,35 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamOutgoingCallerIdWithMetadata(params *ListOutgoingCallerIdParams) (*metadata.ResourceMetadata[chan ApiV2010OutgoingCallerId], chan error) {
+	if params == nil {
+		params = &ListOutgoingCallerIdParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010OutgoingCallerId, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageOutgoingCallerIdWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamOutgoingCallerId(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010OutgoingCallerId](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamOutgoingCallerId(response *ListOutgoingCallerIdResponse, params *ListOutgoingCallerIdParams, recordChannel chan ApiV2010OutgoingCallerId, errorChannel chan error) {
@@ -412,4 +639,44 @@ func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCa
 	}
 
 	return ps, err
+}
+
+// UpdateOutgoingCallerIdWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateOutgoingCallerIdWithMetadata(Sid string, params *UpdateOutgoingCallerIdParams) (*metadata.ResourceMetadata[ApiV2010OutgoingCallerId], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010OutgoingCallerId{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010OutgoingCallerId](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

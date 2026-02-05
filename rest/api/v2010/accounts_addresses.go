@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateAddress'
@@ -154,6 +155,72 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 	return ps, err
 }
 
+// CreateAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateAddressWithMetadata(params *CreateAddressParams) (*metadata.ResourceMetadata[ApiV2010Address], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
+	}
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	}
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.StreetSecondary != nil {
+		data.Set("StreetSecondary", *params.StreetSecondary)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Address{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Address](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteAddress'
 type DeleteAddressParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete.
@@ -188,6 +255,37 @@ func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) erro
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteAddressWithMetadata(Sid string, params *DeleteAddressParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchAddress'
@@ -229,6 +327,42 @@ func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV
 	}
 
 	return ps, err
+}
+
+// FetchAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAddressWithMetadata(Sid string, params *FetchAddressParams) (*metadata.ResourceMetadata[ApiV2010Address], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Address{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Address](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAddress'
@@ -331,6 +465,65 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 	return ps, err
 }
 
+// PageAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAddressWithMetadata(params *ListAddressParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAddressResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAddressResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010Address, error) {
 	response, errors := c.StreamAddress(params)
@@ -345,6 +538,29 @@ func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010Address, 
 	}
 
 	return records, nil
+}
+
+// ListAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAddressWithMetadata(params *ListAddressParams) (*metadata.ResourceMetadata[[]ApiV2010Address], error) {
+	response, errors := c.StreamAddressWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010Address, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010Address](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -367,6 +583,35 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Addr
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAddressWithMetadata(params *ListAddressParams) (*metadata.ResourceMetadata[chan ApiV2010Address], chan error) {
+	if params == nil {
+		params = &ListAddressParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010Address, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAddressWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAddress(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010Address](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAddress(response *ListAddressResponse, params *ListAddressParams, recordChannel chan ApiV2010Address, errorChannel chan error) {
@@ -538,4 +783,68 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 	}
 
 	return ps, err
+}
+
+// UpdateAddressWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateAddressWithMetadata(Sid string, params *UpdateAddressParams) (*metadata.ResourceMetadata[ApiV2010Address], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.CustomerName != nil {
+		data.Set("CustomerName", *params.CustomerName)
+	}
+	if params != nil && params.Street != nil {
+		data.Set("Street", *params.Street)
+	}
+	if params != nil && params.City != nil {
+		data.Set("City", *params.City)
+	}
+	if params != nil && params.Region != nil {
+		data.Set("Region", *params.Region)
+	}
+	if params != nil && params.PostalCode != nil {
+		data.Set("PostalCode", *params.PostalCode)
+	}
+	if params != nil && params.EmergencyEnabled != nil {
+		data.Set("EmergencyEnabled", fmt.Sprint(*params.EmergencyEnabled))
+	}
+	if params != nil && params.AutoCorrectAddress != nil {
+		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
+	}
+	if params != nil && params.StreetSecondary != nil {
+		data.Set("StreetSecondary", *params.StreetSecondary)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010Address{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010Address](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

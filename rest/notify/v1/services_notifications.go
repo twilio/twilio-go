@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateNotification'
@@ -262,4 +264,140 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 	}
 
 	return ps, err
+}
+
+// CreateNotificationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateNotificationWithMetadata(ServiceSid string, params *CreateNotificationParams) (*metadata.ResourceMetadata[NotifyV1Notification], error) {
+	path := "/v1/Services/{ServiceSid}/Notifications"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.Body != nil {
+		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", fmt.Sprint(*params.Priority))
+	}
+	if params != nil && params.Ttl != nil {
+		data.Set("Ttl", fmt.Sprint(*params.Ttl))
+	}
+	if params != nil && params.Title != nil {
+		data.Set("Title", *params.Title)
+	}
+	if params != nil && params.Sound != nil {
+		data.Set("Sound", *params.Sound)
+	}
+	if params != nil && params.Action != nil {
+		data.Set("Action", *params.Action)
+	}
+	if params != nil && params.Data != nil {
+		v, err := json.Marshal(params.Data)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Data", string(v))
+	}
+	if params != nil && params.Apn != nil {
+		v, err := json.Marshal(params.Apn)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Apn", string(v))
+	}
+	if params != nil && params.Gcm != nil {
+		v, err := json.Marshal(params.Gcm)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Gcm", string(v))
+	}
+	if params != nil && params.Sms != nil {
+		v, err := json.Marshal(params.Sms)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Sms", string(v))
+	}
+	if params != nil && params.FacebookMessenger != nil {
+		v, err := json.Marshal(params.FacebookMessenger)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("FacebookMessenger", string(v))
+	}
+	if params != nil && params.Fcm != nil {
+		v, err := json.Marshal(params.Fcm)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Fcm", string(v))
+	}
+	if params != nil && params.Segment != nil {
+		for _, item := range *params.Segment {
+			data.Add("Segment", item)
+		}
+	}
+	if params != nil && params.Alexa != nil {
+		v, err := json.Marshal(params.Alexa)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Alexa", string(v))
+	}
+	if params != nil && params.ToBinding != nil {
+		for _, item := range *params.ToBinding {
+			data.Add("ToBinding", item)
+		}
+	}
+	if params != nil && params.DeliveryCallbackUrl != nil {
+		data.Set("DeliveryCallbackUrl", *params.DeliveryCallbackUrl)
+	}
+	if params != nil && params.Identity != nil {
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
+	}
+	if params != nil && params.Tag != nil {
+		for _, item := range *params.Tag {
+			data.Add("Tag", item)
+		}
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &NotifyV1Notification{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[NotifyV1Notification](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

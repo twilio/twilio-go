@@ -1,0 +1,15 @@
+# FlexV1Instance
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**FlexInstanceSid** | **string** |  |[optional] 
+**AccountSid** | **string** |  |[optional] 
+**Status** | **string** |  |[optional] 
+**DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
+**DateUpdated** | [**time.Time**](time.Time.md) |  |[optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateTool'
@@ -67,6 +68,45 @@ func (c *ApiService) CreateTool(params *CreateToolParams) (*AssistantsV1Tool, er
 	return ps, err
 }
 
+// CreateToolWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateToolWithMetadata(params *CreateToolParams) (*metadata.ResourceMetadata[AssistantsV1Tool], error) {
+	path := "/v1/Tools"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1CreateToolRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1CreateToolRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Tool{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Tool](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // delete a tool
 func (c *ApiService) DeleteTool(Id string) error {
 	path := "/v1/Tools/{id}"
@@ -85,6 +125,32 @@ func (c *ApiService) DeleteTool(Id string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteToolWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteToolWithMetadata(Id string) (*metadata.ResourceMetadata[bool], error) {
+	path := "/v1/Tools/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Get tool
@@ -110,6 +176,37 @@ func (c *ApiService) FetchTool(Id string) (*AssistantsV1ToolWithPolicies, error)
 	}
 
 	return ps, err
+}
+
+// FetchToolWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchToolWithMetadata(Id string) (*metadata.ResourceMetadata[AssistantsV1ToolWithPolicies], error) {
+	path := "/v1/Tools/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1ToolWithPolicies{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1ToolWithPolicies](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTools'
@@ -173,6 +270,50 @@ func (c *ApiService) PageTools(params *ListToolsParams, pageToken, pageNumber st
 	return ps, err
 }
 
+// PageToolsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageToolsWithMetadata(params *ListToolsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListToolsResponse], error) {
+	path := "/v1/Tools"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.AssistantId != nil {
+		data.Set("AssistantId", *params.AssistantId)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListToolsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListToolsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists Tools records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTools(params *ListToolsParams) ([]AssistantsV1Tool, error) {
 	response, errors := c.StreamTools(params)
@@ -187,6 +328,29 @@ func (c *ApiService) ListTools(params *ListToolsParams) ([]AssistantsV1Tool, err
 	}
 
 	return records, nil
+}
+
+// ListToolsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListToolsWithMetadata(params *ListToolsParams) (*metadata.ResourceMetadata[[]AssistantsV1Tool], error) {
+	response, errors := c.StreamToolsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]AssistantsV1Tool, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]AssistantsV1Tool](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams Tools records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -209,6 +373,35 @@ func (c *ApiService) StreamTools(params *ListToolsParams) (chan AssistantsV1Tool
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamToolsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamToolsWithMetadata(params *ListToolsParams) (*metadata.ResourceMetadata[chan AssistantsV1Tool], chan error) {
+	if params == nil {
+		params = &ListToolsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan AssistantsV1Tool, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageToolsWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTools(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan AssistantsV1Tool](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTools(response *ListToolsResponse, params *ListToolsParams, recordChannel chan AssistantsV1Tool, errorChannel chan error) {
@@ -302,4 +495,44 @@ func (c *ApiService) UpdateTool(Id string, params *UpdateToolParams) (*Assistant
 	}
 
 	return ps, err
+}
+
+// UpdateToolWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateToolWithMetadata(Id string, params *UpdateToolParams) (*metadata.ResourceMetadata[AssistantsV1Tool], error) {
+	path := "/v1/Tools/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.AssistantsV1UpdateToolRequest != nil {
+		b, err := json.Marshal(*params.AssistantsV1UpdateToolRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &AssistantsV1Tool{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[AssistantsV1Tool](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

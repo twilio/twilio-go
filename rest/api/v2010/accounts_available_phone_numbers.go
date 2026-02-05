@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
@@ -62,6 +63,42 @@ func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params
 	}
 
 	return ps, err
+}
+
+// FetchAvailablePhoneNumberCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchAvailablePhoneNumberCountryWithMetadata(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*metadata.ResourceMetadata[ApiV2010AvailablePhoneNumberCountry], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010AvailablePhoneNumberCountry{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010AvailablePhoneNumberCountry](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListAvailablePhoneNumberCountry'
@@ -128,6 +165,53 @@ func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 	return ps, err
 }
 
+// PageAvailablePhoneNumberCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageAvailablePhoneNumberCountryWithMetadata(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListAvailablePhoneNumberCountryResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListAvailablePhoneNumberCountryResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists AvailablePhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) ([]ApiV2010AvailablePhoneNumberCountry, error) {
 	response, errors := c.StreamAvailablePhoneNumberCountry(params)
@@ -142,6 +226,29 @@ func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 	}
 
 	return records, nil
+}
+
+// ListAvailablePhoneNumberCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListAvailablePhoneNumberCountryWithMetadata(params *ListAvailablePhoneNumberCountryParams) (*metadata.ResourceMetadata[[]ApiV2010AvailablePhoneNumberCountry], error) {
+	response, errors := c.StreamAvailablePhoneNumberCountryWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010AvailablePhoneNumberCountry, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010AvailablePhoneNumberCountry](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams AvailablePhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -164,6 +271,35 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamAvailablePhoneNumberCountryWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamAvailablePhoneNumberCountryWithMetadata(params *ListAvailablePhoneNumberCountryParams) (*metadata.ResourceMetadata[chan ApiV2010AvailablePhoneNumberCountry], chan error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberCountryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010AvailablePhoneNumberCountry, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageAvailablePhoneNumberCountryWithMetadata(params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamAvailablePhoneNumberCountry(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010AvailablePhoneNumberCountry](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamAvailablePhoneNumberCountry(response *ListAvailablePhoneNumberCountryResponse, params *ListAvailablePhoneNumberCountryParams, recordChannel chan ApiV2010AvailablePhoneNumberCountry, errorChannel chan error) {

@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
@@ -74,6 +75,46 @@ func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, p
 	return ps, err
 }
 
+// CreateSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) CreateSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*metadata.ResourceMetadata[ApiV2010SipAuthCallsCredentialListMapping], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CredentialListSid != nil {
+		data.Set("CredentialListSid", *params.CredentialListSid)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipAuthCallsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipAuthCallsCredentialListMapping](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'DeleteSipAuthCallsCredentialListMapping'
 type DeleteSipAuthCallsCredentialListMappingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
@@ -109,6 +150,38 @@ func (c *ApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, S
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, Sid string, params *DeleteSipAuthCallsCredentialListMappingParams) (*metadata.ResourceMetadata[bool], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	metadataWrapper := metadata.NewResourceMetadata[bool](
+		true,            // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'FetchSipAuthCallsCredentialListMapping'
@@ -151,6 +224,43 @@ func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Si
 	}
 
 	return ps, err
+}
+
+// FetchSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*metadata.ResourceMetadata[ApiV2010SipAuthCallsCredentialListMapping], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ApiV2010SipAuthCallsCredentialListMapping{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ApiV2010SipAuthCallsCredentialListMapping](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
@@ -218,6 +328,54 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 	return ps, err
 }
 
+// PageSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListSipAuthCallsCredentialListMappingResponse], error) {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
+
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSipAuthCallsCredentialListMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListSipAuthCallsCredentialListMappingResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010SipAuthCallsCredentialListMapping, error) {
 	response, errors := c.StreamSipAuthCallsCredentialListMapping(DomainSid, params)
@@ -232,6 +390,29 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 	}
 
 	return records, nil
+}
+
+// ListSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (*metadata.ResourceMetadata[[]ApiV2010SipAuthCallsCredentialListMapping], error) {
+	response, errors := c.StreamSipAuthCallsCredentialListMappingWithMetadata(DomainSid, params)
+	resource := response.GetResource()
+
+	records := make([]ApiV2010SipAuthCallsCredentialListMapping, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]ApiV2010SipAuthCallsCredentialListMapping](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -254,6 +435,35 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamSipAuthCallsCredentialListMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamSipAuthCallsCredentialListMappingWithMetadata(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (*metadata.ResourceMetadata[chan ApiV2010SipAuthCallsCredentialListMapping], chan error) {
+	if params == nil {
+		params = &ListSipAuthCallsCredentialListMappingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan ApiV2010SipAuthCallsCredentialListMapping, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageSipAuthCallsCredentialListMappingWithMetadata(DomainSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamSipAuthCallsCredentialListMapping(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan ApiV2010SipAuthCallsCredentialListMapping](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamSipAuthCallsCredentialListMapping(response *ListSipAuthCallsCredentialListMappingResponse, params *ListSipAuthCallsCredentialListMappingParams, recordChannel chan ApiV2010SipAuthCallsCredentialListMapping, errorChannel chan error) {

@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 // Optional parameters for the method 'FetchTaskQueueStatistics'
@@ -99,6 +100,54 @@ func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid 
 	}
 
 	return ps, err
+}
+
+// FetchTaskQueueStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchTaskQueueStatisticsWithMetadata(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*metadata.ResourceMetadata[TaskrouterV1TaskQueueStatistics], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.Minutes != nil {
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+	if params != nil && params.SplitByWaitTime != nil {
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &TaskrouterV1TaskQueueStatistics{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[TaskrouterV1TaskQueueStatistics](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'ListTaskQueuesStatistics'
@@ -209,6 +258,67 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 	return ps, err
 }
 
+// PageTaskQueuesStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageTaskQueuesStatisticsWithMetadata(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*metadata.ResourceMetadata[ListTaskQueuesStatisticsResponse], error) {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
+
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Minutes != nil {
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+	if params != nil && params.SplitByWaitTime != nil {
+		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueuesStatisticsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ListTaskQueuesStatisticsResponse](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1TaskQueuesStatistics, error) {
 	response, errors := c.StreamTaskQueuesStatistics(WorkspaceSid, params)
@@ -223,6 +333,29 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 	}
 
 	return records, nil
+}
+
+// ListTaskQueuesStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListTaskQueuesStatisticsWithMetadata(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (*metadata.ResourceMetadata[[]TaskrouterV1TaskQueuesStatistics], error) {
+	response, errors := c.StreamTaskQueuesStatisticsWithMetadata(WorkspaceSid, params)
+	resource := response.GetResource()
+
+	records := make([]TaskrouterV1TaskQueuesStatistics, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]TaskrouterV1TaskQueuesStatistics](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
@@ -245,6 +378,35 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 	}
 
 	return recordChannel, errorChannel
+}
+
+// StreamTaskQueuesStatisticsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamTaskQueuesStatisticsWithMetadata(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (*metadata.ResourceMetadata[chan TaskrouterV1TaskQueuesStatistics], chan error) {
+	if params == nil {
+		params = &ListTaskQueuesStatisticsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan TaskrouterV1TaskQueuesStatistics, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageTaskQueuesStatisticsWithMetadata(WorkspaceSid, params, "", "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamTaskQueuesStatistics(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan TaskrouterV1TaskQueuesStatistics](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
 }
 
 func (c *ApiService) streamTaskQueuesStatistics(response *ListTaskQueuesStatisticsResponse, params *ListTaskQueuesStatisticsParams, recordChannel chan TaskrouterV1TaskQueuesStatistics, errorChannel chan error) {

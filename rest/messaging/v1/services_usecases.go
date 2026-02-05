@@ -17,6 +17,8 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -41,4 +43,34 @@ func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	}
 
 	return ps, err
+}
+
+// FetchUsecaseWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchUsecaseWithMetadata() (*metadata.ResourceMetadata[MessagingV1Usecase], error) {
+	path := "/v1/Services/Usecases"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1Usecase{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1Usecase](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }

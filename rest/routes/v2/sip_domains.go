@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client/metadata"
 )
 
 //
@@ -43,6 +45,37 @@ func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error
 	}
 
 	return ps, err
+}
+
+// FetchSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchSipDomainWithMetadata(SipDomain string) (*metadata.ResourceMetadata[RoutesV2SipDomain], error) {
+	path := "/v2/SipDomains/{SipDomain}"
+	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &RoutesV2SipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[RoutesV2SipDomain](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateSipDomain'
@@ -92,4 +125,42 @@ func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainPa
 	}
 
 	return ps, err
+}
+
+// UpdateSipDomainWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) UpdateSipDomainWithMetadata(SipDomain string, params *UpdateSipDomainParams) (*metadata.ResourceMetadata[RoutesV2SipDomain], error) {
+	path := "/v2/SipDomains/{SipDomain}"
+	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.VoiceRegion != nil {
+		data.Set("VoiceRegion", *params.VoiceRegion)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &RoutesV2SipDomain{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[RoutesV2SipDomain](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
