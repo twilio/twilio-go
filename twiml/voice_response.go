@@ -416,7 +416,7 @@ func (m VoicePrompt) GetText() string {
 
 func (m VoicePrompt) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"For_":                  m.For_,
+		"For":                   m.For_,
 		"ErrorType":             m.ErrorType,
 		"CardType":              m.CardType,
 		"Attempt":               m.Attempt,
