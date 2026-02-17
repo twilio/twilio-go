@@ -244,7 +244,7 @@ func TestTokenAuthFetchTokenException(t *testing.T) {
 	}
 
 	resp, err := testClient.OauthV2.CreateOauth2Token(params)
-	assert.NotNil(t, 403, err.(*client.TwilioRestError).Status)
+	assert.NotNil(t, 403, err.(*client.RestErrorV1).Status)
 	assert.Nil(t, resp)
 }
 
