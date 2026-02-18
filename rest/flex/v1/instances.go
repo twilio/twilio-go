@@ -34,7 +34,7 @@ func (params *CreateInstanceParams) SetCreateInstanceRequestBody(CreateInstanceR
 
 // This endpoint allows you to create a Flex Instance
 func (c *ApiService) CreateInstance(params *CreateInstanceParams) (*FlexV1Instance, error) {
-	path := "/v1/instances"
+	path := "/v1/Instances"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -67,7 +67,7 @@ func (c *ApiService) CreateInstance(params *CreateInstanceParams) (*FlexV1Instan
 
 // CreateInstanceWithMetadata returns response with metadata like status code and response headers
 func (c *ApiService) CreateInstanceWithMetadata(params *CreateInstanceParams) (*metadata.ResourceMetadata[FlexV1Instance], error) {
-	path := "/v1/instances"
+	path := "/v1/Instances"
 
 	data := url.Values{}
 	headers := map[string]interface{}{

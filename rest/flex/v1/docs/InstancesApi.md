@@ -4,7 +4,7 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateInstance**](InstancesApi.md#CreateInstance) | **Post** /v1/instances | This endpoint allows you to create a Flex Instance
+[**CreateInstance**](InstancesApi.md#CreateInstance) | **Post** /v1/Instances | This endpoint allows you to create a Flex Instance
 
 
 

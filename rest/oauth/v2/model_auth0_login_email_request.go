@@ -18,4 +18,7 @@ package openapi
 type Auth0LoginEmailRequest struct {
 	Email       string `json:"email"`
 	CallbackUri string `json:"callbackUri,omitempty"`
+	ReturnTo    string `json:"returnTo,omitempty"`
+	G           string `json:"g,omitempty"`
+	T           string `json:"t,omitempty"`
 }

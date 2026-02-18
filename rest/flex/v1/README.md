@@ -67,7 +67,7 @@ Class | Method | HTTP request | Description
 *InsightsSegmentsApi* | [**ListInsightsSegments**](docs/InsightsSegmentsApi.md#listinsightssegments) | **Get** /v1/Insights/Segments | To get segments for given reservation Ids
 *InsightsSessionApi* | [**CreateInsightsSession**](docs/InsightsSessionApi.md#createinsightssession) | **Post** /v1/Insights/Session | To obtain session details for fetching reports and dashboards
 *InsightsUserRolesApi* | [**FetchInsightsUserRoles**](docs/InsightsUserRolesApi.md#fetchinsightsuserroles) | **Get** /v1/Insights/UserRoles | This is used by Flex UI and Quality Management to fetch the Flex Insights roles for the user
-*InstancesApi* | [**CreateInstance**](docs/InstancesApi.md#createinstance) | **Post** /v1/instances | This endpoint allows you to create a Flex Instance
+*InstancesApi* | [**CreateInstance**](docs/InstancesApi.md#createinstance) | **Post** /v1/Instances | This endpoint allows you to create a Flex Instance
 *InteractionsApi* | [**CreateInteraction**](docs/InteractionsApi.md#createinteraction) | **Post** /v1/Interactions | Create a new Interaction.
 *InteractionsApi* | [**FetchInteraction**](docs/InteractionsApi.md#fetchinteraction) | **Get** /v1/Interactions/{Sid} | 
 *InteractionsApi* | [**UpdateInteraction**](docs/InteractionsApi.md#updateinteraction) | **Post** /v1/Interactions/{Sid} | Updates an interaction.

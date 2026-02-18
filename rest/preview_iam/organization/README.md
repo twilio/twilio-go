@@ -63,6 +63,7 @@ Class | Method | HTTP request | Description
  - [PublicApiCreateRoleAssignmentResponsePage](docs/PublicApiCreateRoleAssignmentResponsePage.md)
  - [ScimUserPage](docs/ScimUserPage.md)
  - [JsonPatch](docs/JsonPatch.md)
+ - [ListOrganizationAccountsResponse](docs/ListOrganizationAccountsResponse.md)
  - [ScimEmailAddress](docs/ScimEmailAddress.md)
  - [PublicApiAccountResponsePageMeta](docs/PublicApiAccountResponsePageMeta.md)
  - [PublicApiAccountResponse](docs/PublicApiAccountResponse.md)

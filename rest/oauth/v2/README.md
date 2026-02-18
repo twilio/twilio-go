@@ -42,6 +42,7 @@ Class | Method | HTTP request | Description
  - [Auth0RefreshTokenHeartbeatResponse](docs/Auth0RefreshTokenHeartbeatResponse.md)
  - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)
  - [Error](docs/Error.md)
+ - [SessionMetadataResponse](docs/SessionMetadataResponse.md)
  - [V2Oauth2TokenResponse](docs/V2Oauth2TokenResponse.md)
  - [Auth0SignupRequest](docs/Auth0SignupRequest.md)
  - [Auth0TestLoginResponse](docs/Auth0TestLoginResponse.md)

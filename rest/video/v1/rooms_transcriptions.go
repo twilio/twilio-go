@@ -408,10 +408,16 @@ func (c *ApiService) getNextListRoomTranscriptionsResponse(nextPageUrl string) (
 type UpdateRoomTranscriptionsParams struct {
 	//
 	Status *string `json:"Status,omitempty"`
+	// A collection of properties that describe transcription behaviour.
+	Configuration *map[string]interface{} `json:"Configuration,omitempty"`
 }
 
 func (params *UpdateRoomTranscriptionsParams) SetStatus(Status string) *UpdateRoomTranscriptionsParams {
 	params.Status = &Status
+	return params
+}
+func (params *UpdateRoomTranscriptionsParams) SetConfiguration(Configuration map[string]interface{}) *UpdateRoomTranscriptionsParams {
+	params.Configuration = &Configuration
 	return params
 }
 
@@ -428,6 +434,15 @@ func (c *ApiService) UpdateRoomTranscriptions(RoomSid string, Ttid string, param
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Configuration != nil {
+		v, err := json.Marshal(params.Configuration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Configuration", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -458,6 +473,15 @@ func (c *ApiService) UpdateRoomTranscriptionsWithMetadata(RoomSid string, Ttid s
 
 	if params != nil && params.Status != nil {
 		data.Set("Status", fmt.Sprint(*params.Status))
+	}
+	if params != nil && params.Configuration != nil {
+		v, err := json.Marshal(params.Configuration)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Configuration", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

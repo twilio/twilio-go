@@ -166,6 +166,7 @@ Other parameters are passed through a pointer to a UpdateRoomTranscriptionsParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | [**string**](string.md) | 
+**Configuration** | [**map[string]interface{}**](map[string]interface{}.md) | A collection of properties that describe transcription behaviour.
 
 ### Return type
 

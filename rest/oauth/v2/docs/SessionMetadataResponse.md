@@ -1,14 +1,12 @@
-# Auth0LoginEmailRequest
+# SessionMetadataResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | **string** |  |
-**CallbackUri** | **string** |  |[optional] 
-**ReturnTo** | **string** |  |[optional] 
-**G** | **string** |  |[optional] 
-**T** | **string** |  |[optional] 
+**IsHipaaUser** | **bool** |  |
+**SessionIdleTimeout** | **int** |  |
+**IsVerificationRequired** | **bool** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
