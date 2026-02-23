@@ -340,3 +340,69 @@ func TestClient_SendRequestWithOAuth(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }
+
+func TestClient_SendRequestErrorV1(t *testing.T) {
+	// Test that V1.0 API Standard errors are properly decoded as RestErrorV1
+	errorResponse := `{
+	"code": 20404,
+	"message": "The requested resource was not found",
+	"httpStatusCode": 404,
+	"userError": true,
+	"params": {
+		"twilioErrorCodeUrl": "https://www.twilio.com/docs/errors/20404"
+	}
+}`
+	errorServer := httptest.NewServer(http.HandlerFunc(
+		func(resp http.ResponseWriter, req *http.Request) {
+			resp.WriteHeader(404)
+			_, _ = resp.Write([]byte(errorResponse))
+		}))
+	defer errorServer.Close()
+
+	// Send request with X-Twilio-ApiVersion header set to v1.0
+	headers := map[string]interface{}{
+		"X-Twilio-ApiVersion": "v1.0",
+	}
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, headers) //nolint:bodyclose
+	assert.Nil(t, resp)
+	assert.NotNil(t, err)
+	
+	// Verify it's a RestErrorV1
+	v1Error, ok := err.(*twilio.RestErrorV1)
+	assert.True(t, ok, "error should be of type RestErrorV1")
+	assert.Equal(t, 404, v1Error.HttpStatusCode)
+	assert.Equal(t, 20404, v1Error.Code)
+	assert.Equal(t, "The requested resource was not found", v1Error.Message)
+	assert.True(t, v1Error.UserError)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/20404", v1Error.Params["twilioErrorCodeUrl"])
+}
+
+func TestClient_SendRequestLegacyErrorFormat(t *testing.T) {
+	// Test that legacy error format returns TwilioRestError when no API version is set
+	errorResponse := `{
+	"status": 403,
+	"code": 20003,
+	"message": "Forbidden",
+	"more_info": "https://www.twilio.com/docs/errors/20003"
+}`
+	errorServer := httptest.NewServer(http.HandlerFunc(
+		func(resp http.ResponseWriter, req *http.Request) {
+			resp.WriteHeader(403)
+			_, _ = resp.Write([]byte(errorResponse))
+		}))
+	defer errorServer.Close()
+
+	// Send request without X-Twilio-ApiVersion header
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
+	assert.Nil(t, resp)
+	assert.NotNil(t, err)
+	
+	// Verify it's a TwilioRestError
+	twilioError, ok := err.(*twilio.TwilioRestError)
+	assert.True(t, ok, "error should be of type TwilioRestError")
+	assert.Equal(t, 403, twilioError.Status)
+	assert.Equal(t, 20003, twilioError.Code)
+	assert.Equal(t, "Forbidden", twilioError.Message)
+	assert.Equal(t, "https://www.twilio.com/docs/errors/20003", twilioError.MoreInfo)
+}
+
