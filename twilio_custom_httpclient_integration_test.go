@@ -119,9 +119,9 @@ func TestRestClientWithoutCustomClient(t *testing.T) {
 	assert.NotNil(t, twilioClient.RequestHandler.Client)
 
 	// Verify it's a default client
-	_, ok := twilioClient.RequestHandler.Client.(*client.Client)
+	clientImpl, ok := twilioClient.RequestHandler.Client.(*client.Client)
 	assert.True(t, ok)
 
-	// HTTPClient should be nil until first use (lazy initialization)
-	// This is fine - it will be created by defaultHTTPClient() when needed
+	// HTTPClient will be nil until first request (lazy initialization via defaultHTTPClient())
+	assert.Nil(t, clientImpl.HTTPClient, "HTTPClient should be nil before first use")
 }
