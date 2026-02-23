@@ -363,7 +363,7 @@ func TestClient_SendRequestErrorV1(t *testing.T) {
 	headers := map[string]interface{}{
 		"X-Twilio-ApiVersion": "v1.0",
 	}
-	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, headers) //nolint:bodyclose
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, headers)
 	assert.Nil(t, resp)
 	assert.NotNil(t, err)
 	
@@ -393,7 +393,7 @@ func TestClient_SendRequestLegacyErrorFormat(t *testing.T) {
 	defer errorServer.Close()
 
 	// Send request without X-Twilio-ApiVersion header
-	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil)
 	assert.Nil(t, resp)
 	assert.NotNil(t, err)
 	
