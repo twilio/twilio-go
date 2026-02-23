@@ -81,7 +81,7 @@ func (c *ApiService) PageSentence(TranscriptSid string, params *ListSentencePara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (c *ApiService) PageSentenceWithMetadata(TranscriptSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ func (c *ApiService) getNextListSentenceResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

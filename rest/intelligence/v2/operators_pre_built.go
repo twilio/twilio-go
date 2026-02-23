@@ -34,7 +34,7 @@ func (c *ApiService) FetchPrebuiltOperator(Sid string) (*IntelligenceV2PrebuiltO
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *ApiService) FetchPrebuiltOperatorWithMetadata(Sid string) (*metadata.Re
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) PagePrebuiltOperator(params *ListPrebuiltOperatorParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) PagePrebuiltOperatorWithMetadata(params *ListPrebuiltOperat
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -321,7 +321,7 @@ func (c *ApiService) getNextListPrebuiltOperatorResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

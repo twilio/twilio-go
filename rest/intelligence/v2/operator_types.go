@@ -34,7 +34,7 @@ func (c *ApiService) FetchOperatorType(Sid string) (*IntelligenceV2OperatorType,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *ApiService) FetchOperatorTypeWithMetadata(Sid string) (*metadata.Resour
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (c *ApiService) PageOperatorType(params *ListOperatorTypeParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PageOperatorTypeWithMetadata(params *ListOperatorTypeParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +297,7 @@ func (c *ApiService) getNextListOperatorTypeResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -335,7 +335,6 @@ func (params *CreateParticipantParams) SetCallerDisplayName(CallerDisplayName st
 	return params
 }
 
-//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -509,7 +508,7 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 		data.Set("CallerDisplayName", *params.CallerDisplayName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -698,7 +697,7 @@ func (c *ApiService) CreateParticipantWithMetadata(ConferenceSid string, params 
 		data.Set("CallerDisplayName", *params.CallerDisplayName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -746,7 +745,7 @@ func (c *ApiService) DeleteParticipant(ConferenceSid string, CallSid string, par
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -772,7 +771,7 @@ func (c *ApiService) DeleteParticipantWithMetadata(ConferenceSid string, CallSid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -815,7 +814,7 @@ func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, para
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -846,7 +845,7 @@ func (c *ApiService) FetchParticipantWithMetadata(ConferenceSid string, CallSid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -944,7 +943,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -995,7 +994,7 @@ func (c *ApiService) PageParticipantWithMetadata(ConferenceSid string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -1140,7 +1139,7 @@ func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -1290,7 +1289,7 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 		data.Set("CallSidToCoach", *params.CallSidToCoach)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -1358,7 +1357,7 @@ func (c *ApiService) UpdateParticipantWithMetadata(ConferenceSid string, CallSid
 		data.Set("CallSidToCoach", *params.CallSidToCoach)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

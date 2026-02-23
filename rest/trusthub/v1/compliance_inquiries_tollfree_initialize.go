@@ -385,7 +385,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiry(params *CreateComplianceTol
 		data.Set("VettingProvider", *params.VettingProvider)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -530,7 +530,7 @@ func (c *ApiService) CreateComplianceTollfreeInquiryWithMetadata(params *CreateC
 		data.Set("VettingProvider", *params.VettingProvider)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

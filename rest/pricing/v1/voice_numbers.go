@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, err
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) FetchVoiceNumberWithMetadata(Number string) (*metadata.Reso
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -125,7 +125,6 @@ func (params *CreateUsAppToPersonParams) SetDirectLending(DirectLending bool) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -192,7 +191,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +273,7 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -295,7 +294,6 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -306,7 +304,7 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -327,7 +325,7 @@ func (c *ApiService) DeleteUsAppToPersonWithMetadata(MessagingServiceSid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +341,6 @@ func (c *ApiService) DeleteUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -354,7 +351,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +377,7 @@ func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -440,7 +437,7 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -477,7 +474,7 @@ func (c *ApiService) PageUsAppToPersonWithMetadata(MessagingServiceSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -622,7 +619,7 @@ func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -683,7 +680,6 @@ func (params *UpdateUsAppToPersonParams) SetDirectLending(DirectLending bool) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -718,7 +714,7 @@ func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string,
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -768,7 +764,7 @@ func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string,
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

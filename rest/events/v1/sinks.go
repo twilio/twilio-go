@@ -72,7 +72,7 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 		data.Set("SinkType", fmt.Sprint(*params.SinkType))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) CreateSinkWithMetadata(params *CreateSinkParams) (*metadata
 		data.Set("SinkType", fmt.Sprint(*params.SinkType))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +143,7 @@ func (c *ApiService) DeleteSink(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) DeleteSinkWithMetadata(Sid string) (*metadata.ResourceMetad
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -189,7 +189,7 @@ func (c *ApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) FetchSinkWithMetadata(Sid string) (*metadata.ResourceMetada
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +331,7 @@ func (c *ApiService) PageSinkWithMetadata(params *ListSinkParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -476,7 +476,7 @@ func (c *ApiService) getNextListSinkResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -515,7 +515,7 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +544,7 @@ func (c *ApiService) UpdateSinkWithMetadata(Sid string, params *UpdateSinkParams
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

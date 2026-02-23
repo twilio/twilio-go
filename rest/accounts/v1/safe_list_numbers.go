@@ -45,7 +45,7 @@ func (c *ApiService) CreateSafelist(params *CreateSafelistParams) (*AccountsV1Sa
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func (c *ApiService) CreateSafelistWithMetadata(params *CreateSafelistParams) (*
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func (c *ApiService) DeleteSafelist(params *DeleteSafelistParams) error {
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) DeleteSafelistWithMetadata(params *DeleteSafelistParams) (*
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +181,7 @@ func (c *ApiService) FetchSafelist(params *FetchSafelistParams) (*AccountsV1Safe
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +209,7 @@ func (c *ApiService) FetchSafelistWithMetadata(params *FetchSafelistParams) (*me
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

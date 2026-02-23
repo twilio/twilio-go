@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -35,7 +34,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -56,7 +55,7 @@ func (c *ApiService) DeleteBindingWithMetadata(ServiceSid string, Sid string) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +71,6 @@ func (c *ApiService) DeleteBindingWithMetadata(ServiceSid string, Sid string) (*
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -83,7 +81,7 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2Binding
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +107,7 @@ func (c *ApiService) FetchBindingWithMetadata(ServiceSid string, Sid string) (*m
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +189,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +236,7 @@ func (c *ApiService) PageBindingWithMetadata(ServiceSid string, params *ListBind
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -383,7 +381,7 @@ func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

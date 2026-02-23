@@ -52,7 +52,7 @@ func (c *ApiService) CreatePortingWebhookConfiguration(params *CreatePortingWebh
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *ApiService) CreatePortingWebhookConfigurationWithMetadata(params *Creat
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (c *ApiService) DeletePortingWebhookConfigurationDelete(WebhookType string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) DeletePortingWebhookConfigurationDeleteWithMetadata(Webhook
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) FetchPortingWebhookConfigurationFetch() (*NumbersV1PortingW
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +185,7 @@ func (c *ApiService) FetchPortingWebhookConfigurationFetchWithMetadata() (*metad
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

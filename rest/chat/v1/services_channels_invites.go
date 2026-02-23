@@ -41,7 +41,6 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -59,7 +58,7 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +91,7 @@ func (c *ApiService) CreateInviteWithMetadata(ServiceSid string, ChannelSid stri
 		data.Set("RoleSid", *params.RoleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +112,6 @@ func (c *ApiService) CreateInviteWithMetadata(ServiceSid string, ChannelSid stri
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -125,7 +123,7 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -147,7 +145,7 @@ func (c *ApiService) DeleteInviteWithMetadata(ServiceSid string, ChannelSid stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +161,6 @@ func (c *ApiService) DeleteInviteWithMetadata(ServiceSid string, ChannelSid stri
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -175,7 +172,7 @@ func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +199,7 @@ func (c *ApiService) FetchInviteWithMetadata(ServiceSid string, ChannelSid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +271,7 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +314,7 @@ func (c *ApiService) PageInviteWithMetadata(ServiceSid string, ChannelSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +459,7 @@ func (c *ApiService) getNextListInviteResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

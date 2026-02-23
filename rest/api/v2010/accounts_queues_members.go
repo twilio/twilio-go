@@ -51,7 +51,7 @@ func (c *ApiService) FetchMember(QueueSid string, CallSid string, params *FetchM
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +82,7 @@ func (c *ApiService) FetchMemberWithMetadata(QueueSid string, CallSid string, pa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) PageMemberWithMetadata(QueueSid string, params *ListMemberP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -340,7 +340,7 @@ func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -400,7 +400,7 @@ func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *Updat
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -438,7 +438,7 @@ func (c *ApiService) UpdateMemberWithMetadata(QueueSid string, CallSid string, p
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

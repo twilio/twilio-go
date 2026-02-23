@@ -48,7 +48,7 @@ func (c *ApiService) FetchEncryptedSentences(TranscriptSid string, params *Fetch
 		data.Set("Redacted", fmt.Sprint(*params.Redacted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *ApiService) FetchEncryptedSentencesWithMetadata(TranscriptSid string, p
 		data.Set("Redacted", fmt.Sprint(*params.Redacted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

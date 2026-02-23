@@ -108,7 +108,7 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*OauthV1Token, erro
 		data.Set("Scope", *params.Scope)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +157,7 @@ func (c *ApiService) CreateTokenWithMetadata(params *CreateTokenParams) (*metada
 		data.Set("Scope", *params.Scope)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -69,7 +69,7 @@ func (c *ApiService) CreateSipCredential(CredentialListSid string, params *Creat
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (c *ApiService) CreateSipCredentialWithMetadata(CredentialListSid string, p
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +154,7 @@ func (c *ApiService) DeleteSipCredential(CredentialListSid string, Sid string, p
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -180,7 +180,7 @@ func (c *ApiService) DeleteSipCredentialWithMetadata(CredentialListSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (c *ApiService) FetchSipCredential(CredentialListSid string, Sid string, pa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ func (c *ApiService) FetchSipCredentialWithMetadata(CredentialListSid string, Si
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -325,7 +325,7 @@ func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSip
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -367,7 +367,7 @@ func (c *ApiService) PageSipCredentialWithMetadata(CredentialListSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -512,7 +512,7 @@ func (c *ApiService) getNextListSipCredentialResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -563,7 +563,7 @@ func (c *ApiService) UpdateSipCredential(CredentialListSid string, Sid string, p
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -598,7 +598,7 @@ func (c *ApiService) UpdateSipCredentialWithMetadata(CredentialListSid string, S
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

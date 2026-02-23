@@ -51,7 +51,7 @@ func (c *ApiService) CreateBulkEligibility(params *CreateBulkEligibilityParams) 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (c *ApiService) CreateBulkEligibilityWithMetadata(params *CreateBulkEligibi
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (c *ApiService) FetchBulkEligibility(RequestId string) (*NumbersV1BulkEligi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) FetchBulkEligibilityWithMetadata(RequestId string) (*metada
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

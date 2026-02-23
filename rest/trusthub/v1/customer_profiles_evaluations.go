@@ -49,7 +49,7 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) CreateCustomerProfileEvaluationWithMetadata(CustomerProfile
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) FetchCustomerProfileEvaluationWithMetadata(CustomerProfileS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -233,7 +233,7 @@ func (c *ApiService) PageCustomerProfileEvaluationWithMetadata(CustomerProfileSi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +378,7 @@ func (c *ApiService) getNextListCustomerProfileEvaluationResponse(nextPageUrl st
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

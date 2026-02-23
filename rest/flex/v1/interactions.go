@@ -85,7 +85,7 @@ func (c *ApiService) CreateInteraction(params *CreateInteractionParams) (*FlexV1
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) CreateInteractionWithMetadata(params *CreateInteractionPara
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +155,6 @@ func (c *ApiService) CreateInteractionWithMetadata(params *CreateInteractionPara
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -165,7 +164,7 @@ func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -190,7 +189,7 @@ func (c *ApiService) FetchInteractionWithMetadata(Sid string) (*metadata.Resourc
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +235,7 @@ func (c *ApiService) UpdateInteraction(Sid string, params *UpdateInteractionPara
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +264,7 @@ func (c *ApiService) UpdateInteractionWithMetadata(Sid string, params *UpdateInt
 		data.Set("WebhookTtid", *params.WebhookTtid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

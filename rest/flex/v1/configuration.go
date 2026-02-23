@@ -32,7 +32,6 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -45,7 +44,7 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +72,7 @@ func (c *ApiService) FetchConfigurationWithMetadata(params *FetchConfigurationPa
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +104,6 @@ func (params *UpdateConfigurationParams) SetBody(Body map[string]interface{}) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -123,7 +121,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Fl
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +154,7 @@ func (c *ApiService) UpdateConfigurationWithMetadata(params *UpdateConfiguration
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

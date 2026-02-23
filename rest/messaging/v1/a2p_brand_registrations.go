@@ -59,7 +59,6 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -84,7 +83,7 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +123,7 @@ func (c *ApiService) CreateBrandRegistrationsWithMetadata(params *CreateBrandReg
 		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +144,6 @@ func (c *ApiService) CreateBrandRegistrationsWithMetadata(params *CreateBrandReg
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -155,7 +153,7 @@ func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegis
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +178,7 @@ func (c *ApiService) FetchBrandRegistrationsWithMetadata(Sid string) (*metadata.
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +236,7 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +271,7 @@ func (c *ApiService) PageBrandRegistrationsWithMetadata(params *ListBrandRegistr
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +416,7 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +430,6 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	return ps, nil
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -442,7 +439,7 @@ func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -467,7 +464,7 @@ func (c *ApiService) UpdateBrandRegistrationsWithMetadata(Sid string) (*metadata
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

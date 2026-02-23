@@ -173,7 +173,6 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetBundleSid(BundleSid st
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -257,7 +256,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +355,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFreeWithMetadata(params *Creat
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +461,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -515,7 +514,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFreeWithMetadata(params *ListInc
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +659,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUrl 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

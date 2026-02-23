@@ -108,7 +108,7 @@ func (c *ApiService) CreateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,7 @@ func (c *ApiService) CreateServiceConversationScopedWebhookWithMetadata(ChatServ
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (c *ApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -215,7 +215,7 @@ func (c *ApiService) DeleteServiceConversationScopedWebhookWithMetadata(ChatServ
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +243,7 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func (c *ApiService) FetchServiceConversationScopedWebhookWithMetadata(ChatServi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +331,7 @@ func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +369,7 @@ func (c *ApiService) PageServiceConversationScopedWebhookWithMetadata(ChatServic
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +514,7 @@ func (c *ApiService) getNextListServiceConversationScopedWebhookResponse(nextPag
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -595,7 +595,7 @@ func (c *ApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid strin
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -642,7 +642,7 @@ func (c *ApiService) UpdateServiceConversationScopedWebhookWithMetadata(ChatServ
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

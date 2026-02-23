@@ -86,7 +86,7 @@ func (c *ApiService) CreateInsightsQuestionnaires(params *CreateInsightsQuestion
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (c *ApiService) CreateInsightsQuestionnairesWithMetadata(params *CreateInsi
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -173,7 +173,7 @@ func (c *ApiService) DeleteInsightsQuestionnaires(QuestionnaireSid string, param
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) DeleteInsightsQuestionnairesWithMetadata(QuestionnaireSid s
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (c *ApiService) FetchInsightsQuestionnaires(QuestionnaireSid string, params
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +264,7 @@ func (c *ApiService) FetchInsightsQuestionnairesWithMetadata(QuestionnaireSid st
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -337,7 +337,7 @@ func (c *ApiService) PageInsightsQuestionnaires(params *ListInsightsQuestionnair
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +375,7 @@ func (c *ApiService) PageInsightsQuestionnairesWithMetadata(params *ListInsights
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -520,7 +520,7 @@ func (c *ApiService) getNextListInsightsQuestionnairesResponse(nextPageUrl strin
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -597,7 +597,7 @@ func (c *ApiService) UpdateInsightsQuestionnaires(QuestionnaireSid string, param
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -640,7 +640,7 @@ func (c *ApiService) UpdateInsightsQuestionnairesWithMetadata(QuestionnaireSid s
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -76,7 +76,7 @@ func (c *ApiService) CreateUserDefinedMessageSubscription(CallSid string, params
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (c *ApiService) CreateUserDefinedMessageSubscriptionWithMetadata(CallSid st
 		data.Set("Method", *params.Method)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) DeleteUserDefinedMessageSubscription(CallSid string, Sid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -190,7 +190,7 @@ func (c *ApiService) DeleteUserDefinedMessageSubscriptionWithMetadata(CallSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) FetchSipDomainWithMetadata(SipDomain string) (*metadata.Res
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +94,6 @@ func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *Updat
 	return params
 }
 
-//
 func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
@@ -112,7 +110,7 @@ func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +142,7 @@ func (c *ApiService) UpdateSipDomainWithMetadata(SipDomain string, params *Updat
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

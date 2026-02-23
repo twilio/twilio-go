@@ -84,7 +84,6 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	return params
 }
 
-//
 func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
@@ -131,7 +130,7 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +192,7 @@ func (c *ApiService) CreateCompositionWithMetadata(params *CreateCompositionPara
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -224,7 +223,7 @@ func (c *ApiService) DeleteComposition(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -244,7 +243,7 @@ func (c *ApiService) DeleteCompositionWithMetadata(Sid string) (*metadata.Resour
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +269,7 @@ func (c *ApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -295,7 +294,7 @@ func (c *ApiService) FetchCompositionWithMetadata(Sid string) (*metadata.Resourc
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +388,7 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +435,7 @@ func (c *ApiService) PageCompositionWithMetadata(params *ListCompositionParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -581,7 +580,7 @@ func (c *ApiService) getNextListCompositionResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

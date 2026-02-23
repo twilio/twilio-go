@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) (*VideoV1RoomParticipantAnonymize, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}/Anonymize"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -33,7 +32,7 @@ func (c *ApiService) UpdateRoomParticipantAnonymize(RoomSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +58,7 @@ func (c *ApiService) UpdateRoomParticipantAnonymizeWithMetadata(RoomSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

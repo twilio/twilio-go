@@ -23,7 +23,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -33,7 +32,7 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, erro
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +57,7 @@ func (c *ApiService) FetchRecordingWithMetadata(TrunkSid string) (*metadata.Reso
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +95,6 @@ func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams
 	return params
 }
 
-//
 func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -113,7 +111,7 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +143,7 @@ func (c *ApiService) UpdateRecordingWithMetadata(TrunkSid string, params *Update
 		data.Set("Trim", fmt.Sprint(*params.Trim))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

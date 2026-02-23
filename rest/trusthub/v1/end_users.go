@@ -72,7 +72,7 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndU
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) CreateEndUserWithMetadata(params *CreateEndUserParams) (*me
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +143,7 @@ func (c *ApiService) DeleteEndUser(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) DeleteEndUserWithMetadata(Sid string) (*metadata.ResourceMe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -189,7 +189,7 @@ func (c *ApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) FetchEndUserWithMetadata(Sid string) (*metadata.ResourceMet
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +307,7 @@ func (c *ApiService) PageEndUserWithMetadata(params *ListEndUserParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -452,7 +452,7 @@ func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -506,7 +506,7 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Tr
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +544,7 @@ func (c *ApiService) UpdateEndUserWithMetadata(Sid string, params *UpdateEndUser
 		data.Set("Attributes", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

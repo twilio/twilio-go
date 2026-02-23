@@ -185,7 +185,7 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -261,7 +261,7 @@ func (c *ApiService) CreateRealtimeTranscriptionWithMetadata(CallSid string, par
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func (c *ApiService) UpdateRealtimeTranscription(CallSid string, Sid string, par
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -354,7 +354,7 @@ func (c *ApiService) UpdateRealtimeTranscriptionWithMetadata(CallSid string, Sid
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

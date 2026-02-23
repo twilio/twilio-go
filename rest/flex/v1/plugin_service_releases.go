@@ -41,7 +41,6 @@ func (params *CreatePluginReleaseParams) SetConfigurationId(ConfigurationId stri
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases"
 
@@ -57,7 +56,7 @@ func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*Fl
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +87,7 @@ func (c *ApiService) CreatePluginReleaseWithMetadata(params *CreatePluginRelease
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +119,6 @@ func (params *FetchPluginReleaseParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -133,7 +131,7 @@ func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleasePa
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +159,7 @@ func (c *ApiService) FetchPluginReleaseWithMetadata(Sid string, params *FetchPlu
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +223,7 @@ func (c *ApiService) PagePluginRelease(params *ListPluginReleaseParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +258,7 @@ func (c *ApiService) PagePluginReleaseWithMetadata(params *ListPluginReleasePara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -405,7 +403,7 @@ func (c *ApiService) getNextListPluginReleaseResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

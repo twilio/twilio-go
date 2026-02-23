@@ -53,7 +53,7 @@ func (c *ApiService) CreateContent(params *CreateContentParams) (*ContentV1Conte
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) CreateContentWithMetadata(params *CreateContentParams) (*me
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (c *ApiService) DeleteContent(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) DeleteContentWithMetadata(Sid string) (*metadata.ResourceMe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) FetchContent(Sid string) (*ContentV1Content, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) FetchContentWithMetadata(Sid string) (*metadata.ResourceMet
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +246,7 @@ func (c *ApiService) PageContent(params *ListContentParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (c *ApiService) PageContentWithMetadata(params *ListContentParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +426,7 @@ func (c *ApiService) getNextListContentResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -470,7 +470,7 @@ func (c *ApiService) UpdateContent(Sid string, params *UpdateContentParams) (*Co
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +504,7 @@ func (c *ApiService) UpdateContentWithMetadata(Sid string, params *UpdateContent
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

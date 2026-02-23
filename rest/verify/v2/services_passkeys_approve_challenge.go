@@ -52,7 +52,7 @@ func (c *ApiService) UpdateChallengePasskeys(ServiceSid string, params *UpdateCh
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) UpdateChallengePasskeysWithMetadata(ServiceSid string, para
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

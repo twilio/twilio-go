@@ -25,7 +25,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -36,7 +35,7 @@ func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1E
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +61,7 @@ func (c *ApiService) FetchEventWithMetadata(WorkspaceSid string, Sid string) (*m
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +220,7 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +290,7 @@ func (c *ApiService) PageEventWithMetadata(WorkspaceSid string, params *ListEven
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +435,7 @@ func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

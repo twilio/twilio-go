@@ -35,7 +35,6 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -49,7 +48,7 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 		data.Set("ShortCodeSid", *params.ShortCodeSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +77,7 @@ func (c *ApiService) CreateShortCodeWithMetadata(ServiceSid string, params *Crea
 		data.Set("ShortCodeSid", *params.ShortCodeSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +98,6 @@ func (c *ApiService) CreateShortCodeWithMetadata(ServiceSid string, params *Crea
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -110,7 +108,7 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -131,7 +129,7 @@ func (c *ApiService) DeleteShortCodeWithMetadata(ServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +145,6 @@ func (c *ApiService) DeleteShortCodeWithMetadata(ServiceSid string, Sid string) 
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -158,7 +155,7 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +181,7 @@ func (c *ApiService) FetchShortCodeWithMetadata(ServiceSid string, Sid string) (
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +241,7 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +278,7 @@ func (c *ApiService) PageShortCodeWithMetadata(ServiceSid string, params *ListSh
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +423,7 @@ func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

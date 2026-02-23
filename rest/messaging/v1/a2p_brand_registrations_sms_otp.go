@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*MessagingV1BrandRegistrationOtp, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp"
 	path = strings.Replace(path, "{"+"BrandRegistrationSid"+"}", BrandRegistrationSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*M
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) CreateBrandRegistrationOtpWithMetadata(BrandRegistrationSid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

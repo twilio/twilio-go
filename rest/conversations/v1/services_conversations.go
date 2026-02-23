@@ -149,7 +149,7 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (c *ApiService) CreateServiceConversationWithMetadata(ChatServiceSid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +257,7 @@ func (c *ApiService) DeleteServiceConversation(ChatServiceSid string, Sid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -281,7 +281,7 @@ func (c *ApiService) DeleteServiceConversationWithMetadata(ChatServiceSid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +308,7 @@ func (c *ApiService) FetchServiceConversation(ChatServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +334,7 @@ func (c *ApiService) FetchServiceConversationWithMetadata(ChatServiceSid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -421,7 +421,7 @@ func (c *ApiService) PageServiceConversation(ChatServiceSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -467,7 +467,7 @@ func (c *ApiService) PageServiceConversationWithMetadata(ChatServiceSid string, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -612,7 +612,7 @@ func (c *ApiService) getNextListServiceConversationResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -751,7 +751,7 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -814,7 +814,7 @@ func (c *ApiService) UpdateServiceConversationWithMetadata(ChatServiceSid string
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

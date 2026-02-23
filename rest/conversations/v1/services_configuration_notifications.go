@@ -33,7 +33,7 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*Conversat
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *ApiService) FetchServiceNotificationWithMetadata(ChatServiceSid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -277,7 +277,7 @@ func (c *ApiService) UpdateServiceNotificationWithMetadata(ChatServiceSid string
 		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

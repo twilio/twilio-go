@@ -51,7 +51,7 @@ func (c *ApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) DeleteRecordingWithMetadata(Sid string, params *DeleteRecor
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*
 		data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) FetchRecordingWithMetadata(Sid string, params *FetchRecordi
 		data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +345,7 @@ func (c *ApiService) PageRecordingWithMetadata(params *ListRecordingParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -490,7 +490,7 @@ func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

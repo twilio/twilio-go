@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchDomainDnsValidation(DomainSid string) (*MessagingV1DomainDnsValidation, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/ValidateDns"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) FetchDomainDnsValidation(DomainSid string) (*MessagingV1Dom
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) FetchDomainDnsValidationWithMetadata(DomainSid string) (*me
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

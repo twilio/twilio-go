@@ -32,7 +32,6 @@ func (params *CreateBulkConsentsParams) SetItems(Items []interface{}) *CreateBul
 	return params
 }
 
-//
 func (c *ApiService) CreateBulkConsents(params *CreateBulkConsentsParams) (*AccountsV1BulkConsents, error) {
 	path := "/v1/Consents/Bulk"
 
@@ -53,7 +52,7 @@ func (c *ApiService) CreateBulkConsents(params *CreateBulkConsentsParams) (*Acco
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +88,7 @@ func (c *ApiService) CreateBulkConsentsWithMetadata(params *CreateBulkConsentsPa
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

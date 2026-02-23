@@ -78,7 +78,6 @@ func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannel
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -113,7 +112,7 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +162,7 @@ func (c *ApiService) CreateChannelWithMetadata(ServiceSid string, params *Create
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +194,6 @@ func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-//
 func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -209,7 +207,7 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string, params *Delete
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -233,7 +231,7 @@ func (c *ApiService) DeleteChannelWithMetadata(ServiceSid string, Sid string, pa
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +247,6 @@ func (c *ApiService) DeleteChannelWithMetadata(ServiceSid string, Sid string, pa
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -260,7 +257,7 @@ func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV2
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +283,7 @@ func (c *ApiService) FetchChannelWithMetadata(ServiceSid string, Sid string) (*m
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +354,7 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -399,7 +396,7 @@ func (c *ApiService) PageChannelWithMetadata(ServiceSid string, params *ListChan
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +541,7 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -605,7 +602,6 @@ func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannel
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV2Channel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -638,7 +634,7 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -686,7 +682,7 @@ func (c *ApiService) UpdateChannelWithMetadata(ServiceSid string, Sid string, pa
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **BusinessContactEmail** | Pointer to **string** | The email address of the contact for the business or organization using the Tollfree number. |
 **BusinessContactPhone** | Pointer to **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number. |
 **NotificationEmail** | Pointer to **string** | The email address to receive the notification about the verification result. . |
-**UseCaseCategories** | Pointer to **[]string** | The category of the use case for the Tollfree Number. List as many are applicable.. |
+**UseCaseCategories** | Pointer to **[]string** | The category of the use case for the Tollfree Number. List as many as are applicable. |
 **UseCaseSummary** | Pointer to **string** | Use this to further explain how messaging is used by the business or organization. |
 **ProductionMessageSample** | Pointer to **string** | An example of message content, i.e. a sample message. |
 **OptInImageUrls** | Pointer to **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL. |
@@ -40,9 +40,9 @@ Name | Type | Description | Notes
 **EditExpiration** | Pointer to [**time.Time**](time.Time.md) | The date and time when the ability to edit a rejected verification expires. |
 **EditAllowed** | Pointer to **bool** | If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not. |
 **BusinessRegistrationNumber** | Pointer to **string** | A legally recognized business registration number |
-**BusinessRegistrationAuthority** | Pointer to **string** | The organizational authority for business registrations |
+**BusinessRegistrationAuthority** | Pointer to [**string**](TollfreeVerificationEnumBusinessRegistrationAuthority.md) |  |
 **BusinessRegistrationCountry** | Pointer to **string** | Country business is registered in |
-**BusinessType** | Pointer to **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT |
+**BusinessType** | Pointer to [**string**](TollfreeVerificationEnumBusinessType.md) |  |
 **BusinessRegistrationPhoneNumber** | Pointer to **string** | The E.164 formatted number associated with the business. |
 **DoingBusinessAs** | Pointer to **string** | Trade name, sub entity, or downstream business name of business being submitted for verification |
 **OptInConfirmationMessage** | Pointer to **string** | The confirmation message sent to users when they opt in to receive messages. |

@@ -51,7 +51,6 @@ func (params *FetchPhoneNumberParams) SetAddOnsData(AddOnsData map[string]interf
 	return params
 }
 
-//
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumberParams) (*LookupsV1PhoneNumber, error) {
 	path := "/v1/PhoneNumbers/{PhoneNumber}"
 	path = strings.Replace(path, "{"+"PhoneNumber"+"}", PhoneNumber, -1)
@@ -84,7 +83,7 @@ func (c *ApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPhoneNumb
 		data.Set("AddOnsData", string(v))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +131,7 @@ func (c *ApiService) FetchPhoneNumberWithMetadata(PhoneNumber string, params *Fe
 		data.Set("AddOnsData", string(v))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -53,7 +53,6 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -83,7 +82,7 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +127,7 @@ func (c *ApiService) CreateSyncListItemWithMetadata(ServiceSid string, ListSid s
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +159,6 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-//
 func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -175,7 +173,7 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -200,7 +198,7 @@ func (c *ApiService) DeleteSyncListItemWithMetadata(ServiceSid string, ListSid s
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +214,6 @@ func (c *ApiService) DeleteSyncListItemWithMetadata(ServiceSid string, ListSid s
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -228,7 +225,7 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +252,7 @@ func (c *ApiService) FetchSyncListItemWithMetadata(ServiceSid string, ListSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +340,7 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -390,7 +387,7 @@ func (c *ApiService) PageSyncListItemWithMetadata(ServiceSid string, ListSid str
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -535,7 +532,7 @@ func (c *ApiService) getNextListSyncListItemResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -584,7 +581,6 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -618,7 +614,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -667,7 +663,7 @@ func (c *ApiService) UpdateSyncListItemWithMetadata(ServiceSid string, ListSid s
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

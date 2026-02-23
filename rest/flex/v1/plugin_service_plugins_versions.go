@@ -71,7 +71,6 @@ func (params *CreatePluginVersionParams) SetValidateStatus(ValidateStatus string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -103,7 +102,7 @@ func (c *ApiService) CreatePluginVersion(PluginSid string, params *CreatePluginV
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +149,7 @@ func (c *ApiService) CreatePluginVersionWithMetadata(PluginSid string, params *C
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +181,6 @@ func (params *FetchPluginVersionParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *FetchPluginVersionParams) (*FlexV1PluginVersion, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -196,7 +194,7 @@ func (c *ApiService) FetchPluginVersion(PluginSid string, Sid string, params *Fe
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +223,7 @@ func (c *ApiService) FetchPluginVersionWithMetadata(PluginSid string, Sid string
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +289,7 @@ func (c *ApiService) PagePluginVersion(PluginSid string, params *ListPluginVersi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -328,7 +326,7 @@ func (c *ApiService) PagePluginVersionWithMetadata(PluginSid string, params *Lis
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -473,7 +471,7 @@ func (c *ApiService) getNextListPluginVersionResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

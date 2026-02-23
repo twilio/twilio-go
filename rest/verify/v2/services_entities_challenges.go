@@ -110,7 +110,7 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +169,7 @@ func (c *ApiService) CreateChallengeWithMetadata(ServiceSid string, Identity str
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) FetchChallengeWithMetadata(ServiceSid string, Identity stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -364,7 +364,7 @@ func (c *ApiService) PageChallengeWithMetadata(ServiceSid string, Identity strin
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -509,7 +509,7 @@ func (c *ApiService) getNextListChallengeResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -565,7 +565,7 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 		data.Set("Metadata", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -605,7 +605,7 @@ func (c *ApiService) UpdateChallengeWithMetadata(ServiceSid string, Identity str
 		data.Set("Metadata", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -59,7 +59,6 @@ func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Crea
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -85,7 +84,7 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +125,7 @@ func (c *ApiService) CreateConnectionPolicyTargetWithMetadata(ConnectionPolicySi
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +146,6 @@ func (c *ApiService) CreateConnectionPolicyTargetWithMetadata(ConnectionPolicySi
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -158,7 +156,7 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -179,7 +177,7 @@ func (c *ApiService) DeleteConnectionPolicyTargetWithMetadata(ConnectionPolicySi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +193,6 @@ func (c *ApiService) DeleteConnectionPolicyTargetWithMetadata(ConnectionPolicySi
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -206,7 +203,7 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +229,7 @@ func (c *ApiService) FetchConnectionPolicyTargetWithMetadata(ConnectionPolicySid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +289,7 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +326,7 @@ func (c *ApiService) PageConnectionPolicyTargetWithMetadata(ConnectionPolicySid 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -474,7 +471,7 @@ func (c *ApiService) getNextListConnectionPolicyTargetResponse(nextPageUrl strin
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -523,7 +520,6 @@ func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *Upda
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -550,7 +546,7 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -592,7 +588,7 @@ func (c *ApiService) UpdateConnectionPolicyTargetWithMetadata(ConnectionPolicySi
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -37,7 +37,7 @@ func (c *ApiService) DeleteServiceUserConversation(ChatServiceSid string, UserSi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -59,7 +59,7 @@ func (c *ApiService) DeleteServiceUserConversationWithMetadata(ChatServiceSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +114,7 @@ func (c *ApiService) FetchServiceUserConversationWithMetadata(ChatServiceSid str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func (c *ApiService) PageServiceUserConversation(ChatServiceSid string, UserSid 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (c *ApiService) PageServiceUserConversationWithMetadata(ChatServiceSid stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -358,7 +358,7 @@ func (c *ApiService) getNextListServiceUserConversationResponse(nextPageUrl stri
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +417,7 @@ func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSi
 		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -454,7 +454,7 @@ func (c *ApiService) UpdateServiceUserConversationWithMetadata(ChatServiceSid st
 		data.Set("LastReadMessageIndex", fmt.Sprint(*params.LastReadMessageIndex))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

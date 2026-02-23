@@ -36,7 +36,7 @@ func (c *ApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, I
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -58,7 +58,7 @@ func (c *ApiService) DeleteSyncMapPermissionWithMetadata(ServiceSid string, MapS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Id
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (c *ApiService) FetchSyncMapPermissionWithMetadata(ServiceSid string, MapSi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +174,7 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) PageSyncMapPermissionWithMetadata(ServiceSid string, MapSid
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +357,7 @@ func (c *ApiService) getNextListSyncMapPermissionResponse(nextPageUrl string) (i
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -416,7 +416,7 @@ func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, I
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -453,7 +453,7 @@ func (c *ApiService) UpdateSyncMapPermissionWithMetadata(ServiceSid string, MapS
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -77,7 +77,6 @@ func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
@@ -111,7 +110,7 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +159,7 @@ func (c *ApiService) CreateTrunkWithMetadata(params *CreateTrunkParams) (*metada
 		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +180,6 @@ func (c *ApiService) CreateTrunkWithMetadata(params *CreateTrunkParams) (*metada
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteTrunk(Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -191,7 +189,7 @@ func (c *ApiService) DeleteTrunk(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -211,7 +209,7 @@ func (c *ApiService) DeleteTrunkWithMetadata(Sid string) (*metadata.ResourceMeta
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +225,6 @@ func (c *ApiService) DeleteTrunkWithMetadata(Sid string) (*metadata.ResourceMeta
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -237,7 +234,7 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +259,7 @@ func (c *ApiService) FetchTrunkWithMetadata(Sid string) (*metadata.ResourceMetad
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -320,7 +317,7 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +352,7 @@ func (c *ApiService) PageTrunkWithMetadata(params *ListTrunkParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +497,7 @@ func (c *ApiService) getNextListTrunkResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -567,7 +564,6 @@ func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -602,7 +598,7 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -652,7 +648,7 @@ func (c *ApiService) UpdateTrunkWithMetadata(Sid string, params *UpdateTrunkPara
 		data.Set("TransferCallerId", fmt.Sprint(*params.TransferCallerId))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -389,7 +389,7 @@ func (c *ApiService) CreateComplianceRegistration(params *CreateComplianceRegist
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -531,7 +531,7 @@ func (c *ApiService) CreateComplianceRegistrationWithMetadata(params *CreateComp
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -586,7 +586,7 @@ func (c *ApiService) UpdateComplianceRegistration(RegistrationId string, params 
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -618,7 +618,7 @@ func (c *ApiService) UpdateComplianceRegistrationWithMetadata(RegistrationId str
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

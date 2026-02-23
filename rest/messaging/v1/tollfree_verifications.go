@@ -32,7 +32,7 @@ type CreateTollfreeVerificationParams struct {
 	BusinessWebsite *string `json:"BusinessWebsite,omitempty"`
 	// The email address to receive the notification about the verification result. .
 	NotificationEmail *string `json:"NotificationEmail,omitempty"`
-	// The category of the use case for the Tollfree Number. List as many are applicable..
+	// The category of the use case for the Tollfree Number. List as many as are applicable.
 	UseCaseCategories *[]string `json:"UseCaseCategories,omitempty"`
 	// Use this to further explain how messaging is used by the business or organization.
 	UseCaseSummary *string `json:"UseCaseSummary,omitempty"`
@@ -74,11 +74,11 @@ type CreateTollfreeVerificationParams struct {
 	ExternalReferenceId *string `json:"ExternalReferenceId,omitempty"`
 	// A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
 	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
-	// The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+	//
 	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
 	// The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
 	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
-	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+	//
 	BusinessType *string `json:"BusinessType,omitempty"`
 	// The E.164 formatted number associated with the business.
 	BusinessRegistrationPhoneNumber *string `json:"BusinessRegistrationPhoneNumber,omitempty"`
@@ -337,13 +337,13 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
 	}
 	if params != nil && params.BusinessRegistrationAuthority != nil {
-		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
 	}
 	if params != nil && params.BusinessRegistrationCountry != nil {
 		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
 	}
 	if params != nil && params.BusinessType != nil {
-		data.Set("BusinessType", *params.BusinessType)
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
 	}
 	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
 		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
@@ -378,7 +378,7 @@ func (c *ApiService) CreateTollfreeVerification(params *CreateTollfreeVerificati
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -479,13 +479,13 @@ func (c *ApiService) CreateTollfreeVerificationWithMetadata(params *CreateTollfr
 		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
 	}
 	if params != nil && params.BusinessRegistrationAuthority != nil {
-		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
 	}
 	if params != nil && params.BusinessRegistrationCountry != nil {
 		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
 	}
 	if params != nil && params.BusinessType != nil {
-		data.Set("BusinessType", *params.BusinessType)
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
 	}
 	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
 		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
@@ -520,7 +520,7 @@ func (c *ApiService) CreateTollfreeVerificationWithMetadata(params *CreateTollfr
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -551,7 +551,7 @@ func (c *ApiService) DeleteTollfreeVerification(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -571,7 +571,7 @@ func (c *ApiService) DeleteTollfreeVerificationWithMetadata(Sid string) (*metada
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -597,7 +597,7 @@ func (c *ApiService) FetchTollfreeVerification(Sid string) (*MessagingV1Tollfree
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -622,7 +622,7 @@ func (c *ApiService) FetchTollfreeVerificationWithMetadata(Sid string) (*metadat
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -727,7 +727,7 @@ func (c *ApiService) PageTollfreeVerification(params *ListTollfreeVerificationPa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -779,7 +779,7 @@ func (c *ApiService) PageTollfreeVerificationWithMetadata(params *ListTollfreeVe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -924,7 +924,7 @@ func (c *ApiService) getNextListTollfreeVerificationResponse(nextPageUrl string)
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -946,7 +946,7 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessWebsite *string `json:"BusinessWebsite,omitempty"`
 	// The email address to receive the notification about the verification result. .
 	NotificationEmail *string `json:"NotificationEmail,omitempty"`
-	// The category of the use case for the Tollfree Number. List as many are applicable..
+	// The category of the use case for the Tollfree Number. List as many as are applicable.
 	UseCaseCategories *[]string `json:"UseCaseCategories,omitempty"`
 	// Use this to further explain how messaging is used by the business or organization.
 	UseCaseSummary *string `json:"UseCaseSummary,omitempty"`
@@ -982,13 +982,13 @@ type UpdateTollfreeVerificationParams struct {
 	BusinessContactPhone *string `json:"BusinessContactPhone,omitempty"`
 	// Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 	EditReason *string `json:"EditReason,omitempty"`
-	// A legaly recognized business registration number
+	// A legally recognized business registration number
 	BusinessRegistrationNumber *string `json:"BusinessRegistrationNumber,omitempty"`
-	// The organizational authority for business registrations
+	//
 	BusinessRegistrationAuthority *string `json:"BusinessRegistrationAuthority,omitempty"`
 	// Country business is registered in
 	BusinessRegistrationCountry *string `json:"BusinessRegistrationCountry,omitempty"`
-	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+	//
 	BusinessType *string `json:"BusinessType,omitempty"`
 	// The E.164 formatted number associated with the business.
 	BusinessRegistrationPhoneNumber *string `json:"BusinessRegistrationPhoneNumber,omitempty"`
@@ -1234,13 +1234,13 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
 	}
 	if params != nil && params.BusinessRegistrationAuthority != nil {
-		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
 	}
 	if params != nil && params.BusinessRegistrationCountry != nil {
 		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
 	}
 	if params != nil && params.BusinessType != nil {
-		data.Set("BusinessType", *params.BusinessType)
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
 	}
 	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
 		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
@@ -1275,7 +1275,7 @@ func (c *ApiService) UpdateTollfreeVerification(Sid string, params *UpdateTollfr
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -1371,13 +1371,13 @@ func (c *ApiService) UpdateTollfreeVerificationWithMetadata(Sid string, params *
 		data.Set("BusinessRegistrationNumber", *params.BusinessRegistrationNumber)
 	}
 	if params != nil && params.BusinessRegistrationAuthority != nil {
-		data.Set("BusinessRegistrationAuthority", *params.BusinessRegistrationAuthority)
+		data.Set("BusinessRegistrationAuthority", fmt.Sprint(*params.BusinessRegistrationAuthority))
 	}
 	if params != nil && params.BusinessRegistrationCountry != nil {
 		data.Set("BusinessRegistrationCountry", *params.BusinessRegistrationCountry)
 	}
 	if params != nil && params.BusinessType != nil {
-		data.Set("BusinessType", *params.BusinessType)
+		data.Set("BusinessType", fmt.Sprint(*params.BusinessType))
 	}
 	if params != nil && params.BusinessRegistrationPhoneNumber != nil {
 		data.Set("BusinessRegistrationPhoneNumber", *params.BusinessRegistrationPhoneNumber)
@@ -1412,7 +1412,7 @@ func (c *ApiService) UpdateTollfreeVerificationWithMetadata(Sid string, params *
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

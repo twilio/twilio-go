@@ -51,7 +51,7 @@ func (c *ApiService) CreateBulkHostedNumberOrder(params *CreateBulkHostedNumberO
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (c *ApiService) CreateBulkHostedNumberOrderWithMetadata(params *CreateBulkH
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ func (c *ApiService) FetchBulkHostedNumberOrder(BulkHostingSid string, params *F
 		data.Set("OrderStatus", *params.OrderStatus)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) FetchBulkHostedNumberOrderWithMetadata(BulkHostingSid strin
 		data.Set("OrderStatus", *params.OrderStatus)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

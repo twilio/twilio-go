@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
@@ -34,7 +33,7 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +58,7 @@ func (c *ApiService) FetchMessagingCountryWithMetadata(IsoCountry string) (*meta
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +116,7 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +151,7 @@ func (c *ApiService) PageMessagingCountryWithMetadata(params *ListMessagingCount
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +296,7 @@ func (c *ApiService) getNextListMessagingCountryResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

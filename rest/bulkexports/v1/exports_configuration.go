@@ -33,7 +33,7 @@ func (c *ApiService) FetchExportConfiguration(ResourceType string) (*Bulkexports
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *ApiService) FetchExportConfigurationWithMetadata(ResourceType string) (
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +157,7 @@ func (c *ApiService) UpdateExportConfigurationWithMetadata(ResourceType string, 
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

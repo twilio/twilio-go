@@ -52,7 +52,7 @@ func (c *ApiService) CreateTaskQueueBulkRealTimeStatistics(WorkspaceSid string, 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) CreateTaskQueueBulkRealTimeStatisticsWithMetadata(Workspace
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +118,6 @@ func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-//
 func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1TaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -133,7 +132,7 @@ func (c *ApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQ
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +162,7 @@ func (c *ApiService) FetchTaskQueueRealTimeStatisticsWithMetadata(WorkspaceSid s
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -33,7 +33,7 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*Conversa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *ApiService) FetchServiceConfigurationWithMetadata(ChatServiceSid string
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +169,7 @@ func (c *ApiService) UpdateServiceConfigurationWithMetadata(ChatServiceSid strin
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

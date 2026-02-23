@@ -62,7 +62,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) CreateMessageInteractionWithMetadata(ServiceSid string, Ses
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,6 @@ func (c *ApiService) CreateMessageInteractionWithMetadata(ServiceSid string, Ses
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -132,7 +131,7 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +159,7 @@ func (c *ApiService) FetchMessageInteractionWithMetadata(ServiceSid string, Sess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -222,7 +221,7 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -261,7 +260,7 @@ func (c *ApiService) PageMessageInteractionWithMetadata(ServiceSid string, Sessi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -406,7 +405,7 @@ func (c *ApiService) getNextListMessageInteractionResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

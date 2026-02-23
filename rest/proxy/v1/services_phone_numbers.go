@@ -67,7 +67,7 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (c *ApiService) CreatePhoneNumberWithMetadata(ServiceSid string, params *Cr
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -155,7 +155,7 @@ func (c *ApiService) DeletePhoneNumberWithMetadata(ServiceSid string, Sid string
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +182,7 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1Ph
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (c *ApiService) FetchPhoneNumberWithMetadata(ServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +268,7 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +305,7 @@ func (c *ApiService) PagePhoneNumberWithMetadata(ServiceSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -450,7 +450,7 @@ func (c *ApiService) getNextListPhoneNumberResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -490,7 +490,7 @@ func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *Up
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -520,7 +520,7 @@ func (c *ApiService) UpdatePhoneNumberWithMetadata(ServiceSid string, Sid string
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

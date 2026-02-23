@@ -71,7 +71,6 @@ func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -108,7 +107,7 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +159,7 @@ func (c *ApiService) CreateChannelWebhookWithMetadata(ServiceSid string, Channel
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +180,6 @@ func (c *ApiService) CreateChannelWebhookWithMetadata(ServiceSid string, Channel
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -193,7 +191,7 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -215,7 +213,7 @@ func (c *ApiService) DeleteChannelWebhookWithMetadata(ServiceSid string, Channel
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +229,6 @@ func (c *ApiService) DeleteChannelWebhookWithMetadata(ServiceSid string, Channel
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -243,7 +240,7 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +267,7 @@ func (c *ApiService) FetchChannelWebhookWithMetadata(ServiceSid string, ChannelS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +328,7 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +366,7 @@ func (c *ApiService) PageChannelWebhookWithMetadata(ServiceSid string, ChannelSi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -514,7 +511,7 @@ func (c *ApiService) getNextListChannelWebhookResponse(nextPageUrl string) (inte
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -569,7 +566,6 @@ func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(Configurati
 	return params
 }
 
-//
 func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -604,7 +600,7 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -654,7 +650,7 @@ func (c *ApiService) UpdateChannelWebhookWithMetadata(ServiceSid string, Channel
 		data.Set("Configuration.RetryCount", fmt.Sprint(*params.ConfigurationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

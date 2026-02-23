@@ -46,7 +46,7 @@ func (c *ApiService) FetchAccountSettings(params *FetchAccountSettingsParams) (*
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (c *ApiService) FetchAccountSettingsWithMetadata(params *FetchAccountSettin
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) UpdateAccountSettings(params *UpdateAccountSettingsParams) 
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (c *ApiService) UpdateAccountSettingsWithMetadata(params *UpdateAccountSett
 		data.Set("SubaccountSid", *params.SubaccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

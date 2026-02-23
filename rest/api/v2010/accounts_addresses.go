@@ -95,7 +95,6 @@ func (params *CreateAddressParams) SetStreetSecondary(StreetSecondary string) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -140,7 +139,7 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +199,7 @@ func (c *ApiService) CreateAddressWithMetadata(params *CreateAddressParams) (*me
 		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +231,6 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-//
 func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -247,7 +245,7 @@ func (c *ApiService) DeleteAddress(Sid string, params *DeleteAddressParams) erro
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -272,7 +270,7 @@ func (c *ApiService) DeleteAddressWithMetadata(Sid string, params *DeleteAddress
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +297,6 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-//
 func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -314,7 +311,7 @@ func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +341,7 @@ func (c *ApiService) FetchAddressWithMetadata(Sid string, params *FetchAddressPa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -450,7 +447,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -503,7 +500,7 @@ func (c *ApiService) PageAddressWithMetadata(params *ListAddressParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -648,7 +645,7 @@ func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -727,7 +724,6 @@ func (params *UpdateAddressParams) SetStreetSecondary(StreetSecondary string) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -770,7 +766,7 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -828,7 +824,7 @@ func (c *ApiService) UpdateAddressWithMetadata(Sid string, params *UpdateAddress
 		data.Set("StreetSecondary", *params.StreetSecondary)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

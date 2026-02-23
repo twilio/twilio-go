@@ -49,7 +49,7 @@ func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 		data.Set("Network", *params.Network)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) CreateNetworkAccessProfileNetworkWithMetadata(NetworkAccess
 		data.Set("Network", *params.Network)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) DeleteNetworkAccessProfileNetworkWithMetadata(NetworkAccess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +184,7 @@ func (c *ApiService) FetchNetworkAccessProfileNetworkWithMetadata(NetworkAccessP
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (c *ApiService) PageNetworkAccessProfileNetworkWithMetadata(NetworkAccessPr
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +426,7 @@ func (c *ApiService) getNextListNetworkAccessProfileNetworkResponse(nextPageUrl 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -44,7 +44,7 @@ func (c *ApiService) CreateInsightsSession(params *CreateInsightsSessionParams) 
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (c *ApiService) CreateInsightsSessionWithMetadata(params *CreateInsightsSes
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

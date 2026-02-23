@@ -47,7 +47,6 @@ func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -73,7 +72,7 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +113,7 @@ func (c *ApiService) CreateDocumentWithMetadata(ServiceSid string, params *Creat
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +134,6 @@ func (c *ApiService) CreateDocumentWithMetadata(ServiceSid string, params *Creat
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -146,7 +144,7 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -167,7 +165,7 @@ func (c *ApiService) DeleteDocumentWithMetadata(ServiceSid string, Sid string) (
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +181,6 @@ func (c *ApiService) DeleteDocumentWithMetadata(ServiceSid string, Sid string) (
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -194,7 +191,7 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Docume
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +217,7 @@ func (c *ApiService) FetchDocumentWithMetadata(ServiceSid string, Sid string) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +277,7 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +314,7 @@ func (c *ApiService) PageDocumentWithMetadata(ServiceSid string, params *ListDoc
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +459,7 @@ func (c *ApiService) getNextListDocumentResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -499,7 +496,6 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-//
 func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -526,7 +522,7 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -568,7 +564,7 @@ func (c *ApiService) UpdateDocumentWithMetadata(ServiceSid string, Sid string, p
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

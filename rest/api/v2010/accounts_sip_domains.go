@@ -167,7 +167,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Si
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -236,7 +236,7 @@ func (c *ApiService) CreateSipDomainWithMetadata(params *CreateSipDomainParams) 
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (c *ApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -308,7 +308,7 @@ func (c *ApiService) DeleteSipDomainWithMetadata(Sid string, params *DeleteSipDo
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -350,7 +350,7 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +380,7 @@ func (c *ApiService) FetchSipDomainWithMetadata(Sid string, params *FetchSipDoma
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -450,7 +450,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -491,7 +491,7 @@ func (c *ApiService) PageSipDomainWithMetadata(params *ListSipDomainParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -636,7 +636,7 @@ func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -794,7 +794,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -864,7 +864,7 @@ func (c *ApiService) UpdateSipDomainWithMetadata(Sid string, params *UpdateSipDo
 		data.Set("EmergencyCallerSid", *params.EmergencyCallerSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

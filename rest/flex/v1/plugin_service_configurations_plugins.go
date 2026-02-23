@@ -35,7 +35,6 @@ func (params *FetchConfiguredPluginParams) SetFlexMetadata(FlexMetadata string) 
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid string, params *FetchConfiguredPluginParams) (*FlexV1ConfiguredPlugin, error) {
 	path := "/v1/PluginService/Configurations/{ConfigurationSid}/Plugins/{PluginSid}"
 	path = strings.Replace(path, "{"+"ConfigurationSid"+"}", ConfigurationSid, -1)
@@ -49,7 +48,7 @@ func (c *ApiService) FetchConfiguredPlugin(ConfigurationSid string, PluginSid st
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +77,7 @@ func (c *ApiService) FetchConfiguredPluginWithMetadata(ConfigurationSid string, 
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +143,7 @@ func (c *ApiService) PageConfiguredPlugin(ConfigurationSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +180,7 @@ func (c *ApiService) PageConfiguredPluginWithMetadata(ConfigurationSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -326,7 +325,7 @@ func (c *ApiService) getNextListConfiguredPluginResponse(nextPageUrl string) (in
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

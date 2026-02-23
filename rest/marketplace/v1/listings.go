@@ -54,7 +54,7 @@ func (c *ApiService) CreateModuleData(params *CreateModuleDataParams) (*Marketpl
 		data.Set("Configuration", *params.Configuration)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *ApiService) CreateModuleDataWithMetadata(params *CreateModuleDataParams
 		data.Set("Configuration", *params.Configuration)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (c *ApiService) FetchModuleDataForListingOwner() (*FetchModuleDataForListin
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func (c *ApiService) FetchModuleDataForListingOwnerWithMetadata() (*metadata.Res
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

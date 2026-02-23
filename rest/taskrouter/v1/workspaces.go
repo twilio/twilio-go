@@ -65,7 +65,6 @@ func (params *CreateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
@@ -93,7 +92,7 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +135,7 @@ func (c *ApiService) CreateWorkspaceWithMetadata(params *CreateWorkspaceParams) 
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -157,7 +156,6 @@ func (c *ApiService) CreateWorkspaceWithMetadata(params *CreateWorkspaceParams) 
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteWorkspace(Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -167,7 +165,7 @@ func (c *ApiService) DeleteWorkspace(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -187,7 +185,7 @@ func (c *ApiService) DeleteWorkspaceWithMetadata(Sid string) (*metadata.Resource
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +201,6 @@ func (c *ApiService) DeleteWorkspaceWithMetadata(Sid string) (*metadata.Resource
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -213,7 +210,7 @@ func (c *ApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +235,7 @@ func (c *ApiService) FetchWorkspaceWithMetadata(Sid string) (*metadata.ResourceM
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +302,7 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +340,7 @@ func (c *ApiService) PageWorkspaceWithMetadata(params *ListWorkspaceParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -488,7 +485,7 @@ func (c *ApiService) getNextListWorkspaceResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -549,7 +546,6 @@ func (params *UpdateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrde
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -581,7 +577,7 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -628,7 +624,7 @@ func (c *ApiService) UpdateWorkspaceWithMetadata(Sid string, params *UpdateWorks
 		data.Set("PrioritizeQueueOrder", fmt.Sprint(*params.PrioritizeQueueOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

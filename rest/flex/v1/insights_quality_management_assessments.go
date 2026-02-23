@@ -138,7 +138,7 @@ func (c *ApiService) CreateInsightsAssessments(params *CreateInsightsAssessments
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) CreateInsightsAssessmentsWithMetadata(params *CreateInsight
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ func (c *ApiService) PageInsightsAssessments(params *ListInsightsAssessmentsPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +307,7 @@ func (c *ApiService) PageInsightsAssessmentsWithMetadata(params *ListInsightsAss
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -452,7 +452,7 @@ func (c *ApiService) getNextListInsightsAssessmentsResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -518,7 +518,7 @@ func (c *ApiService) UpdateInsightsAssessments(AssessmentSid string, params *Upd
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -556,7 +556,7 @@ func (c *ApiService) UpdateInsightsAssessmentsWithMetadata(AssessmentSid string,
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

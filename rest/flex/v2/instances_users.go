@@ -33,7 +33,7 @@ func (c *ApiService) FetchFlexUser(InstanceSid string, FlexUserSid string) (*Fle
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *ApiService) FetchFlexUserWithMetadata(InstanceSid string, FlexUserSid s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (c *ApiService) UpdateFlexUser(InstanceSid string, FlexUserSid string, para
 		data.Set("Locale", *params.Locale)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,7 @@ func (c *ApiService) UpdateFlexUserWithMetadata(InstanceSid string, FlexUserSid 
 		data.Set("Locale", *params.Locale)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

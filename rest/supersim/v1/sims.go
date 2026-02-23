@@ -57,7 +57,7 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
 		data.Set("RegistrationCode", *params.RegistrationCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) CreateSimWithMetadata(params *CreateSimParams) (*metadata.R
 		data.Set("RegistrationCode", *params.RegistrationCode)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c *ApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +144,7 @@ func (c *ApiService) FetchSimWithMetadata(Sid string) (*metadata.ResourceMetadat
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +273,7 @@ func (c *ApiService) PageSimWithMetadata(params *ListSimParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +418,7 @@ func (c *ApiService) getNextListSimResponse(nextPageUrl string) (interface{}, er
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -502,7 +502,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -546,7 +546,7 @@ func (c *ApiService) UpdateSimWithMetadata(Sid string, params *UpdateSimParams) 
 		data.Set("AccountSid", *params.AccountSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

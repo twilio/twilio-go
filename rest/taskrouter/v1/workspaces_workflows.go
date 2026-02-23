@@ -59,7 +59,6 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-//
 func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -85,7 +84,7 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +125,7 @@ func (c *ApiService) CreateWorkflowWithMetadata(WorkspaceSid string, params *Cre
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +146,6 @@ func (c *ApiService) CreateWorkflowWithMetadata(WorkspaceSid string, params *Cre
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -158,7 +156,7 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -179,7 +177,7 @@ func (c *ApiService) DeleteWorkflowWithMetadata(WorkspaceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +193,6 @@ func (c *ApiService) DeleteWorkflowWithMetadata(WorkspaceSid string, Sid string)
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -206,7 +203,7 @@ func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Taskrouter
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +229,7 @@ func (c *ApiService) FetchWorkflowWithMetadata(WorkspaceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -301,7 +298,7 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -341,7 +338,7 @@ func (c *ApiService) PageWorkflowWithMetadata(WorkspaceSid string, params *ListW
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -486,7 +483,7 @@ func (c *ApiService) getNextListWorkflowResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -541,7 +538,6 @@ func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -571,7 +567,7 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -616,7 +612,7 @@ func (c *ApiService) UpdateWorkflowWithMetadata(WorkspaceSid string, Sid string,
 		data.Set("ReEvaluateTasks", *params.ReEvaluateTasks)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

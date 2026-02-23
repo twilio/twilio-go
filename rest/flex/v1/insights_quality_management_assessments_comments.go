@@ -101,7 +101,7 @@ func (c *ApiService) CreateInsightsAssessmentsComment(params *CreateInsightsAsse
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func (c *ApiService) CreateInsightsAssessmentsCommentWithMetadata(params *Create
 	if params != nil && params.Authorization != nil {
 		headers["Authorization"] = *params.Authorization
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) PageInsightsAssessmentsComment(params *ListInsightsAssessme
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func (c *ApiService) PageInsightsAssessmentsCommentWithMetadata(params *ListInsi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -415,7 +415,7 @@ func (c *ApiService) getNextListInsightsAssessmentsCommentResponse(nextPageUrl s
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

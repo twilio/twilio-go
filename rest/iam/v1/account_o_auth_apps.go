@@ -50,7 +50,7 @@ func (c *ApiService) CreateOauthAppAccount(params *CreateOauthAppAccountParams) 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func (c *ApiService) CreateOauthAppAccountWithMetadata(params *CreateOauthAppAcc
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (c *ApiService) DeleteOauthAppAccount(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -133,7 +133,7 @@ func (c *ApiService) DeleteOauthAppAccountWithMetadata(Sid string) (*metadata.Re
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func (c *ApiService) UpdateOauthAppAccount(Sid string, params *UpdateOauthAppAcc
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) UpdateOauthAppAccountWithMetadata(Sid string, params *Updat
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

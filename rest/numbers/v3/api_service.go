@@ -34,7 +34,6 @@ func (c *ApiService) ApiVersion() string {
 }
 
 func NewApiService(requestHandler *twilio.RequestHandler) *ApiService {
-	requestHandler.SetApiVersion("v1.0")
 	return &ApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://numbers.twilio.com",

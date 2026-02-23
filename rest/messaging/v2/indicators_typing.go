@@ -54,7 +54,7 @@ func (c *ApiService) CreateTypingIndicator(params *CreateTypingIndicatorParams) 
 		data.Set("messageId", *params.MessageId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *ApiService) CreateTypingIndicatorWithMetadata(params *CreateTypingIndic
 		data.Set("messageId", *params.MessageId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

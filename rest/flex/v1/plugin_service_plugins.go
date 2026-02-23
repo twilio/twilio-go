@@ -53,7 +53,6 @@ func (params *CreatePluginParams) SetDescription(Description string) *CreatePlug
 	return params
 }
 
-//
 func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins"
 
@@ -75,7 +74,7 @@ func (c *ApiService) CreatePlugin(params *CreatePluginParams) (*FlexV1Plugin, er
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +111,7 @@ func (c *ApiService) CreatePluginWithMetadata(params *CreatePluginParams) (*meta
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +143,6 @@ func (params *FetchPluginParams) SetFlexMetadata(FlexMetadata string) *FetchPlug
 	return params
 }
 
-//
 func (c *ApiService) FetchPlugin(Sid string, params *FetchPluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -157,7 +155,7 @@ func (c *ApiService) FetchPlugin(Sid string, params *FetchPluginParams) (*FlexV1
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +183,7 @@ func (c *ApiService) FetchPluginWithMetadata(Sid string, params *FetchPluginPara
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +247,7 @@ func (c *ApiService) PagePlugin(params *ListPluginParams, pageToken, pageNumber 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -284,7 +282,7 @@ func (c *ApiService) PagePluginWithMetadata(params *ListPluginParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -429,7 +427,7 @@ func (c *ApiService) getNextListPluginResponse(nextPageUrl string) (interface{},
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -466,7 +464,6 @@ func (params *UpdatePluginParams) SetDescription(Description string) *UpdatePlug
 	return params
 }
 
-//
 func (c *ApiService) UpdatePlugin(Sid string, params *UpdatePluginParams) (*FlexV1Plugin, error) {
 	path := "/v1/PluginService/Plugins/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -486,7 +483,7 @@ func (c *ApiService) UpdatePlugin(Sid string, params *UpdatePluginParams) (*Flex
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -521,7 +518,7 @@ func (c *ApiService) UpdatePluginWithMetadata(Sid string, params *UpdatePluginPa
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

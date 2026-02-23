@@ -25,7 +25,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -37,7 +36,7 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -59,7 +58,7 @@ func (c *ApiService) DeleteUserChannelWithMetadata(ServiceSid string, UserSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +74,6 @@ func (c *ApiService) DeleteUserChannelWithMetadata(ServiceSid string, UserSid st
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -87,7 +85,7 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +112,7 @@ func (c *ApiService) FetchUserChannelWithMetadata(ServiceSid string, UserSid str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +173,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +211,7 @@ func (c *ApiService) PageUserChannelWithMetadata(ServiceSid string, UserSid stri
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -358,7 +356,7 @@ func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +393,6 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 	return params
 }
 
-//
 func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -417,7 +414,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -454,7 +451,7 @@ func (c *ApiService) UpdateUserChannelWithMetadata(ServiceSid string, UserSid st
 		data.Set("LastConsumptionTimestamp", fmt.Sprint((*params.LastConsumptionTimestamp).Format(time.RFC3339)))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

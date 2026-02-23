@@ -50,7 +50,7 @@ func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (c *ApiService) FetchShortCodeWithMetadata(Sid string, params *FetchShortCo
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +215,7 @@ func (c *ApiService) PageShortCodeWithMetadata(params *ListShortCodeParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -360,7 +360,7 @@ func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -455,7 +455,7 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +504,7 @@ func (c *ApiService) UpdateShortCodeWithMetadata(Sid string, params *UpdateShort
 		data.Set("SmsFallbackMethod", *params.SmsFallbackMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

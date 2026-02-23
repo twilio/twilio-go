@@ -65,7 +65,6 @@ func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivity
 	return params
 }
 
-//
 func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -94,7 +93,7 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +137,7 @@ func (c *ApiService) CreateTaskQueueWithMetadata(WorkspaceSid string, params *Cr
 		data.Set("AssignmentActivitySid", *params.AssignmentActivitySid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +158,6 @@ func (c *ApiService) CreateTaskQueueWithMetadata(WorkspaceSid string, params *Cr
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -170,7 +168,7 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -191,7 +189,7 @@ func (c *ApiService) DeleteTaskQueueWithMetadata(WorkspaceSid string, Sid string
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +205,6 @@ func (c *ApiService) DeleteTaskQueueWithMetadata(WorkspaceSid string, Sid string
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -218,7 +215,7 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Taskroute
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +241,7 @@ func (c *ApiService) FetchTaskQueueWithMetadata(WorkspaceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -340,7 +337,7 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +386,7 @@ func (c *ApiService) PageTaskQueueWithMetadata(WorkspaceSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -534,7 +531,7 @@ func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -589,7 +586,6 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-//
 func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -619,7 +615,7 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -664,7 +660,7 @@ func (c *ApiService) UpdateTaskQueueWithMetadata(WorkspaceSid string, Sid string
 		data.Set("TaskOrder", fmt.Sprint(*params.TaskOrder))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

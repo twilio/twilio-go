@@ -63,7 +63,6 @@ func (params *CreateCompositionSettingsParams) SetEncryptionEnabled(EncryptionEn
 	return params
 }
 
-//
 func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
@@ -91,7 +90,7 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +133,7 @@ func (c *ApiService) CreateCompositionSettingsWithMetadata(params *CreateComposi
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +154,6 @@ func (c *ApiService) CreateCompositionSettingsWithMetadata(params *CreateComposi
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
@@ -164,7 +162,7 @@ func (c *ApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, er
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +186,7 @@ func (c *ApiService) FetchCompositionSettingsWithMetadata() (*metadata.ResourceM
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -75,7 +75,7 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (c *ApiService) CreateAccessTokenWithMetadata(ServiceSid string, params *Cr
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +145,7 @@ func (c *ApiService) FetchAccessToken(ServiceSid string, Sid string) (*VerifyV2A
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (c *ApiService) FetchAccessTokenWithMetadata(ServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -81,7 +81,7 @@ func (c *ApiService) FetchAuthorize(params *FetchAuthorizeParams) (*OauthV1Autho
 		data.Set("State", *params.State)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ApiService) FetchAuthorizeWithMetadata(params *FetchAuthorizeParams) (*
 		data.Set("State", *params.State)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

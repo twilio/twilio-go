@@ -62,7 +62,6 @@ func (params *CreateWebChannelParams) SetIdentity(Identity string) *CreateWebCha
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2WebChannel, error) {
 	path := "/v2/WebChats"
 
@@ -90,7 +89,7 @@ func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV2We
 	if params != nil && params.UiVersion != nil {
 		headers["Ui-Version"] = *params.UiVersion
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +132,7 @@ func (c *ApiService) CreateWebChannelWithMetadata(params *CreateWebChannelParams
 	if params != nil && params.UiVersion != nil {
 		headers["Ui-Version"] = *params.UiVersion
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -58,7 +58,7 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (c *ApiService) CreateMessagingConfigurationWithMetadata(ServiceSid string,
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -143,7 +143,7 @@ func (c *ApiService) DeleteMessagingConfigurationWithMetadata(ServiceSid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) FetchMessagingConfigurationWithMetadata(ServiceSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -293,7 +293,7 @@ func (c *ApiService) PageMessagingConfigurationWithMetadata(ServiceSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -438,7 +438,7 @@ func (c *ApiService) getNextListMessagingConfigurationResponse(nextPageUrl strin
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -478,7 +478,7 @@ func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country str
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -508,7 +508,7 @@ func (c *ApiService) UpdateMessagingConfigurationWithMetadata(ServiceSid string,
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

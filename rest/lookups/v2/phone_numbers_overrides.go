@@ -53,7 +53,7 @@ func (c *ApiService) CreateLookupPhoneNumberOverrides(Field string, PhoneNumber 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) CreateLookupPhoneNumberOverridesWithMetadata(Field string, 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *ApiService) DeleteLookupPhoneNumberOverrides(Field string, PhoneNumber 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) DeleteLookupPhoneNumberOverridesWithMetadata(Field string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) FetchLookupPhoneNumberOverrides(Field string, PhoneNumber s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) FetchLookupPhoneNumberOverridesWithMetadata(Field string, P
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +246,7 @@ func (c *ApiService) UpdateLookupPhoneNumberOverrides(Field string, PhoneNumber 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (c *ApiService) UpdateLookupPhoneNumberOverridesWithMetadata(Field string, 
 		body = b
 	}
 
-	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Put(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

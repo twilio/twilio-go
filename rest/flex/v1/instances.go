@@ -50,7 +50,7 @@ func (c *ApiService) CreateInstance(params *CreateInstanceParams) (*FlexV1Instan
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func (c *ApiService) CreateInstanceWithMetadata(params *CreateInstanceParams) (*
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

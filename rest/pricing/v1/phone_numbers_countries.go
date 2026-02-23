@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
@@ -34,7 +33,7 @@ func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1Phone
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +58,7 @@ func (c *ApiService) FetchPhoneNumberCountryWithMetadata(IsoCountry string) (*me
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +116,7 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +151,7 @@ func (c *ApiService) PagePhoneNumberCountryWithMetadata(params *ListPhoneNumberC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +296,7 @@ func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

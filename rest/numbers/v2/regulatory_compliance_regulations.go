@@ -49,7 +49,7 @@ func (c *ApiService) FetchRegulation(Sid string, params *FetchRegulationParams) 
 		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) FetchRegulationWithMetadata(Sid string, params *FetchRegula
 		data.Set("IncludeConstraints", fmt.Sprint(*params.IncludeConstraints))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pag
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func (c *ApiService) PageRegulationWithMetadata(params *ListRegulationParams, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -364,7 +364,7 @@ func (c *ApiService) getNextListRegulationResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

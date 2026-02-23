@@ -59,7 +59,7 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 		data.Set("IsPlugin", fmt.Sprint(*params.IsPlugin))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ func (c *ApiService) CreateDeploymentWithMetadata(ServiceSid string, Environment
 		data.Set("IsPlugin", fmt.Sprint(*params.IsPlugin))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) FetchDeploymentWithMetadata(ServiceSid string, EnvironmentS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +251,7 @@ func (c *ApiService) PageDeploymentWithMetadata(ServiceSid string, EnvironmentSi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -396,7 +396,7 @@ func (c *ApiService) getNextListDeploymentResponse(nextPageUrl string) (interfac
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

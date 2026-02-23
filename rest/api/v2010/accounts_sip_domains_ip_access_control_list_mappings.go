@@ -60,7 +60,7 @@ func (c *ApiService) CreateSipIpAccessControlListMapping(DomainSid string, param
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) CreateSipIpAccessControlListMappingWithMetadata(DomainSid s
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (c *ApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) DeleteSipIpAccessControlListMappingWithMetadata(DomainSid s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (c *ApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +242,7 @@ func (c *ApiService) FetchSipIpAccessControlListMappingWithMetadata(DomainSid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +355,7 @@ func (c *ApiService) PageSipIpAccessControlListMappingWithMetadata(DomainSid str
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +500,7 @@ func (c *ApiService) getNextListSipIpAccessControlListMappingResponse(nextPageUr
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -21,7 +21,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error) {
 	path := "/v1/account/provision/status"
 
@@ -30,7 +29,7 @@ func (c *ApiService) FetchProvisioningStatus() (*FlexV1ProvisioningStatus, error
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +53,7 @@ func (c *ApiService) FetchProvisioningStatusWithMetadata() (*metadata.ResourceMe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

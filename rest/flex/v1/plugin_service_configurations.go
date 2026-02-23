@@ -53,7 +53,6 @@ func (params *CreatePluginConfigurationParams) SetDescription(Description string
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations"
 
@@ -83,7 +82,7 @@ func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfiguration
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +127,7 @@ func (c *ApiService) CreatePluginConfigurationWithMetadata(params *CreatePluginC
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +159,6 @@ func (params *FetchPluginConfigurationParams) SetFlexMetadata(FlexMetadata strin
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -173,7 +171,7 @@ func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginCon
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +199,7 @@ func (c *ApiService) FetchPluginConfigurationWithMetadata(Sid string, params *Fe
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +263,7 @@ func (c *ApiService) PagePluginConfiguration(params *ListPluginConfigurationPara
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +298,7 @@ func (c *ApiService) PagePluginConfigurationWithMetadata(params *ListPluginConfi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -445,7 +443,7 @@ func (c *ApiService) getNextListPluginConfigurationResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

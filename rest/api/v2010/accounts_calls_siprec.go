@@ -1877,7 +1877,7 @@ func (c *ApiService) CreateSiprec(CallSid string, params *CreateSiprecParams) (*
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -2517,7 +2517,7 @@ func (c *ApiService) CreateSiprecWithMetadata(CallSid string, params *CreateSipr
 		data.Set("Parameter99.Value", *params.Parameter99Value)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -2575,7 +2575,7 @@ func (c *ApiService) UpdateSiprec(CallSid string, Sid string, params *UpdateSipr
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -2610,7 +2610,7 @@ func (c *ApiService) UpdateSiprecWithMetadata(CallSid string, Sid string, params
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

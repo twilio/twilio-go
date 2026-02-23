@@ -46,7 +46,7 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) (*Messag
 		data.Set("Date", fmt.Sprint(*params.Date))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (c *ApiService) FetchDeactivationWithMetadata(params *FetchDeactivationPara
 		data.Set("Date", fmt.Sprint(*params.Date))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

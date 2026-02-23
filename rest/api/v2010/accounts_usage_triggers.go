@@ -113,7 +113,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) CreateUsageTriggerWithMetadata(params *CreateUsageTriggerPa
 		data.Set("TriggerBy", fmt.Sprint(*params.TriggerBy))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,6 @@ func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-//
 func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -211,7 +210,7 @@ func (c *ApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerPa
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -236,7 +235,7 @@ func (c *ApiService) DeleteUsageTriggerWithMetadata(Sid string, params *DeleteUs
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +277,7 @@ func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerPara
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +307,7 @@ func (c *ApiService) FetchUsageTriggerWithMetadata(Sid string, params *FetchUsag
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -405,7 +404,7 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken,
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -455,7 +454,7 @@ func (c *ApiService) PageUsageTriggerWithMetadata(params *ListUsageTriggerParams
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -600,7 +599,7 @@ func (c *ApiService) getNextListUsageTriggerResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -668,7 +667,7 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -708,7 +707,7 @@ func (c *ApiService) UpdateUsageTriggerWithMetadata(Sid string, params *UpdateUs
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

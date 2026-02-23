@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
@@ -31,7 +30,7 @@ func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationW
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +54,7 @@ func (c *ApiService) FetchConfigurationWebhookWithMetadata() (*metadata.Resource
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +110,6 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
@@ -138,7 +136,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +178,7 @@ func (c *ApiService) UpdateConfigurationWebhookWithMetadata(params *UpdateConfig
 		data.Set("Target", fmt.Sprint(*params.Target))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

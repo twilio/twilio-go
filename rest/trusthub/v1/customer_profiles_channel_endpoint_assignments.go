@@ -58,7 +58,7 @@ func (c *ApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProf
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (c *ApiService) CreateCustomerProfileChannelEndpointAssignmentWithMetadata(
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProf
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -143,7 +143,7 @@ func (c *ApiService) DeleteCustomerProfileChannelEndpointAssignmentWithMetadata(
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) FetchCustomerProfileChannelEndpointAssignment(CustomerProfi
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) FetchCustomerProfileChannelEndpointAssignmentWithMetadata(C
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +274,7 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +317,7 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignmentWithMetadata(Cu
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +462,7 @@ func (c *ApiService) getNextListCustomerProfileChannelEndpointAssignmentResponse
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

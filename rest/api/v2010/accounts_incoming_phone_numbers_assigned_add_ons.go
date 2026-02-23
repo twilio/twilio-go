@@ -60,7 +60,7 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOnWithMetadata(Resource
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) DeleteIncomingPhoneNumberAssignedAddOnWithMetadata(Resource
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +242,7 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +355,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnWithMetadata(ResourceSi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +500,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPag
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

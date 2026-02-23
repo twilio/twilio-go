@@ -24,7 +24,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -36,7 +35,7 @@ func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, S
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +62,7 @@ func (c *ApiService) FetchWorkerChannelWithMetadata(WorkspaceSid string, WorkerS
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +123,7 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +161,7 @@ func (c *ApiService) PageWorkerChannelWithMetadata(WorkspaceSid string, WorkerSi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +306,7 @@ func (c *ApiService) getNextListWorkerChannelResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +337,6 @@ func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWor
 	return params
 }
 
-//
 func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -357,7 +355,7 @@ func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, 
 		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +389,7 @@ func (c *ApiService) UpdateWorkerChannelWithMetadata(WorkspaceSid string, Worker
 		data.Set("Available", fmt.Sprint(*params.Available))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

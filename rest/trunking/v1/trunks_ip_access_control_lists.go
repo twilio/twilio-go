@@ -49,7 +49,7 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) CreateIpAccessControlListWithMetadata(TrunkSid string, para
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) DeleteIpAccessControlListWithMetadata(TrunkSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,6 @@ func (c *ApiService) DeleteIpAccessControlListWithMetadata(TrunkSid string, Sid 
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -158,7 +157,7 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*Tru
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +183,7 @@ func (c *ApiService) FetchIpAccessControlListWithMetadata(TrunkSid string, Sid s
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +243,7 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +280,7 @@ func (c *ApiService) PageIpAccessControlListWithMetadata(TrunkSid string, params
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +425,7 @@ func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
