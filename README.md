@@ -398,6 +398,17 @@ func main() {
 
 If the Twilio API returns a 400 or a 500 level HTTP response, the twilio-go library will include information in the returned err value. 400-level errors are [normal during API operation](https://www.twilio.com/docs/usage/requests-to-twilio) ("Invalid number", "Cannot deliver SMS to that number", for example) and should be handled appropriately.
 
+#### Error Types
+
+The library uses two different error types depending on the API being called:
+
+1. **TwilioRestError** - Used by most Twilio APIs (v2010, OAuth, etc.)
+2. **RestErrorV1** - Used by newer APIs that follow Twilio API Standards V1.0 (currently Numbers v3 and Verify v3)
+
+#### Handling Legacy API Errors (TwilioRestError)
+
+Most APIs, including the v2010 API and OAuth v2, return `TwilioRestError`:
+
 ```go
 package main
 
@@ -422,6 +433,71 @@ func main() {
 	if err != nil {
 		twilioError := err.(*twilioclient.TwilioRestError)
 		fmt.Println(twilioError.Error())
+		fmt.Printf("Status: %d, Code: %d, Message: %s\n", 
+			twilioError.Status, twilioError.Code, twilioError.Message)
+	}
+}
+```
+
+#### Handling V1.0 API Standard Errors (RestErrorV1)
+
+Newer APIs using Twilio API Standards V1.0 return `RestErrorV1`:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/twilio/twilio-go"
+	twilioclient "github.com/twilio/twilio-go/client"
+	numbersV3 "github.com/twilio/twilio-go/rest/numbers/v3"
+)
+
+func main() {
+	client := twilio.NewRestClient()
+
+	params := &numbersV3.CreateBundleParams{}
+	params.SetFriendlyName("My Bundle")
+
+	resp, err := client.NumbersV3.CreateBundle(params)
+	if err != nil {
+		v1Error := err.(*twilioclient.RestErrorV1)
+		fmt.Println(v1Error.Error())
+		fmt.Printf("HttpStatusCode: %d, Code: %d, Message: %s, UserError: %v\n", 
+			v1Error.HttpStatusCode, v1Error.Code, v1Error.Message, v1Error.UserError)
+	}
+}
+```
+
+#### Using errors.As for Error Matching
+
+For more robust error handling, you can use Go's `errors.As` function:
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"github.com/twilio/twilio-go"
+	twilioclient "github.com/twilio/twilio-go/client"
+	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
+)
+
+func main() {
+	client := twilio.NewRestClient()
+	
+	params := &twilioApi.CreateMessageParams{}
+	params.SetTo("+15558675309")
+	params.SetFrom("+15017250604")
+	params.SetBody("Hello!")
+	
+	_, err := client.Api.CreateMessage(params)
+	if err != nil {
+		var twilioErr *twilioclient.TwilioRestError
+		if errors.As(err, &twilioErr) {
+			fmt.Printf("Twilio Error: %d - %s\n", twilioErr.Code, twilioErr.Message)
+		}
 	}
 }
 ```
