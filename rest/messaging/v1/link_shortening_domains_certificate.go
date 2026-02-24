@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -52,7 +51,7 @@ func (c *ApiService) DeleteDomainCertV4WithMetadata(DomainSid string) (*metadata
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +67,6 @@ func (c *ApiService) DeleteDomainCertV4WithMetadata(DomainSid string) (*metadata
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -78,7 +76,7 @@ func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCert
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +101,7 @@ func (c *ApiService) FetchDomainCertV4WithMetadata(DomainSid string) (*metadata.
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +133,6 @@ func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) *UpdateDomain
 	return params
 }
 
-//
 func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -149,7 +146,7 @@ func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCe
 		data.Set("TlsCert", *params.TlsCert)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +175,7 @@ func (c *ApiService) UpdateDomainCertV4WithMetadata(DomainSid string, params *Up
 		data.Set("TlsCert", *params.TlsCert)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

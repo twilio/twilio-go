@@ -68,7 +68,7 @@ func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, err
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (c *ApiService) CreateQueueWithMetadata(params *CreateQueueParams) (*metada
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func (c *ApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) DeleteQueueWithMetadata(Sid string, params *DeleteQueuePara
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -218,7 +218,7 @@ func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (c *ApiService) FetchQueueWithMetadata(Sid string, params *FetchQueueParams
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -318,7 +318,7 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +359,7 @@ func (c *ApiService) PageQueueWithMetadata(params *ListQueueParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +504,7 @@ func (c *ApiService) getNextListQueueResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -563,7 +563,7 @@ func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV20
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -600,7 +600,7 @@ func (c *ApiService) UpdateQueueWithMetadata(Sid string, params *UpdateQueuePara
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

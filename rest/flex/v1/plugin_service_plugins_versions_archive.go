@@ -33,7 +33,6 @@ func (params *UpdatePluginVersionArchiveParams) SetFlexMetadata(FlexMetadata str
 	return params
 }
 
-//
 func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, params *UpdatePluginVersionArchiveParams) (*FlexV1PluginVersionArchive, error) {
 	path := "/v1/PluginService/Plugins/{PluginSid}/Versions/{Sid}/Archive"
 	path = strings.Replace(path, "{"+"PluginSid"+"}", PluginSid, -1)
@@ -47,7 +46,7 @@ func (c *ApiService) UpdatePluginVersionArchive(PluginSid string, Sid string, pa
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +75,7 @@ func (c *ApiService) UpdatePluginVersionArchiveWithMetadata(PluginSid string, Si
 	if params != nil && params.FlexMetadata != nil {
 		headers["Flex-Metadata"] = *params.FlexMetadata
 	}
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

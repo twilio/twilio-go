@@ -35,7 +35,7 @@ func (c *ApiService) FetchInstalledAddOnExtension(InstalledAddOnSid string, Sid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *ApiService) FetchInstalledAddOnExtensionWithMetadata(InstalledAddOnSid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ApiService) PageInstalledAddOnExtension(InstalledAddOnSid string, param
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *ApiService) PageInstalledAddOnExtensionWithMetadata(InstalledAddOnSid s
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -303,7 +303,7 @@ func (c *ApiService) getNextListInstalledAddOnExtensionResponse(nextPageUrl stri
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +343,7 @@ func (c *ApiService) UpdateInstalledAddOnExtension(InstalledAddOnSid string, Sid
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +373,7 @@ func (c *ApiService) UpdateInstalledAddOnExtensionWithMetadata(InstalledAddOnSid
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

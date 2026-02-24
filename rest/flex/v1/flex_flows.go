@@ -131,7 +131,6 @@ func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -192,7 +191,7 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +267,7 @@ func (c *ApiService) CreateFlexFlowWithMetadata(params *CreateFlexFlowParams) (*
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -289,7 +288,6 @@ func (c *ApiService) CreateFlexFlowWithMetadata(params *CreateFlexFlowParams) (*
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -299,7 +297,7 @@ func (c *ApiService) DeleteFlexFlow(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -319,7 +317,7 @@ func (c *ApiService) DeleteFlexFlowWithMetadata(Sid string) (*metadata.ResourceM
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +333,6 @@ func (c *ApiService) DeleteFlexFlowWithMetadata(Sid string) (*metadata.ResourceM
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -345,7 +342,7 @@ func (c *ApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +367,7 @@ func (c *ApiService) FetchFlexFlowWithMetadata(Sid string) (*metadata.ResourceMe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +434,7 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -475,7 +472,7 @@ func (c *ApiService) PageFlexFlowWithMetadata(params *ListFlexFlowParams, pageTo
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -620,7 +617,7 @@ func (c *ApiService) getNextListFlexFlowResponse(nextPageUrl string) (interface{
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -741,7 +738,6 @@ func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCou
 	return params
 }
 
-//
 func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -803,7 +799,7 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -880,7 +876,7 @@ func (c *ApiService) UpdateFlexFlowWithMetadata(Sid string, params *UpdateFlexFl
 		data.Set("Integration.RetryCount", fmt.Sprint(*params.IntegrationRetryCount))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -35,7 +35,6 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-//
 func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -49,7 +48,7 @@ func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSen
 		data.Set("AlphaSender", *params.AlphaSender)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +77,7 @@ func (c *ApiService) CreateAlphaSenderWithMetadata(ServiceSid string, params *Cr
 		data.Set("AlphaSender", *params.AlphaSender)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +98,6 @@ func (c *ApiService) CreateAlphaSenderWithMetadata(ServiceSid string, params *Cr
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -110,7 +108,7 @@ func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -131,7 +129,7 @@ func (c *ApiService) DeleteAlphaSenderWithMetadata(ServiceSid string, Sid string
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +145,6 @@ func (c *ApiService) DeleteAlphaSenderWithMetadata(ServiceSid string, Sid string
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -158,7 +155,7 @@ func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Messaging
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +181,7 @@ func (c *ApiService) FetchAlphaSenderWithMetadata(ServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +241,7 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +278,7 @@ func (c *ApiService) PageAlphaSenderWithMetadata(ServiceSid string, params *List
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +423,7 @@ func (c *ApiService) getNextListAlphaSenderResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

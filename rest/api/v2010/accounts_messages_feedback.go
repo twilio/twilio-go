@@ -59,7 +59,7 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 		data.Set("Outcome", fmt.Sprint(*params.Outcome))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (c *ApiService) CreateMessageFeedbackWithMetadata(MessageSid string, params
 		data.Set("Outcome", fmt.Sprint(*params.Outcome))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

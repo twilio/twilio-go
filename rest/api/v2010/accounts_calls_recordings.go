@@ -107,7 +107,7 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 		data.Set("RecordingTrack", *params.RecordingTrack)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *ApiService) CreateCallRecordingWithMetadata(CallSid string, params *Cre
 		data.Set("RecordingTrack", *params.RecordingTrack)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +206,7 @@ func (c *ApiService) DeleteCallRecording(CallSid string, Sid string, params *Del
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -232,7 +232,7 @@ func (c *ApiService) DeleteCallRecordingWithMetadata(CallSid string, Sid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -275,7 +275,7 @@ func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *Fetc
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +306,7 @@ func (c *ApiService) FetchCallRecordingWithMetadata(CallSid string, Sid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -404,7 +404,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -455,7 +455,7 @@ func (c *ApiService) PageCallRecordingWithMetadata(CallSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -600,7 +600,7 @@ func (c *ApiService) getNextListCallRecordingResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +660,7 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -698,7 +698,7 @@ func (c *ApiService) UpdateCallRecordingWithMetadata(CallSid string, Sid string,
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

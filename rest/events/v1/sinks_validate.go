@@ -47,7 +47,7 @@ func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidatePa
 		data.Set("TestId", *params.TestId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) CreateSinkValidateWithMetadata(Sid string, params *CreateSi
 		data.Set("TestId", *params.TestId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

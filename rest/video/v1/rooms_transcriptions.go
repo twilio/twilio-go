@@ -35,7 +35,6 @@ func (params *CreateRoomTranscriptionsParams) SetConfiguration(Configuration map
 	return params
 }
 
-//
 func (c *ApiService) CreateRoomTranscriptions(RoomSid string, params *CreateRoomTranscriptionsParams) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -55,7 +54,7 @@ func (c *ApiService) CreateRoomTranscriptions(RoomSid string, params *CreateRoom
 		data.Set("Configuration", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +89,7 @@ func (c *ApiService) CreateRoomTranscriptionsWithMetadata(RoomSid string, params
 		data.Set("Configuration", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +110,6 @@ func (c *ApiService) CreateRoomTranscriptionsWithMetadata(RoomSid string, params
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchRoomTranscriptions(RoomSid string, Ttid string) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -122,7 +120,7 @@ func (c *ApiService) FetchRoomTranscriptions(RoomSid string, Ttid string) (*Vide
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +146,7 @@ func (c *ApiService) FetchRoomTranscriptionsWithMetadata(RoomSid string, Ttid st
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +206,7 @@ func (c *ApiService) PageRoomTranscriptions(RoomSid string, params *ListRoomTran
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +243,7 @@ func (c *ApiService) PageRoomTranscriptionsWithMetadata(RoomSid string, params *
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -390,7 +388,7 @@ func (c *ApiService) getNextListRoomTranscriptionsResponse(nextPageUrl string) (
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -421,7 +419,6 @@ func (params *UpdateRoomTranscriptionsParams) SetConfiguration(Configuration map
 	return params
 }
 
-//
 func (c *ApiService) UpdateRoomTranscriptions(RoomSid string, Ttid string, params *UpdateRoomTranscriptionsParams) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -445,7 +442,7 @@ func (c *ApiService) UpdateRoomTranscriptions(RoomSid string, Ttid string, param
 		data.Set("Configuration", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -484,7 +481,7 @@ func (c *ApiService) UpdateRoomTranscriptionsWithMetadata(RoomSid string, Ttid s
 		data.Set("Configuration", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

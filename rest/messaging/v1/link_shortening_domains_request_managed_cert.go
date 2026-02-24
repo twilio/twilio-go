@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) UpdateRequestManagedCert(DomainSid string) (*MessagingV1RequestManagedCert, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/RequestManagedCert"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) UpdateRequestManagedCert(DomainSid string) (*MessagingV1Req
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) UpdateRequestManagedCertWithMetadata(DomainSid string) (*me
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

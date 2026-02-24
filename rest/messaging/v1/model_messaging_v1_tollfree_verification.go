@@ -60,7 +60,7 @@ type MessagingV1TollfreeVerification struct {
 	BusinessContactPhone *string `json:"business_contact_phone,omitempty"`
 	// The email address to receive the notification about the verification result. .
 	NotificationEmail *string `json:"notification_email,omitempty"`
-	// The category of the use case for the Tollfree Number. List as many are applicable..
+	// The category of the use case for the Tollfree Number. List as many as are applicable.
 	UseCaseCategories *[]string `json:"use_case_categories,omitempty"`
 	// Use this to further explain how messaging is used by the business or organization.
 	UseCaseSummary *string `json:"use_case_summary,omitempty"`
@@ -89,13 +89,11 @@ type MessagingV1TollfreeVerification struct {
 	// If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
 	EditAllowed *bool `json:"edit_allowed,omitempty"`
 	// A legally recognized business registration number
-	BusinessRegistrationNumber *string `json:"business_registration_number,omitempty"`
-	// The organizational authority for business registrations
+	BusinessRegistrationNumber    *string `json:"business_registration_number,omitempty"`
 	BusinessRegistrationAuthority *string `json:"business_registration_authority,omitempty"`
 	// Country business is registered in
 	BusinessRegistrationCountry *string `json:"business_registration_country,omitempty"`
-	// The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
-	BusinessType *string `json:"business_type,omitempty"`
+	BusinessType                *string `json:"business_type,omitempty"`
 	// The E.164 formatted number associated with the business.
 	BusinessRegistrationPhoneNumber *string `json:"business_registration_phone_number,omitempty"`
 	// Trade name, sub entity, or downstream business name of business being submitted for verification

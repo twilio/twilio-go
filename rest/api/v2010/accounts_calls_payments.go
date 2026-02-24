@@ -200,7 +200,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +285,7 @@ func (c *ApiService) CreatePaymentsWithMetadata(CallSid string, params *CreatePa
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -414,7 +414,7 @@ func (c *ApiService) UpdatePaymentsWithMetadata(CallSid string, Sid string, para
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

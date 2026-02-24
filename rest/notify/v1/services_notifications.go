@@ -136,7 +136,6 @@ func (params *CreateNotificationParams) SetTag(Tag []string) *CreateNotification
 	return params
 }
 
-//
 func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotificationParams) (*NotifyV1Notification, error) {
 	path := "/v1/Services/{ServiceSid}/Notifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -251,7 +250,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +380,7 @@ func (c *ApiService) CreateNotificationWithMetadata(ServiceSid string, params *C
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

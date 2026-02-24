@@ -194,7 +194,7 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (c *ApiService) CreateApplicationWithMetadata(params *CreateApplicationPara
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func (c *ApiService) DeleteApplication(Sid string, params *DeleteApplicationPara
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -344,7 +344,7 @@ func (c *ApiService) DeleteApplicationWithMetadata(Sid string, params *DeleteApp
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +386,7 @@ func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -416,7 +416,7 @@ func (c *ApiService) FetchApplicationWithMetadata(Sid string, params *FetchAppli
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -495,7 +495,7 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -539,7 +539,7 @@ func (c *ApiService) PageApplicationWithMetadata(params *ListApplicationParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -684,7 +684,7 @@ func (c *ApiService) getNextListApplicationResponse(nextPageUrl string) (interfa
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -869,7 +869,7 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -948,7 +948,7 @@ func (c *ApiService) UpdateApplicationWithMetadata(Sid string, params *UpdateApp
 		data.Set("PublicApplicationConnectEnabled", fmt.Sprint(*params.PublicApplicationConnectEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

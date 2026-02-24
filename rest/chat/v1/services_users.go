@@ -53,7 +53,6 @@ func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUser
 	return params
 }
 
-//
 func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -76,7 +75,7 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*C
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +113,7 @@ func (c *ApiService) CreateUserWithMetadata(ServiceSid string, params *CreateUse
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +134,6 @@ func (c *ApiService) CreateUserWithMetadata(ServiceSid string, params *CreateUse
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -146,7 +144,7 @@ func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -167,7 +165,7 @@ func (c *ApiService) DeleteUserWithMetadata(ServiceSid string, Sid string) (*met
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +181,6 @@ func (c *ApiService) DeleteUserWithMetadata(ServiceSid string, Sid string) (*met
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -194,7 +191,7 @@ func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*ChatV1User, erro
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +217,7 @@ func (c *ApiService) FetchUserWithMetadata(ServiceSid string, Sid string) (*meta
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +277,7 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +314,7 @@ func (c *ApiService) PageUserWithMetadata(ServiceSid string, params *ListUserPar
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +459,7 @@ func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, e
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -499,7 +496,6 @@ func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUser
 	return params
 }
 
-//
 func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*ChatV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -520,7 +516,7 @@ func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUse
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -556,7 +552,7 @@ func (c *ApiService) UpdateUserWithMetadata(ServiceSid string, Sid string, param
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

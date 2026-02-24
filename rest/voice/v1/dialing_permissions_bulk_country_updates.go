@@ -45,7 +45,7 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDia
 		data.Set("UpdateRequest", *params.UpdateRequest)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdateWithMetadata(param
 		data.Set("UpdateRequest", *params.UpdateRequest)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

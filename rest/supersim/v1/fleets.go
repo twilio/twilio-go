@@ -120,7 +120,7 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *ApiService) CreateFleetWithMetadata(params *CreateFleetParams) (*metada
 		data.Set("SmsCommandsMethod", *params.SmsCommandsMethod)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func (c *ApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func (c *ApiService) FetchFleetWithMetadata(Sid string) (*metadata.ResourceMetad
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -295,7 +295,7 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber st
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -333,7 +333,7 @@ func (c *ApiService) PageFleetWithMetadata(params *ListFleetParams, pageToken, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -478,7 +478,7 @@ func (c *ApiService) getNextListFleetResponse(nextPageUrl string) (interface{}, 
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -571,7 +571,7 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -618,7 +618,7 @@ func (c *ApiService) UpdateFleetWithMetadata(Sid string, params *UpdateFleetPara
 		data.Set("DataLimit", fmt.Sprint(*params.DataLimit))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

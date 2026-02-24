@@ -59,7 +59,6 @@ func (params *FetchWorkspaceCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, params *FetchWorkspaceCumulativeStatisticsParams) (*TaskrouterV1WorkspaceCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -85,7 +84,7 @@ func (c *ApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, par
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +125,7 @@ func (c *ApiService) FetchWorkspaceCumulativeStatisticsWithMetadata(WorkspaceSid
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

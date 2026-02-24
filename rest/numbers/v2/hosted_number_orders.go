@@ -185,7 +185,7 @@ func (c *ApiService) CreateHostedNumberOrder(params *CreateHostedNumberOrderPara
 		data.Set("ContactTitle", *params.ContactTitle)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +260,7 @@ func (c *ApiService) CreateHostedNumberOrderWithMetadata(params *CreateHostedNum
 		data.Set("ContactTitle", *params.ContactTitle)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +291,7 @@ func (c *ApiService) DeleteHostedNumberOrder(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -311,7 +311,7 @@ func (c *ApiService) DeleteHostedNumberOrderWithMetadata(Sid string) (*metadata.
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -337,7 +337,7 @@ func (c *ApiService) FetchHostedNumberOrder(Sid string) (*NumbersV2HostedNumberO
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -362,7 +362,7 @@ func (c *ApiService) FetchHostedNumberOrderWithMetadata(Sid string) (*metadata.R
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -465,7 +465,7 @@ func (c *ApiService) PageHostedNumberOrder(params *ListHostedNumberOrderParams, 
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -515,7 +515,7 @@ func (c *ApiService) PageHostedNumberOrderWithMetadata(params *ListHostedNumberO
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +660,7 @@ func (c *ApiService) getNextListHostedNumberOrderResponse(nextPageUrl string) (i
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -717,7 +717,7 @@ func (c *ApiService) UpdateHostedNumberOrder(Sid string, params *UpdateHostedNum
 		data.Set("VerificationCallExtension", *params.VerificationCallExtension)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -752,7 +752,7 @@ func (c *ApiService) UpdateHostedNumberOrderWithMetadata(Sid string, params *Upd
 		data.Set("VerificationCallExtension", *params.VerificationCallExtension)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

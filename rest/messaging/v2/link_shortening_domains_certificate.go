@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV2DomainCertV4, error) {
 	path := "/v2/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV2DomainCert
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) FetchDomainCertV4WithMetadata(DomainSid string) (*metadata.
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -54,7 +54,7 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 		data.Set("Data", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (c *ApiService) CreateStreamMessageWithMetadata(ServiceSid string, StreamSi
 		data.Set("Data", string(v))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

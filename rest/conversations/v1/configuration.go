@@ -30,7 +30,7 @@ func (c *ApiService) FetchConfiguration() (*ConversationsV1Configuration, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (c *ApiService) FetchConfigurationWithMetadata() (*metadata.ResourceMetadat
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +126,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) UpdateConfigurationWithMetadata(params *UpdateConfiguration
 		data.Set("DefaultClosedTimer", *params.DefaultClosedTimer)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

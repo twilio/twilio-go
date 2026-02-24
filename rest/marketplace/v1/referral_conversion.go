@@ -32,7 +32,6 @@ func (params *CreateReferralConversionParams) SetCreateReferralConversionRequest
 	return params
 }
 
-//
 func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionParams) (*MarketplaceV1ReferralConversion, error) {
 	path := "/v1/ReferralConversion"
 
@@ -50,7 +49,7 @@ func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionPa
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +82,7 @@ func (c *ApiService) CreateReferralConversionWithMetadata(params *CreateReferral
 		body = b
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, body...)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

@@ -89,7 +89,6 @@ func (params *CreateChannelParams) SetLongLived(LongLived bool) *CreateChannelPa
 	return params
 }
 
-//
 func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -129,7 +128,7 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +183,7 @@ func (c *ApiService) CreateChannelWithMetadata(params *CreateChannelParams) (*me
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +204,6 @@ func (c *ApiService) CreateChannelWithMetadata(params *CreateChannelParams) (*me
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -215,7 +213,7 @@ func (c *ApiService) DeleteChannel(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -235,7 +233,7 @@ func (c *ApiService) DeleteChannelWithMetadata(Sid string) (*metadata.ResourceMe
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +249,6 @@ func (c *ApiService) DeleteChannelWithMetadata(Sid string) (*metadata.ResourceMe
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -261,7 +258,7 @@ func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +283,7 @@ func (c *ApiService) FetchChannelWithMetadata(Sid string) (*metadata.ResourceMet
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +341,7 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -379,7 +376,7 @@ func (c *ApiService) PageChannelWithMetadata(params *ListChannelParams, pageToke
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -524,7 +521,7 @@ func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -41,7 +41,6 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -58,7 +57,7 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +89,7 @@ func (c *ApiService) CreateBrandVettingWithMetadata(BrandSid string, params *Cre
 		data.Set("VettingId", *params.VettingId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +110,6 @@ func (c *ApiService) CreateBrandVettingWithMetadata(BrandSid string, params *Cre
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -122,7 +120,7 @@ func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +146,7 @@ func (c *ApiService) FetchBrandVettingWithMetadata(BrandSid string, BrandVetting
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +215,7 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +255,7 @@ func (c *ApiService) PageBrandVettingWithMetadata(BrandSid string, params *ListB
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +400,7 @@ func (c *ApiService) getNextListBrandVettingResponse(nextPageUrl string) (interf
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

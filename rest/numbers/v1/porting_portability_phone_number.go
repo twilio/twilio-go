@@ -56,7 +56,7 @@ func (c *ApiService) FetchPortingPortability(PhoneNumber string, params *FetchPo
 		data.Set("AddressSid", *params.AddressSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) FetchPortingPortabilityWithMetadata(PhoneNumber string, par
 		data.Set("AddressSid", *params.AddressSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

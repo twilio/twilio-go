@@ -116,7 +116,7 @@ func (c *ApiService) CreateOauth2Token(params *CreateOauth2TokenParams) (*V2Oaut
 		data.Set("scope", *params.Scope)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) CreateOauth2TokenWithMetadata(params *CreateOauth2TokenPara
 		data.Set("scope", *params.Scope)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

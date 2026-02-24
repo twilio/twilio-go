@@ -35,7 +35,6 @@ func (params *CreateChannelSenderParams) SetSid(Sid string) *CreateChannelSender
 	return params
 }
 
-//
 func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *CreateChannelSenderParams) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -49,7 +48,7 @@ func (c *ApiService) CreateChannelSender(MessagingServiceSid string, params *Cre
 		data.Set("Sid", *params.Sid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +77,7 @@ func (c *ApiService) CreateChannelSenderWithMetadata(MessagingServiceSid string,
 		data.Set("Sid", *params.Sid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +98,6 @@ func (c *ApiService) CreateChannelSenderWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -110,7 +108,7 @@ func (c *ApiService) DeleteChannelSender(MessagingServiceSid string, Sid string)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -131,7 +129,7 @@ func (c *ApiService) DeleteChannelSenderWithMetadata(MessagingServiceSid string,
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +145,6 @@ func (c *ApiService) DeleteChannelSenderWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) (*MessagingV1ChannelSender, error) {
 	path := "/v1/Services/{MessagingServiceSid}/ChannelSenders/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -158,7 +155,7 @@ func (c *ApiService) FetchChannelSender(MessagingServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +181,7 @@ func (c *ApiService) FetchChannelSenderWithMetadata(MessagingServiceSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +241,7 @@ func (c *ApiService) PageChannelSender(MessagingServiceSid string, params *ListC
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +278,7 @@ func (c *ApiService) PageChannelSenderWithMetadata(MessagingServiceSid string, p
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +423,7 @@ func (c *ApiService) getNextListChannelSenderResponse(nextPageUrl string) (inter
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

@@ -173,7 +173,6 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid strin
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010IncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -257,7 +256,7 @@ func (c *ApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneN
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +355,7 @@ func (c *ApiService) CreateIncomingPhoneNumberLocalWithMetadata(params *CreateIn
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +461,7 @@ func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumbe
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -515,7 +514,7 @@ func (c *ApiService) PageIncomingPhoneNumberLocalWithMetadata(params *ListIncomi
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +659,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberLocalResponse(nextPageUrl str
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

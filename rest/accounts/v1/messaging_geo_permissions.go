@@ -32,7 +32,6 @@ func (params *FetchMessagingGeopermissionsParams) SetCountryCode(CountryCode str
 	return params
 }
 
-//
 func (c *ApiService) FetchMessagingGeopermissions(params *FetchMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
 	path := "/v1/Messaging/GeoPermissions"
 
@@ -45,7 +44,7 @@ func (c *ApiService) FetchMessagingGeopermissions(params *FetchMessagingGeopermi
 		data.Set("CountryCode", *params.CountryCode)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +72,7 @@ func (c *ApiService) FetchMessagingGeopermissionsWithMetadata(params *FetchMessa
 		data.Set("CountryCode", *params.CountryCode)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +104,6 @@ func (params *UpdateMessagingGeopermissionsParams) SetPermissions(Permissions []
 	return params
 }
 
-//
 func (c *ApiService) UpdateMessagingGeopermissions(params *UpdateMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
 	path := "/v1/Messaging/GeoPermissions"
 
@@ -126,7 +124,7 @@ func (c *ApiService) UpdateMessagingGeopermissions(params *UpdateMessagingGeoper
 		}
 	}
 
-	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +160,7 @@ func (c *ApiService) UpdateMessagingGeopermissionsWithMetadata(params *UpdateMes
 		}
 	}
 
-	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

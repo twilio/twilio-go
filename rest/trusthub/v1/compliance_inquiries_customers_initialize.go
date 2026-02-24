@@ -64,7 +64,7 @@ func (c *ApiService) CreateComplianceInquiry(params *CreateComplianceInquiryPara
 		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) CreateComplianceInquiryWithMetadata(params *CreateComplianc
 		data.Set("PrimaryProfileSid", *params.PrimaryProfileSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) UpdateComplianceInquiry(CustomerId string, params *UpdateCo
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +185,7 @@ func (c *ApiService) UpdateComplianceInquiryWithMetadata(CustomerId string, para
 		data.Set("ThemeSetId", *params.ThemeSetId)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

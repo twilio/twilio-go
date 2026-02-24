@@ -92,7 +92,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 		data.Set("SnaClientToken", *params.SnaClientToken)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) CreateVerificationCheckWithMetadata(ServiceSid string, para
 		data.Set("SnaClientToken", *params.SnaClientToken)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

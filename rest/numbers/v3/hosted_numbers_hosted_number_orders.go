@@ -192,7 +192,7 @@ func (c *ApiService) CreateHostedNumbersHostedNumberOrder(params *CreateHostedNu
 		data.Set("verificationDocumentSid", *params.VerificationDocumentSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func (c *ApiService) CreateHostedNumbersHostedNumberOrderWithMetadata(params *Cr
 		data.Set("verificationDocumentSid", *params.VerificationDocumentSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

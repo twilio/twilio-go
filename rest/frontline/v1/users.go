@@ -33,7 +33,7 @@ func (c *ApiService) FetchUser(Sid string) (*FrontlineV1User, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *ApiService) FetchUserWithMetadata(Sid string) (*metadata.ResourceMetada
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +169,7 @@ func (c *ApiService) UpdateUserWithMetadata(Sid string, params *UpdateUserParams
 		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

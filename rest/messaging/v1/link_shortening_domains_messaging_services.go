@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -33,7 +32,7 @@ func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, Mess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +58,7 @@ func (c *ApiService) CreateLinkshorteningMessagingServiceWithMetadata(DomainSid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +79,6 @@ func (c *ApiService) CreateLinkshorteningMessagingServiceWithMetadata(DomainSid 
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -91,7 +89,7 @@ func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, Mess
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -112,7 +110,7 @@ func (c *ApiService) DeleteLinkshorteningMessagingServiceWithMetadata(DomainSid 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

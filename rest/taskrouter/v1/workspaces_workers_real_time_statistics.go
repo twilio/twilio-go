@@ -33,7 +33,6 @@ func (params *FetchWorkersRealTimeStatisticsParams) SetTaskChannel(TaskChannel s
 	return params
 }
 
-//
 func (c *ApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params *FetchWorkersRealTimeStatisticsParams) (*TaskrouterV1WorkersRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -47,7 +46,7 @@ func (c *ApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params 
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +75,7 @@ func (c *ApiService) FetchWorkersRealTimeStatisticsWithMetadata(WorkspaceSid str
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

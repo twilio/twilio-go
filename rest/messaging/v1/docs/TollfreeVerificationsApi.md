@@ -34,7 +34,7 @@ Name | Type | Description
 **BusinessName** | **string** | The name of the business or organization using the Tollfree number.
 **BusinessWebsite** | **string** | The website of the business or organization using the Tollfree number.
 **NotificationEmail** | **string** | The email address to receive the notification about the verification result. .
-**UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many are applicable..
+**UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many as are applicable.
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -55,9 +55,9 @@ Name | Type | Description
 **BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **ExternalReferenceId** | **string** | An optional external reference ID supplied by customer and echoed back on status retrieval.
 **BusinessRegistrationNumber** | **string** | A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
-**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+**BusinessRegistrationAuthority** | [**string**](string.md) | 
 **BusinessRegistrationCountry** | **string** | The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
-**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
+**BusinessType** | [**string**](string.md) | 
 **BusinessRegistrationPhoneNumber** | **string** | The E.164 formatted number associated with the business.
 **DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification
 **OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.
@@ -242,7 +242,7 @@ Name | Type | Description
 **BusinessName** | **string** | The name of the business or organization using the Tollfree number.
 **BusinessWebsite** | **string** | The website of the business or organization using the Tollfree number.
 **NotificationEmail** | **string** | The email address to receive the notification about the verification result. .
-**UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many are applicable..
+**UseCaseCategories** | **[]string** | The category of the use case for the Tollfree Number. List as many as are applicable.
 **UseCaseSummary** | **string** | Use this to further explain how messaging is used by the business or organization.
 **ProductionMessageSample** | **string** | An example of message content, i.e. a sample message.
 **OptInImageUrls** | **[]string** | Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
@@ -260,10 +260,10 @@ Name | Type | Description
 **BusinessContactEmail** | **string** | The email address of the contact for the business or organization using the Tollfree number.
 **BusinessContactPhone** | **string** | The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
 **EditReason** | **string** | Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
-**BusinessRegistrationNumber** | **string** | A legaly recognized business registration number
-**BusinessRegistrationAuthority** | **string** | The organizational authority for business registrations
+**BusinessRegistrationNumber** | **string** | A legally recognized business registration number
+**BusinessRegistrationAuthority** | [**string**](string.md) | 
 **BusinessRegistrationCountry** | **string** | Country business is registered in
-**BusinessType** | **string** | The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+**BusinessType** | [**string**](string.md) | 
 **BusinessRegistrationPhoneNumber** | **string** | The E.164 formatted number associated with the business.
 **DoingBusinessAs** | **string** | Trade name, sub entity, or downstream business name of business being submitted for verification
 **OptInConfirmationMessage** | **string** | The confirmation message sent to users when they opt in to receive messages.

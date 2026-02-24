@@ -89,7 +89,6 @@ func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Cre
 	return params
 }
 
-//
 func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
@@ -129,7 +128,7 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -184,7 +183,7 @@ func (c *ApiService) CreateByocTrunkWithMetadata(params *CreateByocTrunkParams) 
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +204,6 @@ func (c *ApiService) CreateByocTrunkWithMetadata(params *CreateByocTrunkParams) 
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -215,7 +213,7 @@ func (c *ApiService) DeleteByocTrunk(Sid string) error {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return err
 	}
@@ -235,7 +233,7 @@ func (c *ApiService) DeleteByocTrunkWithMetadata(Sid string) (*metadata.Resource
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +249,6 @@ func (c *ApiService) DeleteByocTrunkWithMetadata(Sid string) (*metadata.Resource
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -261,7 +258,7 @@ func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +283,7 @@ func (c *ApiService) FetchByocTrunkWithMetadata(Sid string) (*metadata.ResourceM
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +341,7 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -379,7 +376,7 @@ func (c *ApiService) PageByocTrunkWithMetadata(params *ListByocTrunkParams, page
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -524,7 +521,7 @@ func (c *ApiService) getNextListByocTrunkResponse(nextPageUrl string) (interface
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -603,7 +600,6 @@ func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Upd
 	return params
 }
 
-//
 func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -644,7 +640,7 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -700,7 +696,7 @@ func (c *ApiService) UpdateByocTrunkWithMetadata(Sid string, params *UpdateByocT
 		data.Set("FromDomainSid", *params.FromDomainSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

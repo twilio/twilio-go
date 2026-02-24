@@ -33,7 +33,6 @@ func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegi
 	return params
 }
 
-//
 func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -47,7 +46,7 @@ func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, param
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +75,7 @@ func (c *ApiService) FetchUsAppToPersonUsecaseWithMetadata(MessagingServiceSid s
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

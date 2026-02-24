@@ -63,7 +63,6 @@ func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnab
 	return params
 }
 
-//
 func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -91,7 +90,7 @@ func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsPara
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +133,7 @@ func (c *ApiService) CreateRecordingSettingsWithMetadata(params *CreateRecording
 		data.Set("EncryptionEnabled", fmt.Sprint(*params.EncryptionEnabled))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +154,6 @@ func (c *ApiService) CreateRecordingSettingsWithMetadata(params *CreateRecording
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -164,7 +162,7 @@ func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error)
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +186,7 @@ func (c *ApiService) FetchRecordingSettingsWithMetadata() (*metadata.ResourceMet
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

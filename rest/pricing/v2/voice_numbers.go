@@ -47,7 +47,7 @@ func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoi
 		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) FetchVoiceNumberWithMetadata(DestinationNumber string, para
 		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

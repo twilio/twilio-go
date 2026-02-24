@@ -45,7 +45,6 @@ func (params *CreateExternalCampaignParams) SetCnpMigration(CnpMigration bool) *
 	return params
 }
 
-//
 func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
@@ -64,7 +63,7 @@ func (c *ApiService) CreateExternalCampaign(params *CreateExternalCampaignParams
 		data.Set("CnpMigration", fmt.Sprint(*params.CnpMigration))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +97,7 @@ func (c *ApiService) CreateExternalCampaignWithMetadata(params *CreateExternalCa
 		data.Set("CnpMigration", fmt.Sprint(*params.CnpMigration))
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

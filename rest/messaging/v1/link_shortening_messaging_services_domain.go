@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingServiceDomainAssociation, error) {
 	path := "/v1/LinkShortening/MessagingServices/{MessagingServiceSid}/Domain"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -32,7 +31,7 @@ func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociation(Messag
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +56,7 @@ func (c *ApiService) FetchLinkshorteningMessagingServiceDomainAssociationWithMet
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

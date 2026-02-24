@@ -47,7 +47,7 @@ func (c *ApiService) FetchLookupAccountRateLimits(params *FetchLookupAccountRate
 		}
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *ApiService) FetchLookupAccountRateLimitsWithMetadata(params *FetchLooku
 		}
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

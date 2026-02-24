@@ -173,7 +173,6 @@ func (params *CreateIncomingPhoneNumberMobileParams) SetBundleSid(BundleSid stri
 	return params
 }
 
-//
 func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010IncomingPhoneNumberMobile, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -257,7 +256,7 @@ func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhone
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +355,7 @@ func (c *ApiService) CreateIncomingPhoneNumberMobileWithMetadata(params *CreateI
 		data.Set("BundleSid", *params.BundleSid)
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -462,7 +461,7 @@ func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -515,7 +514,7 @@ func (c *ApiService) PageIncomingPhoneNumberMobileWithMetadata(params *ListIncom
 		data.Set("Page", pageNumber)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -660,7 +659,7 @@ func (c *ApiService) getNextListIncomingPhoneNumberMobileResponse(nextPageUrl st
 	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

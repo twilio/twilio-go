@@ -47,7 +47,7 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 		data.Set("ProcessingState", *params.ProcessingState)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) FetchSummaryWithMetadata(CallSid string, params *FetchSumma
 		data.Set("ProcessingState", *params.ProcessingState)
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}

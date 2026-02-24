@@ -32,7 +32,6 @@ func (params *CreateBulkContactsParams) SetItems(Items []interface{}) *CreateBul
 	return params
 }
 
-//
 func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*AccountsV1BulkContacts, error) {
 	path := "/v1/Contacts/Bulk"
 
@@ -53,7 +52,7 @@ func (c *ApiService) CreateBulkContacts(params *CreateBulkContactsParams) (*Acco
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +88,7 @@ func (c *ApiService) CreateBulkContactsWithMetadata(params *CreateBulkContactsPa
 		}
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
 	}
