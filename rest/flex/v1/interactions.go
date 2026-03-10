@@ -155,6 +155,7 @@ func (c *ApiService) CreateInteractionWithMetadata(params *CreateInteractionPara
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchInteraction(Sid string) (*FlexV1Interaction, error) {
 	path := "/v1/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

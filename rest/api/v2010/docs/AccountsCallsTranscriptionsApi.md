@@ -47,6 +47,8 @@ Name | Type | Description
 **Hints** | **string** | A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
 **EnableAutomaticPunctuation** | **bool** | The provider will add punctuation to recognition result
 **IntelligenceService** | **string** | The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+**ConversationConfiguration** | **string** | The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+**ConversationId** | **string** | The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
 **EnableProviderData** | **bool** | Whether the callback includes raw provider data.
 
 ### Return type

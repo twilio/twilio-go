@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NotificationSid** | **string** | Unique Twilio notification sid |[optional] 
 **AccountSid** | **string** | Unique Twilio account sid |[optional] 
+**FriendlyName** | **string** | Friendly name of the account |[optional] 
 **SenderFirstName** | **string** | First name of the sender who invited the account |[optional] 
 **SenderLastName** | **string** | Last name of the sender who invited the account |[optional] 
 **SenderEmail** | **string** | Email of the sender who invited the account |[optional] 

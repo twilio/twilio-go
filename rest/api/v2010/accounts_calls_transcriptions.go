@@ -55,6 +55,10 @@ type CreateRealtimeTranscriptionParams struct {
 	EnableAutomaticPunctuation *bool `json:"EnableAutomaticPunctuation,omitempty"`
 	// The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
 	IntelligenceService *string `json:"IntelligenceService,omitempty"`
+	// The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
+	ConversationConfiguration *string `json:"ConversationConfiguration,omitempty"`
+	// The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
+	ConversationId *string `json:"ConversationId,omitempty"`
 	// Whether the callback includes raw provider data.
 	EnableProviderData *bool `json:"EnableProviderData,omitempty"`
 }
@@ -119,6 +123,14 @@ func (params *CreateRealtimeTranscriptionParams) SetIntelligenceService(Intellig
 	params.IntelligenceService = &IntelligenceService
 	return params
 }
+func (params *CreateRealtimeTranscriptionParams) SetConversationConfiguration(ConversationConfiguration string) *CreateRealtimeTranscriptionParams {
+	params.ConversationConfiguration = &ConversationConfiguration
+	return params
+}
+func (params *CreateRealtimeTranscriptionParams) SetConversationId(ConversationId string) *CreateRealtimeTranscriptionParams {
+	params.ConversationId = &ConversationId
+	return params
+}
 func (params *CreateRealtimeTranscriptionParams) SetEnableProviderData(EnableProviderData bool) *CreateRealtimeTranscriptionParams {
 	params.EnableProviderData = &EnableProviderData
 	return params
@@ -180,6 +192,12 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 	}
 	if params != nil && params.IntelligenceService != nil {
 		data.Set("IntelligenceService", *params.IntelligenceService)
+	}
+	if params != nil && params.ConversationConfiguration != nil {
+		data.Set("ConversationConfiguration", *params.ConversationConfiguration)
+	}
+	if params != nil && params.ConversationId != nil {
+		data.Set("ConversationId", *params.ConversationId)
 	}
 	if params != nil && params.EnableProviderData != nil {
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
@@ -256,6 +274,12 @@ func (c *ApiService) CreateRealtimeTranscriptionWithMetadata(CallSid string, par
 	}
 	if params != nil && params.IntelligenceService != nil {
 		data.Set("IntelligenceService", *params.IntelligenceService)
+	}
+	if params != nil && params.ConversationConfiguration != nil {
+		data.Set("ConversationConfiguration", *params.ConversationConfiguration)
+	}
+	if params != nil && params.ConversationId != nil {
+		data.Set("ConversationId", *params.ConversationId)
 	}
 	if params != nil && params.EnableProviderData != nil {
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))

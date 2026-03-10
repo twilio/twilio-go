@@ -22,6 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) CreateLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) (*MessagingV1LinkshorteningMessagingService, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -79,6 +80,7 @@ func (c *ApiService) CreateLinkshorteningMessagingServiceWithMetadata(DomainSid 
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteLinkshorteningMessagingService(DomainSid string, MessagingServiceSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)

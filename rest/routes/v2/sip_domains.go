@@ -22,6 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) FetchSipDomain(SipDomain string) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)
@@ -94,6 +95,7 @@ func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *Updat
 	return params
 }
 
+//
 func (c *ApiService) UpdateSipDomain(SipDomain string, params *UpdateSipDomainParams) (*RoutesV2SipDomain, error) {
 	path := "/v2/SipDomains/{SipDomain}"
 	path = strings.Replace(path, "{"+"SipDomain"+"}", SipDomain, -1)

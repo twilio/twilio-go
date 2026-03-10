@@ -22,6 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) FetchDomainDnsValidation(DomainSid string) (*MessagingV1DomainDnsValidation, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/ValidateDns"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)

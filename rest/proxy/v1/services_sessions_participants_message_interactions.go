@@ -119,6 +119,7 @@ func (c *ApiService) CreateMessageInteractionWithMetadata(ServiceSid string, Ses
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

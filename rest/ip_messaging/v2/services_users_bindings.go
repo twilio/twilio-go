@@ -24,6 +24,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -73,6 +74,7 @@ func (c *ApiService) DeleteUserBindingWithMetadata(ServiceSid string, UserSid st
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*IpMessagingV2UserBinding, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

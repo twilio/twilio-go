@@ -45,6 +45,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [IamV1AccountSearchRoleResponse](docs/IamV1AccountSearchRoleResponse.md)
+ - [IamV1GeneratePresignedImageUploadUrlResponse](docs/IamV1GeneratePresignedImageUploadUrlResponse.md)
  - [IamV1MfaTotpToken](docs/IamV1MfaTotpToken.md)
  - [IamV1OrganizationVendoroauthappPolicy](docs/IamV1OrganizationVendoroauthappPolicy.md)
  - [OauthV1Token](docs/OauthV1Token.md)
@@ -55,6 +56,7 @@ Class | Method | HTTP request | Description
  - [UpdateOauthAppAccountResponse](docs/UpdateOauthAppAccountResponse.md)
  - [IamV1EmailChangeInitiateRequest](docs/IamV1EmailChangeInitiateRequest.md)
  - [IamV1Domain](docs/IamV1Domain.md)
+ - [IamV1CreateConsent](docs/IamV1CreateConsent.md)
  - [IamV1OperationError](docs/IamV1OperationError.md)
  - [IamV1AccountStatsResponse](docs/IamV1AccountStatsResponse.md)
  - [IamV1Organization](docs/IamV1Organization.md)
@@ -92,6 +94,7 @@ Class | Method | HTTP request | Description
  - [IamV1EmailChangeInitiateResponse](docs/IamV1EmailChangeInitiateResponse.md)
  - [IamV1OperationMeta](docs/IamV1OperationMeta.md)
  - [IamV1AccountSearchAccount](docs/IamV1AccountSearchAccount.md)
+ - [IamV1OrganizationFeatures](docs/IamV1OrganizationFeatures.md)
  - [IamV1InvitedUser](docs/IamV1InvitedUser.md)
  - [IamV1VendorOauthAppUpdateRequest](docs/IamV1VendorOauthAppUpdateRequest.md)
  - [IamV1UserPatchResponse](docs/IamV1UserPatchResponse.md)

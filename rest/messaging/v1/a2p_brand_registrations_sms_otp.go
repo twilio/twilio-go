@@ -22,6 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) CreateBrandRegistrationOtp(BrandRegistrationSid string) (*MessagingV1BrandRegistrationOtp, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandRegistrationSid}/SmsOtp"
 	path = strings.Replace(path, "{"+"BrandRegistrationSid"+"}", BrandRegistrationSid, -1)

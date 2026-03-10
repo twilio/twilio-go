@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [NumbersV2A2pBrandSids](docs/NumbersV2A2pBrandSids.md)
  - [NumbersV2AuthorizationDocument](docs/NumbersV2AuthorizationDocument.md)
  - [NumbersV2HostedNumberOrder](docs/NumbersV2HostedNumberOrder.md)
  - [SenderIdCountriesResponsePage](docs/SenderIdCountriesResponsePage.md)
@@ -119,6 +120,7 @@ Class | Method | HTTP request | Description
  - [NumbersV2EndUser](docs/NumbersV2EndUser.md)
  - [ShortCodeApplication](docs/ShortCodeApplication.md)
  - [ListItemAssignmentResponse](docs/ListItemAssignmentResponse.md)
+ - [NumbersV2A2pRegistrationDetails](docs/NumbersV2A2pRegistrationDetails.md)
  - [CountryRequirement](docs/CountryRequirement.md)
  - [CreateShortCodeApplicationBundleInquiryRequest](docs/CreateShortCodeApplicationBundleInquiryRequest.md)
  - [NumbersV2HostedNumberOrderCapabilities](docs/NumbersV2HostedNumberOrderCapabilities.md)
@@ -134,6 +136,7 @@ Class | Method | HTTP request | Description
  - [NumbersV2EndUserType](docs/NumbersV2EndUserType.md)
  - [ListDependentHostedNumberOrderResponse](docs/ListDependentHostedNumberOrderResponse.md)
  - [SenderId](docs/SenderId.md)
+ - [NumbersV2A2pRegistrationDetailsFetch](docs/NumbersV2A2pRegistrationDetailsFetch.md)
  - [NumbersV2ItemAssignment](docs/NumbersV2ItemAssignment.md)
  - [NumbersV2SupportingDocumentType](docs/NumbersV2SupportingDocumentType.md)
  - [NumbersV2BundleClone](docs/NumbersV2BundleClone.md)

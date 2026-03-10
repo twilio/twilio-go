@@ -26,6 +26,8 @@ import (
 
 // Optional parameters for the method 'CreateUsAppToPerson'
 type CreateUsAppToPersonParams struct {
+	// The version of the Messaging API to use for this request
+	XTwilioApiVersion *string `json:"X-Twilio-Api-Version,omitempty"`
 	// A2P Brand Registration SID
 	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
 	// A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
@@ -58,8 +60,16 @@ type CreateUsAppToPersonParams struct {
 	AgeGated *bool `json:"AgeGated,omitempty"`
 	// A boolean that specifies whether campaign allows direct lending or not.
 	DirectLending *bool `json:"DirectLending,omitempty"`
+	// The URL of the privacy policy for the campaign.
+	PrivacyPolicyUrl *string `json:"PrivacyPolicyUrl,omitempty"`
+	// The URL of the terms and conditions for the campaign.
+	TermsAndConditionsUrl *string `json:"TermsAndConditionsUrl,omitempty"`
 }
 
+func (params *CreateUsAppToPersonParams) SetXTwilioApiVersion(XTwilioApiVersion string) *CreateUsAppToPersonParams {
+	params.XTwilioApiVersion = &XTwilioApiVersion
+	return params
+}
 func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
 	params.BrandRegistrationSid = &BrandRegistrationSid
 	return params
@@ -124,8 +134,17 @@ func (params *CreateUsAppToPersonParams) SetDirectLending(DirectLending bool) *C
 	params.DirectLending = &DirectLending
 	return params
 }
+func (params *CreateUsAppToPersonParams) SetPrivacyPolicyUrl(PrivacyPolicyUrl string) *CreateUsAppToPersonParams {
+	params.PrivacyPolicyUrl = &PrivacyPolicyUrl
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetTermsAndConditionsUrl(TermsAndConditionsUrl string) *CreateUsAppToPersonParams {
+	params.TermsAndConditionsUrl = &TermsAndConditionsUrl
+	return params
+}
 
-func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+//
+func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -190,7 +209,16 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	if params != nil && params.DirectLending != nil {
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -198,7 +226,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -207,7 +235,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 }
 
 // CreateUsAppToPersonWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPersonResponse], error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -272,7 +300,16 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 	if params != nil && params.DirectLending != nil {
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -280,12 +317,12 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPersonResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers
@@ -294,6 +331,7 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -341,7 +379,19 @@ func (c *ApiService) DeleteUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
+// Optional parameters for the method 'FetchUsAppToPerson'
+type FetchUsAppToPersonParams struct {
+	// The version of the Messaging API to use for this request
+	XTwilioApiVersion *string `json:"X-Twilio-Api-Version,omitempty"`
+}
+
+func (params *FetchUsAppToPersonParams) SetXTwilioApiVersion(XTwilioApiVersion string) *FetchUsAppToPersonParams {
+	params.XTwilioApiVersion = &XTwilioApiVersion
+	return params
+}
+
+//
+func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string, params *FetchUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -351,6 +401,9 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -358,7 +411,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -367,7 +420,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 }
 
 // FetchUsAppToPersonWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string, params *FetchUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPersonResponse], error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -377,6 +430,9 @@ func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -384,12 +440,12 @@ func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPersonResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers
@@ -402,12 +458,18 @@ func (c *ApiService) FetchUsAppToPersonWithMetadata(MessagingServiceSid string, 
 type ListUsAppToPersonParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// The version of the Messaging API to use for this request
+	XTwilioApiVersion *string `json:"X-Twilio-Api-Version,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListUsAppToPersonParams) SetPageSize(PageSize int) *ListUsAppToPersonParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListUsAppToPersonParams) SetXTwilioApiVersion(XTwilioApiVersion string) *ListUsAppToPersonParams {
+	params.XTwilioApiVersion = &XTwilioApiVersion
 	return params
 }
 func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonParams {
@@ -496,10 +558,10 @@ func (c *ApiService) PageUsAppToPersonWithMetadata(MessagingServiceSid string, p
 }
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
+func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPersonResponse, error) {
 	response, errors := c.StreamUsAppToPerson(MessagingServiceSid, params)
 
-	records := make([]MessagingV1UsAppToPerson, 0)
+	records := make([]MessagingV1UsAppToPersonResponse, 0)
 	for record := range response {
 		records = append(records, record)
 	}
@@ -512,11 +574,11 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // ListUsAppToPersonWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) ListUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[[]MessagingV1UsAppToPerson], error) {
+func (c *ApiService) ListUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[[]MessagingV1UsAppToPersonResponse], error) {
 	response, errors := c.StreamUsAppToPersonWithMetadata(MessagingServiceSid, params)
 	resource := response.GetResource()
 
-	records := make([]MessagingV1UsAppToPerson, 0)
+	records := make([]MessagingV1UsAppToPersonResponse, 0)
 	for record := range resource {
 		records = append(records, record)
 	}
@@ -525,7 +587,7 @@ func (c *ApiService) ListUsAppToPersonWithMetadata(MessagingServiceSid string, p
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1UsAppToPerson](
+	metadataWrapper := metadata.NewResourceMetadata[[]MessagingV1UsAppToPersonResponse](
 		records,
 		response.GetStatusCode(), // HTTP status code
 		response.GetHeaders(),    // HTTP headers
@@ -535,13 +597,13 @@ func (c *ApiService) ListUsAppToPersonWithMetadata(MessagingServiceSid string, p
 }
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPerson, chan error) {
+func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPersonResponse, chan error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan MessagingV1UsAppToPerson, 1)
+	recordChannel := make(chan MessagingV1UsAppToPersonResponse, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
@@ -557,13 +619,13 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 }
 
 // StreamUsAppToPersonWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) StreamUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[chan MessagingV1UsAppToPerson], chan error) {
+func (c *ApiService) StreamUsAppToPersonWithMetadata(MessagingServiceSid string, params *ListUsAppToPersonParams) (*metadata.ResourceMetadata[chan MessagingV1UsAppToPersonResponse], chan error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
-	recordChannel := make(chan MessagingV1UsAppToPerson, 1)
+	recordChannel := make(chan MessagingV1UsAppToPersonResponse, 1)
 	errorChannel := make(chan error, 1)
 
 	response, err := c.PageUsAppToPersonWithMetadata(MessagingServiceSid, params, "", "")
@@ -576,7 +638,7 @@ func (c *ApiService) StreamUsAppToPersonWithMetadata(MessagingServiceSid string,
 		go c.streamUsAppToPerson(&resource, params, recordChannel, errorChannel)
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1UsAppToPerson](
+	metadataWrapper := metadata.NewResourceMetadata[chan MessagingV1UsAppToPersonResponse](
 		recordChannel,            // The stream
 		response.GetStatusCode(), // HTTP status code from page response
 		response.GetHeaders(),    // HTTP headers from page response
@@ -585,7 +647,7 @@ func (c *ApiService) StreamUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPerson, errorChannel chan error) {
+func (c *ApiService) streamUsAppToPerson(response *ListUsAppToPersonResponse, params *ListUsAppToPersonParams, recordChannel chan MessagingV1UsAppToPersonResponse, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -635,6 +697,8 @@ func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUrl string) (inter
 
 // Optional parameters for the method 'UpdateUsAppToPerson'
 type UpdateUsAppToPersonParams struct {
+	// The version of the Messaging API to use for this request
+	XTwilioApiVersion *string `json:"X-Twilio-Api-Version,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain links.
 	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
@@ -649,8 +713,16 @@ type UpdateUsAppToPersonParams struct {
 	AgeGated *bool `json:"AgeGated,omitempty"`
 	// A boolean that specifies whether campaign allows direct lending or not.
 	DirectLending *bool `json:"DirectLending,omitempty"`
+	// The URL of the privacy policy for the campaign.
+	PrivacyPolicyUrl *string `json:"PrivacyPolicyUrl,omitempty"`
+	// The URL of the terms and conditions for the campaign.
+	TermsAndConditionsUrl *string `json:"TermsAndConditionsUrl,omitempty"`
 }
 
+func (params *UpdateUsAppToPersonParams) SetXTwilioApiVersion(XTwilioApiVersion string) *UpdateUsAppToPersonParams {
+	params.XTwilioApiVersion = &XTwilioApiVersion
+	return params
+}
 func (params *UpdateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bool) *UpdateUsAppToPersonParams {
 	params.HasEmbeddedLinks = &HasEmbeddedLinks
 	return params
@@ -679,8 +751,17 @@ func (params *UpdateUsAppToPersonParams) SetDirectLending(DirectLending bool) *U
 	params.DirectLending = &DirectLending
 	return params
 }
+func (params *UpdateUsAppToPersonParams) SetPrivacyPolicyUrl(PrivacyPolicyUrl string) *UpdateUsAppToPersonParams {
+	params.PrivacyPolicyUrl = &PrivacyPolicyUrl
+	return params
+}
+func (params *UpdateUsAppToPersonParams) SetTermsAndConditionsUrl(TermsAndConditionsUrl string) *UpdateUsAppToPersonParams {
+	params.TermsAndConditionsUrl = &TermsAndConditionsUrl
+	return params
+}
 
-func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
+//
+func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -713,7 +794,16 @@ func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string,
 	if params != nil && params.DirectLending != nil {
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -721,7 +811,7 @@ func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string,
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -730,7 +820,7 @@ func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string,
 }
 
 // UpdateUsAppToPersonWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPerson], error) {
+func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*metadata.ResourceMetadata[MessagingV1UsAppToPersonResponse], error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -763,7 +853,16 @@ func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string,
 	if params != nil && params.DirectLending != nil {
 		data.Set("DirectLending", fmt.Sprint(*params.DirectLending))
 	}
+	if params != nil && params.PrivacyPolicyUrl != nil {
+		data.Set("PrivacyPolicyUrl", *params.PrivacyPolicyUrl)
+	}
+	if params != nil && params.TermsAndConditionsUrl != nil {
+		data.Set("TermsAndConditionsUrl", *params.TermsAndConditionsUrl)
+	}
 
+	if params != nil && params.XTwilioApiVersion != nil {
+		headers["X-Twilio-Api-Version"] = *params.XTwilioApiVersion
+	}
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
 	if err != nil {
 		return nil, err
@@ -771,12 +870,12 @@ func (c *ApiService) UpdateUsAppToPersonWithMetadata(MessagingServiceSid string,
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1UsAppToPerson{}
+	ps := &MessagingV1UsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPerson](
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV1UsAppToPersonResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers

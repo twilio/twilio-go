@@ -32,6 +32,7 @@ func (params *CreateReferralConversionParams) SetCreateReferralConversionRequest
 	return params
 }
 
+//
 func (c *ApiService) CreateReferralConversion(params *CreateReferralConversionParams) (*MarketplaceV1ReferralConversion, error) {
 	path := "/v1/ReferralConversion"
 

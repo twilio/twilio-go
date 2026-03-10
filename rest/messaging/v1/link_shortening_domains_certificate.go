@@ -22,6 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+//
 func (c *ApiService) DeleteDomainCertV4(DomainSid string) error {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -67,6 +68,7 @@ func (c *ApiService) DeleteDomainCertV4WithMetadata(DomainSid string) (*metadata
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchDomainCertV4(DomainSid string) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
@@ -133,6 +135,7 @@ func (params *UpdateDomainCertV4Params) SetTlsCert(TlsCert string) *UpdateDomain
 	return params
 }
 
+//
 func (c *ApiService) UpdateDomainCertV4(DomainSid string, params *UpdateDomainCertV4Params) (*MessagingV1DomainCertV4, error) {
 	path := "/v1/LinkShortening/Domains/{DomainSid}/Certificate"
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)

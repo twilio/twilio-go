@@ -147,6 +147,7 @@ func (c *ApiService) DeleteIpAccessControlListWithMetadata(TrunkSid string, Sid 
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)

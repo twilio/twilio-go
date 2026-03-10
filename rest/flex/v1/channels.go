@@ -89,6 +89,7 @@ func (params *CreateChannelParams) SetLongLived(LongLived bool) *CreateChannelPa
 	return params
 }
 
+//
 func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -204,6 +205,7 @@ func (c *ApiService) CreateChannelWithMetadata(params *CreateChannelParams) (*me
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -249,6 +251,7 @@ func (c *ApiService) DeleteChannelWithMetadata(Sid string) (*metadata.ResourceMe
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

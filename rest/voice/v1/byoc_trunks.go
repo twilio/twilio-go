@@ -89,6 +89,7 @@ func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Cre
 	return params
 }
 
+//
 func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
@@ -204,6 +205,7 @@ func (c *ApiService) CreateByocTrunkWithMetadata(params *CreateByocTrunkParams) 
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteByocTrunk(Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -249,6 +251,7 @@ func (c *ApiService) DeleteByocTrunkWithMetadata(Sid string) (*metadata.Resource
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -600,6 +603,7 @@ func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *Upd
 	return params
 }
 
+//
 func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

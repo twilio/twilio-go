@@ -101,6 +101,7 @@ func (params *CreateRatePlanParams) SetDataLimitStrategy(DataLimitStrategy strin
 	return params
 }
 
+//
 func (c *ApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
@@ -232,6 +233,7 @@ func (c *ApiService) CreateRatePlanWithMetadata(params *CreateRatePlanParams) (*
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteRatePlan(Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -277,6 +279,7 @@ func (c *ApiService) DeleteRatePlanWithMetadata(Sid string) (*metadata.ResourceM
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -580,6 +583,7 @@ func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
+//
 func (c *ApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

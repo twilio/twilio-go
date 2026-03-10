@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | **string** | Unique Twilio sid of the account that the user was invited to |[optional] 
 **Sid** | **string** | Unique Twilio notification sid of the invitation |[optional] 
+**FriendlyName** | **string** | Friendly name of the account |[optional] 
+**Type** | **string** | Type of the account |[optional] 
 **Email** | **string** | The recipient's email address |[optional] 
 **Roles** | [**[]IamV1UserRole**](IamV1UserRole.md) | The roles assigned to the user in the account |[optional] 
 **Status** | **string** | The status of the invitation |[optional] 

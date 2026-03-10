@@ -53,6 +53,7 @@ func (params *CreatePluginConfigurationParams) SetDescription(Description string
 	return params
 }
 
+//
 func (c *ApiService) CreatePluginConfiguration(params *CreatePluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations"
 
@@ -159,6 +160,7 @@ func (params *FetchPluginConfigurationParams) SetFlexMetadata(FlexMetadata strin
 	return params
 }
 
+//
 func (c *ApiService) FetchPluginConfiguration(Sid string, params *FetchPluginConfigurationParams) (*FlexV1PluginConfiguration, error) {
 	path := "/v1/PluginService/Configurations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

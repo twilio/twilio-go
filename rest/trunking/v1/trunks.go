@@ -77,6 +77,7 @@ func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *C
 	return params
 }
 
+//
 func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
@@ -180,6 +181,7 @@ func (c *ApiService) CreateTrunkWithMetadata(params *CreateTrunkParams) (*metada
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteTrunk(Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -225,6 +227,7 @@ func (c *ApiService) DeleteTrunkWithMetadata(Sid string) (*metadata.ResourceMeta
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -564,6 +567,7 @@ func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *U
 	return params
 }
 
+//
 func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

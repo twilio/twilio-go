@@ -41,6 +41,7 @@ func (params *CreateBrandVettingParams) SetVettingId(VettingId string) *CreateBr
 	return params
 }
 
+//
 func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVettingParams) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
@@ -110,6 +111,7 @@ func (c *ApiService) CreateBrandVettingWithMetadata(BrandSid string, params *Cre
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
 	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
 	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)

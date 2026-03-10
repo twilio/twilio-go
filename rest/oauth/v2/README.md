@@ -38,6 +38,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [V2OauthAuth0CallbackResponse](docs/V2OauthAuth0CallbackResponse.md)
+ - [ErrorThrottled](docs/ErrorThrottled.md)
  - [OauthV2Authorize](docs/OauthV2Authorize.md)
  - [Auth0RefreshTokenHeartbeatResponse](docs/Auth0RefreshTokenHeartbeatResponse.md)
  - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)

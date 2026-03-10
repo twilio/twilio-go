@@ -162,10 +162,12 @@ Other parameters are passed through a pointer to a ListBundleParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | [**string**](stringstring.md) | The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+**BundleSids** | **string** | A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
 **FriendlyName** | **string** | The string that you assigned to describe the resource. The column can contain 255 variable characters.
 **RegulationSid** | **string** | The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
 **IsoCountry** | **string** | The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 **NumberType** | **string** | The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+**EndUserType** | **string** | The end user type of the regulation of the Bundle. Can be `business` or `individual`.
 **HasValidUntilDate** | **bool** | Indicates that the Bundle is a valid Bundle until a specified expiration date.
 **SortBy** | [**string**](stringstring.md) | Can be `valid-until` or `date-updated`. Defaults to `date-created`.
 **SortDirection** | [**string**](stringstring.md) | Default is `DESC`. Can be `ASC` or `DESC`.

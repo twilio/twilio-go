@@ -35,6 +35,7 @@ func (params *CreateRoomTranscriptionsParams) SetConfiguration(Configuration map
 	return params
 }
 
+//
 func (c *ApiService) CreateRoomTranscriptions(RoomSid string, params *CreateRoomTranscriptionsParams) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -110,6 +111,7 @@ func (c *ApiService) CreateRoomTranscriptionsWithMetadata(RoomSid string, params
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchRoomTranscriptions(RoomSid string, Ttid string) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -419,6 +421,7 @@ func (params *UpdateRoomTranscriptionsParams) SetConfiguration(Configuration map
 	return params
 }
 
+//
 func (c *ApiService) UpdateRoomTranscriptions(RoomSid string, Ttid string, params *UpdateRoomTranscriptionsParams) (*VideoV1RoomTranscriptions, error) {
 	path := "/v1/Rooms/{RoomSid}/Transcriptions/{Ttid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

@@ -288,6 +288,8 @@ func (c *ApiService) FetchBundleWithMetadata(Sid string) (*metadata.ResourceMeta
 type ListBundleParams struct {
 	// The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
 	Status *string `json:"Status,omitempty"`
+	// A comma-separated list of Bundle SIDs to filter the results (maximum 20). Each Bundle SID must match `^BU[0-9a-fA-F]{32}$`.
+	BundleSids *string `json:"BundleSids,omitempty"`
 	// The string that you assigned to describe the resource. The column can contain 255 variable characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
@@ -296,6 +298,8 @@ type ListBundleParams struct {
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
 	NumberType *string `json:"NumberType,omitempty"`
+	// The end user type of the regulation of the Bundle. Can be `business` or `individual`.
+	EndUserType *string `json:"EndUserType,omitempty"`
 	// Indicates that the Bundle is a valid Bundle until a specified expiration date.
 	HasValidUntilDate *bool `json:"HasValidUntilDate,omitempty"`
 	// Can be `valid-until` or `date-updated`. Defaults to `date-created`.
@@ -318,6 +322,10 @@ func (params *ListBundleParams) SetStatus(Status string) *ListBundleParams {
 	params.Status = &Status
 	return params
 }
+func (params *ListBundleParams) SetBundleSids(BundleSids string) *ListBundleParams {
+	params.BundleSids = &BundleSids
+	return params
+}
 func (params *ListBundleParams) SetFriendlyName(FriendlyName string) *ListBundleParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -332,6 +340,10 @@ func (params *ListBundleParams) SetIsoCountry(IsoCountry string) *ListBundlePara
 }
 func (params *ListBundleParams) SetNumberType(NumberType string) *ListBundleParams {
 	params.NumberType = &NumberType
+	return params
+}
+func (params *ListBundleParams) SetEndUserType(EndUserType string) *ListBundleParams {
+	params.EndUserType = &EndUserType
 	return params
 }
 func (params *ListBundleParams) SetHasValidUntilDate(HasValidUntilDate bool) *ListBundleParams {
@@ -379,6 +391,9 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	if params != nil && params.Status != nil {
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
+	if params != nil && params.BundleSids != nil {
+		data.Set("BundleSids", *params.BundleSids)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -390,6 +405,9 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
 	}
 	if params != nil && params.HasValidUntilDate != nil {
 		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
@@ -447,6 +465,9 @@ func (c *ApiService) PageBundleWithMetadata(params *ListBundleParams, pageToken,
 	if params != nil && params.Status != nil {
 		data.Set("Status", fmt.Sprint(*params.Status))
 	}
+	if params != nil && params.BundleSids != nil {
+		data.Set("BundleSids", *params.BundleSids)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -458,6 +479,9 @@ func (c *ApiService) PageBundleWithMetadata(params *ListBundleParams, pageToken,
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
 	}
 	if params != nil && params.HasValidUntilDate != nil {
 		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))

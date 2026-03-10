@@ -24,6 +24,10 @@ type IamV1UserInvitation struct {
 	AccountSid string `json:"accountSid,omitempty"`
 	// Unique Twilio notification sid of the invitation
 	Sid string `json:"sid,omitempty"`
+	// Friendly name of the account
+	FriendlyName string `json:"friendlyName,omitempty"`
+	// Type of the account
+	Type string `json:"type,omitempty"`
 	// The recipient's email address
 	Email string `json:"email,omitempty"`
 	// The roles assigned to the user in the account

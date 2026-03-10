@@ -24,6 +24,8 @@ type IamV1InvitedAccount struct {
 	NotificationSid string `json:"notificationSid,omitempty"`
 	// Unique Twilio account sid
 	AccountSid string `json:"accountSid,omitempty"`
+	// Friendly name of the account
+	FriendlyName string `json:"friendlyName,omitempty"`
 	// First name of the sender who invited the account
 	SenderFirstName string `json:"senderFirstName,omitempty"`
 	// Last name of the sender who invited the account

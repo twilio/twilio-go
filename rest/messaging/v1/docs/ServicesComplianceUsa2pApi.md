@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateUsAppToPerson
 
-> MessagingV1UsAppToPerson CreateUsAppToPerson(ctx, MessagingServiceSidoptional)
+> MessagingV1UsAppToPersonResponse CreateUsAppToPerson(ctx, MessagingServiceSidoptional)
 
 
 
@@ -35,6 +35,7 @@ Other parameters are passed through a pointer to a CreateUsAppToPersonParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioApiVersion** | **string** | The version of the Messaging API to use for this request
 **BrandRegistrationSid** | **string** | A2P Brand Registration SID
 **Description** | **string** | A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 **MessageFlow** | **string** | Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
@@ -51,10 +52,12 @@ Name | Type | Description
 **SubscriberOptIn** | **bool** | A boolean that specifies whether campaign has Subscriber Optin or not.
 **AgeGated** | **bool** | A boolean that specifies whether campaign is age gated or not.
 **DirectLending** | **bool** | A boolean that specifies whether campaign allows direct lending or not.
+**PrivacyPolicyUrl** | **string** | The URL of the privacy policy for the campaign.
+**TermsAndConditionsUrl** | **string** | The URL of the terms and conditions for the campaign.
 
 ### Return type
 
-[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
+[**MessagingV1UsAppToPersonResponse**](MessagingV1UsAppToPersonResponse.md)
 
 ### Authorization
 
@@ -115,7 +118,7 @@ Name | Type | Description
 
 ## FetchUsAppToPerson
 
-> MessagingV1UsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSidSid)
+> MessagingV1UsAppToPersonResponse FetchUsAppToPerson(ctx, MessagingServiceSidSidoptional)
 
 
 
@@ -137,10 +140,11 @@ Other parameters are passed through a pointer to a FetchUsAppToPersonParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioApiVersion** | **string** | The version of the Messaging API to use for this request
 
 ### Return type
 
-[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
+[**MessagingV1UsAppToPersonResponse**](MessagingV1UsAppToPersonResponse.md)
 
 ### Authorization
 
@@ -158,7 +162,7 @@ Name | Type | Description
 
 ## ListUsAppToPerson
 
-> []MessagingV1UsAppToPerson ListUsAppToPerson(ctx, MessagingServiceSidoptional)
+> []MessagingV1UsAppToPersonResponse ListUsAppToPerson(ctx, MessagingServiceSidoptional)
 
 
 
@@ -180,11 +184,12 @@ Other parameters are passed through a pointer to a ListUsAppToPersonParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**XTwilioApiVersion** | **string** | The version of the Messaging API to use for this request
 **Limit** | **int** | Max number of records to return.
 
 ### Return type
 
-[**[]MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
+[**[]MessagingV1UsAppToPersonResponse**](MessagingV1UsAppToPersonResponse.md)
 
 ### Authorization
 
@@ -202,7 +207,7 @@ Name | Type | Description
 
 ## UpdateUsAppToPerson
 
-> MessagingV1UsAppToPerson UpdateUsAppToPerson(ctx, MessagingServiceSidSidoptional)
+> MessagingV1UsAppToPersonResponse UpdateUsAppToPerson(ctx, MessagingServiceSidSidoptional)
 
 
 
@@ -224,6 +229,7 @@ Other parameters are passed through a pointer to a UpdateUsAppToPersonParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioApiVersion** | **string** | The version of the Messaging API to use for this request
 **HasEmbeddedLinks** | **bool** | Indicates that this SMS campaign will send messages that contain links.
 **HasEmbeddedPhone** | **bool** | Indicates that this SMS campaign will send messages that contain phone numbers.
 **MessageSamples** | **[]string** | An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
@@ -231,10 +237,12 @@ Name | Type | Description
 **Description** | **string** | A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
 **AgeGated** | **bool** | A boolean that specifies whether campaign requires age gate for federally legal content.
 **DirectLending** | **bool** | A boolean that specifies whether campaign allows direct lending or not.
+**PrivacyPolicyUrl** | **string** | The URL of the privacy policy for the campaign.
+**TermsAndConditionsUrl** | **string** | The URL of the terms and conditions for the campaign.
 
 ### Return type
 
-[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
+[**MessagingV1UsAppToPersonResponse**](MessagingV1UsAppToPersonResponse.md)
 
 ### Authorization
 

@@ -47,6 +47,7 @@ func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessa
 	return params
 }
 
+//
 func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -124,6 +125,7 @@ func (c *ApiService) CreateMessageWithMetadata(ServiceSid string, ChannelSid str
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,6 +175,7 @@ func (c *ApiService) DeleteMessageWithMetadata(ServiceSid string, ChannelSid str
 	return metadataWrapper, nil
 }
 
+//
 func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -498,6 +501,7 @@ func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessa
 	return params
 }
 
+//
 func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV1Message, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

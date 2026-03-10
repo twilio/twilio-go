@@ -19,4 +19,6 @@ type Auth0RefreshScopedTokenRequest struct {
 	// The SID of the account to be authorized for the user.
 	AccountSid           string `json:"accountSid,omitempty"`
 	AuthorizationContext string `json:"authorizationContext,omitempty"`
+	// Whether this request represents user activity (true) or polling (false)
+	Active bool `json:"active,omitempty"`
 }

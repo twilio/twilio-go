@@ -59,6 +59,10 @@ type CreatePaymentsParams struct {
 	TokenType *string `json:"TokenType,omitempty"`
 	// Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
 	ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
+	// A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+	RequireMatchingInputs *string `json:"RequireMatchingInputs,omitempty"`
+	// Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
+	Confirmation *string `json:"Confirmation,omitempty"`
 }
 
 func (params *CreatePaymentsParams) SetPathAccountSid(PathAccountSid string) *CreatePaymentsParams {
@@ -127,6 +131,14 @@ func (params *CreatePaymentsParams) SetTokenType(TokenType string) *CreatePaymen
 }
 func (params *CreatePaymentsParams) SetValidCardTypes(ValidCardTypes string) *CreatePaymentsParams {
 	params.ValidCardTypes = &ValidCardTypes
+	return params
+}
+func (params *CreatePaymentsParams) SetRequireMatchingInputs(RequireMatchingInputs string) *CreatePaymentsParams {
+	params.RequireMatchingInputs = &RequireMatchingInputs
+	return params
+}
+func (params *CreatePaymentsParams) SetConfirmation(Confirmation string) *CreatePaymentsParams {
+	params.Confirmation = &Confirmation
 	return params
 }
 
@@ -198,6 +210,12 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	}
 	if params != nil && params.ValidCardTypes != nil {
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
+	}
+	if params != nil && params.RequireMatchingInputs != nil {
+		data.Set("RequireMatchingInputs", *params.RequireMatchingInputs)
+	}
+	if params != nil && params.Confirmation != nil {
+		data.Set("Confirmation", *params.Confirmation)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -283,6 +301,12 @@ func (c *ApiService) CreatePaymentsWithMetadata(CallSid string, params *CreatePa
 	}
 	if params != nil && params.ValidCardTypes != nil {
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
+	}
+	if params != nil && params.RequireMatchingInputs != nil {
+		data.Set("RequireMatchingInputs", *params.RequireMatchingInputs)
+	}
+	if params != nil && params.Confirmation != nil {
+		data.Set("Confirmation", *params.Confirmation)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)

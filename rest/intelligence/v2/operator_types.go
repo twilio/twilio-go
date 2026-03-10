@@ -84,12 +84,18 @@ func (c *ApiService) FetchOperatorTypeWithMetadata(Sid string) (*metadata.Resour
 type ListOperatorTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Returns Operator Types that support the provided language code.
+	LanguageCode *string `json:"LanguageCode,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListOperatorTypeParams) SetPageSize(PageSize int) *ListOperatorTypeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListOperatorTypeParams) SetLanguageCode(LanguageCode string) *ListOperatorTypeParams {
+	params.LanguageCode = &LanguageCode
 	return params
 }
 func (params *ListOperatorTypeParams) SetLimit(Limit int) *ListOperatorTypeParams {
@@ -108,6 +114,9 @@ func (c *ApiService) PageOperatorType(params *ListOperatorTypeParams, pageToken,
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("LanguageCode", *params.LanguageCode)
 	}
 
 	if pageToken != "" {
@@ -143,6 +152,9 @@ func (c *ApiService) PageOperatorTypeWithMetadata(params *ListOperatorTypeParams
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("LanguageCode", *params.LanguageCode)
 	}
 
 	if pageToken != "" {

@@ -49,6 +49,8 @@ Name | Type | Description
 **Timeout** | **int** | The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
 **TokenType** | [**string**](string.md) | 
 **ValidCardTypes** | **string** | Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+**RequireMatchingInputs** | **string** | A comma-separated list of payment information fields that require the caller to enter the same value twice for confirmation. Supported values are `payment-card-number`, `expiration-date`, `security-code`, and `postal-code`.
+**Confirmation** | **string** | Whether to prompt the caller to confirm their payment information before submitting to the payment gateway. If `true`, the caller will hear the last 4 digits of their card or account number and must press 1 to confirm or 2 to cancel. Default is `false`.
 
 ### Return type
 
