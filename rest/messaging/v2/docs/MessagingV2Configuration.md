@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **VerificationMethod** | Pointer to **string** | The verification method. |[default to "sms"]
 **VerificationCode** | Pointer to **string** | The verification code. |
 **VoiceApplicationSid** | Pointer to **string** | The SID of the Twilio Voice application. |
+**AccountType** | Pointer to **string** | The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

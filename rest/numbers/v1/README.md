@@ -44,6 +44,8 @@ Class | Method | HTTP request | Description
 *PortingPortInPhoneNumberApi* | [**FetchPortingPortInPhoneNumber**](docs/PortingPortInPhoneNumberApi.md#fetchportingportinphonenumber) | **Get** /v1/Porting/PortIn/{PortInRequestSid}/PhoneNumber/{PhoneNumberSid} | Fetch a phone number by port in request SID and phone number SID
 *PortingPortInPortInRequestsApi* | [**ListPortInRequests**](docs/PortingPortInPortInRequestsApi.md#listportinrequests) | **Get** /v1/Porting/PortIn/PortInRequests | Fetch all PortInRequests for a user
 *PortingPortabilityPhoneNumberApi* | [**FetchPortingPortability**](docs/PortingPortabilityPhoneNumberApi.md#fetchportingportability) | **Get** /v1/Porting/Portability/PhoneNumber/{PhoneNumber} | Check if a single phone number can be ported to Twilio
+*SenderIdRegistrationsApi* | [**CreateSenderIdRegistration**](docs/SenderIdRegistrationsApi.md#createsenderidregistration) | **Post** /v1/SenderIdRegistrations | Create Sender ID Registration
+*SenderIdRegistrationsEmbeddedSessionsApi* | [**CreateSenderIdRegistrationEmbeddedSession**](docs/SenderIdRegistrationsEmbeddedSessionsApi.md#createsenderidregistrationembeddedsession) | **Post** /v1/SenderIdRegistrations/{BundleSid}/EmbeddedSessions | Create Embedded Session
 *SigningRequestConfigurationApi* | [**CreateSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#createsigningrequestconfiguration) | **Post** /v1/SigningRequest/Configuration | Synchronous operation to insert or update a configuration for the customer.
 *SigningRequestConfigurationApi* | [**ListSigningRequestConfiguration**](docs/SigningRequestConfigurationApi.md#listsigningrequestconfiguration) | **Get** /v1/SigningRequest/Configuration | Synchronous operation to retrieve configurations for the customer.
 
@@ -52,31 +54,41 @@ Class | Method | HTTP request | Description
 
  - [NumbersV1PortInRequestListMeta](docs/NumbersV1PortInRequestListMeta.md)
  - [NumbersV1PortingPortInPhoneNumberResult](docs/NumbersV1PortingPortInPhoneNumberResult.md)
+ - [NumbersV1EmbeddedSession](docs/NumbersV1EmbeddedSession.md)
+ - [NumbersV1CreateEmbeddedRegistrationResponse](docs/NumbersV1CreateEmbeddedRegistrationResponse.md)
  - [NumbersV1AvailablePhoneNumberCapabilities](docs/NumbersV1AvailablePhoneNumberCapabilities.md)
- - [NumbersV1AvailablePhoneNumber](docs/NumbersV1AvailablePhoneNumber.md)
+ - [NumbersV1CreateEmbeddedRegistrationRequest](docs/NumbersV1CreateEmbeddedRegistrationRequest.md)
  - [NumbersV1PortingPortInCreate](docs/NumbersV1PortingPortInCreate.md)
+ - [NumbersV1AvailablePhoneNumber](docs/NumbersV1AvailablePhoneNumber.md)
  - [NumbersV1AvailablePhoneNumberGeography](docs/NumbersV1AvailablePhoneNumberGeography.md)
  - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
  - [NumbersV1PortingPortInCreatePhoneNumbers](docs/NumbersV1PortingPortInCreatePhoneNumbers.md)
+ - [NumbersV1PortingBulkPhoneNumberUpdateDetail](docs/NumbersV1PortingBulkPhoneNumberUpdateDetail.md)
  - [NumbersV1PortingPortability](docs/NumbersV1PortingPortability.md)
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
  - [NumbersV1A2pRegistrationDetails](docs/NumbersV1A2pRegistrationDetails.md)
  - [ListPortInRequestsResponse](docs/ListPortInRequestsResponse.md)
+ - [NumbersV1CreateEmbeddedSessionRequest](docs/NumbersV1CreateEmbeddedSessionRequest.md)
  - [NumbersV1A2pBrandCampaignComplianceRegistrationSids](docs/NumbersV1A2pBrandCampaignComplianceRegistrationSids.md)
  - [NumbersV1A2pRegistrationDetailsFetch](docs/NumbersV1A2pRegistrationDetailsFetch.md)
+ - [NumbersV1PortingBulkUpdateStatusResponse](docs/NumbersV1PortingBulkUpdateStatusResponse.md)
  - [NumbersV1PortingLosingCarrierInformation](docs/NumbersV1PortingLosingCarrierInformation.md)
  - [NumbersV1PortInRequestList](docs/NumbersV1PortInRequestList.md)
- - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
+ - [NumbersV1PortingBulkUpdateStatusRequest](docs/NumbersV1PortingBulkUpdateStatusRequest.md)
  - [NumbersV1A2pRegistrationDetailsList](docs/NumbersV1A2pRegistrationDetailsList.md)
+ - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
+ - [NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests](docs/NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests.md)
  - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
  - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
  - [NumbersV1AvailablePhoneNumberCertifications](docs/NumbersV1AvailablePhoneNumberCertifications.md)
  - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
  - [NumbersV1PortingAddress](docs/NumbersV1PortingAddress.md)
+ - [CreateSenderIdRegistrationResponse](docs/CreateSenderIdRegistrationResponse.md)
  - [NumbersV1A2pRegistrationDetailsCampaignList](docs/NumbersV1A2pRegistrationDetailsCampaignList.md)
  - [NumbersV1AvailablePhoneNumberFlags](docs/NumbersV1AvailablePhoneNumberFlags.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
+ - [NumbersV1CreateEmbeddedSessionResponse](docs/NumbersV1CreateEmbeddedSessionResponse.md)
  - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
  - [NumbersV1AvailablePhoneNumberBilling](docs/NumbersV1AvailablePhoneNumberBilling.md)
  - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)

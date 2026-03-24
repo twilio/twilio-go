@@ -14,18 +14,46 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // CreateShortCodeApplicationResponse struct for CreateShortCodeApplicationResponse
 type CreateShortCodeApplicationResponse struct {
 	// The unique identifier of the Short Code Application.
 	Sid string `json:"sid,omitempty"`
-	// The Bundle SID for regulatory compliance.
-	BundleSid string `json:"bundle_sid,omitempty"`
 	// The Application Requirements SID.
 	ApplicationRequirementsSid string `json:"application_requirements_sid,omitempty"`
+	// The version of the application requirements.
+	ApplicationRequirementsVersion int `json:"application_requirements_version,omitempty"`
+	// The Account SID associated with the application.
+	AccountSid string `json:"account_sid,omitempty"`
+	// The Bundle SID for regulatory compliance.
+	BundleSid string `json:"bundle_sid,omitempty"`
+	// The reviewer of the application.
+	Reviewer string `json:"reviewer,omitempty"`
+	// The Zendesk ticket ID associated with the application.
+	ZendeskTicketId string `json:"zendesk_ticket_id,omitempty"`
 	// The friendly name of the application.
 	FriendlyName string `json:"friendly_name,omitempty"`
+	// The notification emails for the application.
+	NotificationEmails []string `json:"notification_emails,omitempty"`
 	// The ISO country code.
 	IsoCountry string `json:"iso_country,omitempty"`
 	// The state of the application.
-	State string `json:"state,omitempty"`
+	State               string                                                `json:"state,omitempty"`
+	Setup               CreateShortCodeApplicationResponseSetup               `json:"setup,omitempty"`
+	BusinessInformation CreateShortCodeApplicationResponseBusinessInformation `json:"business_information,omitempty"`
+	UserSignUp          CreateShortCodeApplicationResponseUserSignUp          `json:"user_sign_up,omitempty"`
+	ComplianceKeywords  CreateShortCodeApplicationResponseComplianceKeywords  `json:"compliance_keywords,omitempty"`
+	ContentExamples     CreateShortCodeApplicationResponseContentExamples     `json:"content_examples,omitempty"`
+	SmsCampaignDetails  CreateShortCodeApplicationResponseSmsCampaignDetails  `json:"sms_campaign_details,omitempty"`
+	// The date and time the application was created.
+	DateCreated time.Time `json:"date_created,omitempty"`
+	// The date and time the application was last updated.
+	DateUpdated time.Time `json:"date_updated,omitempty"`
+	// The identity of the user who created the application.
+	CreatedBy string `json:"created_by,omitempty"`
+	// The identity of the user who last updated the application.
+	UpdatedBy string `json:"updated_by,omitempty"`
 }

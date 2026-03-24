@@ -459,6 +459,104 @@ func (c *ApiService) getNextScimUserPage(nextPageUrl string) (interface{}, error
 	return ps, nil
 }
 
+// Optional parameters for the method 'PatchOrganizationUser'
+type PatchOrganizationUserParams struct {
+	//
+	IfMatch *string `json:"If-Match,omitempty"`
+	//
+	ScimPatchRequest *ScimPatchRequest `json:"ScimPatchRequest,omitempty"`
+}
+
+func (params *PatchOrganizationUserParams) SetIfMatch(IfMatch string) *PatchOrganizationUserParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *PatchOrganizationUserParams) SetScimPatchRequest(ScimPatchRequest ScimPatchRequest) *PatchOrganizationUserParams {
+	params.ScimPatchRequest = &ScimPatchRequest
+	return params
+}
+
+func (c *ApiService) PatchOrganizationUser(OrganizationSid string, Id string, params *PatchOrganizationUserParams) (*ScimUser, error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ScimPatchRequest != nil {
+		b, err := json.Marshal(*params.ScimPatchRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// PatchOrganizationUserWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PatchOrganizationUserWithMetadata(OrganizationSid string, Id string, params *PatchOrganizationUserParams) (*metadata.ResourceMetadata[ScimUser], error) {
+	path := "/Organizations/{OrganizationSid}/scim/Users/{Id}"
+	path = strings.Replace(path, "{"+"OrganizationSid"+"}", OrganizationSid, -1)
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ScimPatchRequest != nil {
+		b, err := json.Marshal(*params.ScimPatchRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ScimUser{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ScimUser](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'UpdateOrganizationUser'
 type UpdateOrganizationUserParams struct {
 	//

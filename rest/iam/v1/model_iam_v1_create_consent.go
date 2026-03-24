@@ -18,7 +18,7 @@ package openapi
 type IamV1CreateConsent struct {
 	CsrfToken             string   `json:"csrf_token"`
 	CsrfTokenSessionState string   `json:"csrf_token_session_state"`
-	RedirectUri           string   `json:"redirect_uri"`
+	RedirectUri           string   `json:"redirect_uri,omitempty"`
 	ClientSid             string   `json:"client_sid"`
 	VendorClientId        string   `json:"vendor_client_id"`
 	Response              string   `json:"response"`

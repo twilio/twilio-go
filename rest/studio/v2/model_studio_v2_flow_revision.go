@@ -24,6 +24,8 @@ type StudioV2FlowRevision struct {
 	Sid *string `json:"sid,omitempty"`
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
 	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the User that created or last updated the Flow.
+	AuthorSid *string `json:"author_sid,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// JSON representation of flow definition.

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sid** | Pointer to **string** | The unique string that we created to identify the Flow resource. |
 **AccountSid** | Pointer to **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource. |
+**AuthorSid** | Pointer to **string** | The SID of the User that created or last updated the Flow. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Flow. |
 **Definition** | Pointer to **interface{}** | JSON representation of flow definition. |
 **Status** | Pointer to [**string**](FlowEnumStatus.md) |  |

@@ -110,6 +110,11 @@ Other parameters are passed through a pointer to a ListShortCodeApplicationsPara
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**AccountSid** | **string** | The Account SID to filter by.
+**IsoCountry** | **string** | The ISO country to filter by.
+**Status** | **string** | The application status to filter by.
+**FriendlyName** | **string** | The friendly name to filter by.
+**Sid** | **string** | The application SID to filter by.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 50.
 **Limit** | **int** | Max number of records to return.
 

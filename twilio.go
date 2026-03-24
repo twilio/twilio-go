@@ -33,6 +33,7 @@ import (
 	IamScim "github.com/twilio/twilio-go/rest/iam/scim"
 	IamV1 "github.com/twilio/twilio-go/rest/iam/v1"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
+	InsightsV2 "github.com/twilio/twilio-go/rest/insights/v2"
 	IntelligenceV2 "github.com/twilio/twilio-go/rest/intelligence/v2"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
@@ -93,6 +94,7 @@ type RestClient struct {
 	IamScim                *IamScim.ApiService
 	IamV1                  *IamV1.ApiService
 	InsightsV1             *InsightsV1.ApiService
+	InsightsV2             *InsightsV2.ApiService
 	IntelligenceV2         *IntelligenceV2.ApiService
 	IpMessagingV1          *IpMessagingV1.ApiService
 	IpMessagingV2          *IpMessagingV2.ApiService
@@ -229,6 +231,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.IamScim = IamScim.NewApiService(c.RequestHandler)
 	c.IamV1 = IamV1.NewApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
+	c.InsightsV2 = InsightsV2.NewApiService(c.RequestHandler)
 	c.IntelligenceV2 = IntelligenceV2.NewApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **MessagingServiceSid** | Pointer to **string** | Messaging Service Sid that the number is associated with |
 **ExternalCampaignId** | Pointer to **string** | The identifier for a campaign in the registrar. Typically, this is the TCR Campaign Id. |
 **LastUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time when the A2P registration details were last updated |
-**BrandSid** | Pointer to **string** | Sid associated with campaign's brand |
+**BrandRegistrationSid** | Pointer to **string** | Sid associated with campaign's brand |
 **ExternalBrandId** | Pointer to **string** | The external brand identifier (e.g., TCR Brand ID) |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

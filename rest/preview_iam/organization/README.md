@@ -41,6 +41,7 @@ Class | Method | HTTP request | Description
 *ScimUsersApi* | [**DeleteOrganizationUser**](docs/ScimUsersApi.md#deleteorganizationuser) | **Delete** /Organizations/{OrganizationSid}/scim/Users/{Id} | Delete SCIM User
 *ScimUsersApi* | [**FetchOrganizationUser**](docs/ScimUsersApi.md#fetchorganizationuser) | **Get** /Organizations/{OrganizationSid}/scim/Users/{Id} | Get SCIM User
 *ScimUsersApi* | [**ListOrganizationUsers**](docs/ScimUsersApi.md#listorganizationusers) | **Get** /Organizations/{OrganizationSid}/scim/Users | List SCIM Users
+*ScimUsersApi* | [**PatchOrganizationUser**](docs/ScimUsersApi.md#patchorganizationuser) | **Patch** /Organizations/{OrganizationSid}/scim/Users/{Id} | Patch SCIM User
 *ScimUsersApi* | [**UpdateOrganizationUser**](docs/ScimUsersApi.md#updateorganizationuser) | **Put** /Organizations/{OrganizationSid}/scim/Users/{Id} | Update SCIM User
 
 

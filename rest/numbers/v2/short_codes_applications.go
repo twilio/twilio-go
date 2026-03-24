@@ -165,12 +165,42 @@ func (c *ApiService) FetchShortCodeApplicationWithMetadata(Sid string) (*metadat
 
 // Optional parameters for the method 'ListShortCodeApplications'
 type ListShortCodeApplicationsParams struct {
+	// The Account SID to filter by.
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The ISO country to filter by.
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The application status to filter by.
+	Status *string `json:"Status,omitempty"`
+	// The friendly name to filter by.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The application SID to filter by.
+	Sid *string `json:"Sid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 50.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListShortCodeApplicationsParams) SetAccountSid(AccountSid string) *ListShortCodeApplicationsParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *ListShortCodeApplicationsParams) SetIsoCountry(IsoCountry string) *ListShortCodeApplicationsParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListShortCodeApplicationsParams) SetStatus(Status string) *ListShortCodeApplicationsParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListShortCodeApplicationsParams) SetFriendlyName(FriendlyName string) *ListShortCodeApplicationsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListShortCodeApplicationsParams) SetSid(Sid string) *ListShortCodeApplicationsParams {
+	params.Sid = &Sid
+	return params
+}
 func (params *ListShortCodeApplicationsParams) SetPageSize(PageSize int) *ListShortCodeApplicationsParams {
 	params.PageSize = &PageSize
 	return params
@@ -189,6 +219,21 @@ func (c *ApiService) PageShortCodeApplications(params *ListShortCodeApplications
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -224,6 +269,21 @@ func (c *ApiService) PageShortCodeApplicationsWithMetadata(params *ListShortCode
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

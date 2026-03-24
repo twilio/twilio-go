@@ -87,6 +87,7 @@ Class | Method | HTTP request | Description
  - [IamV1Operation](docs/IamV1Operation.md)
  - [IamV1UserPatchRequest](docs/IamV1UserPatchRequest.md)
  - [IamV1MfaInfo](docs/IamV1MfaInfo.md)
+ - [IamV1ManagedAccountOrganizationResponse](docs/IamV1ManagedAccountOrganizationResponse.md)
  - [IamV1ImportUsersRun](docs/IamV1ImportUsersRun.md)
  - [IamV1Vendoroauthapp](docs/IamV1Vendoroauthapp.md)
  - [IamV1UserInvitation](docs/IamV1UserInvitation.md)

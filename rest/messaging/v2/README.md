@@ -42,19 +42,22 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [ListChannelsSenderResponse](docs/ListChannelsSenderResponse.md)
- - [MessagingV2Configuration](docs/MessagingV2Configuration.md)
  - [MessagingV2RcsComplianceCountryResponse](docs/MessagingV2RcsComplianceCountryResponse.md)
- - [MessagingV2Items](docs/MessagingV2Items.md)
  - [MessagingV2Webhook](docs/MessagingV2Webhook.md)
+ - [MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers](docs/MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.md)
+ - [MessagingV2ChannelsSenderProfileGenericResponseEmails](docs/MessagingV2ChannelsSenderProfileGenericResponseEmails.md)
+ - [MessagingV2RcsCompliancePatchUpdateResponse](docs/MessagingV2RcsCompliancePatchUpdateResponse.md)
+ - [ListChannelsSenderResponse](docs/ListChannelsSenderResponse.md)
+ - [MessagingV2Response](docs/MessagingV2Response.md)
+ - [MessagingV2Configuration](docs/MessagingV2Configuration.md)
+ - [MessagingV2Items](docs/MessagingV2Items.md)
  - [MessagingV2ChannelsSenderResponse](docs/MessagingV2ChannelsSenderResponse.md)
  - [MessagingV2RcsCarrierStatus](docs/MessagingV2RcsCarrierStatus.md)
+ - [MessagingV2Request](docs/MessagingV2Request.md)
  - [MessagingV2Create](docs/MessagingV2Create.md)
  - [MessagingV2RcsComplianceResponse](docs/MessagingV2RcsComplianceResponse.md)
- - [MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers](docs/MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.md)
  - [MessagingV2Update](docs/MessagingV2Update.md)
  - [MessagingV2Profile](docs/MessagingV2Profile.md)
- - [MessagingV2ChannelsSenderProfileGenericResponseEmails](docs/MessagingV2ChannelsSenderProfileGenericResponseEmails.md)
  - [CreateTypingIndicatorResponse](docs/CreateTypingIndicatorResponse.md)
  - [MessagingV2RcsCountryStatus](docs/MessagingV2RcsCountryStatus.md)
  - [MessagingV2DomainCertV4](docs/MessagingV2DomainCertV4.md)
@@ -63,7 +66,6 @@ Class | Method | HTTP request | Description
  - [MessagingV2ChannelsSenderProfileGenericResponseWebsites](docs/MessagingV2ChannelsSenderProfileGenericResponseWebsites.md)
  - [MessagingV2RcsCarrier](docs/MessagingV2RcsCarrier.md)
  - [MessagingV2Properties](docs/MessagingV2Properties.md)
- - [MessagingV2RcsCompliancePatchUpdateResponse](docs/MessagingV2RcsCompliancePatchUpdateResponse.md)
  - [MessagingV2RcsComplianceCountryUpdatePatchResponse](docs/MessagingV2RcsComplianceCountryUpdatePatchResponse.md)
 
 

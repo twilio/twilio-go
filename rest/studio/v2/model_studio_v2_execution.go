@@ -28,6 +28,10 @@ type StudioV2Execution struct {
 	FlowSid *string `json:"flow_sid,omitempty"`
 	// The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
 	ContactChannelAddress *string `json:"contact_channel_address,omitempty"`
+	// The SID of the Contact.
+	ContactSid *string `json:"contact_sid,omitempty"`
+	// The Flow version number at the time of Execution creation.
+	FlowVersion *int `json:"flow_version,omitempty"`
 	// The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
 	Context *interface{} `json:"context,omitempty"`
 	Status  *string      `json:"status,omitempty"`

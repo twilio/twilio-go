@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CsrfToken** | **string** |  |
 **CsrfTokenSessionState** | **string** |  |
-**RedirectUri** | **string** |  |
+**RedirectUri** | **string** |  |[optional] 
 **ClientSid** | **string** |  |
 **VendorClientId** | **string** |  |
 **Response** | **string** |  |

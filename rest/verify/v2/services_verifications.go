@@ -31,7 +31,7 @@ type CreateVerificationParams struct {
 	Channel *string `json:"Channel,omitempty"`
 	// A custom user defined friendly name that overwrites the existing one in the verification message
 	CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`
-	// The text of a custom message to use for the verification.
+	// The text of a custom message to use for the verification [DEPRECATED].
 	CustomMessage *string `json:"CustomMessage,omitempty"`
 	// The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
 	SendDigits *string `json:"SendDigits,omitempty"`

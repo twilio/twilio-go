@@ -17,7 +17,7 @@ package openapi
 // NumbersV2A2pBrandSids struct for NumbersV2A2pBrandSids
 type NumbersV2A2pBrandSids struct {
 	// Sid associated with campaign's brand
-	BrandSid *string `json:"brandSid,omitempty"`
+	BrandRegistrationSid *string `json:"brandRegistrationSid,omitempty"`
 	// The external brand identifier (e.g., TCR Brand ID)
 	ExternalBrandId *string `json:"externalBrandId,omitempty"`
 }

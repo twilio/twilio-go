@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-// NumbersV2A2pRegistrationDetailsFetch Single A2P registration details response including brand and campaign compliance registration SIDs
+// NumbersV2A2pRegistrationDetailsFetch Single A2P registration details response including brand and campaign identifiers
 type NumbersV2A2pRegistrationDetailsFetch struct {
 	// Account Sid that the phone number belongs to in Twilio. This is only returned for phone numbers that already exist in Twilio's inventory and belong to your account or sub account.
 	AccountSid string `json:"accountSid"`
@@ -35,7 +35,7 @@ type NumbersV2A2pRegistrationDetailsFetch struct {
 	// The date and time when the A2P registration details were last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Sid associated with campaign's brand
-	BrandSid *string `json:"brandSid,omitempty"`
+	BrandRegistrationSid *string `json:"brandRegistrationSid,omitempty"`
 	// The external brand identifier (e.g., TCR Brand ID)
 	ExternalBrandId *string `json:"externalBrandId,omitempty"`
 }

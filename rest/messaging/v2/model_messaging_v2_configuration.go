@@ -24,4 +24,6 @@ type MessagingV2Configuration struct {
 	VerificationCode *string `json:"verification_code,omitempty"`
 	// The SID of the Twilio Voice application.
 	VoiceApplicationSid *string `json:"voice_application_sid,omitempty"`
+	// The account type for ISV Account Type Migration. Set to 'ISV' or 'ISVSubAccount' to configure, null or empty string to clear, or omit to preserve the existing value.
+	AccountType *string `json:"account_type,omitempty"`
 }
