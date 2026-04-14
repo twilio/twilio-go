@@ -38,6 +38,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [FlexV2Instance](docs/FlexV2Instance.md)
  - [FlexV2FlexUser](docs/FlexV2FlexUser.md)
  - [FlexV2WebChannel](docs/FlexV2WebChannel.md)
 

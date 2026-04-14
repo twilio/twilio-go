@@ -84,7 +84,6 @@ Class | Method | HTTP request | Description
  - [NumbersV1AvailablePhoneNumberCertifications](docs/NumbersV1AvailablePhoneNumberCertifications.md)
  - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
  - [NumbersV1PortingAddress](docs/NumbersV1PortingAddress.md)
- - [CreateSenderIdRegistrationResponse](docs/CreateSenderIdRegistrationResponse.md)
  - [NumbersV1A2pRegistrationDetailsCampaignList](docs/NumbersV1A2pRegistrationDetailsCampaignList.md)
  - [NumbersV1AvailablePhoneNumberFlags](docs/NumbersV1AvailablePhoneNumberFlags.md)
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Sso** | **bool** | Whether the user has SSO enabled |[optional] 
 **OrganizationSid** | **string** | Unique Twilio organization sid |[optional] 
 **OrganizationFriendlyName** | **string** | Organization friendly name |[optional] 
+**CurrentAccountSid** | **string** | Unique Twilio account sid |[optional] 
 **TimeZone** | **string** | User time zone |[optional] 
 **SocialConnections** | [**[]IamV1SocialConnection**](IamV1SocialConnection.md) | List of social connections associated with the user |[optional] 
 

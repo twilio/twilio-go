@@ -39,6 +39,7 @@ Class | Method | HTTP request | Description
 *KeysApi* | [**FetchKey**](docs/KeysApi.md#fetchkey) | **Get** /v1/Keys/{Sid} | 
 *KeysApi* | [**ListGetKeys**](docs/KeysApi.md#listgetkeys) | **Get** /v1/Keys | 
 *KeysApi* | [**UpdateKey**](docs/KeysApi.md#updatekey) | **Post** /v1/Keys/{Sid} | 
+*RolesPermissionsApi* | [**ListRolePermission**](docs/RolesPermissionsApi.md#listrolepermission) | **Get** /v1/Roles/{RoleSid}/Permissions | 
 *TokenApi* | [**CreateToken**](docs/TokenApi.md#createtoken) | **Post** /v1/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
@@ -53,7 +54,6 @@ Class | Method | HTTP request | Description
  - [IamV1VendorOauthAppCreateUpdateResponse](docs/IamV1VendorOauthAppCreateUpdateResponse.md)
  - [IamV1ChallengeMethod](docs/IamV1ChallengeMethod.md)
  - [IamV1CreateDomainResponse](docs/IamV1CreateDomainResponse.md)
- - [UpdateOauthAppAccountResponse](docs/UpdateOauthAppAccountResponse.md)
  - [IamV1EmailChangeInitiateRequest](docs/IamV1EmailChangeInitiateRequest.md)
  - [IamV1Domain](docs/IamV1Domain.md)
  - [IamV1CreateConsent](docs/IamV1CreateConsent.md)
@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
  - [IamV1User](docs/IamV1User.md)
  - [IamV1AccountSearchRequest](docs/IamV1AccountSearchRequest.md)
  - [IamV1NewKey](docs/IamV1NewKey.md)
+ - [ListRolePermissionResponse](docs/ListRolePermissionResponse.md)
  - [IamV1CreateAccountRequest](docs/IamV1CreateAccountRequest.md)
  - [IamV1CreateSubaccountRequest](docs/IamV1CreateSubaccountRequest.md)
  - [IamV1EmailChangeResendRequest](docs/IamV1EmailChangeResendRequest.md)
@@ -96,6 +97,7 @@ Class | Method | HTTP request | Description
  - [IamV1OperationMeta](docs/IamV1OperationMeta.md)
  - [IamV1AccountSearchAccount](docs/IamV1AccountSearchAccount.md)
  - [IamV1OrganizationFeatures](docs/IamV1OrganizationFeatures.md)
+ - [IamV1RolePermission](docs/IamV1RolePermission.md)
  - [IamV1InvitedUser](docs/IamV1InvitedUser.md)
  - [IamV1VendorOauthAppUpdateRequest](docs/IamV1VendorOauthAppUpdateRequest.md)
  - [IamV1UserPatchResponse](docs/IamV1UserPatchResponse.md)

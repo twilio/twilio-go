@@ -20,8 +20,8 @@ import (
 
 // InsightsV2CreateAccountReportRequestTimeRange Optional start and end date time for the report window. Defaults to the most recent 7 days when omitted.
 type InsightsV2CreateAccountReportRequestTimeRange struct {
-	// Start time of the report
-	StartTime time.Time `json:"start_time,omitempty"`
-	// End time of the report
-	EndTime time.Time `json:"end_time,omitempty"`
+	// Start date time of the report
+	StartDatetime time.Time `json:"start_datetime,omitempty"`
+	// End date time of the report
+	EndDatetime time.Time `json:"end_datetime,omitempty"`
 }

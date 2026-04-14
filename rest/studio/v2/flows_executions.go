@@ -244,6 +244,8 @@ func (c *ApiService) FetchExecutionWithMetadata(FlowSid string, Sid string) (*me
 
 // Optional parameters for the method 'ListExecution'
 type ListExecutionParams struct {
+	// Only show Execution resources with the given status. Can be: `active` or `ended`.
+	Status *string `json:"status,omitempty"`
 	// Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
 	DateCreatedFrom *time.Time `json:"DateCreatedFrom,omitempty"`
 	// Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
@@ -254,6 +256,10 @@ type ListExecutionParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListExecutionParams) SetStatus(Status string) *ListExecutionParams {
+	params.Status = &Status
+	return params
+}
 func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
 	params.DateCreatedFrom = &DateCreatedFrom
 	return params
@@ -282,6 +288,9 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.Status != nil {
+		data.Set("status", fmt.Sprint(*params.Status))
+	}
 	if params != nil && params.DateCreatedFrom != nil {
 		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
 	}
@@ -325,6 +334,9 @@ func (c *ApiService) PageExecutionWithMetadata(FlowSid string, params *ListExecu
 		"Content-Type": "application/x-www-form-urlencoded",
 	}
 
+	if params != nil && params.Status != nil {
+		data.Set("status", fmt.Sprint(*params.Status))
+	}
 	if params != nil && params.DateCreatedFrom != nil {
 		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
 	}

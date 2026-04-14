@@ -118,6 +118,7 @@ Class | Method | HTTP request | Description
  - [CreateSenderIdRegistration](docs/CreateSenderIdRegistration.md)
  - [CreateShortCodeApplicationResponseUserSignUp](docs/CreateShortCodeApplicationResponseUserSignUp.md)
  - [NumbersV2Bundle](docs/NumbersV2Bundle.md)
+ - [ShortCodeApplicationDocument](docs/ShortCodeApplicationDocument.md)
  - [NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities](docs/NumbersV2AuthorizationDocumentDependentHostedNumberOrderCapabilities.md)
  - [NumbersV2BundleCopy](docs/NumbersV2BundleCopy.md)
  - [ListBundleCopyResponse](docs/ListBundleCopyResponse.md)

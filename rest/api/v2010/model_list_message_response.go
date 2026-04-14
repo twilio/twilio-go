@@ -16,7 +16,6 @@ package openapi
 
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
-	Messages        []ApiV2010Message `json:"messages,omitempty"`
 	End             int               `json:"end,omitempty"`
 	FirstPageUri    string            `json:"first_page_uri,omitempty"`
 	NextPageUri     *string           `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListMessageResponse struct {
 	PreviousPageUri *string           `json:"previous_page_uri,omitempty"`
 	Start           int               `json:"start,omitempty"`
 	Uri             string            `json:"uri,omitempty"`
+	Messages        []ApiV2010Message `json:"messages,omitempty"`
 }

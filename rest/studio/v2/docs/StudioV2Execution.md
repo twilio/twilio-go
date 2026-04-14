@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to [**string**](ExecutionEnumStatus.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. |
+**InitiatedBy** | Pointer to **string** | The SID or identifier that triggered this Execution. For example, a Call SID if triggered by an incoming call, a Message SID if triggered by an incoming message, a Request SID if triggered by a REST API request, and so on. |
 **Url** | Pointer to **string** | The absolute URL of the resource. |
 **Links** | Pointer to **map[string]interface{}** | The URLs of nested resources. |
 

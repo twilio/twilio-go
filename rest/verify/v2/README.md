@@ -112,7 +112,6 @@ Class | Method | HTTP request | Description
  - [ListRateLimitResponse](docs/ListRateLimitResponse.md)
  - [ListFactorResponse](docs/ListFactorResponse.md)
  - [ListVerificationTemplateResponse](docs/ListVerificationTemplateResponse.md)
- - [CreateVerificationResponse](docs/CreateVerificationResponse.md)
  - [VerifyPasskeysFactorRequest](docs/VerifyPasskeysFactorRequest.md)
  - [CreatePasskeysChallengeRequest](docs/CreatePasskeysChallengeRequest.md)
  - [VerifyV2MessagingConfiguration](docs/VerifyV2MessagingConfiguration.md)

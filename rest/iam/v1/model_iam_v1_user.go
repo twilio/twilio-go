@@ -32,6 +32,8 @@ type IamV1User struct {
 	OrganizationSid string `json:"organizationSid,omitempty"`
 	// Organization friendly name
 	OrganizationFriendlyName string `json:"organizationFriendlyName,omitempty"`
+	// Unique Twilio account sid
+	CurrentAccountSid string `json:"currentAccountSid,omitempty"`
 	// User time zone
 	TimeZone string `json:"timeZone,omitempty"`
 	// List of social connections associated with the user

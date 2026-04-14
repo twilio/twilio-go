@@ -20,8 +20,6 @@ import (
 
 // CreateChallengePasskeysResponse struct for CreateChallengePasskeysResponse
 type CreateChallengePasskeysResponse struct {
-	// An object that contains challenge options. Currently only used for `passkeys`.
-	Options map[string]interface{} `json:"options,omitempty"`
 	// A 34 character string that uniquely identifies this Challenge.
 	Sid *string `json:"sid,omitempty"`
 	// The unique SID identifier of the Account.
@@ -58,4 +56,6 @@ type CreateChallengePasskeysResponse struct {
 	Url *string `json:"url,omitempty"`
 	// Contains a dictionary of URL links to nested resources of this Challenge.
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// An object that contains challenge options. Currently only used for `passkeys`.
+	Options map[string]interface{} `json:"options,omitempty"`
 }

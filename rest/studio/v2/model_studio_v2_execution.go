@@ -39,6 +39,8 @@ type StudioV2Execution struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The SID or identifier that triggered this Execution. For example, a Call SID if triggered by an incoming call, a Message SID if triggered by an incoming message, a Request SID if triggered by a REST API request, and so on.
+	InitiatedBy *string `json:"initiated_by,omitempty"`
 	// The absolute URL of the resource.
 	Url *string `json:"url,omitempty"`
 	// The URLs of nested resources.

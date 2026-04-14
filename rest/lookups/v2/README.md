@@ -54,7 +54,6 @@ Class | Method | HTTP request | Description
  - [OverridesRequest](docs/OverridesRequest.md)
  - [CallForwardingInfo](docs/CallForwardingInfo.md)
  - [JobStatus](docs/JobStatus.md)
- - [FetchLookupAccountRateLimitsResponse](docs/FetchLookupAccountRateLimitsResponse.md)
  - [ReassignedNumberInfo](docs/ReassignedNumberInfo.md)
  - [ValidationError](docs/ValidationError.md)
  - [LookupResponse1](docs/LookupResponse1.md)

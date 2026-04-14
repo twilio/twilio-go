@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Options** | **map[string]interface{}** | An object that contains challenge options. Currently only used for `passkeys`. |[optional] 
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this Challenge. |
 **AccountSid** | Pointer to **string** | The unique SID identifier of the Account. |
 **ServiceSid** | Pointer to **string** | The unique SID identifier of the Service. |
@@ -23,6 +22,7 @@ Name | Type | Description | Notes
 **FactorType** | **string** | The Factor Type of this Challenge. Currently `push` and `totp` are supported. |[optional] 
 **Url** | Pointer to **string** | The URL of this resource. |
 **Links** | Pointer to **map[string]interface{}** | Contains a dictionary of URL links to nested resources of this Challenge. |
+**Options** | **map[string]interface{}** | An object that contains challenge options. Currently only used for `passkeys`. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

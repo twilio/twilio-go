@@ -32,4 +32,6 @@ type CreateRegistrationRequest struct {
 	FriendlyName string `json:"friendly_name"`
 	// Bundle SID of customer's profile
 	CustomerProfileBundleSid string `json:"customer_profile_bundle_sid"`
+	// ISV opt-in consent flag. Defaults to true if not provided. Only rejected when explicitly set to false for ISV customers registering in Australia.
+	IsvOptInConsent bool `json:"isv_opt_in_consent,omitempty"`
 }

@@ -2230,6 +2230,11 @@ type VoiceConversationRelay struct {
 	// elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
 	// interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
 	// debug: Multiple debug options to be used for troubleshooting
+	// backgroundNoiseReduction: This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments
+	// speechTimeout: Set the duration of silence that indicates the end of speech
+	// deepgramSmartFormat: This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts
+	// ignoreBackchannel: This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking.
+	// events: This parameter allows you to enable event subscriptions
 	// OptionalAttributes: additional attributes
 	Url                          string
 	Language                     string
@@ -2252,6 +2257,11 @@ type VoiceConversationRelay struct {
 	ElevenlabsTextNormalization  string
 	InterruptSensitivity         string
 	Debug                        string
+	Backgroundnoisereduction     string
+	Speechtimeout                string
+	Deepgramsmartformat          string
+	Ignorebackchannel            string
+	Events                       string
 	InnerElements                []Element
 	OptionalAttributes           map[string]string
 }
@@ -2287,6 +2297,11 @@ func (m VoiceConversationRelay) GetAttr() (map[string]string, map[string]string)
 		"ElevenlabsTextNormalization":  m.ElevenlabsTextNormalization,
 		"InterruptSensitivity":         m.InterruptSensitivity,
 		"Debug":                        m.Debug,
+		"Backgroundnoisereduction":     m.Backgroundnoisereduction,
+		"Speechtimeout":                m.Speechtimeout,
+		"Deepgramsmartformat":          m.Deepgramsmartformat,
+		"Ignorebackchannel":            m.Ignorebackchannel,
+		"Events":                       m.Events,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

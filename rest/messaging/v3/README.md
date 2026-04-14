@@ -31,6 +31,7 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*IndicatorsTypingApi* | [**CreateV3TypingIndicator**](docs/IndicatorsTypingApi.md#createv3typingindicator) | **Post** /v3/Indicators/Typing.json | Send a typing indicator
 
 
 ## Documentation For Models
@@ -39,14 +40,18 @@ Class | Method | HTTP request | Description
  - [KeywordItem](docs/KeywordItem.md)
  - [MessageTypesResponse](docs/MessageTypesResponse.md)
  - [OptOutDefaultKeywordMessageResponse](docs/OptOutDefaultKeywordMessageResponse.md)
+ - [CreateV3TypingIndicatorResponse](docs/CreateV3TypingIndicatorResponse.md)
  - [MessagesResponse](docs/MessagesResponse.md)
  - [OptOutKeywordsEntity](docs/OptOutKeywordsEntity.md)
  - [KeywordTypeConfig](docs/KeywordTypeConfig.md)
  - [OptOutDefaultKeywordMessageResponseDefaultKeywords](docs/OptOutDefaultKeywordMessageResponseDefaultKeywords.md)
  - [KeywordsResponse](docs/KeywordsResponse.md)
  - [SupportedMessageTypes](docs/SupportedMessageTypes.md)
+ - [WhatsAppTypingIndicatorRequest](docs/WhatsAppTypingIndicatorRequest.md)
+ - [AppleTypingIndicatorRequest](docs/AppleTypingIndicatorRequest.md)
  - [LocaleResponse](docs/LocaleResponse.md)
  - [MessageProperties](docs/MessageProperties.md)
+ - [TypingIndicatorRequest](docs/TypingIndicatorRequest.md)
  - [KeywordConfiguration](docs/KeywordConfiguration.md)
  - [OptOutConfig](docs/OptOutConfig.md)
  - [LanguageProperties](docs/LanguageProperties.md)

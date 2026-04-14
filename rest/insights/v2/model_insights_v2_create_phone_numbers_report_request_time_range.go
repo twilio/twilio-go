@@ -20,8 +20,8 @@ import (
 
 // InsightsV2CreatePhoneNumbersReportRequestTimeRange struct for InsightsV2CreatePhoneNumbersReportRequestTimeRange
 type InsightsV2CreatePhoneNumbersReportRequestTimeRange struct {
-	// Start time of the report
-	StartTime time.Time `json:"start_time,omitempty"`
-	// End time of the report
-	EndTime time.Time `json:"end_time,omitempty"`
+	// Start date time of the report
+	StartDatetime time.Time `json:"start_datetime,omitempty"`
+	// End date time of the report
+	EndDatetime time.Time `json:"end_datetime,omitempty"`
 }

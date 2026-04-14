@@ -16,7 +16,6 @@ package openapi
 
 // ListSipCredentialListResponse struct for ListSipCredentialListResponse
 type ListSipCredentialListResponse struct {
-	CredentialLists []ApiV2010SipCredentialList `json:"credential_lists,omitempty"`
 	End             int                         `json:"end,omitempty"`
 	FirstPageUri    string                      `json:"first_page_uri,omitempty"`
 	NextPageUri     *string                     `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListSipCredentialListResponse struct {
 	PreviousPageUri *string                     `json:"previous_page_uri,omitempty"`
 	Start           int                         `json:"start,omitempty"`
 	Uri             string                      `json:"uri,omitempty"`
+	CredentialLists []ApiV2010SipCredentialList `json:"credential_lists,omitempty"`
 }

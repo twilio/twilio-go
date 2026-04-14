@@ -16,7 +16,6 @@ package openapi
 
 // ListConferenceResponse struct for ListConferenceResponse
 type ListConferenceResponse struct {
-	Conferences     []ApiV2010Conference `json:"conferences,omitempty"`
 	End             int                  `json:"end,omitempty"`
 	FirstPageUri    string               `json:"first_page_uri,omitempty"`
 	NextPageUri     *string              `json:"next_page_uri,omitempty"`
@@ -25,4 +24,5 @@ type ListConferenceResponse struct {
 	PreviousPageUri *string              `json:"previous_page_uri,omitempty"`
 	Start           int                  `json:"start,omitempty"`
 	Uri             string               `json:"uri,omitempty"`
+	Conferences     []ApiV2010Conference `json:"conferences,omitempty"`
 }
