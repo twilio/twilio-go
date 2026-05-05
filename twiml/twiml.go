@@ -50,7 +50,7 @@ func addPropertyToElement(treeElement *etree.Element, text string, optAttr map[s
 		treeElement.SetText(text)
 	}
 
-	for _, attr := range []map[string]string{paramAttr, optAttr} {
+	for _, attr := range []map[string]string{optAttr, paramAttr} {
 		for k, v := range attr {
 			if v != "" {
 				treeElement.CreateAttr(formatAttrKey(k), v)
