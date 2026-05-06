@@ -60,7 +60,7 @@ type CreateRealtimeTranscriptionParams struct {
 	// The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
 	ConversationId *string `json:"ConversationId,omitempty"`
 	// The ID of the RealTimeTranscription Configuration for configuring all the non-default behaviors in one go.
-	ConfigurationId *string `json:"ConfigurationId,omitempty"`
+	TranscriptionConfigurationId *string `json:"TranscriptionConfigurationId,omitempty"`
 	// Whether the callback includes raw provider data.
 	EnableProviderData *bool `json:"EnableProviderData,omitempty"`
 }
@@ -133,8 +133,8 @@ func (params *CreateRealtimeTranscriptionParams) SetConversationId(ConversationI
 	params.ConversationId = &ConversationId
 	return params
 }
-func (params *CreateRealtimeTranscriptionParams) SetConfigurationId(ConfigurationId string) *CreateRealtimeTranscriptionParams {
-	params.ConfigurationId = &ConfigurationId
+func (params *CreateRealtimeTranscriptionParams) SetTranscriptionConfigurationId(TranscriptionConfigurationId string) *CreateRealtimeTranscriptionParams {
+	params.TranscriptionConfigurationId = &TranscriptionConfigurationId
 	return params
 }
 func (params *CreateRealtimeTranscriptionParams) SetEnableProviderData(EnableProviderData bool) *CreateRealtimeTranscriptionParams {
@@ -205,8 +205,8 @@ func (c *ApiService) CreateRealtimeTranscription(CallSid string, params *CreateR
 	if params != nil && params.ConversationId != nil {
 		data.Set("ConversationId", *params.ConversationId)
 	}
-	if params != nil && params.ConfigurationId != nil {
-		data.Set("ConfigurationId", *params.ConfigurationId)
+	if params != nil && params.TranscriptionConfigurationId != nil {
+		data.Set("TranscriptionConfigurationId", *params.TranscriptionConfigurationId)
 	}
 	if params != nil && params.EnableProviderData != nil {
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))
@@ -290,8 +290,8 @@ func (c *ApiService) CreateRealtimeTranscriptionWithMetadata(CallSid string, par
 	if params != nil && params.ConversationId != nil {
 		data.Set("ConversationId", *params.ConversationId)
 	}
-	if params != nil && params.ConfigurationId != nil {
-		data.Set("ConfigurationId", *params.ConfigurationId)
+	if params != nil && params.TranscriptionConfigurationId != nil {
+		data.Set("TranscriptionConfigurationId", *params.TranscriptionConfigurationId)
 	}
 	if params != nil && params.EnableProviderData != nil {
 		data.Set("EnableProviderData", fmt.Sprint(*params.EnableProviderData))

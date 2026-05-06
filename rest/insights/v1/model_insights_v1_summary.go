@@ -38,28 +38,28 @@ type InsightsV1Summary struct {
 	Duration *int `json:"duration,omitempty"`
 	// Duration between when the call was answered and when it ended
 	ConnectDuration *int `json:"connect_duration,omitempty"`
-	// The calling party.
+	// `object` The calling party. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#tofrom-object) for the object properties.
 	From *interface{} `json:"from,omitempty"`
-	// The called party.
+	// `object` The called party. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#tofrom-object) for the object properties.
 	To *interface{} `json:"to,omitempty"`
-	// Contains metrics and properties for the Twilio media gateway of a PSTN call.
+	// `object` Contains metrics and properties for the Twilio media gateway of a PSTN call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	CarrierEdge *interface{} `json:"carrier_edge,omitempty"`
-	// Contains metrics and properties for the Twilio media gateway of a Client call.
+	// `object` Contains metrics and properties for the Twilio media gateway of a Client call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	ClientEdge *interface{} `json:"client_edge,omitempty"`
-	// Contains metrics and properties for the SDK sensor library for Client calls.
+	// `object` Contains metrics and properties for the SDK sensor library for Client calls. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
-	// Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+	// `object` Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	SipEdge *interface{} `json:"sip_edge,omitempty"`
 	// Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
 	Tags *[]string `json:"tags,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// Attributes capturing call-flow-specific details.
+	// `object` Attributes capturing call-flow-specific details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#attributes-object) for the object properties.
 	Attributes *interface{} `json:"attributes,omitempty"`
-	// Contains edge-agnostic call-level details.
+	// `object` Contains edge-agnostic call-level details. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#properties-object) for the object properties.
 	Properties *interface{} `json:"properties,omitempty"`
-	// Contains trusted communications details including Branded Call and verified caller ID.
+	// `object` Contains trusted communications details including Branded Call and verified caller ID. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#trust-object) for the object properties.
 	Trust *interface{} `json:"trust,omitempty"`
-	// Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
+	// `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
 	Annotation *interface{} `json:"annotation,omitempty"`
 }

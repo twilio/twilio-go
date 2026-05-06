@@ -24,4 +24,8 @@ type PublicApiRoleAssignmentResponse struct {
 	Scope string `json:"scope,omitempty"`
 	// Twilio Sid representing scope of this assignment
 	Identity string `json:"identity,omitempty"`
+	// The resource type for resource-level role assignments
+	ResourceType *string `json:"resource_type,omitempty"`
+	// The resource id for resource-level role assignments
+	ResourceId *string `json:"resource_id,omitempty"`
 }

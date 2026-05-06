@@ -122,6 +122,8 @@ Name | Type | Description
 **PageSize** | **int** | 
 **Identity** | **string** | 
 **Scope** | **string** | 
+**ResourceType** | **string** | Filter by resource type for resource-level role assignments
+**ResourceId** | **string** | Filter by resource id for resource-level role assignments
 **Limit** | **int** | Max number of records to return.
 
 ### Return type

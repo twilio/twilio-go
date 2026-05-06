@@ -49,7 +49,7 @@ Name | Type | Description
 **IntelligenceService** | **string** | The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
 **ConversationConfiguration** | **string** | The ID of the Conversations Configuration for customizing conversation behavior in Intelligence Service
 **ConversationId** | **string** | The ID of the Conversation for associating this Transcription with an existing Conversation in Intelligence Service
-**ConfigurationId** | **string** | The ID of the RealTimeTranscription Configuration for configuring all the non-default behaviors in one go.
+**TranscriptionConfigurationId** | **string** | The ID of the RealTimeTranscription Configuration for configuring all the non-default behaviors in one go.
 **EnableProviderData** | **bool** | Whether the callback includes raw provider data.
 
 ### Return type

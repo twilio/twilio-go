@@ -35,6 +35,7 @@ Name | Type | Description
 **Status** | [**string**](string.md) | 
 **Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
+**AuthorSid** | **string** | The SID of the User that created the Flow.
 
 ### Return type
 
@@ -205,6 +206,7 @@ Name | Type | Description
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
 **Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **CommitMessage** | **string** | Description of change made in the revision.
+**AuthorSid** | **string** | The SID of the User that created or last updated the Flow.
 
 ### Return type
 

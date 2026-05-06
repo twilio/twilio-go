@@ -94,19 +94,19 @@ func (c *ApiService) FetchMessagingGeopermissionsWithMetadata(params *FetchMessa
 	return metadataWrapper, nil
 }
 
-// Optional parameters for the method 'UpdateMessagingGeopermissions'
-type UpdateMessagingGeopermissionsParams struct {
+// Optional parameters for the method 'PatchMessagingGeopermissions'
+type PatchMessagingGeopermissionsParams struct {
 	// A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
 	Permissions *[]interface{} `json:"Permissions,omitempty"`
 }
 
-func (params *UpdateMessagingGeopermissionsParams) SetPermissions(Permissions []interface{}) *UpdateMessagingGeopermissionsParams {
+func (params *PatchMessagingGeopermissionsParams) SetPermissions(Permissions []interface{}) *PatchMessagingGeopermissionsParams {
 	params.Permissions = &Permissions
 	return params
 }
 
 //
-func (c *ApiService) UpdateMessagingGeopermissions(params *UpdateMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
+func (c *ApiService) PatchMessagingGeopermissions(params *PatchMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
 	path := "/v1/Messaging/GeoPermissions"
 
 	data := url.Values{}
@@ -141,8 +141,8 @@ func (c *ApiService) UpdateMessagingGeopermissions(params *UpdateMessagingGeoper
 	return ps, err
 }
 
-// UpdateMessagingGeopermissionsWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateMessagingGeopermissionsWithMetadata(params *UpdateMessagingGeopermissionsParams) (*metadata.ResourceMetadata[AccountsV1MessagingGeopermissions], error) {
+// PatchMessagingGeopermissionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PatchMessagingGeopermissionsWithMetadata(params *PatchMessagingGeopermissionsParams) (*metadata.ResourceMetadata[AccountsV1MessagingGeopermissions], error) {
 	path := "/v1/Messaging/GeoPermissions"
 
 	data := url.Values{}

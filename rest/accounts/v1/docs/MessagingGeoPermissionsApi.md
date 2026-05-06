@@ -62,7 +62,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateMessagingGeopermissionsParams struct
+Other parameters are passed through a pointer to a PatchMessagingGeopermissionsParams struct
 
 
 Name | Type | Description

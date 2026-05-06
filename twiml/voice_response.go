@@ -353,6 +353,7 @@ type VoiceRecording struct {
 	// trim: Trim the recording
 	// track: To indicate which audio track should be recorded
 	// channels: The recording channels for the final recording
+	// recording_configuration_id: Configuration for the recording
 	// OptionalAttributes: additional attributes
 	RecordingStatusCallback       string
 	RecordingStatusCallbackMethod string
@@ -360,6 +361,7 @@ type VoiceRecording struct {
 	Trim                          string
 	Track                         string
 	Channels                      string
+	RecordingConfigurationId      string
 	InnerElements                 []Element
 	OptionalAttributes            map[string]string
 }
@@ -380,6 +382,7 @@ func (m VoiceRecording) GetAttr() (map[string]string, map[string]string) {
 		"Trim":                          m.Trim,
 		"Track":                         m.Track,
 		"Channels":                      m.Channels,
+		"RecordingConfigurationId":      m.RecordingConfigurationId,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1040,6 +1043,7 @@ type VoiceRecord struct {
 	// recording_status_callback_event: Recording status callback events
 	// transcribe: Transcribe the recording
 	// transcribe_callback: Transcribe callback URL
+	// recording_configuration_id: Configuration for the recording
 	// OptionalAttributes: additional attributes
 	Action                        string
 	Method                        string
@@ -1053,6 +1057,7 @@ type VoiceRecord struct {
 	RecordingStatusCallbackEvent  string
 	Transcribe                    string
 	TranscribeCallback            string
+	RecordingConfigurationId      string
 	InnerElements                 []Element
 	OptionalAttributes            map[string]string
 }
@@ -1079,6 +1084,7 @@ func (m VoiceRecord) GetAttr() (map[string]string, map[string]string) {
 		"RecordingStatusCallbackEvent":  m.RecordingStatusCallbackEvent,
 		"Transcribe":                    m.Transcribe,
 		"TranscribeCallback":            m.TranscribeCallback,
+		"RecordingConfigurationId":      m.RecordingConfigurationId,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1372,6 +1378,7 @@ type VoiceDial struct {
 	// record: Record the call
 	// trim: Trim the recording
 	// recording_status_callback: Recording status callback URL
+	// recording_configuration_id: Configuration for the recording
 	// recording_status_callback_method: Recording status callback URL method
 	// recording_status_callback_event: Recording status callback events
 	// answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
@@ -1392,6 +1399,7 @@ type VoiceDial struct {
 	Record                        string
 	Trim                          string
 	RecordingStatusCallback       string
+	RecordingConfigurationId      string
 	RecordingStatusCallbackMethod string
 	RecordingStatusCallbackEvent  string
 	AnswerOnBridge                string
@@ -1424,6 +1432,7 @@ func (m VoiceDial) GetAttr() (map[string]string, map[string]string) {
 		"Record":                        m.Record,
 		"Trim":                          m.Trim,
 		"RecordingStatusCallback":       m.RecordingStatusCallback,
+		"RecordingConfigurationId":      m.RecordingConfigurationId,
 		"RecordingStatusCallbackMethod": m.RecordingStatusCallbackMethod,
 		"RecordingStatusCallbackEvent":  m.RecordingStatusCallbackEvent,
 		"AnswerOnBridge":                m.AnswerOnBridge,
@@ -1835,6 +1844,7 @@ type VoiceConference struct {
 	// wait_method: Wait URL method
 	// max_participants: Maximum number of participants
 	// record: Record the conference
+	// recording_configuration_id: Configuration for the recording
 	// region: Conference region
 	// coach: Call coach
 	// trim: Trim the conference recording
@@ -1857,6 +1867,7 @@ type VoiceConference struct {
 	WaitMethod                    string
 	MaxParticipants               string
 	Record                        string
+	RecordingConfigurationId      string
 	Region                        string
 	Coach                         string
 	Trim                          string
@@ -1891,6 +1902,7 @@ func (m VoiceConference) GetAttr() (map[string]string, map[string]string) {
 		"WaitMethod":                    m.WaitMethod,
 		"MaxParticipants":               m.MaxParticipants,
 		"Record":                        m.Record,
+		"RecordingConfigurationId":      m.RecordingConfigurationId,
 		"Region":                        m.Region,
 		"Coach":                         m.Coach,
 		"Trim":                          m.Trim,

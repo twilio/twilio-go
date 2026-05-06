@@ -165,6 +165,10 @@ type ListRoleAssignmentsParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	//
 	Scope *string `json:"Scope,omitempty"`
+	// Filter by resource type for resource-level role assignments
+	ResourceType *string `json:"ResourceType,omitempty"`
+	// Filter by resource id for resource-level role assignments
+	ResourceId *string `json:"ResourceId,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
@@ -179,6 +183,14 @@ func (params *ListRoleAssignmentsParams) SetIdentity(Identity string) *ListRoleA
 }
 func (params *ListRoleAssignmentsParams) SetScope(Scope string) *ListRoleAssignmentsParams {
 	params.Scope = &Scope
+	return params
+}
+func (params *ListRoleAssignmentsParams) SetResourceType(ResourceType string) *ListRoleAssignmentsParams {
+	params.ResourceType = &ResourceType
+	return params
+}
+func (params *ListRoleAssignmentsParams) SetResourceId(ResourceId string) *ListRoleAssignmentsParams {
+	params.ResourceId = &ResourceId
 	return params
 }
 func (params *ListRoleAssignmentsParams) SetLimit(Limit int) *ListRoleAssignmentsParams {
@@ -205,6 +217,12 @@ func (c *ApiService) PageRoleAssignments(OrganizationSid string, params *ListRol
 	}
 	if params != nil && params.Scope != nil {
 		data.Set("Scope", *params.Scope)
+	}
+	if params != nil && params.ResourceType != nil {
+		data.Set("ResourceType", *params.ResourceType)
+	}
+	if params != nil && params.ResourceId != nil {
+		data.Set("ResourceId", *params.ResourceId)
 	}
 
 	if pageToken != "" {
@@ -248,6 +266,12 @@ func (c *ApiService) PageRoleAssignmentsWithMetadata(OrganizationSid string, par
 	}
 	if params != nil && params.Scope != nil {
 		data.Set("Scope", *params.Scope)
+	}
+	if params != nil && params.ResourceType != nil {
+		data.Set("ResourceType", *params.ResourceType)
+	}
+	if params != nil && params.ResourceId != nil {
+		data.Set("ResourceId", *params.ResourceId)
 	}
 
 	if pageToken != "" {

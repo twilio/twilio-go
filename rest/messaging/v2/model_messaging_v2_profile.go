@@ -34,6 +34,8 @@ type MessagingV2Profile struct {
 	TermsOfServiceUrl *string `json:"terms_of_service_url,omitempty"`
 	// The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
 	AccentColor *string `json:"accent_color,omitempty"`
+	// The messaging use case type for the RCS sender. Allowed values are `PROMOTIONAL`, `TRANSACTIONAL`, `OTP`, `MULTI_USE`. Defaults to `MULTI_USE` if not provided. Cannot be modified after launch.
+	UseCase *string `json:"use_case,omitempty"`
 	// The vertical of the sender. Allowed values are: - `Alcohol` - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Hotel and Lodging` - `Matrimony Service` - `Medical and Health` - `Non-profit` - `Online Gambling` - `OTC Drugs` - `Other` - `Physical Gambling` - `Professional Services` - `Public Service` - `Restaurant` - `Shopping and Retail` - `Travel and Transportation`
 	Vertical *string `json:"vertical,omitempty"`
 	// The websites of the sender.

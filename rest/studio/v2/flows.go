@@ -34,6 +34,8 @@ type CreateFlowParams struct {
 	Definition *interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
+	// The SID of the User that created the Flow.
+	AuthorSid *string `json:"AuthorSid,omitempty"`
 }
 
 func (params *CreateFlowParams) SetFriendlyName(FriendlyName string) *CreateFlowParams {
@@ -50,6 +52,10 @@ func (params *CreateFlowParams) SetDefinition(Definition interface{}) *CreateFlo
 }
 func (params *CreateFlowParams) SetCommitMessage(CommitMessage string) *CreateFlowParams {
 	params.CommitMessage = &CommitMessage
+	return params
+}
+func (params *CreateFlowParams) SetAuthorSid(AuthorSid string) *CreateFlowParams {
+	params.AuthorSid = &AuthorSid
 	return params
 }
 
@@ -79,6 +85,9 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 	}
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
+	}
+	if params != nil && params.AuthorSid != nil {
+		data.Set("AuthorSid", *params.AuthorSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -122,6 +131,9 @@ func (c *ApiService) CreateFlowWithMetadata(params *CreateFlowParams) (*metadata
 	}
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
+	}
+	if params != nil && params.AuthorSid != nil {
+		data.Set("AuthorSid", *params.AuthorSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -488,6 +500,8 @@ type UpdateFlowParams struct {
 	Definition *interface{} `json:"Definition,omitempty"`
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
+	// The SID of the User that created or last updated the Flow.
+	AuthorSid *string `json:"AuthorSid,omitempty"`
 }
 
 func (params *UpdateFlowParams) SetStatus(Status string) *UpdateFlowParams {
@@ -504,6 +518,10 @@ func (params *UpdateFlowParams) SetDefinition(Definition interface{}) *UpdateFlo
 }
 func (params *UpdateFlowParams) SetCommitMessage(CommitMessage string) *UpdateFlowParams {
 	params.CommitMessage = &CommitMessage
+	return params
+}
+func (params *UpdateFlowParams) SetAuthorSid(AuthorSid string) *UpdateFlowParams {
+	params.AuthorSid = &AuthorSid
 	return params
 }
 
@@ -534,6 +552,9 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	}
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
+	}
+	if params != nil && params.AuthorSid != nil {
+		data.Set("AuthorSid", *params.AuthorSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -578,6 +599,9 @@ func (c *ApiService) UpdateFlowWithMetadata(Sid string, params *UpdateFlowParams
 	}
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
+	}
+	if params != nil && params.AuthorSid != nil {
+		data.Set("AuthorSid", *params.AuthorSid)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)

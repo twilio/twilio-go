@@ -104,6 +104,8 @@ type CreateParticipantParams struct {
 	CallReason *string `json:"CallReason,omitempty"`
 	// The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
 	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	// The identifier of the configuration to be used when creating and processing the recording
+	RecordingConfigurationId *string `json:"RecordingConfigurationId,omitempty"`
 	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
 	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
@@ -284,6 +286,10 @@ func (params *CreateParticipantParams) SetCallReason(CallReason string) *CreateP
 }
 func (params *CreateParticipantParams) SetRecordingTrack(RecordingTrack string) *CreateParticipantParams {
 	params.RecordingTrack = &RecordingTrack
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingConfigurationId(RecordingConfigurationId string) *CreateParticipantParams {
+	params.RecordingConfigurationId = &RecordingConfigurationId
 	return params
 }
 func (params *CreateParticipantParams) SetTimeLimit(TimeLimit int) *CreateParticipantParams {
@@ -471,6 +477,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.RecordingTrack != nil {
 		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.RecordingConfigurationId != nil {
+		data.Set("RecordingConfigurationId", *params.RecordingConfigurationId)
 	}
 	if params != nil && params.TimeLimit != nil {
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
@@ -660,6 +669,9 @@ func (c *ApiService) CreateParticipantWithMetadata(ConferenceSid string, params 
 	}
 	if params != nil && params.RecordingTrack != nil {
 		data.Set("RecordingTrack", *params.RecordingTrack)
+	}
+	if params != nil && params.RecordingConfigurationId != nil {
+		data.Set("RecordingConfigurationId", *params.RecordingConfigurationId)
 	}
 	if params != nil && params.TimeLimit != nil {
 		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))

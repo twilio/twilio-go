@@ -18,8 +18,4 @@ package openapi
 type LanguageChangedEvent struct {
 	TtsLanguageCode           string `json:"tts_language_code,omitempty"`
 	TranscriptionLanguageCode string `json:"transcription_language_code,omitempty"`
-	TtsProvider               string `json:"tts_provider,omitempty"`
-	Voice                     string `json:"voice,omitempty"`
-	TranscriptionProvider     string `json:"transcription_provider,omitempty"`
-	SpeechModel               string `json:"speech_model,omitempty"`
 }

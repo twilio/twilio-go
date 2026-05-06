@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
 	"time"
 
 	"github.com/twilio/twilio-go/client"
@@ -57,6 +58,8 @@ type CreateCallParams struct {
 	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
 	// The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// The identifier of the configuration to be used when creating and processing the recording
+	RecordingConfigurationId *string `json:"RecordingConfigurationId,omitempty"`
 	// The username used to authenticate the caller making a SIP call.
 	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
 	// The password required to authenticate the user account specified in `sip_auth_username`.
@@ -161,6 +164,10 @@ func (params *CreateCallParams) SetRecordingStatusCallback(RecordingStatusCallba
 }
 func (params *CreateCallParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *CreateCallParams {
 	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetRecordingConfigurationId(RecordingConfigurationId string) *CreateCallParams {
+	params.RecordingConfigurationId = &RecordingConfigurationId
 	return params
 }
 func (params *CreateCallParams) SetSipAuthUsername(SipAuthUsername string) *CreateCallParams {
@@ -310,6 +317,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
 		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
 	}
+	if params != nil && params.RecordingConfigurationId != nil {
+		data.Set("RecordingConfigurationId", *params.RecordingConfigurationId)
+	}
 	if params != nil && params.SipAuthUsername != nil {
 		data.Set("SipAuthUsername", *params.SipAuthUsername)
 	}
@@ -451,6 +461,9 @@ func (c *ApiService) CreateCallWithMetadata(params *CreateCallParams) (*metadata
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
 		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
+	}
+	if params != nil && params.RecordingConfigurationId != nil {
+		data.Set("RecordingConfigurationId", *params.RecordingConfigurationId)
 	}
 	if params != nil && params.SipAuthUsername != nil {
 		data.Set("SipAuthUsername", *params.SipAuthUsername)
