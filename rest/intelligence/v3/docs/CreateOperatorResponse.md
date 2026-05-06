@@ -1,0 +1,21 @@
+# CreateOperatorResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Id** | **string** | The unique identifier for the Language Operator. Assigned by Twilio (TTID). |[optional] [readonly] 
+**DisplayName** | **string** | Display name of the Language Operator describing its purpose. |[optional] 
+**Description** | **string** | Description of the Language Operator further explaining its purpose. |[optional] 
+**Version** | **int** | Numeric Operator version. Automatically incremented with each update on the resource, used to ensure integrity when updating the Operator. |[optional] [readonly] 
+**Author** | Pointer to [**string**](OperatorAuthorEnum.md) |  |
+**Prompt** | **string** | The natural language instructions used by the operator to analyze the conversation.  Within the prompt, users can reference parameters using the `{{parameters.[param_name]}}` syntax. Parameter values are provided to the Operator by the Intelligence Configuration Rule at runtime.  **Note**: Prompts will only be exposed for Custom Operators (`author` = `SELF`). Twilio-authored Operators (`author` = `TWILIO`) will have their prompts omitted from the API. |[optional] 
+**OutputFormat** | [**OperatorOutputFormat**](OperatorOutputFormat.md) |  |[optional] 
+**OutputSchema** | **map[string]interface{}** | Required for `JSON` output only. this will be set to a JSON Schema object describing the properties & data types of the response. Please see https://platform.openai.com/docs/guides/structured-outputs#supported-schemas   Will include the following keywords: - `type` : Must be set to `object` - `properties`:  An object containing the property names and their data types you would like the LLM to return  Additional details on JSON output formatting: - The root level `type` of a JSON schema must be set to `object` - The following property data types are supported : `string`, `number`, `boolean`, `integer`, `object`, `array`, `anyOf` - Definitions with `$defs` / `$ref` are supported - Max 100 object properties and 10 levels of nesting are supported - Max 1000 enum values across all enum properties are supported - Notable JSON Schema keywords not supported include:   - For `strings`: `minLength`, `maxLength`   - For `objects`: `patternProperties`, `unevaluatedProperties`, `propertyNames`, `minProperties`, `maxProperties`   - For `arrays`: `unevaluatedItems`, `contains`, `minContains`, `maxContains`, `uniqueItems` - Structured Operator Results will be returned in the same order as the ordering of keys in the schema - In the event an Operator execution request is refused for safety reasons the Operator Result API response will include a new field called `refusal` to indicate that the LLM refused to fulfill the request - Twilio will automatically set `additionalProperties` to false and specify all provided fields as required (constraints of Structured Outputs). You don't need to pass these fields as part of your JSON schema. Twilio will automatically overwrite any user-provided values for these fields. |[optional] 
+**TrainingExamples** | [**[]OperatorTrainingExample**](OperatorTrainingExample.md) | An array of example input/output pairs used to illustrate the intended behavior of the Language Operator. These examples help guide the model's understanding of expected input–output relationships and improve consistency during evaluation and testing.  **Note**: Training examples will only be exposed for Custom Operators (`author` = `SELF`). Twilio-authored Operators (`author` = `TWILIO`) will have their training examples omitted from the API. |[optional] 
+**Context** | [**OperatorContext**](OperatorContext.md) |  |[optional] 
+**Parameters** | [**map[string]OperatorParameter**](OperatorParameter.md) | Defines the schema of the parameters that are provided when running the operator, including required and optional values that determine the operator's behavior. The values of the parameters themselves are passed in by the attached Intelligence Configuration. |[optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
