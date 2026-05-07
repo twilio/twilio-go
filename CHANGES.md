@@ -1,5 +1,11 @@
 twilio-go changelog
 ====================
+
+[2026-05-07] Version 1.30.8
+---------------------------
+**Library - Fix**
+Releasing new version due to checksum error.
+
 [2026-05-07] Version 1.30.7
 ---------------------------
 **Library - Fix**
