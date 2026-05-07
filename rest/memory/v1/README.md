@@ -33,6 +33,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ControlPlaneOperationsApi* | [**FetchOperation**](docs/ControlPlaneOperationsApi.md#fetchoperation) | **Get** /v1/ControlPlane/Operations/{operationId} | Get Operation Status
 *ControlPlaneStoresApi* | [**CreateStore**](docs/ControlPlaneStoresApi.md#createstore) | **Post** /v1/ControlPlane/Stores | Create a Memory Store
+*ControlPlaneStoresApi* | [**DeleteStore**](docs/ControlPlaneStoresApi.md#deletestore) | **Delete** /v1/ControlPlane/Stores/{storeId} | Delete a Memory Store
 *ControlPlaneStoresApi* | [**FetchStore**](docs/ControlPlaneStoresApi.md#fetchstore) | **Get** /v1/ControlPlane/Stores/{storeId} | Retrieve a Memory Store.
 *ControlPlaneStoresApi* | [**ListStores**](docs/ControlPlaneStoresApi.md#liststores) | **Get** /v1/ControlPlane/Stores | List Memory Stores
 *ControlPlaneStoresApi* | [**PatchStore**](docs/ControlPlaneStoresApi.md#patchstore) | **Patch** /v1/ControlPlane/Stores/{storeId} | Update a Memory Store
@@ -50,6 +51,7 @@ Class | Method | HTTP request | Description
 *ControlPlaneStoresTraitGroupsApi* | [**PatchTraitGroup**](docs/ControlPlaneStoresTraitGroupsApi.md#patchtraitgroup) | **Patch** /v1/ControlPlane/Stores/{storeId}/TraitGroups/{traitGroupName} | Update Trait Group
 *StoresProfilesApi* | [**CreateProfile**](docs/StoresProfilesApi.md#createprofile) | **Post** /v1/Stores/{storeId}/Profiles | Create Profile
 *StoresProfilesApi* | [**DeleteProfile**](docs/StoresProfilesApi.md#deleteprofile) | **Delete** /v1/Stores/{storeId}/Profiles/{profileId} | Delete Profile
+*StoresProfilesApi* | [**FetchProfile**](docs/StoresProfilesApi.md#fetchprofile) | **Get** /v1/Stores/{storeId}/Profiles/{profileId} | Get Profile
 *StoresProfilesApi* | [**ListProfiles**](docs/StoresProfilesApi.md#listprofiles) | **Get** /v1/Stores/{storeId}/Profiles | List Profiles
 *StoresProfilesApi* | [**PatchProfileTraits**](docs/StoresProfilesApi.md#patchprofiletraits) | **Patch** /v1/Stores/{storeId}/Profiles/{profileId} | Patch Profile Traits
 *StoresProfilesBulkApi* | [**UpdateProfilesBulk**](docs/StoresProfilesBulkApi.md#updateprofilesbulk) | **Put** /v1/Stores/{storeId}/Profiles/Bulk | Bulk Upsert Profiles
@@ -126,6 +128,7 @@ Class | Method | HTTP request | Description
  - [DataMappingCore](docs/DataMappingCore.md)
  - [CreateProfileEventsResponse](docs/CreateProfileEventsResponse.md)
  - [DataMappingList](docs/DataMappingList.md)
+ - [DeleteStoreResponse](docs/DeleteStoreResponse.md)
  - [ColumnMappingItem](docs/ColumnMappingItem.md)
  - [TraitGroupRequest](docs/TraitGroupRequest.md)
  - [StoreBase](docs/StoreBase.md)
@@ -168,6 +171,7 @@ Class | Method | HTTP request | Description
  - [CreateObservationsRequest](docs/CreateObservationsRequest.md)
  - [ArrayValidationRule](docs/ArrayValidationRule.md)
  - [DeleteTraitGroupResponse](docs/DeleteTraitGroupResponse.md)
+ - [FetchProfileResponse](docs/FetchProfileResponse.md)
  - [ProfilePatch](docs/ProfilePatch.md)
  - [MemoryRetrievalRequest](docs/MemoryRetrievalRequest.md)
  - [RecallSummaryInfo](docs/RecallSummaryInfo.md)

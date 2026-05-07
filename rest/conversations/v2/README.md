@@ -42,6 +42,8 @@ Class | Method | HTTP request | Description
 *ConversationsApi* | [**ListConversationByAccount**](docs/ConversationsApi.md#listconversationbyaccount) | **Get** /v2/Conversations | List Conversations
 *ConversationsApi* | [**PatchConversationById**](docs/ConversationsApi.md#patchconversationbyid) | **Patch** /v2/Conversations/{Sid} | Partially Update a Conversation
 *ConversationsApi* | [**UpdateConversationById**](docs/ConversationsApi.md#updateconversationbyid) | **Put** /v2/Conversations/{Sid} | Update a Conversation
+*ConversationsActionsApi* | [**CreateConversationAction**](docs/ConversationsActionsApi.md#createconversationaction) | **Post** /v2/Conversations/{ConversationId}/Actions | Create an Action
+*ConversationsActionsApi* | [**FetchConversationAction**](docs/ConversationsActionsApi.md#fetchconversationaction) | **Get** /v2/Conversations/{ConversationId}/Actions/{ActionId} | Get Action Status
 *ConversationsCommunicationsApi* | [**CreateCommunicationInConversation**](docs/ConversationsCommunicationsApi.md#createcommunicationinconversation) | **Post** /v2/Conversations/{ConversationSid}/Communications | Create Communication
 *ConversationsCommunicationsApi* | [**FetchCommunication**](docs/ConversationsCommunicationsApi.md#fetchcommunication) | **Get** /v2/Conversations/{ConversationSid}/Communications/{Sid} | Fetch Communication
 *ConversationsCommunicationsApi* | [**ListCommunicationByConversation**](docs/ConversationsCommunicationsApi.md#listcommunicationbyconversation) | **Get** /v2/Conversations/{ConversationSid}/Communications | List Communications
@@ -88,6 +90,7 @@ Class | Method | HTTP request | Description
  - [ListParticipantByConversationResponseParticipants](docs/ListParticipantByConversationResponseParticipants.md)
  - [ConversationsV2OperationAccepted](docs/ConversationsV2OperationAccepted.md)
  - [ListConfigurationResponse](docs/ListConfigurationResponse.md)
+ - [CreateConversationActionRequest](docs/CreateConversationActionRequest.md)
  - [ConversationsV2ContentTranscriptionTranscription](docs/ConversationsV2ContentTranscriptionTranscription.md)
  - [CreateConfigurationRequestStatusCallbacks](docs/CreateConfigurationRequestStatusCallbacks.md)
  - [ListConfigurationResponseConfigurations](docs/ListConfigurationResponseConfigurations.md)
@@ -121,6 +124,7 @@ Class | Method | HTTP request | Description
  - [UpdateConfigurationRequest](docs/UpdateConfigurationRequest.md)
  - [ConversationsV2CommunicationEndpoint](docs/ConversationsV2CommunicationEndpoint.md)
  - [ListParticipantByConversationResponse](docs/ListParticipantByConversationResponse.md)
+ - [CreateConversationActionResponse](docs/CreateConversationActionResponse.md)
  - [UpdateConfigurationRequestChannelSettingsValueStatusTimeouts](docs/UpdateConfigurationRequestChannelSettingsValueStatusTimeouts.md)
  - [UpdateParticipantInConversationRequest](docs/UpdateParticipantInConversationRequest.md)
 

@@ -1,5 +1,19 @@
 twilio-go changelog
 ====================
+[2026-05-07] Version 1.30.7
+---------------------------
+**Library - Fix**
+- [PR #331](https://github.com/twilio/twilio-go/pull/331): secops issue for TwiML Markup Attributes Overwrite Via OptionalA…. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Conversations**
+- update actions api visibility
+
+**Memory**
+- ## 2026-05-07
+- **Content updates**:
+- include store api
+
+
 [2026-05-06] Version 1.30.6
 ---------------------------
 **Twiml**

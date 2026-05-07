@@ -14,7 +14,8 @@
 
 package openapi
 
-// DeleteProfileResponse struct for DeleteProfileResponse
-type DeleteProfileResponse struct {
+// FetchProfileResponse struct for FetchProfileResponse
+type FetchProfileResponse struct {
 	Message string `json:"message"`
+	Uri     string `json:"uri"`
 }

@@ -5,6 +5,7 @@ All URIs are relative to *https://memory.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateStore**](ControlPlaneStoresApi.md#CreateStore) | **Post** /v1/ControlPlane/Stores | Create a Memory Store
+[**DeleteStore**](ControlPlaneStoresApi.md#DeleteStore) | **Delete** /v1/ControlPlane/Stores/{storeId} | Delete a Memory Store
 [**FetchStore**](ControlPlaneStoresApi.md#FetchStore) | **Get** /v1/ControlPlane/Stores/{storeId} | Retrieve a Memory Store.
 [**ListStores**](ControlPlaneStoresApi.md#ListStores) | **Get** /v1/ControlPlane/Stores | List Memory Stores
 [**PatchStore**](ControlPlaneStoresApi.md#PatchStore) | **Patch** /v1/ControlPlane/Stores/{storeId} | Update a Memory Store
@@ -43,6 +44,48 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteStore
+
+> DeleteStoreResponse DeleteStore(ctx, StoreId)
+
+Delete a Memory Store
+
+Deletes the Memory Store and all associated resources including identity resolution settings, trait groups, profiles, traits, observations, and summaries.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**StoreId** | **string** | A unique Memory Store ID using Twilio Type ID (TTID) format
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteStoreParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**DeleteStoreResponse**](DeleteStore202Response.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

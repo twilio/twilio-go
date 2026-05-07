@@ -107,6 +107,62 @@ func (c *ApiService) CreateStoreWithMetadata(params *CreateStoreParams) (*metada
 	return metadataWrapper, nil
 }
 
+// Deletes the Memory Store and all associated resources including identity resolution settings, trait groups, profiles, traits, observations, and summaries.
+func (c *ApiService) DeleteStore(StoreId string) (*DeleteStoreResponse, error) {
+	path := "/v1/ControlPlane/Stores/{storeId}"
+	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &DeleteStoreResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// DeleteStoreWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) DeleteStoreWithMetadata(StoreId string) (*metadata.ResourceMetadata[DeleteStoreResponse], error) {
+	path := "/v1/ControlPlane/Stores/{storeId}"
+	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &DeleteStoreResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[DeleteStoreResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Retrieve the details of a specific Memory Store by its unique ID.
 func (c *ApiService) FetchStore(StoreId string) (*Store, error) {
 	path := "/v1/ControlPlane/Stores/{storeId}"

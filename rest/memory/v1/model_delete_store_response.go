@@ -14,7 +14,9 @@
 
 package openapi
 
-// DeleteProfileResponse struct for DeleteProfileResponse
-type DeleteProfileResponse struct {
-	Message string `json:"message"`
+// DeleteStoreResponse struct for DeleteStoreResponse
+type DeleteStoreResponse struct {
+	Message string `json:"message,omitempty"`
+	// URI to check operation status.
+	StatusUrl string `json:"statusUrl,omitempty"`
 }

@@ -167,6 +167,83 @@ func (c *ApiService) DeleteProfileWithMetadata(StoreId string, ProfileId string)
 	return metadataWrapper, nil
 }
 
+// Optional parameters for the method 'FetchProfile'
+type FetchProfileParams struct {
+	// Comma separated list of trait group names to include.
+	TraitGroups *string `json:"traitGroups,omitempty"`
+}
+
+func (params *FetchProfileParams) SetTraitGroups(TraitGroups string) *FetchProfileParams {
+	params.TraitGroups = &TraitGroups
+	return params
+}
+
+// Retrieve profile traits by profile ID. Use the `traitGroups` query parameter to restrict results to a comma-separated allow list of trait group names. For large sets of traits, prefer using the dedicated `/Traits` endpoint for pagination.
+func (c *ApiService) FetchProfile(StoreId string, ProfileId string, params *FetchProfileParams) (*Profile, error) {
+	path := "/v1/Stores/{storeId}/Profiles/{profileId}"
+	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+	path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TraitGroups != nil {
+		data.Set("traitGroups", *params.TraitGroups)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &Profile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// FetchProfileWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchProfileWithMetadata(StoreId string, ProfileId string, params *FetchProfileParams) (*metadata.ResourceMetadata[Profile], error) {
+	path := "/v1/Stores/{storeId}/Profiles/{profileId}"
+	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+	path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.TraitGroups != nil {
+		data.Set("traitGroups", *params.TraitGroups)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &Profile{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[Profile](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
 // Optional parameters for the method 'ListProfiles'
 type ListProfilesParams struct {
 	// The maximum number of items to return per page, maximum of 1000.

@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateProfile**](StoresProfilesApi.md#CreateProfile) | **Post** /v1/Stores/{storeId}/Profiles | Create Profile
 [**DeleteProfile**](StoresProfilesApi.md#DeleteProfile) | **Delete** /v1/Stores/{storeId}/Profiles/{profileId} | Delete Profile
+[**FetchProfile**](StoresProfilesApi.md#FetchProfile) | **Get** /v1/Stores/{storeId}/Profiles/{profileId} | Get Profile
 [**ListProfiles**](StoresProfilesApi.md#ListProfiles) | **Get** /v1/Stores/{storeId}/Profiles | List Profiles
 [**PatchProfileTraits**](StoresProfilesApi.md#PatchProfileTraits) | **Patch** /v1/Stores/{storeId}/Profiles/{profileId} | Patch Profile Traits
 
@@ -82,6 +83,50 @@ Name | Type | Description
 ### Return type
 
 [**DeleteProfileResponse**](DeleteProfile202Response.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchProfile
+
+> Profile FetchProfile(ctx, StoreIdProfileIdoptional)
+
+Get Profile
+
+Retrieve profile traits by profile ID. Use the `traitGroups` query parameter to restrict results to a comma-separated allow list of trait group names. For large sets of traits, prefer using the dedicated `/Traits` endpoint for pagination.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**StoreId** | **string** | A unique Memory Store ID using Twilio Type ID (TTID) format
+**ProfileId** | **string** | The unique identifier for the profile using Twilio Type ID (TTID) format.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchProfileParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**TraitGroups** | **string** | Comma separated list of trait group names to include.
+
+### Return type
+
+[**Profile**](Profile.md)
 
 ### Authorization
 
