@@ -12,6 +12,7 @@ type RequestHandler struct {
 	Client BaseClient
 	Edge   string
 	Region string
+	Host   string
 }
 
 func NewRequestHandler(client BaseClient) *RequestHandler {
@@ -19,6 +20,7 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 		Client: client,
 		Edge:   os.Getenv("TWILIO_EDGE"),
 		Region: os.Getenv("TWILIO_REGION"),
+		Host:   os.Getenv("TWILIO_HOST"),
 	}
 }
 
@@ -40,6 +42,11 @@ func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return "", err
+	}
+
+	if c.Host != "" {
+		u.Host = c.Host
+		return u.String(), nil
 	}
 
 	var (
