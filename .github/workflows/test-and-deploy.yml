@@ -20,17 +20,18 @@ jobs:
         go: [ '1.19.13', '1.20', '1.21', '1.22', '1.23', '1.24' ]
     steps:
       - name: Setup Go environment
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
         with:
           go-version: ${{ matrix.go }}
 
       - name: Checkout twilio-go
-        uses: actions/checkout@v3
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        # SHA pending SecOps whitelist request (DII-2548) — see golangci/golangci-lint-action, tag v3
+        uses: golangci/golangci-lint-action@3a919529898de77ec3da873e3063ca4b10e7f5cc # v3
         if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         with:
           version: latest
@@ -66,12 +67,12 @@ jobs:
         if: matrix.go != '1.15'  # Breaking changes in golang 1.16 cause some unit test files to be invalid.
         run: make cover
 
-      - name: Install SonarCloud scanner and run analysis
-        uses: SonarSource/sonarcloud-github-action@master
-        if: (github.event_name == 'pull_request' || github.ref_type == 'branch') && !github.event.pull_request.head.repo.fork && matrix.go == '1.19'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      - name: Install SonarCloud scanner and run analysis
+#        uses: SonarSource/sonarcloud-github-action@master
+#        if: (github.event_name == 'pull_request' || github.ref_type == 'branch') && !github.event.pull_request.head.repo.fork && matrix.go == '1.19'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     name: Deploy
@@ -80,12 +81,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout twilio-go
-        uses: actions/checkout@v3
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_AUTH_TOKEN }}
@@ -95,32 +96,32 @@ jobs:
         run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Create GitHub Release
-        uses: sendgrid/dx-automator/actions/release@main
+        uses: sendgrid/dx-automator/actions/release@08b601b726671445abc798ed59881766ec8fefc6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push image
         run: make docker-build docker-push
 
-      - name: Submit metric to Datadog
-        uses: sendgrid/dx-automator/actions/datadog-release-metric@main
-        env:
-          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+#      - name: Submit metric to Datadog
+#        uses: sendgrid/dx-automator/actions/datadog-release-metric@main
+#        env:
+#          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
 
-  notify-on-failure:
-    name: Slack notify on failure
-    if: failure() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref_type == 'tag')
-    needs: [ test, deploy ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: failure
-          SLACK_ICON_EMOJI: ':github:'
-          SLACK_MESSAGE: ${{ format('Test *{0}*, Deploy *{1}*, {2}/{3}/actions/runs/{4}', needs.test.result, needs.deploy.result, github.server_url, github.repository, github.run_id) }}
-          SLACK_TITLE: Action Failure - ${{ github.repository }}
-          SLACK_USERNAME: GitHub Actions
-          SLACK_MSG_AUTHOR: twilio-dx
-          SLACK_FOOTER: Posted automatically using GitHub Actions
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          MSG_MINIMAL: true
+#  notify-on-failure:
+#    name: Slack notify on failure
+#    if: failure() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref_type == 'tag')
+#    needs: [ test, deploy ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: rtCamp/action-slack-notify@v2
+#        env:
+#          SLACK_COLOR: failure
+#          SLACK_ICON_EMOJI: ':github:'
+#          SLACK_MESSAGE: ${{ format('Test *{0}*, Deploy *{1}*, {2}/{3}/actions/runs/{4}', needs.test.result, needs.deploy.result, github.server_url, github.repository, github.run_id) }}
+#          SLACK_TITLE: Action Failure - ${{ github.repository }}
+#          SLACK_USERNAME: GitHub Actions
+#          SLACK_MSG_AUTHOR: twilio-dx
+#          SLACK_FOOTER: Posted automatically using GitHub Actions
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#          MSG_MINIMAL: true
