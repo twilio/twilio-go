@@ -1,0 +1,92 @@
+name: CI
+on:
+  push:
+    branches: [ '*' ]
+    tags: [ '*' ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run automatically at 8AM PST Monday-Friday
+    - cron: '0 15 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Secret-less supply-chain gate. Runs identically on fork and same-repo PRs.
+  go-lockfile-hygiene:
+    runs-on: ubuntu-x64
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v5
+      - uses: twilio/sdk-actions/go-lockfile-hygiene@7c951c50503e2b6b7d5561cead0adcdc7e0d17af # v1
+
+  test:
+    # Forks can't use the internal runner group.
+    runs-on: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) && 'ubuntu-latest' || 'ubuntu-x64' }}
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ['1.23', '1.24', '1.25']
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3
+
+      - uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
+        with:
+          go-version: ${{ matrix.go }}
+
+      # Forks have no Artifactory access; skip login, resolve from proxy.golang.org.
+      - if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+        uses: twilio/sdk-actions/artifactory-oidc@e22fa7d16d9cfd4f046cb00f471301f5e0a9c546 # v1
+        with:
+          ecosystem: go
+
+      - run: make install
+      - run: make test
+      - run: make golint
+
+  cluster-test:
+    name: Cluster Test
+    needs: [ deploy ]
+    # Runs on schedule/workflow_dispatch regardless of deploy's outcome (deploy is skipped
+    # outside of tag pushes), or after a tag push only once deploy has actually succeeded.
+    # Never runs on push/pull_request (including fork PRs), which keeps the TWILIO_* secrets
+    # below unreachable from the merge gate.
+    if: |
+      always() &&
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || needs.deploy.result == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        go: [ '1.22', '1.23', '1.24' ]
+    steps:
+      - name: Setup Go environment
+        uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Checkout twilio-go
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Run Cluster Tests
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_FROM_NUMBER_OAUTH: $${{ secrets.TWILIO_FROM_NUMBER_OAUTH }}
+          TWILIO_TO_NUMBER_OAUTH: $${{ secrets.TWILIO_TO_NUMBER_OAUTH }}
+          TWILIO_CLIENT_ID: ${{ secrets.TWILIO_CLIENT_ID }}
+          TWILIO_CLIENT_SECRET: ${{ secrets.TWILIO_CLIENT_SECRET }}
+          TWILIO_ACCOUNT_SID_OAUTH: ${{ secrets.TWILIO_ACCOUNT_SID_OAUTH }}
+          TWILIO_ORG_SID: ${{secrets.TWILIO_ORG_SID}}
+          TWILIO_ORGS_CLIENT_ID: ${{secrets.TWILIO_ORGS_CLIENT_ID}}
+          TWILIO_ORGS_CLIENT_SECRET: ${{secrets.TWILIO_ORGS_CLIENT_SECRET}}
+        run: make cluster-test
