@@ -50,14 +50,15 @@ jobs:
 
   cluster-test:
     name: Cluster Test
-    needs: [ deploy ]
-    # Runs on schedule/workflow_dispatch regardless of deploy's outcome (deploy is skipped
-    # outside of tag pushes), or after a tag push only once deploy has actually succeeded.
-    # Never runs on push/pull_request (including fork PRs), which keeps the TWILIO_* secrets
-    # below unreachable from the merge gate.
+    needs: [ test ]
+    # release.yml is what tags and pushes a release, and that tag push is what triggers this
+    # workflow — so a tag-triggered run IS a post-release run, gated on this run's own `test`
+    # job having passed. Also runs on schedule/workflow_dispatch regardless of ref. Never runs
+    # on a plain branch push or pull_request (including fork PRs), which keeps the TWILIO_*
+    # secrets below unreachable from the merge gate.
     if: |
       always() &&
-      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || needs.deploy.result == 'success')
+      (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.ref_type == 'tag' && needs.test.result == 'success'))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
