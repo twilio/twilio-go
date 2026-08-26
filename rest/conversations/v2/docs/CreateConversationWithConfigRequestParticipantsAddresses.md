@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channel** | **string** |  |
+**Channel** | **string** | Channel type for a Communication address. |
 **Address** | **string** |  |
 **ChannelId** | **string** |  |[optional] 
 

@@ -14,14 +14,13 @@
 
 package openapi
 
-// SupportedFileMimeType Supported MIME types for knowledge file imports. Maximum file size for any file is 16MB (16 * 1024 * 1024 bytes). Extensions → MIME:   .csv → text/csv   .md → text/markdown   .mdx → text/mdx   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain
+// SupportedFileMimeType Supported MIME types for knowledge file imports. Maximum file size for any file is 16MB (16 * 1024 * 1024 bytes). Extensions → MIME:   .csv → text/csv   .md → text/markdown   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain
 type SupportedFileMimeType string
 
 // List of SupportedFileMimeType
 const (
 	SUPPORTEDFILEMIMETYPE_TEXT_CSV                  SupportedFileMimeType = "text/csv"
 	SUPPORTEDFILEMIMETYPE_TEXT_MARKDOWN             SupportedFileMimeType = "text/markdown"
-	SUPPORTEDFILEMIMETYPE_TEXT_MDX                  SupportedFileMimeType = "text/mdx"
 	SUPPORTEDFILEMIMETYPE_APPLICATION_PDF           SupportedFileMimeType = "application/pdf"
 	SUPPORTEDFILEMIMETYPE_TEXT_TAB_SEPARATED_VALUES SupportedFileMimeType = "text/tab-separated-values"
 	SUPPORTEDFILEMIMETYPE_TEXT_PLAIN                SupportedFileMimeType = "text/plain"

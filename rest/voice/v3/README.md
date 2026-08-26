@@ -32,6 +32,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *TranscriptionsApi* | [**CreateV3Transcriptions**](docs/TranscriptionsApi.md#createv3transcriptions) | **Post** /v3/Transcriptions | Creates a new transcription from either a sourceId or a mediaUrl. Either sourceId or mediaUrl must be provided, but not both.
 *TranscriptionsApi* | [**FetchTranscription**](docs/TranscriptionsApi.md#fetchtranscription) | **Get** /v3/Transcriptions/{transcriptionId} | Fetch metadata about a specific transcription
+*TranscriptionsApi* | [**ListV3Transcriptions**](docs/TranscriptionsApi.md#listv3transcriptions) | **Get** /v3/Transcriptions | Retrieves a paginated, filterable list of transcriptions for the account, sorted by creation date (newest first).
 
 
 ## Documentation For Models
@@ -39,7 +40,9 @@ Class | Method | HTTP request | Description
  - [VoiceV3CreateRequestWithSourceId](docs/VoiceV3CreateRequestWithSourceId.md)
  - [VoiceV3LongRunningOperation202Response](docs/VoiceV3LongRunningOperation202Response.md)
  - [VoiceV3Transcription](docs/VoiceV3Transcription.md)
+ - [VoiceV3TranscriptionList](docs/VoiceV3TranscriptionList.md)
  - [VoiceV3ResolvedConfiguration](docs/VoiceV3ResolvedConfiguration.md)
+ - [VoiceV3TranscriptionTranscriptionListMeta](docs/VoiceV3TranscriptionTranscriptionListMeta.md)
  - [CreateV3TranscriptionsRequest](docs/CreateV3TranscriptionsRequest.md)
  - [VoiceV3CreateRequestWithMediaUrl](docs/VoiceV3CreateRequestWithMediaUrl.md)
  - [VoiceV3TranscriptionStatusCallback](docs/VoiceV3TranscriptionStatusCallback.md)

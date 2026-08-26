@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateSecondaryAuthToken
 
-> AccountsV1SecondaryAuthToken CreateSecondaryAuthToken(ctx, )
+> AccountsV1SecondaryAuthToken CreateSecondaryAuthToken(ctx, optional)
 
 Create a new secondary Auth Token
 
@@ -26,6 +26,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**SuppressEmailNotification** | **bool** | Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
+
 ### Return type
 
 [**AccountsV1SecondaryAuthToken**](AccountsV1SecondaryAuthToken.md)
@@ -36,7 +40,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -46,7 +50,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 
 ## DeleteSecondaryAuthToken
 
-> DeleteSecondaryAuthToken(ctx, )
+> DeleteSecondaryAuthToken(ctx, optional)
 
 Delete the secondary Auth Token from your account
 
@@ -60,6 +64,10 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct
 
+
+Name | Type | Description
+------------- | ------------- | -------------
+**SuppressEmailNotification** | **bool** | Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
 
 ### Return type
 

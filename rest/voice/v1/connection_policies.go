@@ -35,7 +35,6 @@ func (params *CreateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
@@ -97,7 +96,6 @@ func (c *ApiService) CreateConnectionPolicyWithMetadata(params *CreateConnection
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteConnectionPolicy(Sid string) error {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -143,7 +141,6 @@ func (c *ApiService) DeleteConnectionPolicyWithMetadata(Sid string) (*metadata.R
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -441,7 +438,6 @@ func (params *UpdateConnectionPolicyParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-//
 func (c *ApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

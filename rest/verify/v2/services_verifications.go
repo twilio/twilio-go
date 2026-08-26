@@ -49,10 +49,12 @@ type CreateVerificationParams struct {
 	ChannelConfiguration *interface{} `json:"ChannelConfiguration,omitempty"`
 	// Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
 	AppHash *string `json:"AppHash,omitempty"`
-	// The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+	// The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
 	TemplateSid *string `json:"TemplateSid,omitempty"`
 	// A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
 	TemplateCustomSubstitutions *string `json:"TemplateCustomSubstitutions,omitempty"`
+	// A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
+	Templates *string `json:"Templates,omitempty"`
 	// Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 	DeviceIp *string `json:"DeviceIp,omitempty"`
 	// An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
@@ -117,6 +119,10 @@ func (params *CreateVerificationParams) SetTemplateSid(TemplateSid string) *Crea
 }
 func (params *CreateVerificationParams) SetTemplateCustomSubstitutions(TemplateCustomSubstitutions string) *CreateVerificationParams {
 	params.TemplateCustomSubstitutions = &TemplateCustomSubstitutions
+	return params
+}
+func (params *CreateVerificationParams) SetTemplates(Templates string) *CreateVerificationParams {
+	params.Templates = &Templates
 	return params
 }
 func (params *CreateVerificationParams) SetDeviceIp(DeviceIp string) *CreateVerificationParams {
@@ -199,6 +205,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	}
 	if params != nil && params.TemplateCustomSubstitutions != nil {
 		data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
+	}
+	if params != nil && params.Templates != nil {
+		data.Set("Templates", *params.Templates)
 	}
 	if params != nil && params.DeviceIp != nil {
 		data.Set("DeviceIp", *params.DeviceIp)
@@ -291,6 +300,9 @@ func (c *ApiService) CreateVerificationWithMetadata(ServiceSid string, params *C
 	}
 	if params != nil && params.TemplateCustomSubstitutions != nil {
 		data.Set("TemplateCustomSubstitutions", *params.TemplateCustomSubstitutions)
+	}
+	if params != nil && params.Templates != nil {
+		data.Set("Templates", *params.Templates)
 	}
 	if params != nil && params.DeviceIp != nil {
 		data.Set("DeviceIp", *params.DeviceIp)

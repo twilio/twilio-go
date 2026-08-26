@@ -172,6 +172,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int** | The maximum number of items to return per page, maximum of 1000.
 **PageToken** | **string** | The token for the page of results to retrieve.
+**ConversationId** | **string** | Filter by conversation ID. Returns only items associated with the specified conversation.
 **AcceptEncoding** | **string** | Compression algorithms supported by the client (e.g., gzip, deflate, br)
 **Limit** | **int** | Max number of records to return.
 

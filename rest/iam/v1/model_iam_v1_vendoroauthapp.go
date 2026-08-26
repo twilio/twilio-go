@@ -20,13 +20,15 @@ import (
 
 // IamV1Vendoroauthapp struct for IamV1Vendoroauthapp
 type IamV1Vendoroauthapp struct {
-	Type           string                                `json:"type,omitempty"`
-	Sid            string                                `json:"sid,omitempty"`
-	FriendlyName   string                                `json:"friendly_name,omitempty"`
-	Description    string                                `json:"description,omitempty"`
-	DateCreated    time.Time                             `json:"date_created,omitempty"`
-	Status         string                                `json:"status,omitempty"`
-	Policy         IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
-	CreatedBy      string                                `json:"created_by,omitempty"`
-	AccessTokenTtl int                                   `json:"access_token_ttl,omitempty"`
+	Type         string                                `json:"type,omitempty"`
+	Sid          string                                `json:"sid,omitempty"`
+	FriendlyName string                                `json:"friendly_name,omitempty"`
+	Description  string                                `json:"description,omitempty"`
+	DateCreated  time.Time                             `json:"date_created,omitempty"`
+	Status       string                                `json:"status,omitempty"`
+	Policy       IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
+	CreatedBy    string                                `json:"created_by,omitempty"`
+	// The unique identifier (SID) of the user who created this OAuth app.
+	CreatorSid     string `json:"creator_sid,omitempty"`
+	AccessTokenTtl int    `json:"access_token_ttl,omitempty"`
 }

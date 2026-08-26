@@ -36,9 +36,9 @@ func (params *CreateCommunicationInConversationParams) SetCreateCommunicationInC
 }
 
 // Create a Communication.
-func (c *ApiService) CreateCommunicationInConversation(ConversationSid string, params *CreateCommunicationInConversationParams) (*ListCommunicationByConversationResponseCommunications, error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+func (c *ApiService) CreateCommunicationInConversation(ConversationId string, params *CreateCommunicationInConversationParams) (*ListCommunicationByConversationResponseCommunications, error) {
+	path := "/v2/Conversations/{ConversationId}/Communications"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -70,9 +70,9 @@ func (c *ApiService) CreateCommunicationInConversation(ConversationSid string, p
 }
 
 // CreateCommunicationInConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateCommunicationInConversationWithMetadata(ConversationSid string, params *CreateCommunicationInConversationParams) (*metadata.ResourceMetadata[ListCommunicationByConversationResponseCommunications], error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+func (c *ApiService) CreateCommunicationInConversationWithMetadata(ConversationId string, params *CreateCommunicationInConversationParams) (*metadata.ResourceMetadata[ListCommunicationByConversationResponseCommunications], error) {
+	path := "/v2/Conversations/{ConversationId}/Communications"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -110,10 +110,10 @@ func (c *ApiService) CreateCommunicationInConversationWithMetadata(ConversationS
 }
 
 // Retrieve a Communication.
-func (c *ApiService) FetchCommunication(ConversationSid string, Sid string) (*ListCommunicationByConversationResponseCommunications, error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchCommunication(ConversationId string, Id string) (*ListCommunicationByConversationResponseCommunications, error) {
+	path := "/v2/Conversations/{ConversationId}/Communications/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -136,10 +136,10 @@ func (c *ApiService) FetchCommunication(ConversationSid string, Sid string) (*Li
 }
 
 // FetchCommunicationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchCommunicationWithMetadata(ConversationSid string, Sid string) (*metadata.ResourceMetadata[ListCommunicationByConversationResponseCommunications], error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchCommunicationWithMetadata(ConversationId string, Id string) (*metadata.ResourceMetadata[ListCommunicationByConversationResponseCommunications], error) {
+	path := "/v2/Conversations/{ConversationId}/Communications/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -197,10 +197,10 @@ func (params *ListCommunicationByConversationParams) SetLimit(Limit int) *ListCo
 }
 
 // Retrieve a single page of CommunicationByConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageCommunicationByConversation(ConversationSid string, params *ListCommunicationByConversationParams, pageToken string) (*ListCommunicationByConversationResponse, error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications"
+func (c *ApiService) PageCommunicationByConversation(ConversationId string, params *ListCommunicationByConversationParams, pageToken string) (*ListCommunicationByConversationResponse, error) {
+	path := "/v2/Conversations/{ConversationId}/Communications"
 
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -237,10 +237,10 @@ func (c *ApiService) PageCommunicationByConversation(ConversationSid string, par
 }
 
 // PageCommunicationByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) PageCommunicationByConversationWithMetadata(ConversationSid string, params *ListCommunicationByConversationParams, pageToken string) (*metadata.ResourceMetadata[ListCommunicationByConversationResponse], error) {
-	path := "/v2/Conversations/{ConversationSid}/Communications"
+func (c *ApiService) PageCommunicationByConversationWithMetadata(ConversationId string, params *ListCommunicationByConversationParams, pageToken string) (*metadata.ResourceMetadata[ListCommunicationByConversationResponse], error) {
+	path := "/v2/Conversations/{ConversationId}/Communications"
 
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -283,8 +283,8 @@ func (c *ApiService) PageCommunicationByConversationWithMetadata(ConversationSid
 }
 
 // Lists CommunicationByConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCommunicationByConversation(ConversationSid string, params *ListCommunicationByConversationParams) ([]ListCommunicationByConversationResponseCommunications, error) {
-	response, errors := c.StreamCommunicationByConversation(ConversationSid, params)
+func (c *ApiService) ListCommunicationByConversation(ConversationId string, params *ListCommunicationByConversationParams) ([]ListCommunicationByConversationResponseCommunications, error) {
+	response, errors := c.StreamCommunicationByConversation(ConversationId, params)
 
 	records := make([]ListCommunicationByConversationResponseCommunications, 0)
 	for record := range response {
@@ -299,8 +299,8 @@ func (c *ApiService) ListCommunicationByConversation(ConversationSid string, par
 }
 
 // ListCommunicationByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) ListCommunicationByConversationWithMetadata(ConversationSid string, params *ListCommunicationByConversationParams) (*metadata.ResourceMetadata[[]ListCommunicationByConversationResponseCommunications], error) {
-	response, errors := c.StreamCommunicationByConversationWithMetadata(ConversationSid, params)
+func (c *ApiService) ListCommunicationByConversationWithMetadata(ConversationId string, params *ListCommunicationByConversationParams) (*metadata.ResourceMetadata[[]ListCommunicationByConversationResponseCommunications], error) {
+	response, errors := c.StreamCommunicationByConversationWithMetadata(ConversationId, params)
 	resource := response.GetResource()
 
 	records := make([]ListCommunicationByConversationResponseCommunications, 0)
@@ -322,7 +322,7 @@ func (c *ApiService) ListCommunicationByConversationWithMetadata(ConversationSid
 }
 
 // Streams CommunicationByConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCommunicationByConversation(ConversationSid string, params *ListCommunicationByConversationParams) (chan ListCommunicationByConversationResponseCommunications, chan error) {
+func (c *ApiService) StreamCommunicationByConversation(ConversationId string, params *ListCommunicationByConversationParams) (chan ListCommunicationByConversationResponseCommunications, chan error) {
 	if params == nil {
 		params = &ListCommunicationByConversationParams{}
 	}
@@ -331,7 +331,7 @@ func (c *ApiService) StreamCommunicationByConversation(ConversationSid string, p
 	recordChannel := make(chan ListCommunicationByConversationResponseCommunications, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCommunicationByConversation(ConversationSid, params, "")
+	response, err := c.PageCommunicationByConversation(ConversationId, params, "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
@@ -344,7 +344,7 @@ func (c *ApiService) StreamCommunicationByConversation(ConversationSid string, p
 }
 
 // StreamCommunicationByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) StreamCommunicationByConversationWithMetadata(ConversationSid string, params *ListCommunicationByConversationParams) (*metadata.ResourceMetadata[chan ListCommunicationByConversationResponseCommunications], chan error) {
+func (c *ApiService) StreamCommunicationByConversationWithMetadata(ConversationId string, params *ListCommunicationByConversationParams) (*metadata.ResourceMetadata[chan ListCommunicationByConversationResponseCommunications], chan error) {
 	if params == nil {
 		params = &ListCommunicationByConversationParams{}
 	}
@@ -353,7 +353,7 @@ func (c *ApiService) StreamCommunicationByConversationWithMetadata(ConversationS
 	recordChannel := make(chan ListCommunicationByConversationResponseCommunications, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageCommunicationByConversationWithMetadata(ConversationSid, params, "")
+	response, err := c.PageCommunicationByConversationWithMetadata(ConversationId, params, "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
@@ -387,7 +387,7 @@ func (c *ApiService) streamCommunicationByConversation(response *ListCommunicati
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/Conversations/{ConversationSid}/Communications", response, c.getNextListCommunicationByConversationResponse)
+		record, err := client.GetNext(c.baseURL+"/v2/Conversations/{ConversationId}/Communications", response, c.getNextListCommunicationByConversationResponse)
 		if err != nil {
 			errorChannel <- err
 			break

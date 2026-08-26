@@ -4,7 +4,7 @@ All URIs are relative to *https://lookups.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | 
+[**FetchPhoneNumber**](PhoneNumbersApi.md#FetchPhoneNumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | Fetch information about a phone number
 
 
 
@@ -12,9 +12,9 @@ Method | HTTP request | Description
 
 > LookupsV1PhoneNumber FetchPhoneNumber(ctx, PhoneNumberoptional)
 
+Fetch information about a phone number
 
-
-
+Fetch information about a phone number. You can use this endpoint to retrieve the carrier and caller name for a phone number, as well as any installed Add-ons.
 
 ### Path Parameters
 

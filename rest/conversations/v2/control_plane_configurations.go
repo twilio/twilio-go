@@ -131,9 +131,9 @@ func (params *DeleteConfigurationParams) SetIdempotencyKey(IdempotencyKey string
 }
 
 // Delete a Configuration
-func (c *ApiService) DeleteConfiguration(Sid string, params *DeleteConfigurationParams) (*CreateConfigurationResponse, error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteConfiguration(Id string, params *DeleteConfigurationParams) (*CreateConfigurationResponse, error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -159,9 +159,9 @@ func (c *ApiService) DeleteConfiguration(Sid string, params *DeleteConfiguration
 }
 
 // DeleteConfigurationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) DeleteConfigurationWithMetadata(Sid string, params *DeleteConfigurationParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteConfigurationWithMetadata(Id string, params *DeleteConfigurationParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -193,9 +193,9 @@ func (c *ApiService) DeleteConfigurationWithMetadata(Sid string, params *DeleteC
 }
 
 // Retrieve a Configuration.
-func (c *ApiService) FetchConfiguration(Sid string) (*ListConfigurationResponseConfigurations, error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchConfiguration(Id string) (*ListConfigurationResponseConfigurations, error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -218,9 +218,9 @@ func (c *ApiService) FetchConfiguration(Sid string) (*ListConfigurationResponseC
 }
 
 // FetchConfigurationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchConfigurationWithMetadata(Sid string) (*metadata.ResourceMetadata[ListConfigurationResponseConfigurations], error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchConfigurationWithMetadata(Id string) (*metadata.ResourceMetadata[ListConfigurationResponseConfigurations], error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -515,9 +515,9 @@ func (params *UpdateConfigurationParams) SetUpdateConfigurationRequest(UpdateCon
 }
 
 // Update an existing Configuration
-func (c *ApiService) UpdateConfiguration(Sid string, params *UpdateConfigurationParams) (*CreateConfigurationResponse, error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateConfiguration(Id string, params *UpdateConfigurationParams) (*CreateConfigurationResponse, error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -552,9 +552,9 @@ func (c *ApiService) UpdateConfiguration(Sid string, params *UpdateConfiguration
 }
 
 // UpdateConfigurationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateConfigurationWithMetadata(Sid string, params *UpdateConfigurationParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
-	path := "/v2/ControlPlane/Configurations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateConfigurationWithMetadata(Id string, params *UpdateConfigurationParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

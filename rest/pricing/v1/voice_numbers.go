@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)

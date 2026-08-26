@@ -4,15 +4,15 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateCommunicationInConversation**](ConversationsCommunicationsApi.md#CreateCommunicationInConversation) | **Post** /v2/Conversations/{ConversationSid}/Communications | Create Communication
-[**FetchCommunication**](ConversationsCommunicationsApi.md#FetchCommunication) | **Get** /v2/Conversations/{ConversationSid}/Communications/{Sid} | Fetch Communication
-[**ListCommunicationByConversation**](ConversationsCommunicationsApi.md#ListCommunicationByConversation) | **Get** /v2/Conversations/{ConversationSid}/Communications | List Communications
+[**CreateCommunicationInConversation**](ConversationsCommunicationsApi.md#CreateCommunicationInConversation) | **Post** /v2/Conversations/{ConversationId}/Communications | Create Communication
+[**FetchCommunication**](ConversationsCommunicationsApi.md#FetchCommunication) | **Get** /v2/Conversations/{ConversationId}/Communications/{id} | Fetch Communication
+[**ListCommunicationByConversation**](ConversationsCommunicationsApi.md#ListCommunicationByConversation) | **Get** /v2/Conversations/{ConversationId}/Communications | List Communications
 
 
 
 ## CreateCommunicationInConversation
 
-> ListCommunicationByConversationResponseCommunications CreateCommunicationInConversation(ctx, ConversationSidoptional)
+> ListCommunicationByConversationResponseCommunications CreateCommunicationInConversation(ctx, ConversationIdoptional)
 
 Create Communication
 
@@ -24,7 +24,7 @@ Create a Communication.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
+**ConversationId** | **string** | 
 
 ### Other Parameters
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchCommunication
 
-> ListCommunicationByConversationResponseCommunications FetchCommunication(ctx, ConversationSidSid)
+> ListCommunicationByConversationResponseCommunications FetchCommunication(ctx, ConversationIdId)
 
 Fetch Communication
 
@@ -67,8 +67,8 @@ Retrieve a Communication.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
-**Sid** | **string** | 
+**ConversationId** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListCommunicationByConversation
 
-> []ListCommunicationByConversationResponseCommunications ListCommunicationByConversation(ctx, ConversationSidoptional)
+> []ListCommunicationByConversationResponseCommunications ListCommunicationByConversation(ctx, ConversationIdoptional)
 
 List Communications
 
@@ -110,7 +110,7 @@ Retrieve a list of Communications in a Conversation.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
+**ConversationId** | **string** | 
 
 ### Other Parameters
 

@@ -38,6 +38,7 @@ Class | Method | HTTP request | Description
 
  - [OptOutMessagesEntity](docs/OptOutMessagesEntity.md)
  - [KeywordItem](docs/KeywordItem.md)
+ - [RcsTypingIndicatorRequest](docs/RcsTypingIndicatorRequest.md)
  - [MessageTypesResponse](docs/MessageTypesResponse.md)
  - [OptOutDefaultKeywordMessageResponse](docs/OptOutDefaultKeywordMessageResponse.md)
  - [CreateV3TypingIndicatorResponse](docs/CreateV3TypingIndicatorResponse.md)

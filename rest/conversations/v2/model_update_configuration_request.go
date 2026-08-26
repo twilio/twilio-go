@@ -20,7 +20,7 @@ type UpdateConfigurationRequest struct {
 	DisplayName string `json:"displayName,omitempty"`
 	// Human-readable description for the configuration.
 	Description string `json:"description"`
-	// The strategy Conversation Orchestrator uses to assign communications to conversations.
+	// Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
 	ConversationGroupingType string `json:"conversationGroupingType"`
 	// The Memory Store ID for profile resolution.
 	MemoryStoreId   string                                                    `json:"memoryStoreId"`
@@ -29,5 +29,6 @@ type UpdateConfigurationRequest struct {
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-	MemoryExtractionEnabled bool `json:"memoryExtractionEnabled,omitempty"`
+	MemoryExtractionEnabled bool                                            `json:"memoryExtractionEnabled,omitempty"`
+	ConversationsV1Bridge   CreateConfigurationRequestConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
 }

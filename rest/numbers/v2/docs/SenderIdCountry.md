@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Default** | **bool** | Indicates if this is the default routing table for the country. |
 **Status** | **string** | The status of the country for the sender Id |
 **StatusOverrideInfo** | [**SenderIdCountryStatusOverrideInfo**](SenderIdCountryStatusOverrideInfo.md) |  |[optional] 
+**CompliantUntilDate** | Pointer to [**time.Time**](time.Time.md) | The date until which the sender ID country is compliant |
+**ComplianceStatus** | [**SenderIdComplianceStatus**](SenderIdComplianceStatus.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -36,4 +36,6 @@ type MessagingV1GenericSender struct {
 	SenderType *string `json:"sender_type,omitempty"`
 	// The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number or channel sender.
 	CountryCode *string `json:"country_code,omitempty"`
+	// The capabilities of the number or channel sender (e.g. SMS, MMS, Voice). Populated for phone-number senders; empty for channel senders which have a standardized capability.
+	Capabilities *[]string `json:"capabilities,omitempty"`
 }

@@ -35,5 +35,6 @@ type InsightsV1Event struct {
 	// `object` Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
 	// `object` Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
-	ClientEdge *interface{} `json:"client_edge,omitempty"`
+	ClientEdge            *interface{}                              `json:"client_edge,omitempty"`
+	ConversationRelayData *InsightsV1CallEventConversationRelayData `json:"conversation_relay_data,omitempty"`
 }

@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-// FileSourceDetails Configuration details for file based knowledge sources. Supported file formats (extension → MIME type):   .csv → text/csv   .md → text/markdown   .mdx → text/mdx   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain Maximum file size: 16MB (16 * 1024 * 1024 bytes).
+// FileSourceDetails Configuration details for file based knowledge sources. Supported file formats (extension → MIME type):   .csv → text/csv   .md → text/markdown   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain Maximum file size: 16MB (16 * 1024 * 1024 bytes).
 type FileSourceDetails struct {
 	// File based knowledge sources
 	Type string `json:"type"`
@@ -27,7 +27,7 @@ type FileSourceDetails struct {
 	// Expected size of the file in bytes
 	FileSize int                   `json:"fileSize"`
 	MimeType SupportedFileMimeType `json:"mimeType"`
-	// Presigned S3 URL for file upload (when status is SCHEDULED) or the permanent S3 location after upload completes. Use PUT method to upload the file to this URL when status is SCHEDULED.
+	// Presigned S3 URL for file upload (when status is SCHEDULED).  Use PUT method to upload the file to this URL when status is SCHEDULED.
 	ImportUrl string `json:"importUrl,omitempty"`
 	// Expiration time of the presigned upload URL in ISO 8601 format (only present when status is SCHEDULED)
 	UploadExpiration time.Time `json:"uploadExpiration,omitempty"`

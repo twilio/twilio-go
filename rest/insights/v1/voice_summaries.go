@@ -97,7 +97,7 @@ type ListCallSummariesParams struct {
 	BusinessProfileBundleSid *string `json:"BusinessProfileBundleSid,omitempty"`
 	// A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
 	BusinessProfileType *string `json:"BusinessProfileType,omitempty"`
-	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	// How many resources to return in each list page. The default is 25, and the maximum is 25.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`

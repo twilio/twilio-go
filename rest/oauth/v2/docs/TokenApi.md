@@ -34,6 +34,7 @@ Name | Type | Description
 **Audience** | **string** | The targeted audience uri
 **RefreshToken** | **string** | JWT token related to refresh access token.
 **Scope** | **string** | The scope of token
+**CodeVerifier** | **string** | The PKCE code verifier used to generate the code_challenge in the authorization request.
 
 ### Return type
 

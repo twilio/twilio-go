@@ -22,7 +22,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchDomainConfigMessagingService(MessagingServiceSid string) (*MessagingV1DomainConfigMessagingService, error) {
 	path := "/v1/LinkShortening/MessagingService/{MessagingServiceSid}/DomainConfig"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

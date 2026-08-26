@@ -19,7 +19,6 @@ type ConversationsV2SendMessageParticipant struct {
 	// Participant ID to resolve address from.
 	ParticipantId string `json:"participantId,omitempty"`
 	// Explicit address formatted according to channel type.
-	Address string `json:"address,omitempty"`
-	// Channel type for address resolution.
-	Channel string `json:"channel,omitempty"`
+	Address string                 `json:"address,omitempty"`
+	Channel ConversationsV2Channel `json:"channel,omitempty"`
 }

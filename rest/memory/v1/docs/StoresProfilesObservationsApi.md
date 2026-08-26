@@ -176,6 +176,7 @@ Name | Type | Description
 **Source** | **string** | Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
 **CreatedAfter** | **time.Time** | Filter observations created after this timestamp (inclusive).
 **CreatedBefore** | **time.Time** | Filter observations created before this timestamp (exclusive).
+**ConversationId** | **string** | Filter by conversation ID. Returns only items associated with the specified conversation.
 **AcceptEncoding** | **string** | Compression algorithms supported by the client (e.g., gzip, deflate, br)
 **Limit** | **int** | Max number of records to return.
 
@@ -222,7 +223,7 @@ Other parameters are passed through a pointer to a PatchProfileObservationParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ObservationCore** | [**ObservationCore**](ObservationCore.md) | 
+**ObservationBase** | [**ObservationBase**](ObservationBase.md) | 
 
 ### Return type
 

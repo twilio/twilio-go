@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**FriendlyName** | Pointer to **string** | Optional display label for the sender in the Twilio Console. |
 **Configuration** | Pointer to [**MessagingV2Configuration**](MessagingV2Configuration.md) |  |
 **Webhook** | Pointer to [**MessagingV2Webhook**](MessagingV2Webhook.md) |  |
 **Profile** | Pointer to [**MessagingV2Profile**](MessagingV2Profile.md) |  |

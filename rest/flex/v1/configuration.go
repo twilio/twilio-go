@@ -32,7 +32,6 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-//
 func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -105,7 +104,6 @@ func (params *UpdateConfigurationParams) SetBody(Body map[string]interface{}) *U
 	return params
 }
 
-//
 func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
