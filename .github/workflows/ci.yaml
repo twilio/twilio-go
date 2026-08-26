@@ -2,7 +2,6 @@ name: CI
 on:
   push:
     branches: [ '*' ]
-    tags: [ '*' ]
   pull_request:
     branches: [ main ]
   schedule:
@@ -30,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go: ['1.23', '1.24', '1.25']
+        go: ['1.25', '1.26', '1.27']
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3
 
@@ -63,7 +62,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        go: [ '1.22', '1.23', '1.24' ]
+        go: [ '1.25', '1.26', '1.27' ]
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
