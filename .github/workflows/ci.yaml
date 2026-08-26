@@ -40,7 +40,7 @@ jobs:
 
       # Forks have no Artifactory access; skip login, resolve from proxy.golang.org.
       - if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
-        uses: twilio/sdk-actions/artifactory-oidc@e22fa7d16d9cfd4f046cb00f471301f5e0a9c546 # v1
+        uses: twilio/sdk-actions/artifactory-oidc@7c951c50503e2b6b7d5561cead0adcdc7e0d17af # v1
         with:
           ecosystem: go
 
