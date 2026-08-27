@@ -27,8 +27,8 @@ goimports:
 govet: goimports
 	go vet ./...
 
-golint: govet
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
+golint:
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.8
 	golangci-lint run
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)

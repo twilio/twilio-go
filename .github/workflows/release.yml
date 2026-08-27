@@ -1,0 +1,100 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, e.g. v1.31.0'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Everything that can fail cheaply fails BEFORE the gate — reviewers should
+  # only ever be asked to approve a green candidate.
+  verify:
+    runs-on: ubuntu-x64
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Version must be v-prefixed semver and not already released
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          case "$VERSION" in
+            v[0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "::error::'${VERSION}' is not a v-prefixed semver tag"; exit 1 ;;
+          esac
+          if git rev-parse -q --verify "refs/tags/${VERSION}" >/dev/null; then
+            echo "::error::${VERSION} already exists — Go versions are immutable, pick a new one"
+            exit 1
+          fi
+
+      - uses: twilio/sdk-actions/go-lockfile-hygiene@7c951c50503e2b6b7d5561cead0adcdc7e0d17af # v1
+
+      - uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
+        with:
+          go-version: '1.25'
+
+      - uses: twilio/sdk-actions/artifactory-oidc@7c951c50503e2b6b7d5561cead0adcdc7e0d17af # v1
+        with:
+          ecosystem: go
+
+      - run: make install
+      - run: make test
+
+  publish:
+    needs: [verify]
+    runs-on: ubuntu-x64
+    environment: production   # THE GATE — the tag does not exist until this is approved
+    permissions:
+      contents: write         # create the tag and the GitHub Release
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
+        with:
+          go-version: '1.25'
+
+      # THE POINT OF NO RETURN. The moment this ref lands, the version is public
+      # and permanent — proxy.golang.org will serve it and sum.golang.org will
+      # pin its hash forever.
+      - name: Create the release tag
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          git tag -a "$VERSION" -m "$VERSION"
+          git push origin "$VERSION"
+
+      - uses: twilio/sdk-actions/github-release@9b1c3222c9ffe38aadedb11c5b9f5a172b5e9951 # v1
+        with:
+          tag: ${{ inputs.version }}
+
+          changelog-file: CHANGES.md
+
+      # Prove the version is really servable, and capture the checksum the
+      # transparency log has now committed to.
+      - name: Warm the public proxy and record the checksum
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          MOD="$(go list -m)"
+          cd "$(mktemp -d)"
+          go mod init warm
+          # Public defaults only — this must mirror what a consumer gets.
+          GOPROXY=https://proxy.golang.org GOSUMDB=sum.golang.org \
+          GOPRIVATE= GONOPROXY= GONOSUMDB= GOFLAGS=-mod=mod \
+            go get "${MOD}@${VERSION}"
+          grep -E "^${MOD} ${VERSION} h1:" go.sum
