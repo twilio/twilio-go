@@ -41,7 +41,6 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-//
 func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -124,7 +123,6 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-//
 func (c *ApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -191,7 +189,6 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-//
 func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -523,7 +520,6 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-//
 func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

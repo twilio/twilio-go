@@ -14,12 +14,18 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // JobResult struct for JobResult
 type JobResult struct {
-	FileUrl        *string `json:"file_url,omitempty"`
-	TotalCount     int     `json:"total_count,omitempty"`
-	ProcessedCount int     `json:"processed_count,omitempty"`
-	SuccessCount   int     `json:"success_count,omitempty"`
-	ErrorCount     int     `json:"error_count,omitempty"`
-	Details        *string `json:"details,omitempty"`
+	FileUrl        *string    `json:"file_url,omitempty"`
+	TotalCount     int        `json:"total_count,omitempty"`
+	ProcessedCount int        `json:"processed_count,omitempty"`
+	SuccessCount   int        `json:"success_count,omitempty"`
+	ErrorCount     int        `json:"error_count,omitempty"`
+	Details        *string    `json:"details,omitempty"`
+	ErrorFileUrl   *string    `json:"error_file_url,omitempty"`
+	ExpiresAt      *time.Time `json:"expires_at,omitempty"`
 }

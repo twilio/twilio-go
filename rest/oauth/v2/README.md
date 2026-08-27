@@ -32,6 +32,7 @@ All URIs are relative to *https://oauth.twilio.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AuthorizeApi* | [**FetchOauth2Authorize**](docs/AuthorizeApi.md#fetchoauth2authorize) | **Get** /v2/authorize | Retrieves authorize uri
+*OauthAuthorizationServerApi* | [**FetchOauth2ServerMetadata**](docs/OauthAuthorizationServerApi.md#fetchoauth2servermetadata) | **Get** /.well-known/oauth-authorization-server | OAuth 2.0 Authorization Server Metadata
 *TokenApi* | [**CreateOauth2Token**](docs/TokenApi.md#createoauth2token) | **Post** /v2/token | Issues a new Access token (optionally identity_token &amp; refresh_token) in exchange of Oauth grant
 
 
@@ -44,6 +45,7 @@ Class | Method | HTTP request | Description
  - [Auth0RefreshTokenResponse](docs/Auth0RefreshTokenResponse.md)
  - [Error](docs/Error.md)
  - [SessionMetadataResponse](docs/SessionMetadataResponse.md)
+ - [FetchOauth2ServerMetadataResponse](docs/FetchOauth2ServerMetadataResponse.md)
  - [V2Oauth2TokenResponse](docs/V2Oauth2TokenResponse.md)
  - [Auth0SignupRequest](docs/Auth0SignupRequest.md)
  - [Auth0TestLoginResponse](docs/Auth0TestLoginResponse.md)

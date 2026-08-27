@@ -86,6 +86,8 @@ type CreateCallParams struct {
 	AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
 	// The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
 	AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
+	// The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
+	Passports *string `json:"Passports,omitempty"`
 	// The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
 	Byoc *string `json:"Byoc,omitempty"`
 	// The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
@@ -220,6 +222,10 @@ func (params *CreateCallParams) SetAsyncAmdStatusCallback(AsyncAmdStatusCallback
 }
 func (params *CreateCallParams) SetAsyncAmdStatusCallbackMethod(AsyncAmdStatusCallbackMethod string) *CreateCallParams {
 	params.AsyncAmdStatusCallbackMethod = &AsyncAmdStatusCallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetPassports(Passports string) *CreateCallParams {
+	params.Passports = &Passports
 	return params
 }
 func (params *CreateCallParams) SetByoc(Byoc string) *CreateCallParams {
@@ -360,6 +366,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	}
 	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
 		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+	}
+	if params != nil && params.Passports != nil {
+		data.Set("Passports", *params.Passports)
 	}
 	if params != nil && params.Byoc != nil {
 		data.Set("Byoc", *params.Byoc)
@@ -505,6 +514,9 @@ func (c *ApiService) CreateCallWithMetadata(params *CreateCallParams) (*metadata
 	}
 	if params != nil && params.AsyncAmdStatusCallbackMethod != nil {
 		data.Set("AsyncAmdStatusCallbackMethod", *params.AsyncAmdStatusCallbackMethod)
+	}
+	if params != nil && params.Passports != nil {
+		data.Set("Passports", *params.Passports)
 	}
 	if params != nil && params.Byoc != nil {
 		data.Set("Byoc", *params.Byoc)

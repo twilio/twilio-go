@@ -70,8 +70,8 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int** | The maximum number of resources to return
 **PageToken** | **string** | Token for pagination
-**CreatedAtBefore** | **time.Time** | Filter by Conversations created before this timestamp.
-**CreatedAtAfter** | **time.Time** | Filter by Conversations created after this timestamp.
+**CreatedAtBefore** | **time.Time** | Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
+**CreatedAtAfter** | **time.Time** | Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
 **Status** | **string** | Filter by Conversation status.
 **ChannelId** | **string** | Filters Conversations by the underlying channel resource ID, such as a Call ID or Message ID.
 **Channels** | **[]string** | Filters Conversations that include one or more of the specified communication channels (`OR` match).

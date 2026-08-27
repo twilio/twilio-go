@@ -41,7 +41,6 @@ func (params *CreatePluginReleaseParams) SetConfigurationId(ConfigurationId stri
 	return params
 }
 
-//
 func (c *ApiService) CreatePluginRelease(params *CreatePluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases"
 
@@ -120,7 +119,6 @@ func (params *FetchPluginReleaseParams) SetFlexMetadata(FlexMetadata string) *Fe
 	return params
 }
 
-//
 func (c *ApiService) FetchPluginRelease(Sid string, params *FetchPluginReleaseParams) (*FlexV1PluginRelease, error) {
 	path := "/v1/PluginService/Releases/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

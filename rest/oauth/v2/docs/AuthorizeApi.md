@@ -30,6 +30,8 @@ Name | Type | Description
 **RedirectUri** | **string** | 
 **Scope** | **string** | 
 **State** | **string** | 
+**CodeChallenge** | **string** | 
+**CodeChallengeMethod** | **string** | 
 
 ### Return type
 

@@ -45,8 +45,9 @@ Name | Type | Description
 **RateLimits** | [**interface{}**](interface{}.md) | The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
 **ChannelConfiguration** | [**interface{}**](interface{}.md) | [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
 **AppHash** | **string** | Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
-**TemplateSid** | **string** | The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+**TemplateSid** | **string** | The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter.
 **TemplateCustomSubstitutions** | **string** | A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+**Templates** | **string** | A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template's special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`.
 **DeviceIp** | **string** | Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
 **EnableSnaClientToken** | **bool** | An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
 **RiskCheck** | [**string**](string.md) | 
@@ -58,7 +59,7 @@ Name | Type | Description
 
 ### Authorization
 
-[accountSid_authToken](../README.md#accountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken), [access_token_bearer](../README.md#access_token_bearer)
 
 ### HTTP request headers
 
@@ -101,7 +102,7 @@ Name | Type | Description
 
 ### Authorization
 
-[accountSid_authToken](../README.md#accountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken), [access_token_bearer](../README.md#access_token_bearer)
 
 ### HTTP request headers
 
@@ -145,7 +146,7 @@ Name | Type | Description
 
 ### Authorization
 
-[accountSid_authToken](../README.md#accountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken), [access_token_bearer](../README.md#access_token_bearer)
 
 ### HTTP request headers
 

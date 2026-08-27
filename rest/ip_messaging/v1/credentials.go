@@ -71,7 +71,6 @@ func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredential
 	return params
 }
 
-//
 func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials"
 
@@ -169,7 +168,6 @@ func (c *ApiService) CreateCredentialWithMetadata(params *CreateCredentialParams
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteCredential(Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -215,7 +213,6 @@ func (c *ApiService) DeleteCredentialWithMetadata(Sid string) (*metadata.Resourc
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchCredential(Sid string) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -543,7 +540,6 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
-//
 func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

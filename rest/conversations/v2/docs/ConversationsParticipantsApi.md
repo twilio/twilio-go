@@ -4,16 +4,16 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateParticipantInConversation**](ConversationsParticipantsApi.md#CreateParticipantInConversation) | **Post** /v2/Conversations/{ConversationSid}/Participants | Create Participant
-[**FetchParticipant**](ConversationsParticipantsApi.md#FetchParticipant) | **Get** /v2/Conversations/{ConversationSid}/Participants/{Sid} | Fetch Participant
-[**ListParticipantByConversation**](ConversationsParticipantsApi.md#ListParticipantByConversation) | **Get** /v2/Conversations/{ConversationSid}/Participants | List Participants
-[**UpdateParticipantInConversation**](ConversationsParticipantsApi.md#UpdateParticipantInConversation) | **Put** /v2/Conversations/{ConversationSid}/Participants/{Sid} | Update a Participant
+[**CreateParticipantInConversation**](ConversationsParticipantsApi.md#CreateParticipantInConversation) | **Post** /v2/Conversations/{ConversationId}/Participants | Create Participant
+[**FetchParticipant**](ConversationsParticipantsApi.md#FetchParticipant) | **Get** /v2/Conversations/{ConversationId}/Participants/{id} | Fetch Participant
+[**ListParticipantByConversation**](ConversationsParticipantsApi.md#ListParticipantByConversation) | **Get** /v2/Conversations/{ConversationId}/Participants | List Participants
+[**UpdateParticipantInConversation**](ConversationsParticipantsApi.md#UpdateParticipantInConversation) | **Put** /v2/Conversations/{ConversationId}/Participants/{id} | Update a Participant
 
 
 
 ## CreateParticipantInConversation
 
-> ListParticipantByConversationResponseParticipants CreateParticipantInConversation(ctx, ConversationSidoptional)
+> ListParticipantByConversationResponseParticipants CreateParticipantInConversation(ctx, ConversationIdoptional)
 
 Create Participant
 
@@ -25,7 +25,7 @@ Create a Participant.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
+**ConversationId** | **string** | 
 
 ### Other Parameters
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchParticipant
 
-> ListParticipantByConversationResponseParticipants FetchParticipant(ctx, ConversationSidSid)
+> ListParticipantByConversationResponseParticipants FetchParticipant(ctx, ConversationIdId)
 
 Fetch Participant
 
@@ -68,8 +68,8 @@ Retrieve a Participant.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
-**Sid** | **string** | 
+**ConversationId** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## ListParticipantByConversation
 
-> []ListParticipantByConversationResponseParticipants ListParticipantByConversation(ctx, ConversationSidoptional)
+> []ListParticipantByConversationResponseParticipants ListParticipantByConversation(ctx, ConversationIdoptional)
 
 List Participants
 
@@ -111,7 +111,7 @@ Retrieve a list of Participants in a Conversation.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
+**ConversationId** | **string** | 
 
 ### Other Parameters
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## UpdateParticipantInConversation
 
-> ListParticipantByConversationResponseParticipants UpdateParticipantInConversation(ctx, ConversationSidSidoptional)
+> ListParticipantByConversationResponseParticipants UpdateParticipantInConversation(ctx, ConversationIdIdoptional)
 
 Update a Participant
 
@@ -156,8 +156,8 @@ Update an existing Participant
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ConversationSid** | **string** | 
-**Sid** | **string** | 
+**ConversationId** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 

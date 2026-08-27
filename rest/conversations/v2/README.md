@@ -31,102 +31,129 @@ All URIs are relative to *https://conversations.twilio.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ControlPlaneConfigurationsApi* | [**CreateConfiguration**](docs/ControlPlaneConfigurationsApi.md#createconfiguration) | **Post** /v2/ControlPlane/Configurations | Create a Configuration
-*ControlPlaneConfigurationsApi* | [**DeleteConfiguration**](docs/ControlPlaneConfigurationsApi.md#deleteconfiguration) | **Delete** /v2/ControlPlane/Configurations/{Sid} | Delete Configuration
-*ControlPlaneConfigurationsApi* | [**FetchConfiguration**](docs/ControlPlaneConfigurationsApi.md#fetchconfiguration) | **Get** /v2/ControlPlane/Configurations/{Sid} | Fetch Configuration
+*ControlPlaneConfigurationsApi* | [**DeleteConfiguration**](docs/ControlPlaneConfigurationsApi.md#deleteconfiguration) | **Delete** /v2/ControlPlane/Configurations/{id} | Delete Configuration
+*ControlPlaneConfigurationsApi* | [**FetchConfiguration**](docs/ControlPlaneConfigurationsApi.md#fetchconfiguration) | **Get** /v2/ControlPlane/Configurations/{id} | Fetch Configuration
 *ControlPlaneConfigurationsApi* | [**ListConfiguration**](docs/ControlPlaneConfigurationsApi.md#listconfiguration) | **Get** /v2/ControlPlane/Configurations | List Configurations
-*ControlPlaneConfigurationsApi* | [**UpdateConfiguration**](docs/ControlPlaneConfigurationsApi.md#updateconfiguration) | **Put** /v2/ControlPlane/Configurations/{Sid} | Update Configuration
-*ControlPlaneOperationsApi* | [**FetchOperationStatus**](docs/ControlPlaneOperationsApi.md#fetchoperationstatus) | **Get** /v2/ControlPlane/Operations/{Sid} | Get Operation Status
+*ControlPlaneConfigurationsApi* | [**UpdateConfiguration**](docs/ControlPlaneConfigurationsApi.md#updateconfiguration) | **Put** /v2/ControlPlane/Configurations/{id} | Update Configuration
+*ControlPlaneOperationsApi* | [**FetchOperationStatus**](docs/ControlPlaneOperationsApi.md#fetchoperationstatus) | **Get** /v2/ControlPlane/Operations/{id} | Get Operation Status
 *ConversationsApi* | [**CreateConversationWithConfig**](docs/ConversationsApi.md#createconversationwithconfig) | **Post** /v2/Conversations | Create a new Conversation
-*ConversationsApi* | [**DeleteConversationAsync**](docs/ConversationsApi.md#deleteconversationasync) | **Delete** /v2/Conversations/{Sid} | Delete a Conversation (async)
-*ConversationsApi* | [**FetchConversation**](docs/ConversationsApi.md#fetchconversation) | **Get** /v2/Conversations/{Sid} | Fetch Conversation
+*ConversationsApi* | [**DeleteConversationAsync**](docs/ConversationsApi.md#deleteconversationasync) | **Delete** /v2/Conversations/{id} | Delete a Conversation (async)
+*ConversationsApi* | [**FetchConversation**](docs/ConversationsApi.md#fetchconversation) | **Get** /v2/Conversations/{id} | Fetch Conversation
 *ConversationsApi* | [**ListConversationByAccount**](docs/ConversationsApi.md#listconversationbyaccount) | **Get** /v2/Conversations | List Conversations
-*ConversationsApi* | [**PatchConversationById**](docs/ConversationsApi.md#patchconversationbyid) | **Patch** /v2/Conversations/{Sid} | Partially Update a Conversation
-*ConversationsApi* | [**UpdateConversationById**](docs/ConversationsApi.md#updateconversationbyid) | **Put** /v2/Conversations/{Sid} | Update a Conversation
+*ConversationsApi* | [**PatchConversationById**](docs/ConversationsApi.md#patchconversationbyid) | **Patch** /v2/Conversations/{id} | Partially Update a Conversation
+*ConversationsApi* | [**UpdateConversationById**](docs/ConversationsApi.md#updateconversationbyid) | **Put** /v2/Conversations/{id} | Update a Conversation
 *ConversationsActionsApi* | [**CreateConversationAction**](docs/ConversationsActionsApi.md#createconversationaction) | **Post** /v2/Conversations/{ConversationId}/Actions | Create an Action
 *ConversationsActionsApi* | [**FetchConversationAction**](docs/ConversationsActionsApi.md#fetchconversationaction) | **Get** /v2/Conversations/{ConversationId}/Actions/{ActionId} | Get Action Status
-*ConversationsCommunicationsApi* | [**CreateCommunicationInConversation**](docs/ConversationsCommunicationsApi.md#createcommunicationinconversation) | **Post** /v2/Conversations/{ConversationSid}/Communications | Create Communication
-*ConversationsCommunicationsApi* | [**FetchCommunication**](docs/ConversationsCommunicationsApi.md#fetchcommunication) | **Get** /v2/Conversations/{ConversationSid}/Communications/{Sid} | Fetch Communication
-*ConversationsCommunicationsApi* | [**ListCommunicationByConversation**](docs/ConversationsCommunicationsApi.md#listcommunicationbyconversation) | **Get** /v2/Conversations/{ConversationSid}/Communications | List Communications
-*ConversationsParticipantsApi* | [**CreateParticipantInConversation**](docs/ConversationsParticipantsApi.md#createparticipantinconversation) | **Post** /v2/Conversations/{ConversationSid}/Participants | Create Participant
-*ConversationsParticipantsApi* | [**FetchParticipant**](docs/ConversationsParticipantsApi.md#fetchparticipant) | **Get** /v2/Conversations/{ConversationSid}/Participants/{Sid} | Fetch Participant
-*ConversationsParticipantsApi* | [**ListParticipantByConversation**](docs/ConversationsParticipantsApi.md#listparticipantbyconversation) | **Get** /v2/Conversations/{ConversationSid}/Participants | List Participants
-*ConversationsParticipantsApi* | [**UpdateParticipantInConversation**](docs/ConversationsParticipantsApi.md#updateparticipantinconversation) | **Put** /v2/Conversations/{ConversationSid}/Participants/{Sid} | Update a Participant
+*ConversationsCommunicationsApi* | [**CreateCommunicationInConversation**](docs/ConversationsCommunicationsApi.md#createcommunicationinconversation) | **Post** /v2/Conversations/{ConversationId}/Communications | Create Communication
+*ConversationsCommunicationsApi* | [**FetchCommunication**](docs/ConversationsCommunicationsApi.md#fetchcommunication) | **Get** /v2/Conversations/{ConversationId}/Communications/{id} | Fetch Communication
+*ConversationsCommunicationsApi* | [**ListCommunicationByConversation**](docs/ConversationsCommunicationsApi.md#listcommunicationbyconversation) | **Get** /v2/Conversations/{ConversationId}/Communications | List Communications
+*ConversationsParticipantsApi* | [**CreateParticipantInConversation**](docs/ConversationsParticipantsApi.md#createparticipantinconversation) | **Post** /v2/Conversations/{ConversationId}/Participants | Create Participant
+*ConversationsParticipantsApi* | [**FetchParticipant**](docs/ConversationsParticipantsApi.md#fetchparticipant) | **Get** /v2/Conversations/{ConversationId}/Participants/{id} | Fetch Participant
+*ConversationsParticipantsApi* | [**ListParticipantByConversation**](docs/ConversationsParticipantsApi.md#listparticipantbyconversation) | **Get** /v2/Conversations/{ConversationId}/Participants | List Participants
+*ConversationsParticipantsApi* | [**UpdateParticipantInConversation**](docs/ConversationsParticipantsApi.md#updateparticipantinconversation) | **Put** /v2/Conversations/{ConversationId}/Participants/{id} | Update a Participant
 
 
 ## Documentation For Models
 
  - [ConversationsV2Action](docs/ConversationsV2Action.md)
- - [PatchConversationByIdRequest](docs/PatchConversationByIdRequest.md)
  - [ConversationsV2StatusCallbackConfig](docs/ConversationsV2StatusCallbackConfig.md)
  - [CreateConfigurationRequestChannelSettingsValueStatusTimeouts](docs/CreateConfigurationRequestChannelSettingsValueStatusTimeouts.md)
  - [ConversationsV2Conversation](docs/ConversationsV2Conversation.md)
  - [ListCommunicationByConversationResponseCommunicationsRecipients](docs/ListCommunicationByConversationResponseCommunicationsRecipients.md)
- - [ConversationsV2ParticipantAddress](docs/ConversationsV2ParticipantAddress.md)
- - [ConversationsV2Address](docs/ConversationsV2Address.md)
- - [CreateCommunicationInConversationRequestAuthor](docs/CreateCommunicationInConversationRequestAuthor.md)
+ - [ConversationsV2SendChannel](docs/ConversationsV2SendChannel.md)
  - [CreateConfigurationResponse](docs/CreateConfigurationResponse.md)
- - [ListParticipantByConversationResponseMeta](docs/ListParticipantByConversationResponseMeta.md)
- - [CreateCommunicationInConversationRequestContent](docs/CreateCommunicationInConversationRequestContent.md)
  - [ContentText](docs/ContentText.md)
  - [CreateConversationWithConfigRequestParticipants](docs/CreateConversationWithConfigRequestParticipants.md)
- - [ListConversationByAccountResponseConversationsConfiguration](docs/ListConversationByAccountResponseConversationsConfiguration.md)
+ - [ConversationsV2AgentConnectHandler](docs/ConversationsV2AgentConnectHandler.md)
  - [ConversationsV2SendMessagePayload](docs/ConversationsV2SendMessagePayload.md)
- - [ListConversationByAccountResponseMeta](docs/ListConversationByAccountResponseMeta.md)
  - [ConversationsV2ContentTranscription](docs/ConversationsV2ContentTranscription.md)
  - [CreateConfigurationRequestChannelSettingsValueCaptureRules](docs/CreateConfigurationRequestChannelSettingsValueCaptureRules.md)
  - [CreateParticipantInConversationRequest](docs/CreateParticipantInConversationRequest.md)
- - [ConversationsV2Communication](docs/ConversationsV2Communication.md)
- - [ConversationsV2Configuration](docs/ConversationsV2Configuration.md)
- - [ConversationsV2OperationStatus](docs/ConversationsV2OperationStatus.md)
- - [PatchConversationByIdRequestConfiguration](docs/PatchConversationByIdRequestConfiguration.md)
- - [ConversationsV2SendMessageParticipant](docs/ConversationsV2SendMessageParticipant.md)
- - [ConversationsV2SendAddress](docs/ConversationsV2SendAddress.md)
- - [CreateConversationWithConfigRequestParticipantsAddresses](docs/CreateConversationWithConfigRequestParticipantsAddresses.md)
- - [ListCommunicationByConversationResponseCommunications](docs/ListCommunicationByConversationResponseCommunications.md)
+ - [ConversationsV2ParticipantType](docs/ConversationsV2ParticipantType.md)
+ - [ConversationsV2StartConversationSendMessagePayload](docs/ConversationsV2StartConversationSendMessagePayload.md)
+ - [ConversationsV2StartConversationConfiguration](docs/ConversationsV2StartConversationConfiguration.md)
+ - [ConversationsV2ConversationGroupingType](docs/ConversationsV2ConversationGroupingType.md)
+ - [ConversationsV2Channel](docs/ConversationsV2Channel.md)
  - [CreateConfigurationRequestChannelSettingsValue](docs/CreateConfigurationRequestChannelSettingsValue.md)
- - [ListCommunicationByConversationResponseMeta](docs/ListCommunicationByConversationResponseMeta.md)
- - [ListConfigurationResponseMeta](docs/ListConfigurationResponseMeta.md)
- - [UpdateConfigurationRequestStatusCallbacks](docs/UpdateConfigurationRequestStatusCallbacks.md)
- - [ListParticipantByConversationResponseParticipants](docs/ListParticipantByConversationResponseParticipants.md)
  - [ConversationsV2OperationAccepted](docs/ConversationsV2OperationAccepted.md)
- - [ListConfigurationResponse](docs/ListConfigurationResponse.md)
- - [CreateConversationActionRequest](docs/CreateConversationActionRequest.md)
- - [ConversationsV2ContentTranscriptionTranscription](docs/ConversationsV2ContentTranscriptionTranscription.md)
- - [CreateConfigurationRequestStatusCallbacks](docs/CreateConfigurationRequestStatusCallbacks.md)
- - [ListConfigurationResponseConfigurations](docs/ListConfigurationResponseConfigurations.md)
- - [FetchOperationStatusResponse](docs/FetchOperationStatusResponse.md)
+ - [ConversationsV2CallStatus](docs/ConversationsV2CallStatus.md)
  - [ConversationsV2SendMessageActionRequest](docs/ConversationsV2SendMessageActionRequest.md)
- - [CreateConversationWithConfigRequest](docs/CreateConversationWithConfigRequest.md)
  - [ListConversationByAccountResponseConversations](docs/ListConversationByAccountResponseConversations.md)
  - [ContentTranscriptionTranscription](docs/ContentTranscriptionTranscription.md)
- - [ConversationsV2ChannelSetting](docs/ConversationsV2ChannelSetting.md)
  - [ConversationsV2PatchConversationConfiguration](docs/ConversationsV2PatchConversationConfiguration.md)
+ - [ConversationsV2StartConversationStartFlowPayload](docs/ConversationsV2StartConversationStartFlowPayload.md)
  - [ConversationsV2ConversationsV1Bridge](docs/ConversationsV2ConversationsV1Bridge.md)
- - [ConversationsV2SendContent](docs/ConversationsV2SendContent.md)
  - [ConversationsV2CaptureRule](docs/ConversationsV2CaptureRule.md)
  - [ConversationsV2ContentText](docs/ConversationsV2ContentText.md)
  - [CreateConversationWithConfigRequestConfiguration](docs/CreateConversationWithConfigRequestConfiguration.md)
  - [CreateCommunicationInConversationRequest](docs/CreateCommunicationInConversationRequest.md)
- - [ContentTranscription](docs/ContentTranscription.md)
- - [ListCommunicationByConversationResponseCommunicationsContent](docs/ListCommunicationByConversationResponseCommunicationsContent.md)
- - [UpdateConfigurationRequestChannelSettingsValueCaptureRules](docs/UpdateConfigurationRequestChannelSettingsValueCaptureRules.md)
+ - [CreateCommunicationInConversationRequestAuthor](docs/CreateCommunicationInConversationRequestAuthor.md)
  - [UpdateConfigurationRequestChannelSettingsValue](docs/UpdateConfigurationRequestChannelSettingsValue.md)
- - [FetchOperationStatusResponseError](docs/FetchOperationStatusResponseError.md)
  - [ConversationsV2Participant](docs/ConversationsV2Participant.md)
- - [ConversationsV2SendMessageContent](docs/ConversationsV2SendMessageContent.md)
  - [ListCommunicationByConversationResponse](docs/ListCommunicationByConversationResponse.md)
  - [ListConversationByAccountResponse](docs/ListConversationByAccountResponse.md)
- - [UpdateConversationByIdRequest](docs/UpdateConversationByIdRequest.md)
  - [ConversationsV2ContentTranscriptionTranscriptionWords](docs/ConversationsV2ContentTranscriptionTranscriptionWords.md)
- - [CreateParticipantInConversationRequestAddresses](docs/CreateParticipantInConversationRequestAddresses.md)
+ - [CreateCommunicationInConversationRequestRecipients](docs/CreateCommunicationInConversationRequestRecipients.md)
  - [CreateConfigurationRequest](docs/CreateConfigurationRequest.md)
- - [ConversationsV2StatusTimeouts](docs/ConversationsV2StatusTimeouts.md)
+ - [ConversationsV2StartConversationAddress](docs/ConversationsV2StartConversationAddress.md)
  - [UpdateConfigurationRequest](docs/UpdateConfigurationRequest.md)
+ - [ConversationsV2RecipientDeliveryStatus](docs/ConversationsV2RecipientDeliveryStatus.md)
  - [ConversationsV2CommunicationEndpoint](docs/ConversationsV2CommunicationEndpoint.md)
- - [ListParticipantByConversationResponse](docs/ListParticipantByConversationResponse.md)
  - [CreateConversationActionResponse](docs/CreateConversationActionResponse.md)
  - [UpdateConfigurationRequestChannelSettingsValueStatusTimeouts](docs/UpdateConfigurationRequestChannelSettingsValueStatusTimeouts.md)
+ - [ConversationsV2OperationStatusValue](docs/ConversationsV2OperationStatusValue.md)
  - [UpdateParticipantInConversationRequest](docs/UpdateParticipantInConversationRequest.md)
+ - [PatchConversationByIdRequest](docs/PatchConversationByIdRequest.md)
+ - [ConversationsV2StartConversationAction](docs/ConversationsV2StartConversationAction.md)
+ - [ConversationsV2StartConversationStartFlowAction](docs/ConversationsV2StartConversationStartFlowAction.md)
+ - [ConversationsV2ParticipantAddress](docs/ConversationsV2ParticipantAddress.md)
+ - [ConversationsV2Address](docs/ConversationsV2Address.md)
+ - [ListParticipantByConversationResponseMeta](docs/ListParticipantByConversationResponseMeta.md)
+ - [CreateCommunicationInConversationRequestContent](docs/CreateCommunicationInConversationRequestContent.md)
+ - [ListConversationByAccountResponseConversationsConfiguration](docs/ListConversationByAccountResponseConversationsConfiguration.md)
+ - [ListConversationByAccountResponseMeta](docs/ListConversationByAccountResponseMeta.md)
+ - [ConversationsV2ConversationStatus](docs/ConversationsV2ConversationStatus.md)
+ - [ConversationsV2Communication](docs/ConversationsV2Communication.md)
+ - [ConversationsV2Configuration](docs/ConversationsV2Configuration.md)
+ - [CreateConfigurationRequestConversationsV1Bridge](docs/CreateConfigurationRequestConversationsV1Bridge.md)
+ - [ConversationsV2OperationStatus](docs/ConversationsV2OperationStatus.md)
+ - [PatchConversationByIdRequestConfiguration](docs/PatchConversationByIdRequestConfiguration.md)
+ - [ConversationsV2SendMessageParticipant](docs/ConversationsV2SendMessageParticipant.md)
+ - [ConversationsV2SendAddress](docs/ConversationsV2SendAddress.md)
+ - [ConversationsV2StartConversationSendMessageAction](docs/ConversationsV2StartConversationSendMessageAction.md)
+ - [CreateConversationWithConfigRequestParticipantsAddresses](docs/CreateConversationWithConfigRequestParticipantsAddresses.md)
+ - [ListCommunicationByConversationResponseCommunications](docs/ListCommunicationByConversationResponseCommunications.md)
+ - [ListCommunicationByConversationResponseMeta](docs/ListCommunicationByConversationResponseMeta.md)
+ - [ListConfigurationResponseMeta](docs/ListConfigurationResponseMeta.md)
+ - [UpdateConfigurationRequestStatusCallbacks](docs/UpdateConfigurationRequestStatusCallbacks.md)
+ - [ListParticipantByConversationResponseParticipants](docs/ListParticipantByConversationResponseParticipants.md)
+ - [ListConfigurationResponse](docs/ListConfigurationResponse.md)
+ - [CreateConversationActionRequest](docs/CreateConversationActionRequest.md)
+ - [ConversationsV2CallSettings](docs/ConversationsV2CallSettings.md)
+ - [ConversationsV2ContentTranscriptionTranscription](docs/ConversationsV2ContentTranscriptionTranscription.md)
+ - [CreateConfigurationRequestStatusCallbacks](docs/CreateConfigurationRequestStatusCallbacks.md)
+ - [ListConfigurationResponseConfigurations](docs/ListConfigurationResponseConfigurations.md)
+ - [FetchOperationStatusResponse](docs/FetchOperationStatusResponse.md)
+ - [ConversationsV2StartConversationRequest](docs/ConversationsV2StartConversationRequest.md)
+ - [CreateConversationWithConfigRequest](docs/CreateConversationWithConfigRequest.md)
+ - [ConversationsV2ChannelSetting](docs/ConversationsV2ChannelSetting.md)
+ - [ConversationsV2SendContent](docs/ConversationsV2SendContent.md)
+ - [ConversationsV2RelaySettings](docs/ConversationsV2RelaySettings.md)
+ - [ContentTranscription](docs/ContentTranscription.md)
+ - [ConversationsV2ActionStatus](docs/ConversationsV2ActionStatus.md)
+ - [ListCommunicationByConversationResponseCommunicationsContent](docs/ListCommunicationByConversationResponseCommunicationsContent.md)
+ - [UpdateConfigurationRequestChannelSettingsValueCaptureRules](docs/UpdateConfigurationRequestChannelSettingsValueCaptureRules.md)
+ - [ConversationsV2StartConversationActionRequest](docs/ConversationsV2StartConversationActionRequest.md)
+ - [FetchOperationStatusResponseError](docs/FetchOperationStatusResponseError.md)
+ - [ConversationsV2SendMessageContent](docs/ConversationsV2SendMessageContent.md)
+ - [UpdateConversationByIdRequest](docs/UpdateConversationByIdRequest.md)
+ - [ConversationsV2StartConversationCallPayload](docs/ConversationsV2StartConversationCallPayload.md)
+ - [ConversationsV2StatusTimeouts](docs/ConversationsV2StatusTimeouts.md)
+ - [ListParticipantByConversationResponse](docs/ListParticipantByConversationResponse.md)
+ - [ConversationsV2StartConversationCallAction](docs/ConversationsV2StartConversationCallAction.md)
+ - [ConversationsV2UpdateStartConversationActionRequest](docs/ConversationsV2UpdateStartConversationActionRequest.md)
+ - [ConversationsV2StartConversationParticipantSelector](docs/ConversationsV2StartConversationParticipantSelector.md)
+ - [ConversationsV2StartConversationParticipant](docs/ConversationsV2StartConversationParticipant.md)
 
 
 ## Documentation For Authorization

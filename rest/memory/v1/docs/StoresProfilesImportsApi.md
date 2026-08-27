@@ -102,7 +102,7 @@ Name | Type | Description
 
 Get a list of imports
 
-Retrieve a list of profile import task IDs that have been submitted for this service. Use these IDs to query individual import status details.
+Retrieve a paginated list of profile import task IDs submitted for this service, ordered by import recency. Use the returned IDs to query individual import status details, and the paging parameters to iterate through larger sets. `orderBy` defaults to `DESC`; omitting `pageSize`/`pageToken` returns a default first page.
 
 ### Path Parameters
 
@@ -119,8 +119,10 @@ Other parameters are passed through a pointer to a ListProfileImportsV2Params st
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**PageSize** | **int** | The maximum number of items to return per page, maximum of 1000.
+**PageToken** | **string** | The token for the page of results to retrieve.
+**OrderBy** | **string** | Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
 **Limit** | **int** | Max number of records to return.
-**PageSize** | **int** | Max number of records to return in a page
 
 ### Return type
 

@@ -4,13 +4,13 @@ All URIs are relative to *https://conversations.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchOperationStatus**](ControlPlaneOperationsApi.md#FetchOperationStatus) | **Get** /v2/ControlPlane/Operations/{Sid} | Get Operation Status
+[**FetchOperationStatus**](ControlPlaneOperationsApi.md#FetchOperationStatus) | **Get** /v2/ControlPlane/Operations/{id} | Get Operation Status
 
 
 
 ## FetchOperationStatus
 
-> FetchOperationStatusResponse FetchOperationStatus(ctx, Sid)
+> FetchOperationStatusResponse FetchOperationStatus(ctx, Id)
 
 Get Operation Status
 
@@ -22,7 +22,7 @@ Retrieve the current status of a long-running operation. Operations progress thr
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 

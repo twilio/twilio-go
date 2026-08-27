@@ -65,7 +65,6 @@ func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportC
 	return params
 }
 
-//
 func (c *ApiService) CreateExportCustomJob(ResourceType string, params *CreateExportCustomJobParams) (*BulkexportsV1ExportCustomJob, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -159,7 +158,6 @@ func (c *ApiService) CreateExportCustomJobWithMetadata(ResourceType string, para
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteJob(JobSid string) error {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)
@@ -205,7 +203,6 @@ func (c *ApiService) DeleteJobWithMetadata(JobSid string) (*metadata.ResourceMet
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchJob(JobSid string) (*BulkexportsV1Job, error) {
 	path := "/v1/Exports/Jobs/{JobSid}"
 	path = strings.Replace(path, "{"+"JobSid"+"}", JobSid, -1)

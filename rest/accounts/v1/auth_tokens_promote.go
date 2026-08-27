@@ -16,18 +16,34 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+// Optional parameters for the method 'UpdateAuthTokenPromotion'
+type UpdateAuthTokenPromotionParams struct {
+	// Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
+	SuppressEmailNotification *bool `json:"SuppressEmailNotification,omitempty"`
+}
+
+func (params *UpdateAuthTokenPromotionParams) SetSuppressEmailNotification(SuppressEmailNotification bool) *UpdateAuthTokenPromotionParams {
+	params.SuppressEmailNotification = &SuppressEmailNotification
+	return params
+}
+
 // Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
-func (c *ApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, error) {
+func (c *ApiService) UpdateAuthTokenPromotion(params *UpdateAuthTokenPromotionParams) (*AccountsV1AuthTokenPromotion, error) {
 	path := "/v1/AuthTokens/Promote"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -46,12 +62,16 @@ func (c *ApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, 
 }
 
 // UpdateAuthTokenPromotionWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateAuthTokenPromotionWithMetadata() (*metadata.ResourceMetadata[AccountsV1AuthTokenPromotion], error) {
+func (c *ApiService) UpdateAuthTokenPromotionWithMetadata(params *UpdateAuthTokenPromotionParams) (*metadata.ResourceMetadata[AccountsV1AuthTokenPromotion], error) {
 	path := "/v1/AuthTokens/Promote"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)

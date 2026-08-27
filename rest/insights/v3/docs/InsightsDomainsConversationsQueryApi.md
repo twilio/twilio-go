@@ -4,8 +4,8 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateQueryResults**](InsightsDomainsConversationsQueryApi.md#CreateQueryResults) | **Post** /v3/InsightsDomains/Conversations/Query | Execute a semantic query
-[**FetchQueryResults**](InsightsDomainsConversationsQueryApi.md#FetchQueryResults) | **Get** /v3/InsightsDomains/Conversations/Query | Fetch semantic query results
+[**CreateQueryResults**](InsightsDomainsConversationsQueryApi.md#CreateQueryResults) | **Post** /v3/InsightsDomains/Conversations/Query | Execute a synchronous semantic query
+[**FetchQueryResults**](InsightsDomainsConversationsQueryApi.md#FetchQueryResults) | **Get** /v3/InsightsDomains/Conversations/Query | Retrieve paginated query results
 
 
 
@@ -13,9 +13,9 @@ Method | HTTP request | Description
 
 > InsightsQueryResponse CreateQueryResults(ctx, optional)
 
-Execute a semantic query
+Execute a synchronous semantic query
 
-Execute a semantic query against the Conversations domain.
+Execute a semantic query against the Conversations domain. Returns results inline. For long-running queries, use the QueryJobs endpoint. 
 
 ### Path Parameters
 
@@ -53,7 +53,9 @@ Name | Type | Description
 
 > InsightsQueryResponse FetchQueryResults(ctx, optional)
 
-Fetch semantic query results
+Retrieve paginated query results
+
+Retrieve subsequent pages of a synchronous query using a page token.
 
 ### Path Parameters
 

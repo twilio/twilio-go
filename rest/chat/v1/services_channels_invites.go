@@ -41,7 +41,6 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-//
 func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -113,7 +112,6 @@ func (c *ApiService) CreateInviteWithMetadata(ServiceSid string, ChannelSid stri
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -163,7 +161,6 @@ func (c *ApiService) DeleteInviteWithMetadata(ServiceSid string, ChannelSid stri
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **OperationId** | **string** | Unique identifier for the long-running operation. |
-**Status** | **string** | Current status of the operation. |
+**Status** | [**ConversationsV2OperationStatusValue**](ConversationsV2OperationStatusValue.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when the operation was created. |
 **CompletedAt** | Pointer to [**time.Time**](time.Time.md) | Timestamp when the operation completed. Only present for completed or failed operations. |
 **StatusUrl** | **string** | URL to poll for operation status. |

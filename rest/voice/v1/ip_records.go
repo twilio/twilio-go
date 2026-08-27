@@ -47,7 +47,6 @@ func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *C
 	return params
 }
 
-//
 func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
@@ -121,7 +120,6 @@ func (c *ApiService) CreateIpRecordWithMetadata(params *CreateIpRecordParams) (*
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteIpRecord(Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -167,7 +165,6 @@ func (c *ApiService) DeleteIpRecordWithMetadata(Sid string) (*metadata.ResourceM
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -465,7 +462,6 @@ func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-//
 func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

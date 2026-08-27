@@ -21,7 +21,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 

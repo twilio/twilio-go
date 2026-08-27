@@ -26,7 +26,6 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-//
 func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

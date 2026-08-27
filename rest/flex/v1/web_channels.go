@@ -65,7 +65,6 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-//
 func (c *ApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
@@ -157,7 +156,6 @@ func (c *ApiService) CreateWebChannelWithMetadata(params *CreateWebChannelParams
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -203,7 +201,6 @@ func (c *ApiService) DeleteWebChannelWithMetadata(Sid string) (*metadata.Resourc
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -507,7 +504,6 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-//
 func (c *ApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

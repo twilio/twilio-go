@@ -56,15 +56,17 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
- - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
- - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
  - [AccountsV1MessagingGeopermissions](docs/AccountsV1MessagingGeopermissions.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
  - [AccountsV1AuthTokenPromotion](docs/AccountsV1AuthTokenPromotion.md)
- - [AccountsV1CredentialAws](docs/AccountsV1CredentialAws.md)
  - [AccountsV1CredentialPublicKey](docs/AccountsV1CredentialPublicKey.md)
  - [AccountsV1Safelist](docs/AccountsV1Safelist.md)
+ - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
+ - [AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel](docs/AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel.md)
+ - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
+ - [AccountsV1CredentialAws](docs/AccountsV1CredentialAws.md)
+ - [AccountsV1MessagingSmsPumpingProtection](docs/AccountsV1MessagingSmsPumpingProtection.md)
  - [ListCredentialAwsResponseMeta](docs/ListCredentialAwsResponseMeta.md)
 
 

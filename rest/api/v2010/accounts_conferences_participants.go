@@ -126,10 +126,28 @@ type CreateParticipantParams struct {
 	Trim *string `json:"Trim,omitempty"`
 	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 	CallToken *string `json:"CallToken,omitempty"`
+	// The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string
+	Passports *string `json:"Passports,omitempty"`
 	// The URL that we should use to deliver `push call notification`.
 	ClientNotificationUrl *string `json:"ClientNotificationUrl,omitempty"`
 	// The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
 	CallerDisplayName *string `json:"CallerDisplayName,omitempty"`
+	// The emergency caller's GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.
+	EmergencyCallerPosition *string `json:"EmergencyCallerPosition,omitempty"`
+	// The emergency caller's physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyCallerLocation *string `json:"EmergencyCallerLocation,omitempty"`
+	// The emergency caller's organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyName *string `json:"EmergencyName,omitempty"`
+	// The emergency caller's street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.
+	EmergencyAddress *string `json:"EmergencyAddress,omitempty"`
+	// The emergency caller's postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyZipCode *string `json:"EmergencyZipCode,omitempty"`
+	// The emergency caller's city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyCity *string `json:"EmergencyCity,omitempty"`
+	// The emergency caller's state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyState *string `json:"EmergencyState,omitempty"`
+	// The emergency caller's country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.
+	EmergencyCountry *string `json:"EmergencyCountry,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -332,6 +350,10 @@ func (params *CreateParticipantParams) SetCallToken(CallToken string) *CreatePar
 	params.CallToken = &CallToken
 	return params
 }
+func (params *CreateParticipantParams) SetPassports(Passports string) *CreateParticipantParams {
+	params.Passports = &Passports
+	return params
+}
 func (params *CreateParticipantParams) SetClientNotificationUrl(ClientNotificationUrl string) *CreateParticipantParams {
 	params.ClientNotificationUrl = &ClientNotificationUrl
 	return params
@@ -340,8 +362,39 @@ func (params *CreateParticipantParams) SetCallerDisplayName(CallerDisplayName st
 	params.CallerDisplayName = &CallerDisplayName
 	return params
 }
+func (params *CreateParticipantParams) SetEmergencyCallerPosition(EmergencyCallerPosition string) *CreateParticipantParams {
+	params.EmergencyCallerPosition = &EmergencyCallerPosition
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyCallerLocation(EmergencyCallerLocation string) *CreateParticipantParams {
+	params.EmergencyCallerLocation = &EmergencyCallerLocation
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyName(EmergencyName string) *CreateParticipantParams {
+	params.EmergencyName = &EmergencyName
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyAddress(EmergencyAddress string) *CreateParticipantParams {
+	params.EmergencyAddress = &EmergencyAddress
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyZipCode(EmergencyZipCode string) *CreateParticipantParams {
+	params.EmergencyZipCode = &EmergencyZipCode
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyCity(EmergencyCity string) *CreateParticipantParams {
+	params.EmergencyCity = &EmergencyCity
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyState(EmergencyState string) *CreateParticipantParams {
+	params.EmergencyState = &EmergencyState
+	return params
+}
+func (params *CreateParticipantParams) SetEmergencyCountry(EmergencyCountry string) *CreateParticipantParams {
+	params.EmergencyCountry = &EmergencyCountry
+	return params
+}
 
-//
 func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -511,11 +564,38 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	if params != nil && params.CallToken != nil {
 		data.Set("CallToken", *params.CallToken)
 	}
+	if params != nil && params.Passports != nil {
+		data.Set("Passports", *params.Passports)
+	}
 	if params != nil && params.ClientNotificationUrl != nil {
 		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
 	}
 	if params != nil && params.CallerDisplayName != nil {
 		data.Set("CallerDisplayName", *params.CallerDisplayName)
+	}
+	if params != nil && params.EmergencyCallerPosition != nil {
+		data.Set("EmergencyCallerPosition", *params.EmergencyCallerPosition)
+	}
+	if params != nil && params.EmergencyCallerLocation != nil {
+		data.Set("EmergencyCallerLocation", *params.EmergencyCallerLocation)
+	}
+	if params != nil && params.EmergencyName != nil {
+		data.Set("EmergencyName", *params.EmergencyName)
+	}
+	if params != nil && params.EmergencyAddress != nil {
+		data.Set("EmergencyAddress", *params.EmergencyAddress)
+	}
+	if params != nil && params.EmergencyZipCode != nil {
+		data.Set("EmergencyZipCode", *params.EmergencyZipCode)
+	}
+	if params != nil && params.EmergencyCity != nil {
+		data.Set("EmergencyCity", *params.EmergencyCity)
+	}
+	if params != nil && params.EmergencyState != nil {
+		data.Set("EmergencyState", *params.EmergencyState)
+	}
+	if params != nil && params.EmergencyCountry != nil {
+		data.Set("EmergencyCountry", *params.EmergencyCountry)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -703,11 +783,38 @@ func (c *ApiService) CreateParticipantWithMetadata(ConferenceSid string, params 
 	if params != nil && params.CallToken != nil {
 		data.Set("CallToken", *params.CallToken)
 	}
+	if params != nil && params.Passports != nil {
+		data.Set("Passports", *params.Passports)
+	}
 	if params != nil && params.ClientNotificationUrl != nil {
 		data.Set("ClientNotificationUrl", *params.ClientNotificationUrl)
 	}
 	if params != nil && params.CallerDisplayName != nil {
 		data.Set("CallerDisplayName", *params.CallerDisplayName)
+	}
+	if params != nil && params.EmergencyCallerPosition != nil {
+		data.Set("EmergencyCallerPosition", *params.EmergencyCallerPosition)
+	}
+	if params != nil && params.EmergencyCallerLocation != nil {
+		data.Set("EmergencyCallerLocation", *params.EmergencyCallerLocation)
+	}
+	if params != nil && params.EmergencyName != nil {
+		data.Set("EmergencyName", *params.EmergencyName)
+	}
+	if params != nil && params.EmergencyAddress != nil {
+		data.Set("EmergencyAddress", *params.EmergencyAddress)
+	}
+	if params != nil && params.EmergencyZipCode != nil {
+		data.Set("EmergencyZipCode", *params.EmergencyZipCode)
+	}
+	if params != nil && params.EmergencyCity != nil {
+		data.Set("EmergencyCity", *params.EmergencyCity)
+	}
+	if params != nil && params.EmergencyState != nil {
+		data.Set("EmergencyState", *params.EmergencyState)
+	}
+	if params != nil && params.EmergencyCountry != nil {
+		data.Set("EmergencyCountry", *params.EmergencyCountry)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)

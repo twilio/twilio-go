@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchMetadata**](InsightsDomainsConversationsMetadataApi.md#FetchMetadata) | **Get** /v3/InsightsDomains/Conversations/Metadata | Fetch Metadata for the Conversations domain
+[**FetchMetadata**](InsightsDomainsConversationsMetadataApi.md#FetchMetadata) | **Get** /v3/InsightsDomains/Conversations/Metadata | Retrieve domain metadata
 
 
 
@@ -12,9 +12,9 @@ Method | HTTP request | Description
 
 > InsightsMetadataResponse FetchMetadata(ctx, )
 
-Fetch Metadata for the Conversations domain
+Retrieve domain metadata
 
-Fetch Metadata for the Conversations domain.
+Returns available cubes, measures, and dimensions for the Conversations domain.
 
 ### Path Parameters
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Conversation ID. |
 **AccountId** | **string** | Account ID. |
 **ConfigurationId** | **string** | Configuration ID. |
-**Status** | **string** | Conversation status. |[optional] 
+**Status** | [**ConversationsV2ConversationStatus**](ConversationsV2ConversationStatus.md) |  |[optional] 
 **Name** | Pointer to **string** | Conversation name. |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was created. |[optional] 
 **UpdatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was last updated. |[optional] 

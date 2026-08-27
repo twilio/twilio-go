@@ -17,11 +17,9 @@ package openapi
 // ListCommunicationByConversationResponseCommunicationsRecipients struct for ListCommunicationByConversationResponseCommunicationsRecipients
 type ListCommunicationByConversationResponseCommunicationsRecipients struct {
 	// The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
-	Address string `json:"address"`
-	// Channel type for the Participant address.
-	Channel string `json:"channel"`
+	Address string                 `json:"address"`
+	Channel ConversationsV2Channel `json:"channel"`
 	// Participant ID associated with this address.
-	ParticipantId string `json:"participantId,omitempty"`
-	// Delivery status of the Communication to this recipient.
-	DeliveryStatus string `json:"deliveryStatus,omitempty"`
+	ParticipantId  string                                 `json:"participantId,omitempty"`
+	DeliveryStatus ConversationsV2RecipientDeliveryStatus `json:"deliveryStatus,omitempty"`
 }
