@@ -47,8 +47,8 @@ jobs:
         with:
           ecosystem: go
 
-      - run: go build ./...
-      - run: go test ./...
+      - run: make install
+      - run: make test
 
   publish:
     needs: [verify]
