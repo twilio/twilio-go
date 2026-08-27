@@ -46,7 +46,10 @@ jobs:
 
       - run: make install
       - run: make test
-      - run: make golint
+      # golangci-lint v1.64.8 (the last v1.x release) can't decode Go 1.27's export data format;
+      # skip lint on that leg until we move to golangci-lint v2.
+      - if: matrix.go != '1.27'
+        run: make golint
 
   cluster-test:
     name: Cluster Test
