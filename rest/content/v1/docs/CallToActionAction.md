@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**CallToActionActionType**](CallToActionActionType.md) |  |
-**Title** | **string** |  |
+**Title** | **string** |  |[optional] 
 **Url** | **string** |  |[optional] 
 **Phone** | **string** |  |[optional] 
 **Code** | **string** |  |[optional] 

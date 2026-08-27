@@ -31,6 +31,10 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*A2PBrandRegistrationsApi* | [**CreateA2pBrandRegistration**](docs/A2PBrandRegistrationsApi.md#createa2pbrandregistration) | **Post** /v1/A2PBrandRegistrations | Create a new A2P Brand Registration and initialize an embedded compliance session.
+*A2PBrandRegistrationsEmbeddedSessionsApi* | [**CreateA2pBrandRegistrationEmbeddedSession**](docs/A2PBrandRegistrationsEmbeddedSessionsApi.md#createa2pbrandregistrationembeddedsession) | **Post** /v1/A2PBrandRegistrations/{Id}/EmbeddedSessions | Resume an A2P Brand Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
+*A2PCampaignRegistrationsApi* | [**CreateA2pCampaignRegistration**](docs/A2PCampaignRegistrationsApi.md#createa2pcampaignregistration) | **Post** /v1/A2PCampaignRegistrations | Create a new A2P Campaign Registration and initialize an embedded compliance session.
+*A2PCampaignRegistrationsEmbeddedSessionsApi* | [**CreateA2pCampaignRegistrationEmbeddedSession**](docs/A2PCampaignRegistrationsEmbeddedSessionsApi.md#createa2pcampaignregistrationembeddedsession) | **Post** /v1/A2PCampaignRegistrations/{Id}/EmbeddedSessions | Resume an A2P Campaign Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
 *ComplianceInquiriesCustomersInitializeApi* | [**CreateComplianceInquiry**](docs/ComplianceInquiriesCustomersInitializeApi.md#createcomplianceinquiry) | **Post** /v1/ComplianceInquiries/Customers/Initialize | Create a new Compliance Inquiry for the authenticated account. This is necessary to start a new embedded session.
 *ComplianceInquiriesCustomersInitializeApi* | [**UpdateComplianceInquiry**](docs/ComplianceInquiriesCustomersInitializeApi.md#updatecomplianceinquiry) | **Post** /v1/ComplianceInquiries/Customers/{CustomerId}/Initialize | Resume a specific Compliance Inquiry that has expired, or re-open a rejected Compliance Inquiry for editing.
 *ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi* | [**CreateComplianceRegistration**](docs/ComplianceInquiriesRegistrationRegulatoryComplianceGBInitializeApi.md#createcomplianceregistration) | **Post** /v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize | Create a new Compliance Registration Inquiry for the authenticated account. This is necessary to start a new embedded session.
@@ -52,6 +56,8 @@ Class | Method | HTTP request | Description
 *CustomerProfilesEvaluationsApi* | [**CreateCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#createcustomerprofileevaluation) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | Create a new Evaluation
 *CustomerProfilesEvaluationsApi* | [**FetchCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#fetchcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid} | Fetch specific Evaluation Instance.
 *CustomerProfilesEvaluationsApi* | [**ListCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#listcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | Retrieve a list of Evaluations associated to the customer_profile resource.
+*CustomerProfilesProvisionalCopyApi* | [**CreateCustomerProfileProvisionalCopy**](docs/CustomerProfilesProvisionalCopyApi.md#createcustomerprofileprovisionalcopy) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/ProvisionalCopy | Create the provisional copy for a given customer profile with status: TWILIO_APPROVED, this is useful for making updates to an existing immutable customer profile instance.
+*CustomerProfilesProvisionalCopyApi* | [**FetchCustomerProfileProvisionalCopy**](docs/CustomerProfilesProvisionalCopyApi.md#fetchcustomerprofileprovisionalcopy) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ProvisionalCopy | Fetch the provisional copy of a given customer profile.
 *EndUserTypesApi* | [**FetchEndUserType**](docs/EndUserTypesApi.md#fetchendusertype) | **Get** /v1/EndUserTypes/{Sid} | Fetch a specific End-User Type Instance.
 *EndUserTypesApi* | [**ListEndUserType**](docs/EndUserTypesApi.md#listendusertype) | **Get** /v1/EndUserTypes | Retrieve a list of all End-User Types.
 *EndUsersApi* | [**CreateEndUser**](docs/EndUsersApi.md#createenduser) | **Post** /v1/EndUsers | Create a new End User.
@@ -84,6 +90,8 @@ Class | Method | HTTP request | Description
 *TrustProductsEvaluationsApi* | [**CreateTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#createtrustproductevaluation) | **Post** /v1/TrustProducts/{TrustProductSid}/Evaluations | Create a new Evaluation
 *TrustProductsEvaluationsApi* | [**FetchTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#fetchtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid} | Fetch specific Evaluation Instance.
 *TrustProductsEvaluationsApi* | [**ListTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#listtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations | Retrieve a list of Evaluations associated to the trust_product resource.
+*TrustProductsProvisionalCopyApi* | [**CreateTrustProductProvisionalCopy**](docs/TrustProductsProvisionalCopyApi.md#createtrustproductprovisionalcopy) | **Post** /v1/TrustProducts/{TrustProductSid}/ProvisionalCopy | Create the provisional copy for a given trust product with status: TWILIO_APPROVED, this is useful for making updates to an existing immutable trust product instance.
+*TrustProductsProvisionalCopyApi* | [**FetchTrustProductProvisionalCopy**](docs/TrustProductsProvisionalCopyApi.md#fetchtrustproductprovisionalcopy) | **Get** /v1/TrustProducts/{TrustProductSid}/ProvisionalCopy | Fetch the provisional copy of a given trust product.
 
 
 ## Documentation For Models
@@ -91,6 +99,7 @@ Class | Method | HTTP request | Description
  - [TrusthubV1EndUserType](docs/TrusthubV1EndUserType.md)
  - [ListTrustProductChannelEndpointAssignmentResponse](docs/ListTrustProductChannelEndpointAssignmentResponse.md)
  - [TrusthubV1CustomerProfileEntityAssignment](docs/TrusthubV1CustomerProfileEntityAssignment.md)
+ - [TrusthubV1CustomerProfileProvisionalCopy](docs/TrusthubV1CustomerProfileProvisionalCopy.md)
  - [TrusthubV1SupportingDocumentType](docs/TrusthubV1SupportingDocumentType.md)
  - [TrusthubV1EndUser](docs/TrusthubV1EndUser.md)
  - [ListCustomerProfileResponse](docs/ListCustomerProfileResponse.md)
@@ -100,22 +109,26 @@ Class | Method | HTTP request | Description
  - [ListSupportingDocumentResponse](docs/ListSupportingDocumentResponse.md)
  - [ListTrustProductEntityAssignmentResponse](docs/ListTrustProductEntityAssignmentResponse.md)
  - [ListSupportingDocumentTypeResponse](docs/ListSupportingDocumentTypeResponse.md)
+ - [TrusthubV1A2pEmbeddedSession](docs/TrusthubV1A2pEmbeddedSession.md)
  - [ListTrustProductEvaluationResponse](docs/ListTrustProductEvaluationResponse.md)
  - [TrusthubV1CustomerProfile](docs/TrusthubV1CustomerProfile.md)
  - [TrusthubV1CustomerProfileChannelEndpointAssignment](docs/TrusthubV1CustomerProfileChannelEndpointAssignment.md)
  - [ListCustomerProfileEntityAssignmentResponse](docs/ListCustomerProfileEntityAssignmentResponse.md)
  - [ListCustomerProfileResponseMeta](docs/ListCustomerProfileResponseMeta.md)
- - [ListEndUserTypeResponse](docs/ListEndUserTypeResponse.md)
  - [TrusthubV1TrustProductEntityAssignment](docs/TrusthubV1TrustProductEntityAssignment.md)
+ - [ListEndUserTypeResponse](docs/ListEndUserTypeResponse.md)
  - [ListEndUserResponse](docs/ListEndUserResponse.md)
+ - [TrusthubV1A2pCampaignRegistrationRequest](docs/TrusthubV1A2pCampaignRegistrationRequest.md)
  - [TrusthubV1Policies](docs/TrusthubV1Policies.md)
- - [ListCustomerProfileEvaluationResponse](docs/ListCustomerProfileEvaluationResponse.md)
  - [TrusthubV1TrustProductEvaluation](docs/TrusthubV1TrustProductEvaluation.md)
+ - [ListCustomerProfileEvaluationResponse](docs/ListCustomerProfileEvaluationResponse.md)
  - [TrusthubV1ComplianceInquiry](docs/TrusthubV1ComplianceInquiry.md)
  - [ListPoliciesResponse](docs/ListPoliciesResponse.md)
  - [ListTrustProductResponse](docs/ListTrustProductResponse.md)
  - [ListCustomerProfileChannelEndpointAssignmentResponse](docs/ListCustomerProfileChannelEndpointAssignmentResponse.md)
+ - [TrusthubV1TrustProductProvisionalCopy](docs/TrusthubV1TrustProductProvisionalCopy.md)
  - [TrusthubV1ComplianceTollfreeInquiry](docs/TrusthubV1ComplianceTollfreeInquiry.md)
+ - [TrusthubV1A2pBrandRegistrationRequest](docs/TrusthubV1A2pBrandRegistrationRequest.md)
  - [TrusthubV1CustomerProfileEvaluation](docs/TrusthubV1CustomerProfileEvaluation.md)
  - [TrusthubV1ComplianceRegistration](docs/TrusthubV1ComplianceRegistration.md)
 

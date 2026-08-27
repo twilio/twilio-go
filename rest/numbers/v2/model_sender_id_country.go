@@ -33,4 +33,7 @@ type SenderIdCountry struct {
 	// The status of the country for the sender Id
 	Status             string                            `json:"status"`
 	StatusOverrideInfo SenderIdCountryStatusOverrideInfo `json:"status_override_info,omitempty"`
+	// The date until which the sender ID country is compliant
+	CompliantUntilDate *time.Time               `json:"compliant_until_date,omitempty"`
+	ComplianceStatus   SenderIdComplianceStatus `json:"compliance_status,omitempty"`
 }

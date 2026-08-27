@@ -31,6 +31,10 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*CallerIdsSmsVerificationChecksApi* | [**CreateSmsVerificationCheck**](docs/CallerIdsSmsVerificationChecksApi.md#createsmsverificationcheck) | **Post** /v1/CallerIds/SmsVerificationChecks | Check SMS verification code
+*CallerIdsSmsVerificationsApi* | [**CreateSmsVerification**](docs/CallerIdsSmsVerificationsApi.md#createsmsverification) | **Post** /v1/CallerIds/SmsVerifications | Initiate SMS verification for a caller ID
+*CallerIdsVoiceVerificationChecksApi* | [**CreateVoiceVerificationCheck**](docs/CallerIdsVoiceVerificationChecksApi.md#createvoiceverificationcheck) | **Post** /v1/CallerIds/VoiceVerificationChecks | Check voice verification code
+*CallerIdsVoiceVerificationsApi* | [**CreateVoiceVerification**](docs/CallerIdsVoiceVerificationsApi.md#createvoiceverification) | **Post** /v1/CallerIds/VoiceVerifications | Initiate voice verification for a caller ID
 *HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | Create an eligibility check for a number that you want to host in Twilio.
 *HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
 *HostedNumberEligibilityBulkApi* | [**FetchBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#fetchbulkeligibility) | **Get** /v1/HostedNumber/Eligibility/Bulk/{RequestId} | Fetch an eligibility bulk check that you requested to host in Twilio.
@@ -52,8 +56,11 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [NumbersV1SmsVerification](docs/NumbersV1SmsVerification.md)
+ - [NumbersV1SmsVerificationCheck](docs/NumbersV1SmsVerificationCheck.md)
  - [NumbersV1PortInRequestListMeta](docs/NumbersV1PortInRequestListMeta.md)
  - [NumbersV1PortingPortInPhoneNumberResult](docs/NumbersV1PortingPortInPhoneNumberResult.md)
+ - [NumbersV1VoiceVerification](docs/NumbersV1VoiceVerification.md)
  - [NumbersV1EmbeddedSession](docs/NumbersV1EmbeddedSession.md)
  - [NumbersV1CreateEmbeddedRegistrationResponse](docs/NumbersV1CreateEmbeddedRegistrationResponse.md)
  - [NumbersV1AvailablePhoneNumberCapabilities](docs/NumbersV1AvailablePhoneNumberCapabilities.md)
@@ -80,6 +87,7 @@ Class | Method | HTTP request | Description
  - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
  - [NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests](docs/NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests.md)
  - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
+ - [NumbersV1VoiceVerificationCheck](docs/NumbersV1VoiceVerificationCheck.md)
  - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
  - [NumbersV1AvailablePhoneNumberCertifications](docs/NumbersV1AvailablePhoneNumberCertifications.md)
  - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)
@@ -89,6 +97,7 @@ Class | Method | HTTP request | Description
  - [NumbersV1PortingPortInPhoneNumber](docs/NumbersV1PortingPortInPhoneNumber.md)
  - [NumbersV1CreateEmbeddedSessionResponse](docs/NumbersV1CreateEmbeddedSessionResponse.md)
  - [NumbersV1PortingWebhookConfigurationDelete](docs/NumbersV1PortingWebhookConfigurationDelete.md)
+ - [NumbersV1SmsVerificationSendCodeAttempts](docs/NumbersV1SmsVerificationSendCodeAttempts.md)
  - [NumbersV1AvailablePhoneNumberBilling](docs/NumbersV1AvailablePhoneNumberBilling.md)
  - [NumbersV1PortingWebhookConfigurationFetch](docs/NumbersV1PortingWebhookConfigurationFetch.md)
 

@@ -17,7 +17,7 @@ package openapi
 // CallToActionAction struct for CallToActionAction
 type CallToActionAction struct {
 	Type  CallToActionActionType `json:"type"`
-	Title string                 `json:"title"`
+	Title string                 `json:"title,omitempty"`
 	Url   string                 `json:"url,omitempty"`
 	Phone string                 `json:"phone,omitempty"`
 	Code  string                 `json:"code,omitempty"`

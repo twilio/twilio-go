@@ -38,8 +38,8 @@ Name | Type | Description
 **XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
-**DateCreated** | **time.Time** | The date that this resource was created.
-**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited.
+**DateCreated** | **time.Time** | The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 **Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 **MediaSid** | **string** | The Media SID to be attached to the new Message.
 **ContentSid** | **string** | The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
@@ -223,8 +223,8 @@ Name | Type | Description
 **XTwilioWebhookEnabled** | [**string**](stringstring.md) | The X-Twilio-Webhook-Enabled HTTP request header
 **Author** | **string** | The channel specific identifier of the message's author. Defaults to `system`.
 **Body** | **string** | The content of the message, can be up to 1,600 characters long.
-**DateCreated** | **time.Time** | The date that this resource was created.
-**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited.
+**DateCreated** | **time.Time** | The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
+**DateUpdated** | **time.Time** | The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 **Attributes** | **string** | A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 **Subject** | **string** | The subject of the message, can be up to 256 characters long.
 

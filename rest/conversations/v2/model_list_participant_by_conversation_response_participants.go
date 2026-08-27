@@ -27,9 +27,8 @@ type ListParticipantByConversationResponseParticipants struct {
 	// Account ID.
 	AccountId string `json:"accountId"`
 	// Participant display name.
-	Name string `json:"name"`
-	// Type of Participant in the Conversation.
-	Type string `json:"type,omitempty"`
+	Name string                         `json:"name"`
+	Type ConversationsV2ParticipantType `json:"type,omitempty"`
 	// Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
 	ProfileId string `json:"profileId,omitempty"`
 	// Communication addresses for this Participant. Address format varies by channel: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - EMAIL: Email address (such as \"user@example.com\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\")

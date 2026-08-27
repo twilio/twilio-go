@@ -32,7 +32,6 @@ func (params *FetchMessagingGeopermissionsParams) SetCountryCode(CountryCode str
 	return params
 }
 
-//
 func (c *ApiService) FetchMessagingGeopermissions(params *FetchMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
 	path := "/v1/Messaging/GeoPermissions"
 
@@ -105,7 +104,6 @@ func (params *PatchMessagingGeopermissionsParams) SetPermissions(Permissions []i
 	return params
 }
 
-//
 func (c *ApiService) PatchMessagingGeopermissions(params *PatchMessagingGeopermissionsParams) (*AccountsV1MessagingGeopermissions, error) {
 	path := "/v1/Messaging/GeoPermissions"
 

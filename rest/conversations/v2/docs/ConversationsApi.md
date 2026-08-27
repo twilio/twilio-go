@@ -5,11 +5,11 @@ All URIs are relative to *https://conversations.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateConversationWithConfig**](ConversationsApi.md#CreateConversationWithConfig) | **Post** /v2/Conversations | Create a new Conversation
-[**DeleteConversationAsync**](ConversationsApi.md#DeleteConversationAsync) | **Delete** /v2/Conversations/{Sid} | Delete a Conversation (async)
-[**FetchConversation**](ConversationsApi.md#FetchConversation) | **Get** /v2/Conversations/{Sid} | Fetch Conversation
+[**DeleteConversationAsync**](ConversationsApi.md#DeleteConversationAsync) | **Delete** /v2/Conversations/{id} | Delete a Conversation (async)
+[**FetchConversation**](ConversationsApi.md#FetchConversation) | **Get** /v2/Conversations/{id} | Fetch Conversation
 [**ListConversationByAccount**](ConversationsApi.md#ListConversationByAccount) | **Get** /v2/Conversations | List Conversations
-[**PatchConversationById**](ConversationsApi.md#PatchConversationById) | **Patch** /v2/Conversations/{Sid} | Partially Update a Conversation
-[**UpdateConversationById**](ConversationsApi.md#UpdateConversationById) | **Put** /v2/Conversations/{Sid} | Update a Conversation
+[**PatchConversationById**](ConversationsApi.md#PatchConversationById) | **Patch** /v2/Conversations/{id} | Partially Update a Conversation
+[**UpdateConversationById**](ConversationsApi.md#UpdateConversationById) | **Put** /v2/Conversations/{id} | Update a Conversation
 
 
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## DeleteConversationAsync
 
-> CreateConfigurationResponse DeleteConversationAsync(ctx, Sidoptional)
+> CreateConfigurationResponse DeleteConversationAsync(ctx, Idoptional)
 
 Delete a Conversation (async)
 
@@ -66,7 +66,7 @@ Asynchronously delete a conversation and all associated data. Returns 202 Accept
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchConversation
 
-> ListConversationByAccountResponseConversations FetchConversation(ctx, Sid)
+> ListConversationByAccountResponseConversations FetchConversation(ctx, Id)
 
 Fetch Conversation
 
@@ -109,7 +109,7 @@ Retrieve a Conversation.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 ## PatchConversationById
 
-> ListConversationByAccountResponseConversations PatchConversationById(ctx, Sidoptional)
+> ListConversationByAccountResponseConversations PatchConversationById(ctx, Idoptional)
 
 Partially Update a Conversation
 
@@ -194,7 +194,7 @@ Partially update the details of an existing Conversation.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -225,7 +225,7 @@ Name | Type | Description
 
 ## UpdateConversationById
 
-> ListConversationByAccountResponseConversations UpdateConversationById(ctx, Sidoptional)
+> ListConversationByAccountResponseConversations UpdateConversationById(ctx, Idoptional)
 
 Update a Conversation
 
@@ -237,7 +237,7 @@ Update an existing conversation
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 

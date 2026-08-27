@@ -14,10 +14,16 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // CreateCommunicationInConversationRequest struct for CreateCommunicationInConversationRequest
 type CreateCommunicationInConversationRequest struct {
-	Author     CreateCommunicationInConversationRequestAuthor   `json:"author"`
-	Content    CreateCommunicationInConversationRequestContent  `json:"content"`
-	ChannelId  string                                           `json:"channelId,omitempty"`
-	Recipients []CreateCommunicationInConversationRequestAuthor `json:"recipients"`
+	Author     CreateCommunicationInConversationRequestAuthor       `json:"author"`
+	Content    CreateCommunicationInConversationRequestContent      `json:"content"`
+	ChannelId  string                                               `json:"channelId,omitempty"`
+	Recipients []CreateCommunicationInConversationRequestRecipients `json:"recipients"`
+	// Timestamp when this Communication occurred. If omitted, the server uses the current time.
+	OccurredAt time.Time `json:"occurredAt,omitempty"`
 }

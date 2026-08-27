@@ -34,9 +34,9 @@ type CreateConversationMessageParams struct {
 	Author *string `json:"Author,omitempty"`
 	// The content of the message, can be up to 1,600 characters long.
 	Body *string `json:"Body,omitempty"`
-	// The date that this resource was created.
+	// The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	// The date that this resource was last updated. `null` if the message has not been edited.
+	// The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`
@@ -587,9 +587,9 @@ type UpdateConversationMessageParams struct {
 	Author *string `json:"Author,omitempty"`
 	// The content of the message, can be up to 1,600 characters long.
 	Body *string `json:"Body,omitempty"`
-	// The date that this resource was created.
+	// The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
-	// The date that this resource was last updated. `null` if the message has not been edited.
+	// The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
 	Attributes *string `json:"Attributes,omitempty"`

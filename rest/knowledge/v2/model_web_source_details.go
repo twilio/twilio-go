@@ -24,4 +24,6 @@ type WebSourceDetails struct {
 	CrawlDepth int `json:"crawlDepth,omitempty"`
 	// Frequency of re-crawling the website for updated content
 	CrawlPeriod string `json:"crawlPeriod,omitempty"`
+	// Processing errors encountered during web crawling, grouped by title. Array of error groups, where each group has a title and list of error instances. Only present when crawl errors occurred.
+	Errors []KnowledgeErrorGroup `json:"errors,omitempty"`
 }

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Description** | **string** |  |[optional] 
 **DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
 **CreatedBy** | **string** |  |[optional] 
+**CreatorSid** | **string** | The unique identifier (SID) of the user who created this OAuth app. |[optional] 
 **Secret** | **string** |  |[optional] 
 **Status** | **string** |  |[optional] 
 **Policy** | [**IamV1OrganizationVendoroauthappPolicy**](IamV1OrganizationVendoroauthappPolicy.md) |  |[optional] 

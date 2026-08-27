@@ -143,7 +143,6 @@ func (params *CreateUsAppToPersonParams) SetTermsAndConditionsUrl(TermsAndCondit
 	return params
 }
 
-//
 func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -331,7 +330,6 @@ func (c *ApiService) CreateUsAppToPersonWithMetadata(MessagingServiceSid string,
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -390,7 +388,6 @@ func (params *FetchUsAppToPersonParams) SetXTwilioApiVersion(XTwilioApiVersion s
 	return params
 }
 
-//
 func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string, params *FetchUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -760,7 +757,6 @@ func (params *UpdateUsAppToPersonParams) SetTermsAndConditionsUrl(TermsAndCondit
 	return params
 }
 
-//
 func (c *ApiService) UpdateUsAppToPerson(MessagingServiceSid string, Sid string, params *UpdateUsAppToPersonParams) (*MessagingV1UsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)

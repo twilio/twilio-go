@@ -13,7 +13,7 @@ func Voice(verbs []Element) (string, error) {
 	return ToXML(doc)
 }
 
-//VoiceRefer
+// VoiceRefer
 // <Refer> TwiML Verb
 type VoiceRefer struct {
 	// action: Action URL
@@ -45,7 +45,7 @@ func (m VoiceRefer) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceReferSip
+// VoiceReferSip
 // <Sip> TwiML Noun used in <Refer>
 type VoiceReferSip struct {
 	// sip_url: SIP URL
@@ -71,7 +71,7 @@ func (m VoiceReferSip) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceStop
+// VoiceStop
 // <Stop> TwiML Verb
 type VoiceStop struct {
 	// OptionalAttributes: additional attributes
@@ -95,7 +95,7 @@ func (m VoiceStop) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceTranscription
+// VoiceTranscription
 // <Transcription> TwiML Noun
 type VoiceTranscription struct {
 	// name: Friendly name given to the Transcription
@@ -163,7 +163,7 @@ func (m VoiceTranscription) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceParameter
+// VoiceParameter
 // <Parameter> TwiML Noun
 type VoiceParameter struct {
 	// name: The name of the custom parameter
@@ -195,7 +195,7 @@ func (m VoiceParameter) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceConfig
+// VoiceConfig
 // <Config> TwiML Noun
 type VoiceConfig struct {
 	// name: The name of the custom config
@@ -227,7 +227,7 @@ func (m VoiceConfig) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSipRec
+// VoiceSipRec
 // <Siprec> TwiML Noun
 type VoiceSipRec struct {
 	// name: Friendly name given to SIPREC
@@ -268,7 +268,7 @@ func (m VoiceSipRec) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceStream
+// VoiceStream
 // <Stream> TwiML Noun
 type VoiceStream struct {
 	// name: Friendly name given to the Stream
@@ -312,7 +312,7 @@ func (m VoiceStream) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceStart
+// VoiceStart
 // <Start> TwiML Verb
 type VoiceStart struct {
 	// action: Action URL
@@ -344,7 +344,7 @@ func (m VoiceStart) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceRecording
+// VoiceRecording
 // <Recording> TwiML Noun
 type VoiceRecording struct {
 	// recording_status_callback: Recording Status Callback URL
@@ -391,7 +391,7 @@ func (m VoiceRecording) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoicePrompt
+// VoicePrompt
 // <Prompt> Twiml Verb
 type VoicePrompt struct {
 	// for_: Name of the payment source data element
@@ -432,7 +432,7 @@ func (m VoicePrompt) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoicePause
+// VoicePause
 // <Pause> TwiML Verb
 type VoicePause struct {
 	// length: Length in seconds to pause
@@ -461,7 +461,7 @@ func (m VoicePause) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoicePlay
+// VoicePlay
 // <Play> TwiML Verb
 type VoicePlay struct {
 	// url: Media URL
@@ -495,7 +495,7 @@ func (m VoicePlay) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSay
+// VoiceSay
 // <Say> TwiML Verb
 type VoiceSay struct {
 	// message: Message to say
@@ -532,7 +532,7 @@ func (m VoiceSay) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceW
+// VoiceW
 // Improving Pronunciation by Specifying Parts of Speech in <Say>
 type VoiceW struct {
 	// words: Words to speak
@@ -563,7 +563,7 @@ func (m VoiceW) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSub
+// VoiceSub
 // Pronouncing Acronyms and Abbreviations in <Say>
 type VoiceSub struct {
 	// words: Words to be substituted
@@ -594,7 +594,7 @@ func (m VoiceSub) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSayAs
+// VoiceSayAs
 // Controlling How Special Types of Words Are Spoken in <Say>
 type VoiceSayAs struct {
 	// words: Words to be interpreted
@@ -628,7 +628,7 @@ func (m VoiceSayAs) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceProsody
+// VoiceProsody
 // Controling Volume, Speaking Rate, and Pitch in <Say>
 type VoiceProsody struct {
 	// words: Words to speak
@@ -665,7 +665,7 @@ func (m VoiceProsody) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceS
+// VoiceS
 // Adding A Pause Between Sentences in <Say>
 type VoiceS struct {
 	// words: Words to speak
@@ -691,7 +691,7 @@ func (m VoiceS) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoicePhoneme
+// VoicePhoneme
 // Using Phonetic Pronunciation in <Say>
 type VoicePhoneme struct {
 	// words: Words to speak
@@ -725,7 +725,7 @@ func (m VoicePhoneme) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceLang
+// VoiceLang
 // Specifying Another Language for Specific Words in <Say>
 type VoiceLang struct {
 	// words: Words to speak
@@ -756,7 +756,7 @@ func (m VoiceLang) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceP
+// VoiceP
 // Adding a Pause Between Paragraphs in <Say>
 type VoiceP struct {
 	// words: Words to speak
@@ -782,7 +782,7 @@ func (m VoiceP) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceEmphasis
+// VoiceEmphasis
 // Emphasizing Words in <Say>
 type VoiceEmphasis struct {
 	// words: Words to emphasize
@@ -813,7 +813,7 @@ func (m VoiceEmphasis) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceBreak
+// VoiceBreak
 // Adding a Pause in <Say>
 type VoiceBreak struct {
 	// strength: Set a pause based on strength
@@ -845,7 +845,7 @@ func (m VoiceBreak) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoicePay
+// VoicePay
 // <Pay> Twiml Verb
 type VoicePay struct {
 	// input: Input type Twilio should accept
@@ -925,7 +925,7 @@ func (m VoicePay) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSms
+// VoiceSms
 // <Sms> TwiML Noun
 type VoiceSms struct {
 	// message: Message body
@@ -968,7 +968,7 @@ func (m VoiceSms) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceReject
+// VoiceReject
 // <Reject> TwiML Verb
 type VoiceReject struct {
 	// reason: Rejection reason
@@ -997,7 +997,7 @@ func (m VoiceReject) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceRedirect
+// VoiceRedirect
 // <Redirect> TwiML Verb
 type VoiceRedirect struct {
 	// url: Redirect URL
@@ -1028,7 +1028,7 @@ func (m VoiceRedirect) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceRecord
+// VoiceRecord
 // <Record> TwiML Verb
 type VoiceRecord struct {
 	// action: Action URL
@@ -1093,7 +1093,7 @@ func (m VoiceRecord) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceQueue
+// VoiceQueue
 // <Queue> TwiML Noun
 type VoiceQueue struct {
 	// name: Queue name
@@ -1133,7 +1133,7 @@ func (m VoiceQueue) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceLeave
+// VoiceLeave
 // <Leave> TwiML Verb
 type VoiceLeave struct {
 	// OptionalAttributes: additional attributes
@@ -1157,7 +1157,7 @@ func (m VoiceLeave) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceHangup
+// VoiceHangup
 // <Hangup> TwiML Verb
 type VoiceHangup struct {
 	// OptionalAttributes: additional attributes
@@ -1181,7 +1181,7 @@ func (m VoiceHangup) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceGather
+// VoiceGather
 // <Gather> TwiML Verb
 type VoiceGather struct {
 	// input: Input type Twilio should accept
@@ -1261,7 +1261,7 @@ func (m VoiceGather) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceEnqueue
+// VoiceEnqueue
 // <Enqueue> TwiML Noun
 type VoiceEnqueue struct {
 	// name: Friendly name
@@ -1307,7 +1307,7 @@ func (m VoiceEnqueue) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceTask
+// VoiceTask
 // <Task> TwiML Noun
 type VoiceTask struct {
 	// body: TaskRouter task attributes
@@ -1341,7 +1341,7 @@ func (m VoiceTask) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceEcho
+// VoiceEcho
 // <Echo> TwiML Verb
 type VoiceEcho struct {
 	// OptionalAttributes: additional attributes
@@ -1365,7 +1365,7 @@ func (m VoiceEcho) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceDial
+// VoiceDial
 // <Dial> TwiML Verb
 type VoiceDial struct {
 	// number: Phone number to dial
@@ -1388,6 +1388,7 @@ type VoiceDial struct {
 	// refer_url: Webhook that will receive future SIP REFER requests
 	// refer_method: The HTTP method to use for the refer Webhook
 	// events: Subscription to events
+	// passports: Base64-encoded comma-separated identity passports (e.g. shaken, div)
 	// OptionalAttributes: additional attributes
 	Number                        string
 	Action                        string
@@ -1409,6 +1410,7 @@ type VoiceDial struct {
 	ReferUrl                      string
 	ReferMethod                   string
 	Events                        string
+	Passports                     string
 	InnerElements                 []Element
 	OptionalAttributes            map[string]string
 }
@@ -1442,6 +1444,7 @@ func (m VoiceDial) GetAttr() (map[string]string, map[string]string) {
 		"ReferUrl":                      m.ReferUrl,
 		"ReferMethod":                   m.ReferMethod,
 		"Events":                        m.Events,
+		"Passports":                     m.Passports,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -1450,7 +1453,7 @@ func (m VoiceDial) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceWhatsApp
+// VoiceWhatsApp
 // <WhatsApp> TwiML Noun
 type VoiceWhatsApp struct {
 	// phone_number: WhatsApp Phone Number to dial
@@ -1493,7 +1496,7 @@ func (m VoiceWhatsApp) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceApplication
+// VoiceApplication
 // <Application> TwiML Noun
 type VoiceApplication struct {
 	// application_sid: Application sid
@@ -1542,7 +1545,7 @@ func (m VoiceApplication) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceApplicationSid
+// VoiceApplicationSid
 // <ApplicationSid> TwiML Noun
 type VoiceApplicationSid struct {
 	// sid: Application sid to dial
@@ -1568,7 +1571,7 @@ func (m VoiceApplicationSid) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSip
+// VoiceSip
 // <Sip> TwiML Noun
 type VoiceSip struct {
 	// sip_url: SIP URL
@@ -1638,7 +1641,7 @@ func (m VoiceSip) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceHeaders
+// VoiceHeaders
 // The SIP headers to include in the request
 type VoiceHeaders struct {
 	// OptionalAttributes: additional attributes
@@ -1662,7 +1665,7 @@ func (m VoiceHeaders) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceHeader
+// VoiceHeader
 // A custom SIP header to include in the request
 type VoiceHeader struct {
 	// name: The name of the custom header
@@ -1694,7 +1697,7 @@ func (m VoiceHeader) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceUri
+// VoiceUri
 // The SIP URI to dial. Multiple Uri elements can be provided, in which case
 // they will be attempted in priority order. URIs with the same priority will be
 // selected proportionally based on its weight.
@@ -1736,7 +1739,7 @@ func (m VoiceUri) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceSim
+// VoiceSim
 // <Sim> TwiML Noun
 type VoiceSim struct {
 	// sim_sid: SIM SID
@@ -1762,7 +1765,7 @@ func (m VoiceSim) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceNumber
+// VoiceNumber
 // <Number> TwiML Noun
 type VoiceNumber struct {
 	// phone_number: Phone Number to dial
@@ -1832,7 +1835,7 @@ func (m VoiceNumber) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceConference
+// VoiceConference
 // <Conference> TwiML Noun
 type VoiceConference struct {
 	// name: Conference name
@@ -1923,7 +1926,7 @@ func (m VoiceConference) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceClient
+// VoiceClient
 // <Client> TwiML Noun
 type VoiceClient struct {
 	// identity: Client identity
@@ -1966,7 +1969,7 @@ func (m VoiceClient) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceIdentity
+// VoiceIdentity
 // <Identity> TwiML Noun
 type VoiceIdentity struct {
 	// client_identity: Identity of the client to dial
@@ -1992,7 +1995,7 @@ func (m VoiceIdentity) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceConnect
+// VoiceConnect
 // <Connect> TwiML Verb
 type VoiceConnect struct {
 	// action: Action URL
@@ -2024,7 +2027,7 @@ func (m VoiceConnect) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceConversationRelaySession
+// VoiceConversationRelaySession
 // <ConversationRelaySession> TwiML Noun
 type VoiceConversationRelaySession struct {
 	// connector: The unique name or installed add-on sid that identifies the installed addon resource for the ConversationRelaySession Connector
@@ -2056,7 +2059,7 @@ func (m VoiceConversationRelaySession) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceAiSession
+// VoiceAiSession
 // <AiSession> TwiML Noun
 type VoiceAiSession struct {
 	// ai_connector: The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector
@@ -2088,137 +2091,7 @@ func (m VoiceAiSession) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceAssistant
-// <Assistant> TwiML Noun
-type VoiceAssistant struct {
-	// id: The assistant ID of the AI Assistant
-	// language: Language to be used for both text-to-speech and transcription
-	// tts_language: Language to be used for text-to-speech
-	// transcription_language: Language to be used for transcription
-	// tts_provider: Provider to be used for text-to-speech
-	// voice: Voice to be used for text-to-speech
-	// transcription_provider: Provider to be used for transcription
-	// speech_model: Speech model to be used for transcription
-	// profanity_filter: Whether profanities should be filtered out of the speech transcription
-	// dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
-	// welcome_greeting: The sentence to be played automatically when the session is connected
-	// partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-	// welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
-	// interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
-	// preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
-	// hints: Phrases to help better accuracy in speech recognition of these pharases
-	// intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
-	// report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
-	// elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
-	// interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
-	// debug: Multiple debug options to be used for troubleshooting
-	// OptionalAttributes: additional attributes
-	Id                           string
-	Language                     string
-	TtsLanguage                  string
-	TranscriptionLanguage        string
-	TtsProvider                  string
-	Voice                        string
-	TranscriptionProvider        string
-	SpeechModel                  string
-	ProfanityFilter              string
-	DtmfDetection                string
-	WelcomeGreeting              string
-	PartialPrompts               string
-	WelcomeGreetingInterruptible string
-	Interruptible                string
-	Preemptible                  string
-	Hints                        string
-	IntelligenceService          string
-	ReportInputDuringAgentSpeech string
-	ElevenlabsTextNormalization  string
-	InterruptSensitivity         string
-	Debug                        string
-	InnerElements                []Element
-	OptionalAttributes           map[string]string
-}
-
-func (m VoiceAssistant) GetName() string {
-	return "Assistant"
-}
-
-func (m VoiceAssistant) GetText() string {
-	return ""
-}
-
-func (m VoiceAssistant) GetAttr() (map[string]string, map[string]string) {
-	paramsAttr := map[string]string{
-		"Id":                           m.Id,
-		"Language":                     m.Language,
-		"TtsLanguage":                  m.TtsLanguage,
-		"TranscriptionLanguage":        m.TranscriptionLanguage,
-		"TtsProvider":                  m.TtsProvider,
-		"Voice":                        m.Voice,
-		"TranscriptionProvider":        m.TranscriptionProvider,
-		"SpeechModel":                  m.SpeechModel,
-		"ProfanityFilter":              m.ProfanityFilter,
-		"DtmfDetection":                m.DtmfDetection,
-		"WelcomeGreeting":              m.WelcomeGreeting,
-		"PartialPrompts":               m.PartialPrompts,
-		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
-		"Interruptible":                m.Interruptible,
-		"Preemptible":                  m.Preemptible,
-		"Hints":                        m.Hints,
-		"IntelligenceService":          m.IntelligenceService,
-		"ReportInputDuringAgentSpeech": m.ReportInputDuringAgentSpeech,
-		"ElevenlabsTextNormalization":  m.ElevenlabsTextNormalization,
-		"InterruptSensitivity":         m.InterruptSensitivity,
-		"Debug":                        m.Debug,
-	}
-	return m.OptionalAttributes, paramsAttr
-}
-
-func (m VoiceAssistant) GetInnerElements() []Element {
-	return m.InnerElements
-}
-
-//VoiceLanguage
-// <Language> TwiML Noun
-type VoiceLanguage struct {
-	// code: Language code of this language setting is for
-	// tts_provider: Provider to be used for text-to-speech of this language
-	// voice: Voice to be used for text-to-speech of this language
-	// transcription_provider: Provider to be used for transcription of this language
-	// speech_model: Speech model to be used for transcription of this language
-	// OptionalAttributes: additional attributes
-	Code                  string
-	TtsProvider           string
-	Voice                 string
-	TranscriptionProvider string
-	SpeechModel           string
-	InnerElements         []Element
-	OptionalAttributes    map[string]string
-}
-
-func (m VoiceLanguage) GetName() string {
-	return "Language"
-}
-
-func (m VoiceLanguage) GetText() string {
-	return ""
-}
-
-func (m VoiceLanguage) GetAttr() (map[string]string, map[string]string) {
-	paramsAttr := map[string]string{
-		"Code":                  m.Code,
-		"TtsProvider":           m.TtsProvider,
-		"Voice":                 m.Voice,
-		"TranscriptionProvider": m.TranscriptionProvider,
-		"SpeechModel":           m.SpeechModel,
-	}
-	return m.OptionalAttributes, paramsAttr
-}
-
-func (m VoiceLanguage) GetInnerElements() []Element {
-	return m.InnerElements
-}
-
-//VoiceConversationRelay
+// VoiceConversationRelay
 // <ConversationRelay> TwiML Noun
 type VoiceConversationRelay struct {
 	// url: URL of the remote service where the session is connected to
@@ -2322,7 +2195,48 @@ func (m VoiceConversationRelay) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceConversation
+// VoiceLanguage
+// <Language> TwiML Noun
+type VoiceLanguage struct {
+	// code: Language code of this language setting is for
+	// tts_provider: Provider to be used for text-to-speech of this language
+	// voice: Voice to be used for text-to-speech of this language
+	// transcription_provider: Provider to be used for transcription of this language
+	// speech_model: Speech model to be used for transcription of this language
+	// OptionalAttributes: additional attributes
+	Code                  string
+	TtsProvider           string
+	Voice                 string
+	TranscriptionProvider string
+	SpeechModel           string
+	InnerElements         []Element
+	OptionalAttributes    map[string]string
+}
+
+func (m VoiceLanguage) GetName() string {
+	return "Language"
+}
+
+func (m VoiceLanguage) GetText() string {
+	return ""
+}
+
+func (m VoiceLanguage) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Code":                  m.Code,
+		"TtsProvider":           m.TtsProvider,
+		"Voice":                 m.Voice,
+		"TranscriptionProvider": m.TranscriptionProvider,
+		"SpeechModel":           m.SpeechModel,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceLanguage) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+// VoiceConversation
 // <Conversation> TwiML Noun
 type VoiceConversation struct {
 	// service_instance_sid: Service instance Sid
@@ -2390,7 +2304,7 @@ func (m VoiceConversation) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceVirtualAgent
+// VoiceVirtualAgent
 // <VirtualAgent> TwiML Noun
 type VoiceVirtualAgent struct {
 	// connector_name: Defines the conversation profile Dialogflow needs to use
@@ -2431,7 +2345,7 @@ func (m VoiceVirtualAgent) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceAutopilot
+// VoiceAutopilot
 // <Autopilot> TwiML Noun
 type VoiceAutopilot struct {
 	// name: Autopilot assistant sid or unique name
@@ -2457,7 +2371,7 @@ func (m VoiceAutopilot) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-//VoiceRoom
+// VoiceRoom
 // <Room> TwiML Noun
 type VoiceRoom struct {
 	// name: Room name

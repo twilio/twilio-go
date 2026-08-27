@@ -44,7 +44,7 @@ Name | Type | Description
 
 ### Authorization
 
-[accountSid_authToken](../README.md#accountSid_authToken)
+[accountSid_authToken](../README.md#accountSid_authToken), [access_token_bearer](../README.md#access_token_bearer)
 
 ### HTTP request headers
 

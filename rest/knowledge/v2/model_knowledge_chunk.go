@@ -18,10 +18,18 @@ import (
 	"time"
 )
 
-// KnowledgeChunk Represents a processed content chunk extracted from knowledge source.  Chunks are smaller segments of content that have been parsed and indexed  for semantic search operations, containing the original text content.
+// KnowledgeChunk struct for KnowledgeChunk
 type KnowledgeChunk struct {
 	// The chunk content.
 	Content string `json:"content,omitempty"`
 	// The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
+	// 0-based position of this chunk within its source document for a single ingestion run.
+	ChunkIndex int `json:"chunkIndex,omitempty"`
+	// Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+	DocumentTitle string `json:"documentTitle,omitempty"`
+	// Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+	DocumentUrl string `json:"documentUrl,omitempty"`
+	// Physical page number (1-based). PDF sources only; omitted for all other source types.
+	DocumentNumber int `json:"documentNumber,omitempty"`
 }

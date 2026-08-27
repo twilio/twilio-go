@@ -23,9 +23,9 @@ import (
 )
 
 // Retrieve the current status of a long-running operation. Operations progress through: PENDING -> RUNNING -> COMPLETED or FAILED.
-func (c *ApiService) FetchOperationStatus(Sid string) (*FetchOperationStatusResponse, error) {
-	path := "/v2/ControlPlane/Operations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchOperationStatus(Id string) (*FetchOperationStatusResponse, error) {
+	path := "/v2/ControlPlane/Operations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -48,9 +48,9 @@ func (c *ApiService) FetchOperationStatus(Sid string) (*FetchOperationStatusResp
 }
 
 // FetchOperationStatusWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchOperationStatusWithMetadata(Sid string) (*metadata.ResourceMetadata[FetchOperationStatusResponse], error) {
-	path := "/v2/ControlPlane/Operations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchOperationStatusWithMetadata(Id string) (*metadata.ResourceMetadata[FetchOperationStatusResponse], error) {
+	path := "/v2/ControlPlane/Operations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

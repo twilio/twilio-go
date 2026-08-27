@@ -35,7 +35,6 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-//
 func (c *ApiService) CreateService(params *CreateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services"
 
@@ -97,7 +96,6 @@ func (c *ApiService) CreateServiceWithMetadata(params *CreateServiceParams) (*me
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteService(Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -143,7 +141,6 @@ func (c *ApiService) DeleteServiceWithMetadata(Sid string) (*metadata.ResourceMe
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchService(Sid string) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -621,7 +618,6 @@ func (params *UpdateServiceParams) SetNotificationsLogEnabled(NotificationsLogEn
 	return params
 }
 
-//
 func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

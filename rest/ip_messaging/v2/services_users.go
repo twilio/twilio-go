@@ -59,7 +59,6 @@ func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUser
 	return params
 }
 
-//
 func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -147,7 +146,6 @@ func (c *ApiService) CreateUserWithMetadata(ServiceSid string, params *CreateUse
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -195,7 +193,6 @@ func (c *ApiService) DeleteUserWithMetadata(ServiceSid string, Sid string) (*met
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -517,7 +514,6 @@ func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUser
 	return params
 }
 
-//
 func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV2User, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

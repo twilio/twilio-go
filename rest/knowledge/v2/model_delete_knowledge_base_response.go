@@ -17,4 +17,6 @@ package openapi
 // DeleteKnowledgeBaseResponse struct for DeleteKnowledgeBaseResponse
 type DeleteKnowledgeBaseResponse struct {
 	Message string `json:"message,omitempty"`
+	// URI to check operation status.
+	StatusUrl string `json:"statusUrl,omitempty"`
 }

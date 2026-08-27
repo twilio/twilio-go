@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique identifier for this Action. |
 **Type** | **string** | The type of action. Accepted values: SEND_MESSAGE. |
-**Status** | **string** | Current status of the Action. - PENDING: Action accepted, awaiting downstream confirmation - COMPLETED: Downstream backend confirmed the action - FAILED: Downstream backend reported a failure  |
+**Status** | [**ConversationsV2ActionStatus**](ConversationsV2ActionStatus.md) |  |
 **ConversationId** | **string** | The conversation this action belongs to. |
 **Related** | **map[string]string** | Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED)  |[optional] 
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when the action was created. |

@@ -20,4 +20,6 @@ type ContentApprovalRequest struct {
 	Name string `json:"name"`
 	// A WhatsApp recognized template category.
 	Category string `json:"category"`
+	// Time-to-live in seconds for attempting to send a message with this Content
+	SendTtlSeconds int `json:"send_ttl_seconds,omitempty"`
 }

@@ -63,7 +63,6 @@ func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnab
 	return params
 }
 
-//
 func (c *ApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -155,7 +154,6 @@ func (c *ApiService) CreateRecordingSettingsWithMetadata(params *CreateRecording
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 

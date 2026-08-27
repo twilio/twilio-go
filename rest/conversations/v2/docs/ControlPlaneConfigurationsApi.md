@@ -5,10 +5,10 @@ All URIs are relative to *https://conversations.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateConfiguration**](ControlPlaneConfigurationsApi.md#CreateConfiguration) | **Post** /v2/ControlPlane/Configurations | Create a Configuration
-[**DeleteConfiguration**](ControlPlaneConfigurationsApi.md#DeleteConfiguration) | **Delete** /v2/ControlPlane/Configurations/{Sid} | Delete Configuration
-[**FetchConfiguration**](ControlPlaneConfigurationsApi.md#FetchConfiguration) | **Get** /v2/ControlPlane/Configurations/{Sid} | Fetch Configuration
+[**DeleteConfiguration**](ControlPlaneConfigurationsApi.md#DeleteConfiguration) | **Delete** /v2/ControlPlane/Configurations/{id} | Delete Configuration
+[**FetchConfiguration**](ControlPlaneConfigurationsApi.md#FetchConfiguration) | **Get** /v2/ControlPlane/Configurations/{id} | Fetch Configuration
 [**ListConfiguration**](ControlPlaneConfigurationsApi.md#ListConfiguration) | **Get** /v2/ControlPlane/Configurations | List Configurations
-[**UpdateConfiguration**](ControlPlaneConfigurationsApi.md#UpdateConfiguration) | **Put** /v2/ControlPlane/Configurations/{Sid} | Update Configuration
+[**UpdateConfiguration**](ControlPlaneConfigurationsApi.md#UpdateConfiguration) | **Put** /v2/ControlPlane/Configurations/{id} | Update Configuration
 
 
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## DeleteConfiguration
 
-> CreateConfigurationResponse DeleteConfiguration(ctx, Sidoptional)
+> CreateConfigurationResponse DeleteConfiguration(ctx, Idoptional)
 
 Delete Configuration
 
@@ -66,7 +66,7 @@ Delete a Configuration
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchConfiguration
 
-> ListConfigurationResponseConfigurations FetchConfiguration(ctx, Sid)
+> ListConfigurationResponseConfigurations FetchConfiguration(ctx, Id)
 
 Fetch Configuration
 
@@ -109,7 +109,7 @@ Retrieve a Configuration.
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateConfiguration
 
-> CreateConfigurationResponse UpdateConfiguration(ctx, Sidoptional)
+> CreateConfigurationResponse UpdateConfiguration(ctx, Idoptional)
 
 Update Configuration
 
@@ -193,7 +193,7 @@ Update an existing Configuration
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Sid** | **string** | 
+**Id** | **string** | 
 
 ### Other Parameters
 

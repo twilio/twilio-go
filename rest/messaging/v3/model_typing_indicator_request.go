@@ -16,14 +16,14 @@ package openapi
 
 // TypingIndicatorRequest Request body for sending a typing indicator. The schema varies by channel. Use the `channel` field to determine which properties are required.
 type TypingIndicatorRequest struct {
-	// The messaging channel. Must be \"APPLE\".
+	// The messaging channel. Must be \"RCS\".
 	Channel string `json:"channel"`
 	// The SID of a recent inbound message from the recipient. Must be an SM or MM SID format.
 	MessageId string `json:"messageId"`
-	// The Apple Messages for Business identifier of the sender (business).
+	// The RCS agent identifier of the sender (business).
 	From string `json:"from"`
-	// The Apple Messages for Business identifier of the recipient (customer).
+	// The RCS recipient identifier in E.164 format prefixed with \"rcs:\".
 	To string `json:"to"`
-	// The type of typing event. \"START\" indicates the agent began typing, \"END\" indicates the agent stopped typing. Defaults to \"START\".
+	// The type of typing event. Currently only \"START\" is supported for RCS, indicating the agent began typing. Defaults to \"START\".
 	Event string `json:"event,omitempty"`
 }

@@ -22,4 +22,6 @@ type ContentV1ApprovalCreate struct {
 	Status              *string `json:"status,omitempty"`
 	RejectionReason     *string `json:"rejection_reason,omitempty"`
 	AllowCategoryChange *bool   `json:"allow_category_change,omitempty"`
+	// Time-to-live in seconds for attempting to send a message with this Content
+	SendTtlSeconds *int `json:"send_ttl_seconds,omitempty"`
 }

@@ -87,9 +87,9 @@ type ListConversationsParams struct {
 	PageSize *int `json:"pageSize,omitempty"`
 	// Token for pagination
 	PageToken *string `json:"pageToken,omitempty"`
-	// Filter by Conversations created before this timestamp.
+	// Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
 	CreatedAtBefore *time.Time `json:"createdAtBefore,omitempty"`
-	// Filter by Conversations created after this timestamp.
+	// Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days.
 	CreatedAtAfter *time.Time `json:"createdAtAfter,omitempty"`
 	// Filter by Conversation status.
 	Status *string `json:"status,omitempty"`

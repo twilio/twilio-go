@@ -119,9 +119,9 @@ func (params *DeleteConversationAsyncParams) SetIdempotencyKey(IdempotencyKey st
 }
 
 // Asynchronously delete a conversation and all associated data. Returns 202 Accepted with an Operation-Id for status tracking via GET /v2/ControlPlane/Operations/{operationId}.
-func (c *ApiService) DeleteConversationAsync(Sid string, params *DeleteConversationAsyncParams) (*CreateConfigurationResponse, error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteConversationAsync(Id string, params *DeleteConversationAsyncParams) (*CreateConfigurationResponse, error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -147,9 +147,9 @@ func (c *ApiService) DeleteConversationAsync(Sid string, params *DeleteConversat
 }
 
 // DeleteConversationAsyncWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) DeleteConversationAsyncWithMetadata(Sid string, params *DeleteConversationAsyncParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) DeleteConversationAsyncWithMetadata(Id string, params *DeleteConversationAsyncParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -181,9 +181,9 @@ func (c *ApiService) DeleteConversationAsyncWithMetadata(Sid string, params *Del
 }
 
 // Retrieve a Conversation.
-func (c *ApiService) FetchConversation(Sid string) (*ListConversationByAccountResponseConversations, error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchConversation(Id string) (*ListConversationByAccountResponseConversations, error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -206,9 +206,9 @@ func (c *ApiService) FetchConversation(Sid string) (*ListConversationByAccountRe
 }
 
 // FetchConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchConversationWithMetadata(Sid string) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchConversationWithMetadata(Id string) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -513,9 +513,9 @@ func (params *PatchConversationByIdParams) SetPatchConversationByIdRequest(Patch
 }
 
 // Partially update the details of an existing Conversation.
-func (c *ApiService) PatchConversationById(Sid string, params *PatchConversationByIdParams) (*ListConversationByAccountResponseConversations, error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) PatchConversationById(Id string, params *PatchConversationByIdParams) (*ListConversationByAccountResponseConversations, error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -547,9 +547,9 @@ func (c *ApiService) PatchConversationById(Sid string, params *PatchConversation
 }
 
 // PatchConversationByIdWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) PatchConversationByIdWithMetadata(Sid string, params *PatchConversationByIdParams) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) PatchConversationByIdWithMetadata(Id string, params *PatchConversationByIdParams) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -598,9 +598,9 @@ func (params *UpdateConversationByIdParams) SetUpdateConversationByIdRequest(Upd
 }
 
 // Update an existing conversation
-func (c *ApiService) UpdateConversationById(Sid string, params *UpdateConversationByIdParams) (*ListConversationByAccountResponseConversations, error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateConversationById(Id string, params *UpdateConversationByIdParams) (*ListConversationByAccountResponseConversations, error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -632,9 +632,9 @@ func (c *ApiService) UpdateConversationById(Sid string, params *UpdateConversati
 }
 
 // UpdateConversationByIdWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateConversationByIdWithMetadata(Sid string, params *UpdateConversationByIdParams) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
-	path := "/v2/Conversations/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateConversationByIdWithMetadata(Id string, params *UpdateConversationByIdParams) (*metadata.ResourceMetadata[ListConversationByAccountResponseConversations], error) {
+	path := "/v2/Conversations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
