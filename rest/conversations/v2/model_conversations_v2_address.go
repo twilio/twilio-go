@@ -16,8 +16,7 @@ package openapi
 
 // ConversationsV2Address struct for ConversationsV2Address
 type ConversationsV2Address struct {
-	// The channel for Communication.
-	Channel string `json:"channel"`
+	Channel ConversationsV2Channel `json:"channel"`
 	// The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
 	Address string `json:"address"`
 	// Channel-specific ID for correlating Communications.

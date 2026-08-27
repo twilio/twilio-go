@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**DeleteProfile**](StoresProfilesApi.md#DeleteProfile) | **Delete** /v1/Stores/{storeId}/Profiles/{profileId} | Delete Profile
 [**FetchProfile**](StoresProfilesApi.md#FetchProfile) | **Get** /v1/Stores/{storeId}/Profiles/{profileId} | Get Profile
 [**ListProfiles**](StoresProfilesApi.md#ListProfiles) | **Get** /v1/Stores/{storeId}/Profiles | List Profiles
-[**PatchProfileTraits**](StoresProfilesApi.md#PatchProfileTraits) | **Patch** /v1/Stores/{storeId}/Profiles/{profileId} | Patch Profile Traits
+[**PatchProfileTraits**](StoresProfilesApi.md#PatchProfileTraits) | **Patch** /v1/Stores/{storeId}/Profiles/{profileId} | Patch Profile
 
 
 
@@ -192,9 +192,9 @@ Name | Type | Description
 
 > PatchProfileTraitsResponse PatchProfileTraits(ctx, StoreIdProfileIdoptional)
 
-Patch Profile Traits
+Patch Profile
 
-Merge one or more trait groups into an existing profile. Only the traits provided are added or updated; unspecified traits remain unchanged. Only pre-defined trait groups and traits configured for the memory store can be patched. To remove a trait entirely, set its value to null.
+Update or add specific traits to an existing profile. Only the traits provided are added or updated; unspecified traits remain unchanged. Only pre-defined trait groups and traits configured for the memory store can be patched. To remove a trait entirely, set its value to null.
 
 ### Path Parameters
 

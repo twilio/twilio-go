@@ -16,18 +16,34 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
+// Optional parameters for the method 'CreateSecondaryAuthToken'
+type CreateSecondaryAuthTokenParams struct {
+	// Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
+	SuppressEmailNotification *bool `json:"SuppressEmailNotification,omitempty"`
+}
+
+func (params *CreateSecondaryAuthTokenParams) SetSuppressEmailNotification(SuppressEmailNotification bool) *CreateSecondaryAuthTokenParams {
+	params.SuppressEmailNotification = &SuppressEmailNotification
+	return params
+}
+
 // Create a new secondary Auth Token
-func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, error) {
+func (c *ApiService) CreateSecondaryAuthToken(params *CreateSecondaryAuthTokenParams) (*AccountsV1SecondaryAuthToken, error) {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -46,12 +62,16 @@ func (c *ApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, 
 }
 
 // CreateSecondaryAuthTokenWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateSecondaryAuthTokenWithMetadata() (*metadata.ResourceMetadata[AccountsV1SecondaryAuthToken], error) {
+func (c *ApiService) CreateSecondaryAuthTokenWithMetadata(params *CreateSecondaryAuthTokenParams) (*metadata.ResourceMetadata[AccountsV1SecondaryAuthToken], error) {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -75,13 +95,28 @@ func (c *ApiService) CreateSecondaryAuthTokenWithMetadata() (*metadata.ResourceM
 	return metadataWrapper, nil
 }
 
+// Optional parameters for the method 'DeleteSecondaryAuthToken'
+type DeleteSecondaryAuthTokenParams struct {
+	// Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
+	SuppressEmailNotification *bool `json:"SuppressEmailNotification,omitempty"`
+}
+
+func (params *DeleteSecondaryAuthTokenParams) SetSuppressEmailNotification(SuppressEmailNotification bool) *DeleteSecondaryAuthTokenParams {
+	params.SuppressEmailNotification = &SuppressEmailNotification
+	return params
+}
+
 // Delete the secondary Auth Token from your account
-func (c *ApiService) DeleteSecondaryAuthToken() error {
+func (c *ApiService) DeleteSecondaryAuthToken(params *DeleteSecondaryAuthTokenParams) error {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)
@@ -95,12 +130,16 @@ func (c *ApiService) DeleteSecondaryAuthToken() error {
 }
 
 // DeleteSecondaryAuthTokenWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) DeleteSecondaryAuthTokenWithMetadata() (*metadata.ResourceMetadata[bool], error) {
+func (c *ApiService) DeleteSecondaryAuthTokenWithMetadata(params *DeleteSecondaryAuthTokenParams) (*metadata.ResourceMetadata[bool], error) {
 	path := "/v1/AuthTokens/Secondary"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.SuppressEmailNotification != nil {
+		data.Set("SuppressEmailNotification", fmt.Sprint(*params.SuppressEmailNotification))
 	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers, c.apiVersion)

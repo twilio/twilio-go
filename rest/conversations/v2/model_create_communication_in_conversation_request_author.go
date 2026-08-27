@@ -16,7 +16,8 @@ package openapi
 
 // CreateCommunicationInConversationRequestAuthor struct for CreateCommunicationInConversationRequestAuthor
 type CreateCommunicationInConversationRequestAuthor struct {
-	Address       string `json:"address"`
+	Address string `json:"address"`
+	// Channel type for a Communication address.
 	Channel       string `json:"channel"`
 	ParticipantId string `json:"participantId,omitempty"`
 }

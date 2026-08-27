@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## UpdateAuthTokenPromotion
 
-> AccountsV1AuthTokenPromotion UpdateAuthTokenPromotion(ctx, )
+> AccountsV1AuthTokenPromotion UpdateAuthTokenPromotion(ctx, optional)
 
 Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 
@@ -25,6 +25,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**SuppressEmailNotification** | **bool** | Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts.
+
 ### Return type
 
 [**AccountsV1AuthTokenPromotion**](AccountsV1AuthTokenPromotion.md)
@@ -35,7 +39,7 @@ Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParam
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

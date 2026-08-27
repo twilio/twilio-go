@@ -31,11 +31,17 @@ All URIs are relative to *https://lookups.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | 
+*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | Fetch information about a phone number
 
 
 ## Documentation For Models
 
+ - [LogEntryCount](docs/LogEntryCount.md)
+ - [LogListResponse](docs/LogListResponse.md)
+ - [Metadata](docs/Metadata.md)
+ - [PackageError](docs/PackageError.md)
+ - [LogDetails](docs/LogDetails.md)
+ - [LogEntry](docs/LogEntry.md)
  - [LookupsV1PhoneNumber](docs/LookupsV1PhoneNumber.md)
 
 

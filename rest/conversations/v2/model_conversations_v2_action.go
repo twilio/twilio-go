@@ -23,9 +23,8 @@ type ConversationsV2Action struct {
 	// Unique identifier for this Action.
 	Id string `json:"id"`
 	// The type of action. Accepted values: SEND_MESSAGE.
-	Type string `json:"type"`
-	// Current status of the Action. - PENDING: Action accepted, awaiting downstream confirmation - COMPLETED: Downstream backend confirmed the action - FAILED: Downstream backend reported a failure
-	Status string `json:"status"`
+	Type   string                      `json:"type"`
+	Status ConversationsV2ActionStatus `json:"status"`
 	// The conversation this action belongs to.
 	ConversationId string `json:"conversationId"`
 	// Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED)

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Sender** | Pointer to **string** | The unique string that identifies the number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the channel sender e.g whatsapp:+123456XXXX. |
 **SenderType** | Pointer to **string** | A string value that identifies the number or channel sender type e.g AlphaSenderId, LongCode, ShortCode, Whatsapp, RCS. |
 **CountryCode** | Pointer to **string** | The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number or channel sender. |
+**Capabilities** | Pointer to **[]string** | The capabilities of the number or channel sender (e.g. SMS, MMS, Voice). Populated for phone-number senders; empty for channel senders which have a standardized capability. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

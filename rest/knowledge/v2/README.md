@@ -62,6 +62,8 @@ Class | Method | HTTP request | Description
  - [PatchKnowledgeBaseRequest](docs/PatchKnowledgeBaseRequest.md)
  - [OperationStatus](docs/OperationStatus.md)
  - [FileSourceDetails](docs/FileSourceDetails.md)
+ - [KnowledgeErrorGroup](docs/KnowledgeErrorGroup.md)
+ - [KnowledgeErrorInstance](docs/KnowledgeErrorInstance.md)
  - [DeleteKnowledgeBaseResponse](docs/DeleteKnowledgeBaseResponse.md)
  - [KnowledgeMeta](docs/KnowledgeMeta.md)
  - [KnowledgeChunkResult](docs/KnowledgeChunkResult.md)
@@ -75,6 +77,7 @@ Class | Method | HTTP request | Description
  - [OperationResultResourceId](docs/OperationResultResourceId.md)
  - [WebSourceDetails](docs/WebSourceDetails.md)
  - [UpdateKnowledgeResponse](docs/UpdateKnowledgeResponse.md)
+ - [ChunkProvenanceFields](docs/ChunkProvenanceFields.md)
 
 
 ## Documentation For Authorization

@@ -59,7 +59,6 @@ func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomat
 	return params
 }
 
-//
 func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -145,7 +144,6 @@ func (c *ApiService) CreateBrandRegistrationsWithMetadata(params *CreateBrandReg
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -432,7 +430,6 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 	return ps, nil
 }
 
-//
 func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

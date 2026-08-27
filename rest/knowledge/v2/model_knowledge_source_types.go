@@ -28,12 +28,14 @@ type KnowledgeSourceTypes struct {
 	CrawlDepth int `json:"crawlDepth,omitempty"`
 	// Frequency of re-crawling the website for updated content
 	CrawlPeriod string `json:"crawlPeriod,omitempty"`
+	// Processing errors encountered during web crawling, grouped by title. Array of error groups, where each group has a title and list of error instances. Only present when crawl errors occurred.
+	Errors []KnowledgeErrorGroup `json:"errors,omitempty"`
 	// Name of the file to be uploaded
 	FileName string `json:"fileName"`
 	// Expected size of the file in bytes
 	FileSize int                   `json:"fileSize"`
 	MimeType SupportedFileMimeType `json:"mimeType"`
-	// Presigned S3 URL for file upload (when status is SCHEDULED) or the permanent S3 location after upload completes. Use PUT method to upload the file to this URL when status is SCHEDULED.
+	// Presigned S3 URL for file upload (when status is SCHEDULED).  Use PUT method to upload the file to this URL when status is SCHEDULED.
 	ImportUrl string `json:"importUrl,omitempty"`
 	// Expiration time of the presigned upload URL in ISO 8601 format (only present when status is SCHEDULED)
 	UploadExpiration time.Time `json:"uploadExpiration,omitempty"`

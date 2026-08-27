@@ -25,9 +25,8 @@ type ListConversationByAccountResponseConversations struct {
 	// Account ID.
 	AccountId string `json:"accountId"`
 	// Configuration ID.
-	ConfigurationId string `json:"configurationId"`
-	// Conversation status.
-	Status string `json:"status,omitempty"`
+	ConfigurationId string                            `json:"configurationId"`
+	Status          ConversationsV2ConversationStatus `json:"status,omitempty"`
 	// Conversation name.
 	Name *string `json:"name,omitempty"`
 	// Timestamp when this Conversation was created.

@@ -33,6 +33,10 @@ type FetchOauth2AuthorizeParams struct {
 	Scope *string `json:"scope,omitempty"`
 	//
 	State *string `json:"state,omitempty"`
+	//
+	CodeChallenge *string `json:"code_challenge,omitempty"`
+	//
+	CodeChallengeMethod *string `json:"code_challenge_method,omitempty"`
 }
 
 func (params *FetchOauth2AuthorizeParams) SetResponseType(ResponseType string) *FetchOauth2AuthorizeParams {
@@ -53,6 +57,14 @@ func (params *FetchOauth2AuthorizeParams) SetScope(Scope string) *FetchOauth2Aut
 }
 func (params *FetchOauth2AuthorizeParams) SetState(State string) *FetchOauth2AuthorizeParams {
 	params.State = &State
+	return params
+}
+func (params *FetchOauth2AuthorizeParams) SetCodeChallenge(CodeChallenge string) *FetchOauth2AuthorizeParams {
+	params.CodeChallenge = &CodeChallenge
+	return params
+}
+func (params *FetchOauth2AuthorizeParams) SetCodeChallengeMethod(CodeChallengeMethod string) *FetchOauth2AuthorizeParams {
+	params.CodeChallengeMethod = &CodeChallengeMethod
 	return params
 }
 
@@ -78,6 +90,12 @@ func (c *ApiService) FetchOauth2Authorize(params *FetchOauth2AuthorizeParams) (*
 	}
 	if params != nil && params.State != nil {
 		data.Set("state", *params.State)
+	}
+	if params != nil && params.CodeChallenge != nil {
+		data.Set("code_challenge", *params.CodeChallenge)
+	}
+	if params != nil && params.CodeChallengeMethod != nil {
+		data.Set("code_challenge_method", *params.CodeChallengeMethod)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
@@ -118,6 +136,12 @@ func (c *ApiService) FetchOauth2AuthorizeWithMetadata(params *FetchOauth2Authori
 	}
 	if params != nil && params.State != nil {
 		data.Set("state", *params.State)
+	}
+	if params != nil && params.CodeChallenge != nil {
+		data.Set("code_challenge", *params.CodeChallenge)
+	}
+	if params != nil && params.CodeChallengeMethod != nil {
+		data.Set("code_challenge_method", *params.CodeChallengeMethod)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)

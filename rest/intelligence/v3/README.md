@@ -53,6 +53,7 @@ Class | Method | HTTP request | Description
 *OperatorResultsApi* | [**DeleteOperatorResult**](docs/OperatorResultsApi.md#deleteoperatorresult) | **Delete** /v3/OperatorResults/{operatorResultId} | Delete an OperatorResult
 *OperatorResultsApi* | [**FetchOperatorResult**](docs/OperatorResultsApi.md#fetchoperatorresult) | **Get** /v3/OperatorResults/{operatorResultId} | Retrieve an OperatorResult
 *OperatorResultsApi* | [**ListOperatorResults**](docs/OperatorResultsApi.md#listoperatorresults) | **Get** /v3/OperatorResults | Retrieve a list of OperatorResults
+*RuleExecutionsApi* | [**CreateRuleExecution**](docs/RuleExecutionsApi.md#createruleexecution) | **Post** /v3/RuleExecutions | Manually queue a rule execution
 
 
 ## Documentation For Models
@@ -62,6 +63,7 @@ Class | Method | HTTP request | Description
  - [OperatorReference](docs/OperatorReference.md)
  - [CreateConfigurationResponse](docs/CreateConfigurationResponse.md)
  - [TextResultResult](docs/TextResultResult.md)
+ - [CreateRuleExecutionRequest](docs/CreateRuleExecutionRequest.md)
  - [CreateOperatorResponse](docs/CreateOperatorResponse.md)
  - [ResolvedContext](docs/ResolvedContext.md)
  - [Trigger](docs/Trigger.md)

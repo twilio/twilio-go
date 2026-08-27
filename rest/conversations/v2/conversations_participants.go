@@ -36,9 +36,9 @@ func (params *CreateParticipantInConversationParams) SetCreateParticipantInConve
 }
 
 // Create a Participant.
-func (c *ApiService) CreateParticipantInConversation(ConversationSid string, params *CreateParticipantInConversationParams) (*ListParticipantByConversationResponseParticipants, error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+func (c *ApiService) CreateParticipantInConversation(ConversationId string, params *CreateParticipantInConversationParams) (*ListParticipantByConversationResponseParticipants, error) {
+	path := "/v2/Conversations/{ConversationId}/Participants"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -70,9 +70,9 @@ func (c *ApiService) CreateParticipantInConversation(ConversationSid string, par
 }
 
 // CreateParticipantInConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateParticipantInConversationWithMetadata(ConversationSid string, params *CreateParticipantInConversationParams) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+func (c *ApiService) CreateParticipantInConversationWithMetadata(ConversationId string, params *CreateParticipantInConversationParams) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
+	path := "/v2/Conversations/{ConversationId}/Participants"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -110,10 +110,10 @@ func (c *ApiService) CreateParticipantInConversationWithMetadata(ConversationSid
 }
 
 // Retrieve a Participant.
-func (c *ApiService) FetchParticipant(ConversationSid string, Sid string) (*ListParticipantByConversationResponseParticipants, error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchParticipant(ConversationId string, Id string) (*ListParticipantByConversationResponseParticipants, error) {
+	path := "/v2/Conversations/{ConversationId}/Participants/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -136,10 +136,10 @@ func (c *ApiService) FetchParticipant(ConversationSid string, Sid string) (*List
 }
 
 // FetchParticipantWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchParticipantWithMetadata(ConversationSid string, Sid string) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) FetchParticipantWithMetadata(ConversationId string, Id string) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
+	path := "/v2/Conversations/{ConversationId}/Participants/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -191,10 +191,10 @@ func (params *ListParticipantByConversationParams) SetLimit(Limit int) *ListPart
 }
 
 // Retrieve a single page of ParticipantByConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipantByConversation(ConversationSid string, params *ListParticipantByConversationParams, pageToken string) (*ListParticipantByConversationResponse, error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants"
+func (c *ApiService) PageParticipantByConversation(ConversationId string, params *ListParticipantByConversationParams, pageToken string) (*ListParticipantByConversationResponse, error) {
+	path := "/v2/Conversations/{ConversationId}/Participants"
 
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -228,10 +228,10 @@ func (c *ApiService) PageParticipantByConversation(ConversationSid string, param
 }
 
 // PageParticipantByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) PageParticipantByConversationWithMetadata(ConversationSid string, params *ListParticipantByConversationParams, pageToken string) (*metadata.ResourceMetadata[ListParticipantByConversationResponse], error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants"
+func (c *ApiService) PageParticipantByConversationWithMetadata(ConversationId string, params *ListParticipantByConversationParams, pageToken string) (*metadata.ResourceMetadata[ListParticipantByConversationResponse], error) {
+	path := "/v2/Conversations/{ConversationId}/Participants"
 
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -271,8 +271,8 @@ func (c *ApiService) PageParticipantByConversationWithMetadata(ConversationSid s
 }
 
 // Lists ParticipantByConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipantByConversation(ConversationSid string, params *ListParticipantByConversationParams) ([]ListParticipantByConversationResponseParticipants, error) {
-	response, errors := c.StreamParticipantByConversation(ConversationSid, params)
+func (c *ApiService) ListParticipantByConversation(ConversationId string, params *ListParticipantByConversationParams) ([]ListParticipantByConversationResponseParticipants, error) {
+	response, errors := c.StreamParticipantByConversation(ConversationId, params)
 
 	records := make([]ListParticipantByConversationResponseParticipants, 0)
 	for record := range response {
@@ -287,8 +287,8 @@ func (c *ApiService) ListParticipantByConversation(ConversationSid string, param
 }
 
 // ListParticipantByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) ListParticipantByConversationWithMetadata(ConversationSid string, params *ListParticipantByConversationParams) (*metadata.ResourceMetadata[[]ListParticipantByConversationResponseParticipants], error) {
-	response, errors := c.StreamParticipantByConversationWithMetadata(ConversationSid, params)
+func (c *ApiService) ListParticipantByConversationWithMetadata(ConversationId string, params *ListParticipantByConversationParams) (*metadata.ResourceMetadata[[]ListParticipantByConversationResponseParticipants], error) {
+	response, errors := c.StreamParticipantByConversationWithMetadata(ConversationId, params)
 	resource := response.GetResource()
 
 	records := make([]ListParticipantByConversationResponseParticipants, 0)
@@ -310,7 +310,7 @@ func (c *ApiService) ListParticipantByConversationWithMetadata(ConversationSid s
 }
 
 // Streams ParticipantByConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipantByConversation(ConversationSid string, params *ListParticipantByConversationParams) (chan ListParticipantByConversationResponseParticipants, chan error) {
+func (c *ApiService) StreamParticipantByConversation(ConversationId string, params *ListParticipantByConversationParams) (chan ListParticipantByConversationResponseParticipants, chan error) {
 	if params == nil {
 		params = &ListParticipantByConversationParams{}
 	}
@@ -319,7 +319,7 @@ func (c *ApiService) StreamParticipantByConversation(ConversationSid string, par
 	recordChannel := make(chan ListParticipantByConversationResponseParticipants, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageParticipantByConversation(ConversationSid, params, "")
+	response, err := c.PageParticipantByConversation(ConversationId, params, "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
@@ -332,7 +332,7 @@ func (c *ApiService) StreamParticipantByConversation(ConversationSid string, par
 }
 
 // StreamParticipantByConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) StreamParticipantByConversationWithMetadata(ConversationSid string, params *ListParticipantByConversationParams) (*metadata.ResourceMetadata[chan ListParticipantByConversationResponseParticipants], chan error) {
+func (c *ApiService) StreamParticipantByConversationWithMetadata(ConversationId string, params *ListParticipantByConversationParams) (*metadata.ResourceMetadata[chan ListParticipantByConversationResponseParticipants], chan error) {
 	if params == nil {
 		params = &ListParticipantByConversationParams{}
 	}
@@ -341,7 +341,7 @@ func (c *ApiService) StreamParticipantByConversationWithMetadata(ConversationSid
 	recordChannel := make(chan ListParticipantByConversationResponseParticipants, 1)
 	errorChannel := make(chan error, 1)
 
-	response, err := c.PageParticipantByConversationWithMetadata(ConversationSid, params, "")
+	response, err := c.PageParticipantByConversationWithMetadata(ConversationId, params, "")
 	if err != nil {
 		errorChannel <- err
 		close(recordChannel)
@@ -375,7 +375,7 @@ func (c *ApiService) streamParticipantByConversation(response *ListParticipantBy
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/Conversations/{ConversationSid}/Participants", response, c.getNextListParticipantByConversationResponse)
+		record, err := client.GetNext(c.baseURL+"/v2/Conversations/{ConversationId}/Participants", response, c.getNextListParticipantByConversationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -420,10 +420,10 @@ func (params *UpdateParticipantInConversationParams) SetUpdateParticipantInConve
 }
 
 // Update an existing Participant
-func (c *ApiService) UpdateParticipantInConversation(ConversationSid string, Sid string, params *UpdateParticipantInConversationParams) (*ListParticipantByConversationResponseParticipants, error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateParticipantInConversation(ConversationId string, Id string, params *UpdateParticipantInConversationParams) (*ListParticipantByConversationResponseParticipants, error) {
+	path := "/v2/Conversations/{ConversationId}/Participants/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -455,10 +455,10 @@ func (c *ApiService) UpdateParticipantInConversation(ConversationSid string, Sid
 }
 
 // UpdateParticipantInConversationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateParticipantInConversationWithMetadata(ConversationSid string, Sid string, params *UpdateParticipantInConversationParams) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
-	path := "/v2/Conversations/{ConversationSid}/Participants/{Sid}"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+func (c *ApiService) UpdateParticipantInConversationWithMetadata(ConversationId string, Id string, params *UpdateParticipantInConversationParams) (*metadata.ResourceMetadata[ListParticipantByConversationResponseParticipants], error) {
+	path := "/v2/Conversations/{ConversationId}/Participants/{id}"
+	path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
 
 	data := url.Values{}
 	headers := map[string]interface{}{

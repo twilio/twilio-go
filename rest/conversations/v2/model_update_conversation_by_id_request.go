@@ -18,6 +18,6 @@ package openapi
 type UpdateConversationByIdRequest struct {
 	// The name of the Conversation.
 	Name string `json:"name,omitempty"`
-	// The state of the Conversation.
+	// Lifecycle status of a Conversation.
 	Status string `json:"status"`
 }

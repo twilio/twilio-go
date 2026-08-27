@@ -41,6 +41,8 @@ type CreateOauth2TokenParams struct {
 	RefreshToken *string `json:"refresh_token,omitempty"`
 	// The scope of token
 	Scope *string `json:"scope,omitempty"`
+	// The PKCE code verifier used to generate the code_challenge in the authorization request.
+	CodeVerifier *string `json:"code_verifier,omitempty"`
 }
 
 func (params *CreateOauth2TokenParams) SetAccountSid(AccountSid string) *CreateOauth2TokenParams {
@@ -79,6 +81,10 @@ func (params *CreateOauth2TokenParams) SetScope(Scope string) *CreateOauth2Token
 	params.Scope = &Scope
 	return params
 }
+func (params *CreateOauth2TokenParams) SetCodeVerifier(CodeVerifier string) *CreateOauth2TokenParams {
+	params.CodeVerifier = &CodeVerifier
+	return params
+}
 
 func (c *ApiService) CreateOauth2Token(params *CreateOauth2TokenParams) (*V2Oauth2TokenResponse, error) {
 	path := "/v2/token"
@@ -114,6 +120,9 @@ func (c *ApiService) CreateOauth2Token(params *CreateOauth2TokenParams) (*V2Oaut
 	}
 	if params != nil && params.Scope != nil {
 		data.Set("scope", *params.Scope)
+	}
+	if params != nil && params.CodeVerifier != nil {
+		data.Set("code_verifier", *params.CodeVerifier)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
@@ -166,6 +175,9 @@ func (c *ApiService) CreateOauth2TokenWithMetadata(params *CreateOauth2TokenPara
 	}
 	if params != nil && params.Scope != nil {
 		data.Set("scope", *params.Scope)
+	}
+	if params != nil && params.CodeVerifier != nil {
+		data.Set("code_verifier", *params.CodeVerifier)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)

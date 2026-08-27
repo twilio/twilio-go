@@ -16,11 +16,13 @@ package openapi
 
 // IamV1VendorOauthAppCreateRequest struct for IamV1VendorOauthAppCreateRequest
 type IamV1VendorOauthAppCreateRequest struct {
-	Type           string                                `json:"type,omitempty"`
-	FriendlyName   string                                `json:"friendly_name,omitempty"`
-	OwnerSid       *string                               `json:"owner_sid,omitempty"`
-	Description    string                                `json:"description,omitempty"`
-	ClientSid      *string                               `json:"client_sid,omitempty"`
-	Policy         IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
-	AccessTokenTtl int                                   `json:"access_token_ttl,omitempty"`
+	Type         string  `json:"type,omitempty"`
+	FriendlyName string  `json:"friendly_name,omitempty"`
+	OwnerSid     *string `json:"owner_sid,omitempty"`
+	Description  string  `json:"description,omitempty"`
+	ClientSid    *string `json:"client_sid,omitempty"`
+	// Determines how the client authenticates. Account OAuth apps on v1 only support 'client_secret_basic'. For PKCE (none), use the v2 API.
+	TokenEndpointAuthMethod string                                `json:"token_endpoint_auth_method,omitempty"`
+	Policy                  IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
+	AccessTokenTtl          int                                   `json:"access_token_ttl,omitempty"`
 }

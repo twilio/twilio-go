@@ -16,8 +16,9 @@ package openapi
 
 // CreateParticipantInConversationRequest struct for CreateParticipantInConversationRequest
 type CreateParticipantInConversationRequest struct {
-	Name      string                                            `json:"name,omitempty"`
-	Type      string                                            `json:"type,omitempty"`
-	ProfileId string                                            `json:"profileId,omitempty"`
-	Addresses []CreateParticipantInConversationRequestAddresses `json:"addresses"`
+	Name string `json:"name,omitempty"`
+	// Type of Participant in the Conversation.
+	Type      string                                                     `json:"type,omitempty"`
+	ProfileId string                                                     `json:"profileId,omitempty"`
+	Addresses []CreateConversationWithConfigRequestParticipantsAddresses `json:"addresses"`
 }

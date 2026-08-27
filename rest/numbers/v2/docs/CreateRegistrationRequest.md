@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **BusinessIdentity** | **string** | Business customer type |
 **IsSubassigned** | **bool** | Whether sender ID will be subassigned to other accounts |
 **FriendlyName** | **string** | Human-readable name for the registration |
-**CustomerProfileBundleSid** | **string** | Bundle SID of customer's profile |
+**CustomerProfileBundleSid** | Pointer to **string** | Bundle SID of customer's profile |
 **IsvOptInConsent** | **bool** | ISV opt-in consent flag. Defaults to true if not provided. Only rejected when explicitly set to false for ISV customers registering in Australia.  |[optional] [default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

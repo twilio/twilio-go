@@ -32,7 +32,7 @@ func (params *CreateV3TypingIndicatorParams) SetTypingIndicatorRequest(TypingInd
 	return params
 }
 
-// Send a typing indicator to notify the recipient that you are composing a message. Supported channels: WhatsApp, Apple Messages for Business. The request body varies by channel — use the `channel` field as the discriminator.
+// Send a typing indicator to notify the recipient that you are composing a message. Supported channels: WhatsApp, Apple Messages for Business, RCS. The request body varies by channel — use the `channel` field as the discriminator.
 func (c *ApiService) CreateV3TypingIndicator(params *CreateV3TypingIndicatorParams) (*CreateV3TypingIndicatorResponse, error) {
 	path := "/v3/Indicators/Typing.json"
 

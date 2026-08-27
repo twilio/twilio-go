@@ -62,4 +62,6 @@ type InsightsV1Summary struct {
 	Trust *interface{} `json:"trust,omitempty"`
 	// `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
 	Annotation *interface{} `json:"annotation,omitempty"`
+	// `object` List of session summaries for conversation relay. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#conversation-relay-object) for the object properties.
+	AgentSessionSummaries *[]CallSummaryAgentSessionSummary `json:"agent_session_summaries,omitempty"`
 }

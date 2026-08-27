@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Retrieve Identity Resolution Settings.
 
-These settings determine how Customer Memory will use identifiers for searching,  merging, and resolving profiles.  > Some settings can only take on their default values and are not yet available to change, but coming soon.
+These settings determine how Customer Memory will use identifiers for searching, merging, and resolving profiles.  > Some settings can only take on their default values and are not yet available to change, but coming soon.
 
 ### Path Parameters
 

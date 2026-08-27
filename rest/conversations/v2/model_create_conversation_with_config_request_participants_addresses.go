@@ -16,6 +16,7 @@ package openapi
 
 // CreateConversationWithConfigRequestParticipantsAddresses struct for CreateConversationWithConfigRequestParticipantsAddresses
 type CreateConversationWithConfigRequestParticipantsAddresses struct {
+	// Channel type for a Communication address.
 	Channel   string `json:"channel"`
 	Address   string `json:"address"`
 	ChannelId string `json:"channelId,omitempty"`

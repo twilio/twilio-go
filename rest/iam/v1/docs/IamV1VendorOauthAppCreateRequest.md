@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **OwnerSid** | Pointer to **string** |  |
 **Description** | **string** |  |[optional] 
 **ClientSid** | Pointer to **string** |  |
+**TokenEndpointAuthMethod** | **string** | Determines how the client authenticates. Account OAuth apps on v1 only support 'client_secret_basic'. For PKCE (none), use the v2 API. |[optional] 
 **Policy** | [**IamV1OrganizationVendoroauthappPolicy**](IamV1OrganizationVendoroauthappPolicy.md) |  |[optional] 
 **AccessTokenTtl** | **int** |  |[optional] 
 

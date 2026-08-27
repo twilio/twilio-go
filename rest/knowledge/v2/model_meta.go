@@ -17,7 +17,8 @@ package openapi
 // Meta struct for Meta
 type Meta struct {
 	// The key of the list property contains the actual data items. This enables programmatic iteration over paginated results.
-	Key           string `json:"key,omitempty"`
+	Key string `json:"key,omitempty"`
+	// The number of items returned in this page of results.
 	PageSize      int    `json:"pageSize,omitempty"`
 	NextToken     string `json:"nextToken,omitempty"`
 	PreviousToken string `json:"previousToken,omitempty"`

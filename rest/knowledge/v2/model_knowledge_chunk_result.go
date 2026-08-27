@@ -27,6 +27,14 @@ type KnowledgeChunkResult struct {
 	Content string `json:"content,omitempty"`
 	// The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
+	// 0-based position of this chunk within its source document for a single ingestion run.
+	ChunkIndex int `json:"chunkIndex,omitempty"`
+	// Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+	DocumentTitle string `json:"documentTitle,omitempty"`
+	// Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+	DocumentUrl string `json:"documentUrl,omitempty"`
+	// Physical page number (1-based). PDF sources only; omitted for all other source types.
+	DocumentNumber int `json:"documentNumber,omitempty"`
 	// The score associated with the chunk.
 	Score float32 `json:"score,omitempty"`
 	// The unique identifier of knowledge source.
@@ -35,10 +43,14 @@ type KnowledgeChunkResult struct {
 
 func (response *KnowledgeChunkResult) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Content     string      `json:"content"`
-		CreatedAt   time.Time   `json:"createdAt"`
-		Score       interface{} `json:"score"`
-		KnowledgeId string      `json:"knowledgeId"`
+		Content        string      `json:"content"`
+		CreatedAt      time.Time   `json:"createdAt"`
+		ChunkIndex     int         `json:"chunkIndex"`
+		DocumentTitle  string      `json:"documentTitle"`
+		DocumentUrl    string      `json:"documentUrl"`
+		DocumentNumber int         `json:"documentNumber"`
+		Score          interface{} `json:"score"`
+		KnowledgeId    string      `json:"knowledgeId"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {
@@ -46,9 +58,13 @@ func (response *KnowledgeChunkResult) UnmarshalJSON(bytes []byte) (err error) {
 	}
 
 	*response = KnowledgeChunkResult{
-		Content:     raw.Content,
-		CreatedAt:   raw.CreatedAt,
-		KnowledgeId: raw.KnowledgeId,
+		Content:        raw.Content,
+		CreatedAt:      raw.CreatedAt,
+		ChunkIndex:     raw.ChunkIndex,
+		DocumentTitle:  raw.DocumentTitle,
+		DocumentUrl:    raw.DocumentUrl,
+		DocumentNumber: raw.DocumentNumber,
+		KnowledgeId:    raw.KnowledgeId,
 	}
 
 	responseScore, err := client.UnmarshalFloat32(&raw.Score)

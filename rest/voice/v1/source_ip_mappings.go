@@ -41,7 +41,6 @@ func (params *CreateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -109,7 +108,6 @@ func (c *ApiService) CreateSourceIpMappingWithMetadata(params *CreateSourceIpMap
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) DeleteSourceIpMapping(Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -155,7 +153,6 @@ func (c *ApiService) DeleteSourceIpMappingWithMetadata(Sid string) (*metadata.Re
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -453,7 +450,6 @@ func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) 
 	return params
 }
 
-//
 func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

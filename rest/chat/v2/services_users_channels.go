@@ -93,7 +93,6 @@ func (c *ApiService) DeleteUserChannelWithMetadata(ServiceSid string, UserSid st
 	return metadataWrapper, nil
 }
 
-//
 func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -413,7 +412,6 @@ func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumpti
 	return params
 }
 
-//
 func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

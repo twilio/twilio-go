@@ -16,9 +16,13 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strings"
 
+	"time"
+
+	"github.com/twilio/twilio-go/client"
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
@@ -169,4 +173,301 @@ func (c *ApiService) FetchTranscriptionWithMetadata(TranscriptionId string) (*me
 	)
 
 	return metadataWrapper, nil
+}
+
+// Optional parameters for the method 'ListV3Transcriptions'
+type ListV3TranscriptionsParams struct {
+	// Only include transcriptions created at or after this time (inclusive)
+	CreatedAfter *time.Time `json:"createdAfter,omitempty"`
+	// Only include transcriptions created strictly before this time (exclusive)
+	CreatedBefore *time.Time `json:"createdBefore,omitempty"`
+	// Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US.
+	LanguageCode *string `json:"languageCode,omitempty"`
+	// Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400.
+	SourceId *string `json:"sourceId,omitempty"`
+	// Only include transcriptions in this status
+	Status *string `json:"status,omitempty"`
+	// Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component's ceiling and matches what the service enforces.
+	PageSize *int `json:"pageSize,omitempty"`
+	// Opaque cursor for retrieving the next or previous page of results
+	PageToken *string `json:"pageToken,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+}
+
+func (params *ListV3TranscriptionsParams) SetCreatedAfter(CreatedAfter time.Time) *ListV3TranscriptionsParams {
+	params.CreatedAfter = &CreatedAfter
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetCreatedBefore(CreatedBefore time.Time) *ListV3TranscriptionsParams {
+	params.CreatedBefore = &CreatedBefore
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetLanguageCode(LanguageCode string) *ListV3TranscriptionsParams {
+	params.LanguageCode = &LanguageCode
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetSourceId(SourceId string) *ListV3TranscriptionsParams {
+	params.SourceId = &SourceId
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetStatus(Status string) *ListV3TranscriptionsParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetPageSize(PageSize int) *ListV3TranscriptionsParams {
+	params.PageSize = &PageSize
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetPageToken(PageToken string) *ListV3TranscriptionsParams {
+	params.PageToken = &PageToken
+	return params
+}
+func (params *ListV3TranscriptionsParams) SetLimit(Limit int) *ListV3TranscriptionsParams {
+	params.Limit = &Limit
+	return params
+}
+
+// Retrieve a single page of V3Transcriptions records from the API. Request is executed immediately.
+func (c *ApiService) PageV3Transcriptions(params *ListV3TranscriptionsParams, pageToken string) (*VoiceV3TranscriptionList, error) {
+	path := "/v3/Transcriptions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("createdAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("createdBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("languageCode", *params.LanguageCode)
+	}
+	if params != nil && params.SourceId != nil {
+		data.Set("sourceId", *params.SourceId)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("pageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.PageToken != nil {
+		data.Set("pageToken", *params.PageToken)
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV3TranscriptionList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// PageV3TranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageV3TranscriptionsWithMetadata(params *ListV3TranscriptionsParams, pageToken string) (*metadata.ResourceMetadata[VoiceV3TranscriptionList], error) {
+	path := "/v3/Transcriptions"
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("createdAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("createdBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.LanguageCode != nil {
+		data.Set("languageCode", *params.LanguageCode)
+	}
+	if params != nil && params.SourceId != nil {
+		data.Set("sourceId", *params.SourceId)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("pageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.PageToken != nil {
+		data.Set("pageToken", *params.PageToken)
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV3TranscriptionList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[VoiceV3TranscriptionList](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
+// Lists V3Transcriptions records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListV3Transcriptions(params *ListV3TranscriptionsParams) ([]VoiceV3Transcription, error) {
+	response, errors := c.StreamV3Transcriptions(params)
+
+	records := make([]VoiceV3Transcription, 0)
+	for record := range response {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
+}
+
+// ListV3TranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListV3TranscriptionsWithMetadata(params *ListV3TranscriptionsParams) (*metadata.ResourceMetadata[[]VoiceV3Transcription], error) {
+	response, errors := c.StreamV3TranscriptionsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]VoiceV3Transcription, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]VoiceV3Transcription](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
+// Streams V3Transcriptions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamV3Transcriptions(params *ListV3TranscriptionsParams) (chan VoiceV3Transcription, chan error) {
+	if params == nil {
+		params = &ListV3TranscriptionsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV3Transcription, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageV3Transcriptions(params, "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		go c.streamV3Transcriptions(response, params, recordChannel, errorChannel)
+	}
+
+	return recordChannel, errorChannel
+}
+
+// StreamV3TranscriptionsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamV3TranscriptionsWithMetadata(params *ListV3TranscriptionsParams) (*metadata.ResourceMetadata[chan VoiceV3Transcription], chan error) {
+	if params == nil {
+		params = &ListV3TranscriptionsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan VoiceV3Transcription, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageV3TranscriptionsWithMetadata(params, "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		go c.streamV3Transcriptions(&resource, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV3Transcription](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
+}
+
+func (c *ApiService) streamV3Transcriptions(response *VoiceV3TranscriptionList, params *ListV3TranscriptionsParams, recordChannel chan VoiceV3Transcription, errorChannel chan error) {
+	curRecord := 1
+
+	for response != nil {
+		responseRecords := response.Transcriptions
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
+				return
+			}
+		}
+
+		record, err := client.GetNext(c.baseURL+"/v3/Transcriptions", response, c.getNextVoiceV3TranscriptionList)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*VoiceV3TranscriptionList)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
+}
+
+func (c *ApiService) getNextVoiceV3TranscriptionList(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &VoiceV3TranscriptionList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

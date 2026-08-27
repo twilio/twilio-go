@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Create a Data Mapping
 
-Create a new data mapping to connect an external data source to this Memory Store. For DATASET types, validates that all mapped Trait Groups and traits exist and that dataset field data types match their respective mapped trait data types.
+Create a new data mapping to connect an external data source to this Memory Store. For `DATASET_CLOUDAPP` and `DATASET_WAREHOUSE` types, validates that all mapped Trait Groups and traits exist and that dataset field data types match their respective mapped trait data types.
 
 ### Path Parameters
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 Update a Data Mapping
 
-Partially update a data mapping. Only the fields provided in the request body will be updated, including replacing the entire contents of the `mappings` array.  For DATASET types, validates that all mapped Trait Groups and traits exist and that dataset field data types match their respective mapped trait data types.
+Partially update a data mapping. Only the fields provided in the request body will be updated, including replacing the entire contents of the `mappings` array.  For `DATASET_CLOUDAPP` and `DATASET_WAREHOUSE` types, validates that all mapped Trait Groups and traits exist and that dataset field data types match their respective mapped trait data types.
 
 ### Path Parameters
 

@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FieldName** | **string** | The name of the field/column in the source. Deprecated in favor of expression. |
-**Expression** | **string** | The expression identifying the field/column in the source. |[optional] 
+**Expression** | **string** | The expression identifying the field/column in the source. |
 **TraitGroup** | **string** | The name of the Trait Group to map to. |
 **TraitName** | **string** | The name of the trait within the Trait Group to map to. |
 

@@ -25,9 +25,8 @@ type ConversationsV2Configuration struct {
 	// A human-readable name for the configuration. Limited to 32 characters.
 	DisplayName string `json:"displayName"`
 	// Human-readable description for the Configuration. Allows spaces and special characters, typically limited to a paragraph of text. This serves as a descriptive field rather than just a name.
-	Description string `json:"description"`
-	// Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
-	ConversationGroupingType string `json:"conversationGroupingType"`
+	Description              string                                  `json:"description"`
+	ConversationGroupingType ConversationsV2ConversationGroupingType `json:"conversationGroupingType"`
 	// Memory Store ID for Profile resolution.
 	MemoryStoreId string `json:"memoryStoreId"`
 	// Channel-specific configuration settings by channel type. Keys should be valid channel types (`VOICE`, `SMS`, `RCS`, `WHATSAPP`, `CHAT`).

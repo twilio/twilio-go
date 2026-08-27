@@ -16,6 +16,8 @@ package openapi
 
 // MessagingV2Update struct for MessagingV2Update
 type MessagingV2Update struct {
+	// Optional display label for the sender in the Twilio Console.
+	FriendlyName  *string                   `json:"friendly_name,omitempty"`
 	Configuration *MessagingV2Configuration `json:"configuration,omitempty"`
 	Webhook       *MessagingV2Webhook       `json:"webhook,omitempty"`
 	Profile       *MessagingV2Profile       `json:"profile,omitempty"`

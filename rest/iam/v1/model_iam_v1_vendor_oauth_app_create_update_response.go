@@ -20,12 +20,14 @@ import (
 
 // IamV1VendorOauthAppCreateUpdateResponse struct for IamV1VendorOauthAppCreateUpdateResponse
 type IamV1VendorOauthAppCreateUpdateResponse struct {
-	Type           string                                `json:"type,omitempty"`
-	Sid            string                                `json:"sid,omitempty"`
-	FriendlyName   string                                `json:"friendly_name,omitempty"`
-	Description    string                                `json:"description,omitempty"`
-	DateCreated    time.Time                             `json:"date_created,omitempty"`
-	CreatedBy      string                                `json:"created_by,omitempty"`
+	Type         string    `json:"type,omitempty"`
+	Sid          string    `json:"sid,omitempty"`
+	FriendlyName string    `json:"friendly_name,omitempty"`
+	Description  string    `json:"description,omitempty"`
+	DateCreated  time.Time `json:"date_created,omitempty"`
+	CreatedBy    string    `json:"created_by,omitempty"`
+	// The unique identifier (SID) of the user who created this OAuth app.
+	CreatorSid     string                                `json:"creator_sid,omitempty"`
 	Secret         string                                `json:"secret,omitempty"`
 	Status         string                                `json:"status,omitempty"`
 	Policy         IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`

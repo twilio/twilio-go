@@ -21,9 +21,8 @@ import (
 // FetchOperationStatusResponse Status of a long-running operation.
 type FetchOperationStatusResponse struct {
 	// Unique identifier for the long-running operation.
-	OperationId string `json:"operationId"`
-	// Current status of the operation.
-	Status string `json:"status"`
+	OperationId string                              `json:"operationId"`
+	Status      ConversationsV2OperationStatusValue `json:"status"`
 	// Timestamp when the operation was created.
 	CreatedAt time.Time `json:"createdAt"`
 	// Timestamp when the operation completed. Only present for completed or failed operations.
