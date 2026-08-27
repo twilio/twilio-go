@@ -72,8 +72,12 @@ jobs:
       - name: Create the release tag
         env:
           VERSION: ${{ inputs.version }}
+          GIT_USER_NAME: ${{ vars.TWILIO_USER_NAME }}
+          GIT_USER_EMAIL: ${{ vars.TWILIO_USER_EMAIL }}
         run: |
           set -euo pipefail
+          git config user.name "$GIT_USER_NAME"
+          git config user.email "$GIT_USER_EMAIL"
           git tag -a "$VERSION" -m "$VERSION"
           git push origin "$VERSION"
 
