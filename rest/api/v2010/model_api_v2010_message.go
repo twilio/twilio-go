@@ -54,4 +54,5 @@ type ApiV2010Message struct {
 	ApiVersion *string `json:"api_version,omitempty"`
 	// A list of related resources identified by their URIs relative to `https://api.twilio.com`
 	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
+	Tags            *map[string]string      `json:"tags,omitempty"`
 }
