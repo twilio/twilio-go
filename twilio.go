@@ -304,3 +304,9 @@ func (c *RestClient) SetEdge(edge string) {
 func (c *RestClient) SetRegion(region string) {
 	c.RequestHandler.Region = region
 }
+
+// SetHost overrides the request host (e.g. "localhost:4010"). When set, Edge
+// and Region splicing is skipped. Intended for mocks and self-hosted proxies.
+func (c *RestClient) SetHost(host string) {
+	c.RequestHandler.Host = host
+}
