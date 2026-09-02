@@ -14,8 +14,8 @@
 
 package openapi
 
-// ConversationsV2StartConversationParticipantSelector Points at one entry in `participants` by its `ref`.
+// ConversationsV2StartConversationParticipantSelector Points at one entry in `participants` by its `name`.
 type ConversationsV2StartConversationParticipantSelector struct {
-	// The `ref` of a Participant declared in `participants`.
-	Ref string `json:"ref"`
+	// The `name` of a Participant declared in `participants`.
+	Name string `json:"name"`
 }
