@@ -14,12 +14,10 @@
 
 package openapi
 
-// ConversationsV2StartConversationParticipant A party on the Conversation. The dispatched `action` refers to Participants by `ref`.
+// ConversationsV2StartConversationParticipant A party on the Conversation. The dispatched `action` refers to Participants by `name`.
 type ConversationsV2StartConversationParticipant struct {
-	// Caller-assigned handle used by the action's `from` and `to`. Request-scoped; not persisted.
-	Ref string `json:"ref,omitempty"`
-	// Display name for this Participant.
-	Name string                         `json:"name,omitempty"`
+	// Display name for this Participant, and the handle the action's `from` and `to` select it by. Must be unique within the request.
+	Name string                         `json:"name"`
 	Type ConversationsV2ParticipantType `json:"type,omitempty"`
 	// Profile to associate with this Participant, instead of resolving one from the addresses.
 	ProfileId string `json:"profileId,omitempty"`

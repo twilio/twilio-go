@@ -27,7 +27,7 @@ type ConversationsV2Participant struct {
 	// Account ID.
 	AccountId string `json:"accountId"`
 	// Participant display name.
-	Name string                         `json:"name"`
+	Name *string                        `json:"name,omitempty"`
 	Type ConversationsV2ParticipantType `json:"type,omitempty"`
 	// Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
 	ProfileId string `json:"profileId,omitempty"`

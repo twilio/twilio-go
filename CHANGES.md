@@ -1,6 +1,85 @@
 twilio-go changelog
 ====================
 
+[2026-09-02] Version 1.31.1
+---------------------------
+**Library - Chore**
+- [PR #340](https://github.com/twilio/twilio-go/pull/340): update release pipeline. Thanks to [@kridai](https://github.com/kridai)!
+
+**Audiences**
+- ## 2026-09-01
+- Backticked brace- and angle-bracket-bearing tokens in descriptions for MDX safety.
+- Updated a prose reference to the renamed `FetchCohortSnapshot` operation.
+- ## 2026-09-01
+- Renamed 3 `Get*` operations to `Fetch*` to match the operationId standard: `FetchCohort`, `FetchCohortSnapshot`, `FetchCohortOperation`. The transpiler skips operations whose operationId does not start with a standard keyword, which had been dropping all three from generated output.
+- Set `libraryVisibility` to `private` (was `hidden`) so the spec is eligible for the private docs pipeline.
+- Backticked brace- and angle-bracket-bearing tokens in descriptions for MDX safety.
+- ## 2026-08-28
+- **Removed 6 path(s)**:
+- `/preview/Audiences` (ListAudiences, CreateAudience)
+- `/preview/Audiences/{audienceId}` (FetchAudience, UpdateAudience, DeleteAudience)
+- `/preview/Snapshots` (ListSnapshots, CreateSnapshot)
+- `/preview/Snapshots/{snapshotId}` (FetchSnapshot, DeleteSnapshot)
+- `/preview/Snapshots/{snapshotId}/Profiles` (ListSnapshotProfiles)
+- `/preview/Operations/{operationId}` (FetchOperation)
+
+**Conversations**
+- Add `VIDEO` to the Conversations v2 Communication channel enum.
+
+**Data-ingress**
+- # API Changes
+- ## 2026-09-01
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- Minor updates (formatting, metadata)
+- ## 2026-08-12
+- Initial release with 13 paths and 13 operations
+
+**Destinations**
+- ## 2026-08-26
+- Minor updates (formatting, metadata)
+- ## 2026-08-26
+- Minor updates (formatting, metadata)
+- ## 2026-08-25
+- **Content updates**:
+- Updated description for `CreateDestination`
+
+**Email**
+- # API Changes
+- ## 2026-08-28
+- **Content updates**:
+- Updated summary for `sendTransactional`
+- Added parameter(s) to `sendTransactional`: X-Twilio-Version
+- Updated schema description for `SuppressionsGroup`
+- Added properties to `SuppressionsGroup`: type
+- Removed properties from `SuppressionsGroup`: mode
+- Updated schema description for `SuppressionsGlobal`
+- Added properties to `SuppressionsGlobal`: type
+- Removed properties from `SuppressionsGlobal`: mode
+- Updated schema description for `Suppressions`
+- Updated schema description for `LongRunningOperationResponse`
+- ## 2026-08-27
+- **Content updates**:
+- Updated description for `SendEmail`
+- Added parameter(s) to `SendEmail`: Content-Encoding, Idempotency-Key
+- Updated schema description for `Envelope`
+- Updated schema description for `SuppressionsGroup`
+- Updated schema description for `SuppressionsGlobal`
+
+**Iam**
+- Added GET /v1/Account/AuthorizedApps/{consentSid} - fetch authorized app details, including allowed permissions, by consent identifier SID
+- added container-scoped entitlements endpoint (GET /v2/Container/{containerId}/Entitlements)
+
+**Memory**
+- ## 2026-08-27
+- **Added 2 new path(s)** for Trait Extraction Strategies:
+- `/v1/ControlPlane/TraitExtractionStrategies` (ListTraitExtractionStrategies, CreateTraitExtractionStrategy)
+- `/v1/ControlPlane/TraitExtractionStrategies/{traitStrategyId}` (FetchTraitExtractionStrategy, UpdateTraitExtractionStrategy, DeleteTraitExtractionStrategy)
+
+**Messaging**
+- Remove the WhatsApp Senders v1 endpoints (`/v1/Channels/WhatsApp/Senders`) from RestProxy; the sender was routed to the sunsetting `messaging-whatsapp-k8s-orch` downstream. Use the Senders v2 API (`/v2/Channels/Senders`) instead.
+
+
 [2026-08-27] Version 1.31.0
 ---------------------------
 **Library - Chore**
