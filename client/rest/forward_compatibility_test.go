@@ -15,33 +15,6 @@ import (
 // MessageResource (flat)
 // ─────────────────────────────────────────────────────────────────────
 
-func baseMessageJSON() string {
-	return `{
-		"body": "Hello, World!",
-		"num_segments": "1",
-		"direction": "outbound-api",
-		"from": "+15558881111",
-		"to": "+15559992222",
-		"date_updated": "Thu, 30 Jul 2015 20:00:00 +0000",
-		"price": "-0.00750",
-		"error_message": null,
-		"uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
-		"account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"num_media": "0",
-		"status": "sent",
-		"messaging_service_sid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"date_sent": "Thu, 30 Jul 2015 20:00:00 +0000",
-		"date_created": "Thu, 30 Jul 2015 20:00:00 +0000",
-		"error_code": null,
-		"price_unit": "USD",
-		"api_version": "2010-04-01",
-		"subresource_uris": {
-			"media": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Media.json"
-		}
-	}`
-}
-
 func TestMessage_AddFieldAtParentLevel(t *testing.T) {
 	jsonStr := `{
 		"body": "Hello, World!",
@@ -168,65 +141,6 @@ func TestMessage_EmptyResponseBody(t *testing.T) {
 // ─────────────────────────────────────────────────────────────────────
 // ChannelsSenderResource (nested, top-level)
 // ─────────────────────────────────────────────────────────────────────
-
-func baseChannelsSenderJSON() string {
-	return `{
-		"sid": "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-		"status": "ONLINE",
-		"sender_id": "whatsapp:+15558881111",
-		"friendly_name": "My WhatsApp Sender",
-		"configuration": {
-			"waba_id": "WABA123",
-			"verification_method": "sms",
-			"verification_code": null,
-			"voice_application_sid": null,
-			"account_type": null
-		},
-		"webhook": {
-			"callback_url": "https://example.com/callback",
-			"callback_method": "POST",
-			"fallback_url": "https://example.com/fallback",
-			"fallback_method": "POST",
-			"status_callback_url": "https://example.com/status",
-			"status_callback_method": "POST"
-		},
-		"profile": {
-			"name": "My Business",
-			"about": "We sell things",
-			"address": "123 Main St",
-			"description": "A business",
-			"logo_url": "https://example.com/logo.png",
-			"banner_url": null,
-			"privacy_url": "https://example.com/privacy",
-			"terms_of_service_url": null,
-			"accent_color": "#FF0000",
-			"use_case": "TRANSACTIONAL",
-			"vertical": "Shopping and Retail",
-			"websites": [{"website": "https://example.com", "label": "Main"}],
-			"emails": [{"email": "info@example.com", "label": "Info"}],
-			"phone_numbers": [{"phone_number": "+15558881111", "label": "Support"}]
-		},
-		"properties": {
-			"quality_rating": "GREEN",
-			"messaging_limit": "1000"
-		},
-		"offline_reasons": [
-			{"code": "12345", "message": "Some offline reason", "more_info": "https://example.com/error"}
-		],
-		"compliance": {
-			"registration_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-			"countries": [
-				{
-					"country": "US",
-					"registration_sid": "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-					"status": "APPROVED",
-					"carriers": [{"name": "Verizon", "status": "APPROVED"}]
-				}
-			]
-		},
-		"url": "https://messaging.twilio.com/v2/Channels/Senders/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	}`
-}
 
 func TestChannelsSender_AddFieldAtNestedLevel(t *testing.T) {
 	jsonStr := `{
