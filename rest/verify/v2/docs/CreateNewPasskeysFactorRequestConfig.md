@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RelyingParty** | [**CreateNewPasskeysFactorRequestConfigRelyingParty**](CreateNewPasskeysFactorRequestConfigRelyingParty.md) |  |[optional] 
+**RelyingParty** | Pointer to [**CreateNewPasskeysFactorRequestConfigRelyingParty**](CreateNewPasskeysFactorRequestConfigRelyingParty.md) |  |
 **AuthenticatorAttachment** | **string** |  |[optional] 
 **DiscoverableCredentials** | **string** |  |[optional] 
 **UserVerification** | **string** |  |[optional] 

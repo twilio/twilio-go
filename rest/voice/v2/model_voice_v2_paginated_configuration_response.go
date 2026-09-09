@@ -17,6 +17,6 @@ package openapi
 // VoiceV2PaginatedConfigurationResponse struct for VoiceV2PaginatedConfigurationResponse
 type VoiceV2PaginatedConfigurationResponse struct {
 	// The list of Client Configurations
-	Content []VoiceV2Response                         `json:"content,omitempty"`
-	Meta    VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
+	Content []VoiceV2Response                          `json:"content,omitempty"`
+	Meta    *VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
 }

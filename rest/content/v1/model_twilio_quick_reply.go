@@ -17,5 +17,5 @@ package openapi
 // TwilioQuickReply twilio/quick-reply templates let recipients tap, rather than type, to respond to the message.
 type TwilioQuickReply struct {
 	Body    string             `json:"body"`
-	Actions []QuickReplyAction `json:"actions"`
+	Actions []QuickReplyAction `json:"actions,omitempty"`
 }

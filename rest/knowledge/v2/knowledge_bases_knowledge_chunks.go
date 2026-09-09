@@ -184,7 +184,10 @@ func (c *ApiService) StreamKnowledgeChunks(KbId string, KnowledgeId string, para
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledgeChunks(response, params, recordChannel, errorChannel)
+		path := "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks"
+		path = strings.Replace(path, "{"+"kbId"+"}", KbId, -1)
+		path = strings.Replace(path, "{"+"knowledgeId"+"}", KnowledgeId, -1)
+		go c.streamKnowledgeChunks(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -207,7 +210,10 @@ func (c *ApiService) StreamKnowledgeChunksWithMetadata(KbId string, KnowledgeId 
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamKnowledgeChunks(&resource, params, recordChannel, errorChannel)
+		path := "/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks"
+		path = strings.Replace(path, "{"+"kbId"+"}", KbId, -1)
+		path = strings.Replace(path, "{"+"knowledgeId"+"}", KnowledgeId, -1)
+		go c.streamKnowledgeChunks(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan KnowledgeChunk](
@@ -219,7 +225,7 @@ func (c *ApiService) StreamKnowledgeChunksWithMetadata(KbId string, KnowledgeId 
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse, params *ListKnowledgeChunksParams, recordChannel chan KnowledgeChunk, errorChannel chan error) {
+func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse, path string, params *ListKnowledgeChunksParams, recordChannel chan KnowledgeChunk, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -234,7 +240,7 @@ func (c *ApiService) streamKnowledgeChunks(response *ListKnowledgeChunksResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/KnowledgeBases/{kbId}/Knowledge/{knowledgeId}/Chunks", response, c.getNextListKnowledgeChunksResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListKnowledgeChunksResponse)
 		if err != nil {
 			errorChannel <- err
 			break

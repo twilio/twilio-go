@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **State** | **string** |  |[optional] 
 **DateCreated** | [**time.Time**](time.Time.md) | The date that this Operation was created, given in RFC 2822 format. |[optional] 
 **DateCompleted** | [**time.Time**](time.Time.md) | The date that the Operation was completed, if applicable. |[optional] 
-**Meta** | [**IamV1OperationMeta**](IamV1OperationMeta.md) |  |[optional] 
+**Meta** | Pointer to [**IamV1OperationMeta**](IamV1OperationMeta.md) |  |
 **Input** | **map[string]interface{}** | A polymorphic input object. Fields vary depending on the operation. |[optional] 
 **Result** | **map[string]interface{}** | A polymorphic result object. Fields vary depending on the operation. Common fields include:   - `resourceId`: string  |[optional] 
-**Error** | [**IamV1OperationError**](IamV1OperationError.md) |  |[optional] 
+**Error** | Pointer to [**IamV1OperationError**](IamV1OperationError.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

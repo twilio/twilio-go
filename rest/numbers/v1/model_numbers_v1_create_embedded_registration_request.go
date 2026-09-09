@@ -31,5 +31,5 @@ type NumbersV1CreateEmbeddedRegistrationRequest struct {
 	// Theme ID for the Compliance Embeddable UI.
 	ThemeSetId string `json:"themeSetId,omitempty"`
 	// Registration data organized by section (alphanumericSender, business, useCase, authorizedRepresentative, officer, businessAddress).
-	Data map[string]interface{} `json:"data"`
+	Data map[string]interface{} `json:"data,omitempty"`
 }

@@ -17,7 +17,7 @@ package openapi
 // KeywordTypeConfig Configuration for a specific keyword type (STOP, START, HELP, etc.)
 type KeywordTypeConfig struct {
 	// List of keywords associated with this keyword type
-	Keywords []KeywordItem `json:"keywords"`
+	Keywords []KeywordItem `json:"keywords,omitempty"`
 	// The response message sent when any keyword of this type is received
 	Message string `json:"message"`
 }

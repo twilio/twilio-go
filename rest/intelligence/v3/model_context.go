@@ -16,6 +16,6 @@ package openapi
 
 // Context Controls what additional customer and enterprise context is made available to Language Operators when this Rule executes.
 type Context struct {
-	Memory    ContextMemory    `json:"memory,omitempty"`
-	Knowledge ContextKnowledge `json:"knowledge,omitempty"`
+	Memory    *ContextMemory    `json:"memory,omitempty"`
+	Knowledge *ContextKnowledge `json:"knowledge,omitempty"`
 }

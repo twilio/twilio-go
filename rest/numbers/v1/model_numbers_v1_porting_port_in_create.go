@@ -19,10 +19,10 @@ type NumbersV1PortingPortInCreate struct {
 	// Account Sid or subaccount where the phone number(s) will be Ported
 	AccountSid string `json:"account_sid"`
 	// List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
-	Documents []string `json:"documents"`
+	Documents []string `json:"documents,omitempty"`
 	// List of phone numbers to be ported. Maximum of 1,000 phone numbers per request.
 	PhoneNumbers             []NumbersV1PortingPortInCreatePhoneNumbers `json:"phone_numbers,omitempty"`
-	LosingCarrierInformation NumbersV1PortingLosingCarrierInformation   `json:"losing_carrier_information"`
+	LosingCarrierInformation *NumbersV1PortingLosingCarrierInformation  `json:"losing_carrier_information,omitempty"`
 	// Additional emails to send a copy of the signed LOA to.
 	NotificationEmails *[]string `json:"notification_emails,omitempty"`
 	// Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can't guarantee the exact date and time, as this depends on the losing carrier

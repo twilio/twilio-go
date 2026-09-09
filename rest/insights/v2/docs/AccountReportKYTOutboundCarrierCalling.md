@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **ShortDurationCallsPercentage** | **float32** | Percentage of completed outbound calls under 10 seconds (PSTN Short call tags); More than 15% is typically low trust measured. |[optional] 
 **LongDurationCallsPercentage** | **float32** | Percentage of long duration calls ( >= 60 seconds) |[optional] 
 **PotentialRobocallsPercentage** | **float32** | Percentage of completed outbound calls to unassigned or unallocated phone numbers. |[optional] 
-**BrandedCalling** | [**BrandedCalling**](BrandedCalling.md) |  |[optional] 
-**VoiceIntegrity** | [**VoiceIntegrity**](VoiceIntegrity.md) |  |[optional] 
-**StirShaken** | [**StirShaken**](StirShaken.md) |  |[optional] 
+**BrandedCalling** | Pointer to [**BrandedCalling**](BrandedCalling.md) |  |
+**VoiceIntegrity** | Pointer to [**VoiceIntegrity**](VoiceIntegrity.md) |  |
+**StirShaken** | Pointer to [**StirShaken**](StirShaken.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

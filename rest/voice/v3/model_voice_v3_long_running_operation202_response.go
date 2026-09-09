@@ -19,6 +19,6 @@ type VoiceV3LongRunningOperation202Response struct {
 	// Current status of the long-running operation. PENDING: accepted but not yet started. RUNNING: currently in progress. COMPLETED: successfully completed. FAILED: failed and cannot be completed.
 	Status string `json:"status"`
 	// URI to poll for operation status. Mirrors the Location response header. Provided as a body field for programmatic access by JSON-parsing clients (RFC 9110 Section 15.3.3).
-	StatusUrl     string               `json:"statusUrl"`
-	Transcription VoiceV3Transcription `json:"transcription"`
+	StatusUrl     string                `json:"statusUrl"`
+	Transcription *VoiceV3Transcription `json:"transcription,omitempty"`
 }

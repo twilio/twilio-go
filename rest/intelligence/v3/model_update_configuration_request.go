@@ -21,5 +21,5 @@ type UpdateConfigurationRequest struct {
 	// The description of the Intelligence Configuration further explaining its purpose.
 	Description string `json:"description,omitempty"`
 	// List of Intelligence Configuration Rules that govern when and how Language Operators run. Each Rule represents a bundle of Operators, Triggers, Context, and Actions to be executed by the Intelligence Configuration on a Conversation. A maximum of five (5) Rules are allowed per Intelligence Configuration.
-	Rules []RuleUpdateRequestPayload `json:"rules"`
+	Rules []RuleUpdateRequestPayload `json:"rules,omitempty"`
 }

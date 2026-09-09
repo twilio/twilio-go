@@ -23,6 +23,6 @@ type IamV1CreationStatusResponse struct {
 	// The current status of the account provisioning operation
 	Status string `json:"status,omitempty"`
 	// The ID of the provisioned account (only available when status is SUCCEEDED)
-	AccountId string              `json:"accountId,omitempty"`
-	Error     IamV1OperationError `json:"error,omitempty"`
+	AccountId string               `json:"accountId,omitempty"`
+	Error     *IamV1OperationError `json:"error,omitempty"`
 }

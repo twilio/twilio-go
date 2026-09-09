@@ -385,7 +385,8 @@ func (c *ApiService) StreamKnowledgeBases(params *ListKnowledgeBasesParams) (cha
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledgeBases(response, params, recordChannel, errorChannel)
+		path := "/v2/ControlPlane/KnowledgeBases"
+		go c.streamKnowledgeBases(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -408,7 +409,8 @@ func (c *ApiService) StreamKnowledgeBasesWithMetadata(params *ListKnowledgeBases
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamKnowledgeBases(&resource, params, recordChannel, errorChannel)
+		path := "/v2/ControlPlane/KnowledgeBases"
+		go c.streamKnowledgeBases(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan KnowledgeBase](
@@ -420,7 +422,7 @@ func (c *ApiService) StreamKnowledgeBasesWithMetadata(params *ListKnowledgeBases
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamKnowledgeBases(response *KnowledgeBaseList, params *ListKnowledgeBasesParams, recordChannel chan KnowledgeBase, errorChannel chan error) {
+func (c *ApiService) streamKnowledgeBases(response *KnowledgeBaseList, path string, params *ListKnowledgeBasesParams, recordChannel chan KnowledgeBase, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -435,7 +437,7 @@ func (c *ApiService) streamKnowledgeBases(response *KnowledgeBaseList, params *L
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/ControlPlane/KnowledgeBases", response, c.getNextKnowledgeBaseList)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextKnowledgeBaseList)
 		if err != nil {
 			errorChannel <- err
 			break

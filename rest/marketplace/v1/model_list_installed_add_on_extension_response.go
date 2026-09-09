@@ -17,5 +17,5 @@ package openapi
 // ListInstalledAddOnExtensionResponse struct for ListInstalledAddOnExtensionResponse
 type ListInstalledAddOnExtensionResponse struct {
 	Extensions []MarketplaceV1InstalledAddOnExtension `json:"extensions,omitempty"`
-	Meta       ListAvailableAddOnResponseMeta         `json:"meta,omitempty"`
+	Meta       *ListAvailableAddOnResponseMeta        `json:"meta,omitempty"`
 }

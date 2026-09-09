@@ -17,5 +17,5 @@ package openapi
 // ListInsightsAssessmentsCommentResponse struct for ListInsightsAssessmentsCommentResponse
 type ListInsightsAssessmentsCommentResponse struct {
 	Comments []FlexV1InsightsAssessmentsComment `json:"comments,omitempty"`
-	Meta     ListChannelResponseMeta            `json:"meta,omitempty"`
+	Meta     *ListChannelResponseMeta           `json:"meta,omitempty"`
 }

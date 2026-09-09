@@ -27,6 +27,6 @@ type VoiceV2Response struct {
 	// The created date.
 	DateCreated time.Time `json:"date_created,omitempty"`
 	// The updated date.
-	DateUpdated   time.Time            `json:"date_updated,omitempty"`
-	Configuration VoiceV2Configuration `json:"configuration,omitempty"`
+	DateUpdated   time.Time             `json:"date_updated,omitempty"`
+	Configuration *VoiceV2Configuration `json:"configuration,omitempty"`
 }

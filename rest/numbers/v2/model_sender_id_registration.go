@@ -23,10 +23,10 @@ type SenderIdRegistration struct {
 	// Status of the Sender ID Registration Application
 	Status string `json:"status"`
 	// List of Sender ID Registration information
-	RegistrationInfo []map[string]interface{} `json:"registration_info"`
+	RegistrationInfo []map[string]interface{} `json:"registration_info,omitempty"`
 	Purpose          SenderIdPurpose          `json:"purpose,omitempty"`
 	// Whether registering on behalf of subsidiary
 	CompanySubsidiary bool `json:"company_subsidiary,omitempty"`
 	// List of emails to send Sender ID Application updates
-	EmailsForNotification []string `json:"emails_for_notification"`
+	EmailsForNotification []string `json:"emails_for_notification,omitempty"`
 }

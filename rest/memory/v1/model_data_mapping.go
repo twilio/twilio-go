@@ -25,9 +25,9 @@ type DataMapping struct {
 	// A human readable description of this resource, up to 512 characters.
 	Description string `json:"description,omitempty"`
 	// Flag indicating whether the data mapping is active. When true, data will be ingested and mapped according to the configuration. When false, the data mapping will be inactive and no data will be ingested into the Memory Store.
-	IsEnabled   bool                 `json:"isEnabled,omitempty"`
-	MappingTo   DataMappingToTraits  `json:"mappingTo"`
-	MappingFrom DataMappingFromTypes `json:"mappingFrom"`
+	IsEnabled   bool                  `json:"isEnabled,omitempty"`
+	MappingTo   *DataMappingToTraits  `json:"mappingTo,omitempty"`
+	MappingFrom *DataMappingFromTypes `json:"mappingFrom,omitempty"`
 	// The unique identifier for the data mapping.
 	Id string `json:"id"`
 	// The ISO 8601 timestamp when the  data mapping was created.

@@ -16,6 +16,6 @@ package openapi
 
 // ListProfileConversationSummariesResponse struct for ListProfileConversationSummariesResponse
 type ListProfileConversationSummariesResponse struct {
-	Summaries []SummaryInfo    `json:"summaries,omitempty"`
-	Meta      ObservationsMeta `json:"meta,omitempty"`
+	Summaries []SummaryInfo     `json:"summaries,omitempty"`
+	Meta      *ObservationsMeta `json:"meta,omitempty"`
 }

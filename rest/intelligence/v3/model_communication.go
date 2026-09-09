@@ -23,8 +23,8 @@ type Communication struct {
 	// Communication `id` from the attached Conversation.
 	Id string `json:"id"`
 	// The `id` of the Participant in the Conversation.
-	ParticipantId string  `json:"participantId"`
-	Content       Content `json:"content"`
+	ParticipantId string   `json:"participantId"`
+	Content       *Content `json:"content,omitempty"`
 	// The timestamp for when the Communication was created.
 	CreatedAt time.Time `json:"createdAt"`
 }

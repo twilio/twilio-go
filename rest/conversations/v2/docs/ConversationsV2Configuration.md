@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **StatusCallbacks** | [**[]ConversationsV2StatusCallbackConfig**](ConversationsV2StatusCallbackConfig.md) | List of default webhook configurations applied to Conversations under this Configuration. |[optional] 
 **IntelligenceConfigurationIds** | **[]string** | A list of Conversational Intelligence configuration IDs. |[optional] 
 **MemoryExtractionEnabled** | **bool** | Whether memory extraction is enabled for conversations under this configuration. Defaults to false. |[optional] [default to false]
-**ConversationsV1Bridge** | [**ConversationsV2ConversationsV1Bridge**](ConversationsV2ConversationsV1Bridge.md) |  |[optional] 
+**ConversationsV1Bridge** | Pointer to [**ConversationsV2ConversationsV1Bridge**](ConversationsV2ConversationsV1Bridge.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Configuration was created. |[optional] [readonly] 
 **UpdatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Configuration was last updated. |[optional] [readonly] 
 **Version** | **int64** | Version number used for optimistic locking. |[optional] [readonly] 

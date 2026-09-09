@@ -19,10 +19,10 @@ type RuleUpdateRequestPayload struct {
 	// Optional field used when updating an existing Rule within an Intelligence Configuration. When provided, the Rule with this `id` is updated; when omitted, a new Rule is created.
 	Id string `json:"id,omitempty"`
 	// List of Operators to be executed by the Rule. Minimum of one (1) and maximum of five (5) Operators allowed per Rule.
-	Operators []Operator `json:"operators"`
+	Operators []Operator `json:"operators,omitempty"`
 	// List of Triggers that determine when to activate the Rule. Maximum of one (1) Trigger allowed per Rule.
 	Triggers []Trigger `json:"triggers,omitempty"`
 	// List of Actions to be performed after the Rule is triggered. Maximum of two (2) Actions allowed per Rule.
-	Actions []Action `json:"actions"`
-	Context Context  `json:"context,omitempty"`
+	Actions []Action `json:"actions,omitempty"`
+	Context *Context `json:"context,omitempty"`
 }

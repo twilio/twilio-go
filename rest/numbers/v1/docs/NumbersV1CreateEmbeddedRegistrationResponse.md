@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **StatusNotificationEmail** | Pointer to **string** | Email address for status notifications. |
 **StatusCallbackUrl** | Pointer to **string** | Callback URL for status webhooks. |
 **Comments** | Pointer to **string** | Additional comments. |
-**EmbeddedSession** | [**NumbersV1EmbeddedSession**](NumbersV1EmbeddedSession.md) |  |
+**EmbeddedSession** | Pointer to [**NumbersV1EmbeddedSession**](NumbersV1EmbeddedSession.md) |  |
 **Data** | **map[string]interface{}** | Registration data echoed from the request. |
 **DateCreated** | [**time.Time**](time.Time.md) | Timestamp of creation. |
 **DateUpdated** | [**time.Time**](time.Time.md) | Timestamp of last update. |

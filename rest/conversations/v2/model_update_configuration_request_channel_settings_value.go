@@ -16,6 +16,6 @@ package openapi
 
 // UpdateConfigurationRequestChannelSettingsValue struct for UpdateConfigurationRequestChannelSettingsValue
 type UpdateConfigurationRequestChannelSettingsValue struct {
-	StatusTimeouts UpdateConfigurationRequestChannelSettingsValueStatusTimeouts `json:"statusTimeouts,omitempty"`
-	CaptureRules   []UpdateConfigurationRequestChannelSettingsValueCaptureRules `json:"captureRules,omitempty"`
+	StatusTimeouts *UpdateConfigurationRequestChannelSettingsValueStatusTimeouts `json:"statusTimeouts,omitempty"`
+	CaptureRules   []UpdateConfigurationRequestChannelSettingsValueCaptureRules  `json:"captureRules,omitempty"`
 }

@@ -19,7 +19,7 @@ type CreateShortCodeApplicationRequest struct {
 	// The friendly name for the short code application.
 	FriendlyName string `json:"friendly_name"`
 	// The ISO country code.
-	IsoCountry          string                                               `json:"iso_country"`
-	BusinessInformation CreateShortCodeApplicationRequestBusinessInformation `json:"business_information"`
-	Setup               CreateShortCodeApplicationRequestSetup               `json:"setup"`
+	IsoCountry          string                                                `json:"iso_country"`
+	BusinessInformation *CreateShortCodeApplicationRequestBusinessInformation `json:"business_information,omitempty"`
+	Setup               *CreateShortCodeApplicationRequestSetup               `json:"setup,omitempty"`
 }

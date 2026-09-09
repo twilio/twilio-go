@@ -16,6 +16,6 @@ package openapi
 
 // ListProfileImportsV0Response struct for ListProfileImportsV0Response
 type ListProfileImportsV0Response struct {
-	Imports []string                         `json:"imports,omitempty"`
-	Meta    ListProfileImportsV0ResponseMeta `json:"meta,omitempty"`
+	Imports []string                          `json:"imports,omitempty"`
+	Meta    *ListProfileImportsV0ResponseMeta `json:"meta,omitempty"`
 }

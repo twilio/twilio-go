@@ -23,8 +23,8 @@ type NumbersV1PortingLosingCarrierInformation struct {
 	// The account phone number of the customer for the losing carrier.
 	AccountTelephoneNumber string `json:"account_telephone_number,omitempty"`
 	// If you already have an Address SID that represents the address needed for the LOA, you can provide an Address SID instead of providing the address object in the request body. This will copy the address into the port in request. If changes are made to the Address SID after port in request creation, those changes will not be reflected in the port in request.
-	AddressSid string                  `json:"address_sid,omitempty"`
-	Address    NumbersV1PortingAddress `json:"address,omitempty"`
+	AddressSid string                   `json:"address_sid,omitempty"`
+	Address    *NumbersV1PortingAddress `json:"address,omitempty"`
 	// The first and last name of the person listed with the losing carrier who is authorized to make changes on the account.
 	AuthorizedRepresentative string `json:"authorized_representative"`
 	// Email address of the person (owner of the number) who will sign the letter of authorization for the port in request. This email address should belong to the person named in as the authorized representative.

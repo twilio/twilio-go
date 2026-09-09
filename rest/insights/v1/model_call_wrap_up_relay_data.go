@@ -19,6 +19,6 @@ type CallWrapUpRelayData struct {
 	// Session id of the conversation relay.
 	SessionId string `json:"session_id"`
 	// Sequence number of the event.
-	SequenceNumber int             `json:"sequence_number"`
-	CallWrapUp     CallWrapUpEvent `json:"call_wrap_up"`
+	SequenceNumber int              `json:"sequence_number"`
+	CallWrapUp     *CallWrapUpEvent `json:"call_wrap_up,omitempty"`
 }

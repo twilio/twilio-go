@@ -16,6 +16,6 @@ package openapi
 
 // OperatorContext Optionally specifies which contextual data sources (Memory, Knowledge) the operator can access during execution. Context objects will be passed in by the Intelligence Configuration Rule at runtime.  **Note**: this simply gives the LLM access to these context objects – ultimately the LLM will determine whether to actually call for context at runtime.
 type OperatorContext struct {
-	Memory    OperatorContextMemory    `json:"memory,omitempty"`
-	Knowledge OperatorContextKnowledge `json:"knowledge,omitempty"`
+	Memory    *OperatorContextMemory    `json:"memory,omitempty"`
+	Knowledge *OperatorContextKnowledge `json:"knowledge,omitempty"`
 }

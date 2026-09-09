@@ -16,6 +16,6 @@ package openapi
 
 // QueryJobListResponse A paginated list of async query operations for the account.
 type QueryJobListResponse struct {
-	Items []QueryJobStatusResponse `json:"items"`
-	Meta  PaginationMeta           `json:"meta"`
+	Items []QueryJobStatusResponse `json:"items,omitempty"`
+	Meta  *PaginationMeta          `json:"meta,omitempty"`
 }

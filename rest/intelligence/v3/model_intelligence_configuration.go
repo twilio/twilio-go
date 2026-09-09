@@ -31,7 +31,7 @@ type IntelligenceConfiguration struct {
 	// The numeric version of the Intelligence Configuration. Automatically incremented with each update on the resource, used to ensure integrity when updating the Configuration.
 	Version int `json:"version"`
 	// List of Intelligence Configuration Rules that govern when and how Language Operators run. Each Rule represents a bundle of Operators, Triggers, Context, and Actions to be executed by the Intelligence Configuration on a Conversation. A maximum of five (5) Rules are allowed per Intelligence Configuration.
-	Rules []Rule `json:"rules"`
+	Rules []Rule `json:"rules,omitempty"`
 	// Timestamp of when the Intelligence Configuration was created.
 	DateCreated time.Time `json:"dateCreated"`
 	// Timestamp of when the Intelligence Configuration was last updated.

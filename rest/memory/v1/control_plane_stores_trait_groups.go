@@ -462,7 +462,9 @@ func (c *ApiService) StreamTraitGroups(StoreId string, params *ListTraitGroupsPa
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamTraitGroups(response, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores/{storeId}/TraitGroups"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamTraitGroups(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -485,7 +487,9 @@ func (c *ApiService) StreamTraitGroupsWithMetadata(StoreId string, params *ListT
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamTraitGroups(&resource, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores/{storeId}/TraitGroups"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamTraitGroups(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan TraitGroup](
@@ -497,7 +501,7 @@ func (c *ApiService) StreamTraitGroupsWithMetadata(StoreId string, params *ListT
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamTraitGroups(response *ListTraitGroupsResponse, params *ListTraitGroupsParams, recordChannel chan TraitGroup, errorChannel chan error) {
+func (c *ApiService) streamTraitGroups(response *ListTraitGroupsResponse, path string, params *ListTraitGroupsParams, recordChannel chan TraitGroup, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -512,7 +516,7 @@ func (c *ApiService) streamTraitGroups(response *ListTraitGroupsResponse, params
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/ControlPlane/Stores/{storeId}/TraitGroups", response, c.getNextListTraitGroupsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListTraitGroupsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

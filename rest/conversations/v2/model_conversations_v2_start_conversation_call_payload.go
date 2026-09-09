@@ -16,10 +16,10 @@ package openapi
 
 // ConversationsV2StartConversationCallPayload Outbound call to place for the Conversation being started.
 type ConversationsV2StartConversationCallPayload struct {
-	Handler ConversationsV2AgentConnectHandler                  `json:"handler"`
-	From    ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
-	To      ConversationsV2StartConversationParticipantSelector `json:"to,omitempty"`
+	Handler *ConversationsV2AgentConnectHandler                  `json:"handler,omitempty"`
+	From    *ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
+	To      *ConversationsV2StartConversationParticipantSelector `json:"to,omitempty"`
 	// Key/value pairs passed through to the handler that answers the call.
-	Parameters   map[string]interface{}      `json:"parameters,omitempty"`
-	CallSettings ConversationsV2CallSettings `json:"callSettings,omitempty"`
+	Parameters   map[string]interface{}       `json:"parameters,omitempty"`
+	CallSettings *ConversationsV2CallSettings `json:"callSettings,omitempty"`
 }

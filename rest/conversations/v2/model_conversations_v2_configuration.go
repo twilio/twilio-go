@@ -36,8 +36,8 @@ type ConversationsV2Configuration struct {
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-	MemoryExtractionEnabled bool                                 `json:"memoryExtractionEnabled,omitempty"`
-	ConversationsV1Bridge   ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
+	MemoryExtractionEnabled bool                                  `json:"memoryExtractionEnabled,omitempty"`
+	ConversationsV1Bridge   *ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
 	// Timestamp when this Configuration was created.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	// Timestamp when this Configuration was last updated.

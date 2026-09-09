@@ -418,7 +418,8 @@ func (c *ApiService) StreamConversationByAccount(params *ListConversationByAccou
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConversationByAccount(response, params, recordChannel, errorChannel)
+		path := "/v2/Conversations"
+		go c.streamConversationByAccount(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -441,7 +442,8 @@ func (c *ApiService) StreamConversationByAccountWithMetadata(params *ListConvers
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamConversationByAccount(&resource, params, recordChannel, errorChannel)
+		path := "/v2/Conversations"
+		go c.streamConversationByAccount(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ListConversationByAccountResponseConversations](
@@ -453,7 +455,7 @@ func (c *ApiService) StreamConversationByAccountWithMetadata(params *ListConvers
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamConversationByAccount(response *ListConversationByAccountResponse, params *ListConversationByAccountParams, recordChannel chan ListConversationByAccountResponseConversations, errorChannel chan error) {
+func (c *ApiService) streamConversationByAccount(response *ListConversationByAccountResponse, path string, params *ListConversationByAccountParams, recordChannel chan ListConversationByAccountResponseConversations, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -468,7 +470,7 @@ func (c *ApiService) streamConversationByAccount(response *ListConversationByAcc
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/Conversations", response, c.getNextListConversationByAccountResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListConversationByAccountResponse)
 		if err != nil {
 			errorChannel <- err
 			break

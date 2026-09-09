@@ -343,7 +343,8 @@ func (c *ApiService) StreamConversations(params *ListConversationsParams) (chan 
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConversations(response, params, recordChannel, errorChannel)
+		path := "/v3/Conversations"
+		go c.streamConversations(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -366,7 +367,8 @@ func (c *ApiService) StreamConversationsWithMetadata(params *ListConversationsPa
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamConversations(&resource, params, recordChannel, errorChannel)
+		path := "/v3/Conversations"
+		go c.streamConversations(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ConversationListItem](
@@ -378,7 +380,7 @@ func (c *ApiService) StreamConversationsWithMetadata(params *ListConversationsPa
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamConversations(response *ListConversationsResponse, params *ListConversationsParams, recordChannel chan ConversationListItem, errorChannel chan error) {
+func (c *ApiService) streamConversations(response *ListConversationsResponse, path string, params *ListConversationsParams, recordChannel chan ConversationListItem, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -393,7 +395,7 @@ func (c *ApiService) streamConversations(response *ListConversationsResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/Conversations", response, c.getNextListConversationsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListConversationsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

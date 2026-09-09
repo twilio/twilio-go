@@ -385,7 +385,8 @@ func (c *ApiService) StreamStores(params *ListStoresParams) (chan string, chan e
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamStores(response, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores"
+		go c.streamStores(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -408,7 +409,8 @@ func (c *ApiService) StreamStoresWithMetadata(params *ListStoresParams) (*metada
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamStores(&resource, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores"
+		go c.streamStores(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan string](
@@ -420,7 +422,7 @@ func (c *ApiService) StreamStoresWithMetadata(params *ListStoresParams) (*metada
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamStores(response *ServiceList, params *ListStoresParams, recordChannel chan string, errorChannel chan error) {
+func (c *ApiService) streamStores(response *ServiceList, path string, params *ListStoresParams, recordChannel chan string, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -435,7 +437,7 @@ func (c *ApiService) streamStores(response *ServiceList, params *ListStoresParam
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/ControlPlane/Stores", response, c.getNextServiceList)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextServiceList)
 		if err != nil {
 			errorChannel <- err
 			break

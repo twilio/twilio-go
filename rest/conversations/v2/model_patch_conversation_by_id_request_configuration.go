@@ -17,5 +17,5 @@ package openapi
 // PatchConversationByIdRequestConfiguration Partial configuration update for an existing conversation. Only statusCallbacks can be modified.
 type PatchConversationByIdRequestConfiguration struct {
 	// List of webhook configurations for this conversation. Send an empty array to clear all callbacks and stop webhook delivery.
-	StatusCallbacks []ConversationsV2StatusCallbackConfig `json:"statusCallbacks,omitempty"`
+	StatusCallbacks *[]ConversationsV2StatusCallbackConfig `json:"statusCallbacks,omitempty"`
 }

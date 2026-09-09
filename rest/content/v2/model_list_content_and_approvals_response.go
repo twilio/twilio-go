@@ -17,5 +17,5 @@ package openapi
 // ListContentAndApprovalsResponse struct for ListContentAndApprovalsResponse
 type ListContentAndApprovalsResponse struct {
 	Contents []ContentV1ContentAndApprovals `json:"contents,omitempty"`
-	Meta     ListContentResponseMeta        `json:"meta,omitempty"`
+	Meta     *ListContentResponseMeta       `json:"meta,omitempty"`
 }

@@ -21,7 +21,7 @@ type ConversationsV2StartConversationRequest struct {
 	// Human-readable name for the Conversation.
 	Name string `json:"name,omitempty"`
 	// Everyone taking part. The dispatched action selects its actors from this roster.
-	Participants  []ConversationsV2StartConversationParticipant `json:"participants"`
-	Action        ConversationsV2StartConversationActionRequest `json:"action"`
-	Configuration ConversationsV2StartConversationConfiguration `json:"configuration,omitempty"`
+	Participants  []ConversationsV2StartConversationParticipant  `json:"participants,omitempty"`
+	Action        *ConversationsV2StartConversationActionRequest `json:"action,omitempty"`
+	Configuration *ConversationsV2StartConversationConfiguration `json:"configuration,omitempty"`
 }

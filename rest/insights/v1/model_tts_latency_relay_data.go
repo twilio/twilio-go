@@ -19,6 +19,6 @@ type TtsLatencyRelayData struct {
 	// Session id of the conversation relay.
 	SessionId string `json:"session_id"`
 	// Sequence number of the event.
-	SequenceNumber int          `json:"sequence_number"`
-	TtsLatency     LatencyEvent `json:"tts_latency"`
+	SequenceNumber int           `json:"sequence_number"`
+	TtsLatency     *LatencyEvent `json:"tts_latency,omitempty"`
 }

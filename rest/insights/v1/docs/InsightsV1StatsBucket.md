@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Window** | [**InsightsV1Window**](InsightsV1Window.md) |  |[optional] 
+**Window** | Pointer to [**InsightsV1Window**](InsightsV1Window.md) |  |
 **Calls** | **map[string]int** | Call counts keyed by call direction/kind (dynamic keys) |[optional] 
-**Pdd** | [**InsightsV1Metrics**](InsightsV1Metrics.md) |  |[optional] 
-**Duration** | [**InsightsV1Metrics**](InsightsV1Metrics.md) |  |[optional] 
+**Pdd** | Pointer to [**InsightsV1Metrics**](InsightsV1Metrics.md) |  |
+**Duration** | Pointer to [**InsightsV1Metrics**](InsightsV1Metrics.md) |  |
 **CallStates** | **map[string]int** | Count of calls per call state |[optional] 
 **Direction** | **map[string]int** | Count of calls per direction |[optional] 
 **Disconnected** | **map[string]int** | Count of calls by who disconnected (caller / callee / unknown) |[optional] 

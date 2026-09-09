@@ -17,5 +17,5 @@ package openapi
 // ContextKnowledge Configuration for passing Enterprise Knowledge as context to Operators in this Rule (available only for Enterprise Knowledge–enabled accounts).
 type ContextKnowledge struct {
 	// Specifies the Knowledge Base(s) and corresponding Source(s) to pass to Language Operators in this Rule as context. Only applied to Language Operators that have Knowledge as a context source enabled.
-	Bases []string `json:"bases"`
+	Bases []string `json:"bases,omitempty"`
 }

@@ -19,7 +19,7 @@ type DataMappingFromTypes struct {
 	// The source data type, which determines the source of the data and the required configuration parameters.
 	Type string `json:"type"`
 	// The list of ingress column names that serve as the source fields.
-	Columns []string `json:"columns"`
+	Columns []string `json:"columns,omitempty"`
 	// The unique identifier of the TDI dataset to connect.
 	DatasetId string `json:"datasetId"`
 }

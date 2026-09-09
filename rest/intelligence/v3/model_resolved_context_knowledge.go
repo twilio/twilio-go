@@ -16,5 +16,5 @@ package openapi
 
 // ResolvedContextKnowledge Knowledge source IDs with their respective knowledge base ID that was accessed and used by the LLM to generate the result.  null if no knowledge was accessed.
 type ResolvedContextKnowledge struct {
-	Sources []ResolvedContextKnowledgeSources `json:"sources"`
+	Sources []ResolvedContextKnowledgeSources `json:"sources,omitempty"`
 }

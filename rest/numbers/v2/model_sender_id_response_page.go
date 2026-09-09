@@ -17,6 +17,6 @@ package openapi
 // SenderIdResponsePage struct for SenderIdResponsePage
 type SenderIdResponsePage struct {
 	// List of Sender IDs.
-	Results []SenderId     `json:"results,omitempty"`
-	Meta    PaginationMeta `json:"meta,omitempty"`
+	Results []SenderId      `json:"results,omitempty"`
+	Meta    *PaginationMeta `json:"meta,omitempty"`
 }

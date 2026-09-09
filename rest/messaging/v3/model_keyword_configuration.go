@@ -21,5 +21,5 @@ type KeywordConfiguration struct {
 	// The message type identifier (typically country codes or special identifiers)
 	MessageType string `json:"message_type"`
 	// Array of keyword strings for this configuration
-	Keywords []string `json:"keywords"`
+	Keywords []string `json:"keywords,omitempty"`
 }

@@ -16,6 +16,6 @@ package openapi
 
 // ListPluginVersionResponse struct for ListPluginVersionResponse
 type ListPluginVersionResponse struct {
-	PluginVersions []FlexV1PluginVersion   `json:"plugin_versions,omitempty"`
-	Meta           ListChannelResponseMeta `json:"meta,omitempty"`
+	PluginVersions []FlexV1PluginVersion    `json:"plugin_versions,omitempty"`
+	Meta           *ListChannelResponseMeta `json:"meta,omitempty"`
 }

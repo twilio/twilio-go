@@ -17,6 +17,6 @@ package openapi
 // ListOperatorResultsResponse struct for ListOperatorResultsResponse
 type ListOperatorResultsResponse struct {
 	// List of Operator Results matching the query.
-	Items []OperatorResultsResponseV1 `json:"items"`
-	Meta  ListOperatorsResponseMeta   `json:"meta"`
+	Items []OperatorResultsResponseV1 `json:"items,omitempty"`
+	Meta  *ListOperatorsResponseMeta  `json:"meta,omitempty"`
 }

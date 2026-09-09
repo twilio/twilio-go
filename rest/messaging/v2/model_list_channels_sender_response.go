@@ -17,5 +17,5 @@ package openapi
 // ListChannelsSenderResponse struct for ListChannelsSenderResponse
 type ListChannelsSenderResponse struct {
 	Senders []MessagingV2ChannelsSenderResponse `json:"senders,omitempty"`
-	Meta    ListChannelsSenderResponseMeta      `json:"meta,omitempty"`
+	Meta    *ListChannelsSenderResponseMeta     `json:"meta,omitempty"`
 }

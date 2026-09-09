@@ -16,6 +16,6 @@ package openapi
 
 // OperatorResultContext Snapshot of the Operator's access to contextual data at runtime. Includes whether Customer Memory and Knowledge Bases were made available to the Operator for use during execution.
 type OperatorResultContext struct {
-	CustomerMemory CustomerMemoryContext `json:"customerMemory,omitempty"`
-	Knowledge      KnowledgeContext      `json:"knowledge,omitempty"`
+	CustomerMemory *CustomerMemoryContext `json:"customerMemory,omitempty"`
+	Knowledge      *KnowledgeContext      `json:"knowledge,omitempty"`
 }

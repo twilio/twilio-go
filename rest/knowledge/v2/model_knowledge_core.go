@@ -19,6 +19,6 @@ type KnowledgeCore struct {
 	// The name of the knowledge source.
 	Name string `json:"name"`
 	// A detailed description of the knowledge source and when to use it.  This helps provide context about the content and its intended purpose.
-	Description string               `json:"description,omitempty"`
-	Source      KnowledgeSourceTypes `json:"source,omitempty"`
+	Description string                `json:"description,omitempty"`
+	Source      *KnowledgeSourceTypes `json:"source,omitempty"`
 }

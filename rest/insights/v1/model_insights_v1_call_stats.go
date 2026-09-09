@@ -17,8 +17,8 @@ package openapi
 // InsightsV1CallStats struct for InsightsV1CallStats
 type InsightsV1CallStats struct {
 	// Account SID the stats belong to
-	AccountSid string           `json:"account_sid,omitempty"`
-	Window     InsightsV1Window `json:"window,omitempty"`
+	AccountSid string            `json:"account_sid,omitempty"`
+	Window     *InsightsV1Window `json:"window,omitempty"`
 	// One StatsBucket per interval within the requested window
 	Stats []InsightsV1StatsBucket `json:"stats,omitempty"`
 }

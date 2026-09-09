@@ -16,6 +16,6 @@ package openapi
 
 // ListRateLimitResponse struct for ListRateLimitResponse
 type ListRateLimitResponse struct {
-	RateLimits []VerifyV2RateLimit    `json:"rate_limits,omitempty"`
-	Meta       ListBucketResponseMeta `json:"meta,omitempty"`
+	RateLimits []VerifyV2RateLimit     `json:"rate_limits,omitempty"`
+	Meta       *ListBucketResponseMeta `json:"meta,omitempty"`
 }

@@ -19,8 +19,8 @@ type CreateConversationWithConfigRequest struct {
 	// The ID of an existing configuration.
 	ConfigurationId string `json:"configurationId"`
 	// The name of the conversation.
-	Name          string                                           `json:"name,omitempty"`
-	Configuration CreateConversationWithConfigRequestConfiguration `json:"configuration,omitempty"`
+	Name          string                                            `json:"name,omitempty"`
+	Configuration *CreateConversationWithConfigRequestConfiguration `json:"configuration,omitempty"`
 	// Optional list of Participants to create with the Conversation.
 	Participants []CreateConversationWithConfigRequestParticipants `json:"participants,omitempty"`
 }

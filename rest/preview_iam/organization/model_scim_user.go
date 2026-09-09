@@ -23,8 +23,8 @@ type ScimUser struct {
 	// Unique username, MUST be same as primary email address
 	UserName string `json:"userName"`
 	// User friendly display name
-	DisplayName string   `json:"displayName,omitempty"`
-	Name        ScimName `json:"name,omitempty"`
+	DisplayName string    `json:"displayName,omitempty"`
+	Name        *ScimName `json:"name,omitempty"`
 	// Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
 	Emails []ScimEmailAddress `json:"emails,omitempty"`
 	// Indicates whether the user is active
@@ -34,6 +34,6 @@ type ScimUser struct {
 	// User's time zone
 	Timezone string `json:"timezone,omitempty"`
 	// An array of URIs that indicate the schemas supported for this user resource
-	Schemas []string `json:"schemas,omitempty"`
-	Meta    ScimMeta `json:"meta,omitempty"`
+	Schemas []string  `json:"schemas,omitempty"`
+	Meta    *ScimMeta `json:"meta,omitempty"`
 }

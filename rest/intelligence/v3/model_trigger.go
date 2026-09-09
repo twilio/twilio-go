@@ -17,6 +17,6 @@ package openapi
 // Trigger struct for Trigger
 type Trigger struct {
 	// The conversational lifecycle event that will activate execution of the Rule. Available values are: - `COMMUNICATION`: Trigger the Rule on each communication within the Conversation. - `CONVERSATION_END`: Trigger the Rule when the Conversation moves to the `closed` state - `CONVERSATION_INACTIVE`: Trigger the Rule when the Conversation moves to `inactive` state
-	On         string            `json:"on"`
-	Parameters TriggerParameters `json:"parameters,omitempty"`
+	On         string             `json:"on"`
+	Parameters *TriggerParameters `json:"parameters,omitempty"`
 }

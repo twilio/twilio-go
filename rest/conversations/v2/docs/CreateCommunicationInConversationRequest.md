@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Author** | [**CreateCommunicationInConversationRequestAuthor**](CreateCommunicationInConversationRequestAuthor.md) |  |
-**Content** | [**CreateCommunicationInConversationRequestContent**](CreateCommunicationInConversationRequestContent.md) |  |
+**Author** | Pointer to [**CreateCommunicationInConversationRequestAuthor**](CreateCommunicationInConversationRequestAuthor.md) |  |
+**Content** | Pointer to [**CreateCommunicationInConversationRequestContent**](CreateCommunicationInConversationRequestContent.md) |  |
 **ChannelId** | **string** |  |[optional] 
 **Recipients** | [**[]CreateCommunicationInConversationRequestRecipients**](CreateCommunicationInConversationRequestRecipients.md) |  |
 **OccurredAt** | [**time.Time**](time.Time.md) | Timestamp when this Communication occurred. If omitted, the server uses the current time. |[optional] 

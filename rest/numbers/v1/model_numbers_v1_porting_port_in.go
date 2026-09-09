@@ -38,7 +38,7 @@ type NumbersV1PortingPortIn struct {
 	PortInRequestStatus *string `json:"port_in_request_status,omitempty"`
 	// If the order is cancelled this field will provide further context on the cause of the cancellation.
 	OrderCancellationReason  *string                                    `json:"order_cancellation_reason,omitempty"`
-	LosingCarrierInformation NumbersV1PortingLosingCarrierInformation   `json:"losing_carrier_information,omitempty"`
+	LosingCarrierInformation *NumbersV1PortingLosingCarrierInformation  `json:"losing_carrier_information,omitempty"`
 	PhoneNumbers             *[]NumbersV1PortingPortInPhoneNumberResult `json:"phone_numbers,omitempty"`
 	// The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
 	BundleSid *string `json:"bundle_sid,omitempty"`

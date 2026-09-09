@@ -21,5 +21,5 @@ type CreateProfilesImportV2Request struct {
 	// The size of the file in bytes (1 byte to 100 MiB)
 	FileSize int `json:"fileSize"`
 	// Mappings of CSV header columns to traits' fields
-	ColumnMappings []ColumnMappingItem `json:"columnMappings"`
+	ColumnMappings []ColumnMappingItem `json:"columnMappings,omitempty"`
 }

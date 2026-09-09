@@ -16,8 +16,8 @@ package openapi
 
 // CreateNewPasskeysFactorRequestConfig struct for CreateNewPasskeysFactorRequestConfig
 type CreateNewPasskeysFactorRequestConfig struct {
-	RelyingParty            CreateNewPasskeysFactorRequestConfigRelyingParty `json:"relying_party,omitempty"`
-	AuthenticatorAttachment string                                           `json:"authenticator_attachment,omitempty"`
-	DiscoverableCredentials string                                           `json:"discoverable_credentials,omitempty"`
-	UserVerification        string                                           `json:"user_verification,omitempty"`
+	RelyingParty            *CreateNewPasskeysFactorRequestConfigRelyingParty `json:"relying_party,omitempty"`
+	AuthenticatorAttachment string                                            `json:"authenticator_attachment,omitempty"`
+	DiscoverableCredentials string                                            `json:"discoverable_credentials,omitempty"`
+	UserVerification        string                                            `json:"user_verification,omitempty"`
 }

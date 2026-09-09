@@ -18,5 +18,5 @@ package openapi
 type IamV1CreateSubaccountBatchRequest struct {
 	WorkflowType IamV1SubaccountBatchWorkflowType `json:"workflowType"`
 	// The subaccount IDs to act on. A maximum of 1000 may be submitted per batch.
-	SubaccountIds []string `json:"subaccountIds"`
+	SubaccountIds []string `json:"subaccountIds,omitempty"`
 }

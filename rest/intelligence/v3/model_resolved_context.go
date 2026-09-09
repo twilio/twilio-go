@@ -16,6 +16,6 @@ package openapi
 
 // ResolvedContext The context that was actually used by the operator during execution
 type ResolvedContext struct {
-	Memory    ResolvedContextMemory     `json:"memory,omitempty"`
+	Memory    *ResolvedContextMemory    `json:"memory,omitempty"`
 	Knowledge *ResolvedContextKnowledge `json:"knowledge,omitempty"`
 }

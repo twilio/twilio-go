@@ -16,6 +16,6 @@ package openapi
 
 // ListTrunkResponse struct for ListTrunkResponse
 type ListTrunkResponse struct {
-	Trunks []TrunkingV1Trunk              `json:"trunks,omitempty"`
-	Meta   ListCredentialListResponseMeta `json:"meta,omitempty"`
+	Trunks []TrunkingV1Trunk               `json:"trunks,omitempty"`
+	Meta   *ListCredentialListResponseMeta `json:"meta,omitempty"`
 }

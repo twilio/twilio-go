@@ -17,7 +17,7 @@ package openapi
 // NumbersV1A2pRegistrationDetailsCampaignList struct for NumbersV1A2pRegistrationDetailsCampaignList
 type NumbersV1A2pRegistrationDetailsCampaignList struct {
 	// List of A2P registration details for numbers in the campaign
-	Data []NumbersV1A2pRegistrationDetails `json:"data"`
+	Data []NumbersV1A2pRegistrationDetails `json:"data,omitempty"`
 	// Token for pagination to retrieve the next page of results
 	NextToken *string `json:"nextToken,omitempty"`
 }

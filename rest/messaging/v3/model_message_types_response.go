@@ -21,5 +21,5 @@ type MessageTypesResponse struct {
 	// The SID of the opt-out configuration
 	OptOutSid string `json:"opt_out_sid"`
 	// List of message types associated with this opt-out configuration
-	MessageTypes []MessageTypeConfig `json:"message_types"`
+	MessageTypes []MessageTypeConfig `json:"message_types,omitempty"`
 }

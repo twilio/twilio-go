@@ -32,8 +32,8 @@ type ConversationsV2Conversation struct {
 	// Timestamp when this Conversation was created.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	// Timestamp when this Conversation was last updated.
-	UpdatedAt     time.Time                                                   `json:"updatedAt,omitempty"`
-	Configuration ListConversationByAccountResponseConversationsConfiguration `json:"configuration,omitempty"`
+	UpdatedAt     time.Time                                                    `json:"updatedAt,omitempty"`
+	Configuration *ListConversationByAccountResponseConversationsConfiguration `json:"configuration,omitempty"`
 	// Participants in this Conversation.
 	Participants []ConversationsV2Participant `json:"participants,omitempty"`
 }

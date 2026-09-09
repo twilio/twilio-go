@@ -361,7 +361,8 @@ func (c *ApiService) StreamOperators(params *ListOperatorsParams) (chan Language
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOperators(response, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Operators"
+		go c.streamOperators(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -384,7 +385,8 @@ func (c *ApiService) StreamOperatorsWithMetadata(params *ListOperatorsParams) (*
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamOperators(&resource, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Operators"
+		go c.streamOperators(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan LanguageOperator](
@@ -396,7 +398,7 @@ func (c *ApiService) StreamOperatorsWithMetadata(params *ListOperatorsParams) (*
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamOperators(response *ListOperatorsResponse, params *ListOperatorsParams, recordChannel chan LanguageOperator, errorChannel chan error) {
+func (c *ApiService) streamOperators(response *ListOperatorsResponse, path string, params *ListOperatorsParams, recordChannel chan LanguageOperator, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -411,7 +413,7 @@ func (c *ApiService) streamOperators(response *ListOperatorsResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/ControlPlane/Operators", response, c.getNextListOperatorsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListOperatorsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

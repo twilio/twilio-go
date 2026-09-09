@@ -23,5 +23,5 @@ type Participant struct {
 	// Type of participant in the conversation. Available types: - `CUSTOMER` - `HUMAN_AGENT` - `AI_AGENT` - `AGENT` - `UNKNOWN`
 	Type *string `json:"type,omitempty"`
 	// Participant address values (for example, a phone number or sender identifier).
-	AddressValues []string `json:"addressValues"`
+	AddressValues []string `json:"addressValues,omitempty"`
 }

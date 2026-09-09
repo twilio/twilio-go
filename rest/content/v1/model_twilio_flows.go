@@ -20,6 +20,6 @@ type TwilioFlows struct {
 	ButtonText string      `json:"button_text"`
 	Subtitle   string      `json:"subtitle,omitempty"`
 	MediaUrl   string      `json:"media_url,omitempty"`
-	Pages      []FlowsPage `json:"pages"`
+	Pages      []FlowsPage `json:"pages,omitempty"`
 	Type       string      `json:"type"`
 }

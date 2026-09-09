@@ -17,10 +17,10 @@ package openapi
 // MemoryRetrievalResponse Response containing retrieved profile memories organized by type.
 type MemoryRetrievalResponse struct {
 	// Array of observation memories.
-	Observations []RecallObservationInfo `json:"observations"`
+	Observations []RecallObservationInfo `json:"observations,omitempty"`
 	// Array of summary memories derived from observations at the end of conversations.
-	Summaries []RecallSummaryInfo `json:"summaries"`
+	Summaries []RecallSummaryInfo `json:"summaries,omitempty"`
 	// Array of recent communication context.
-	Communications []Communication             `json:"communications"`
-	Meta           MemoryRetrievalResponseMeta `json:"meta"`
+	Communications []Communication              `json:"communications,omitempty"`
+	Meta           *MemoryRetrievalResponseMeta `json:"meta,omitempty"`
 }

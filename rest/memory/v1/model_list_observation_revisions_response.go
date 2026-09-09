@@ -18,5 +18,5 @@ package openapi
 type ListObservationRevisionsResponse struct {
 	// Array of observation revisions ordered chronologically descending by update time (newest first).
 	Revisions []ObservationInfo `json:"revisions,omitempty"`
-	Meta      ObservationsMeta  `json:"meta,omitempty"`
+	Meta      *ObservationsMeta `json:"meta,omitempty"`
 }

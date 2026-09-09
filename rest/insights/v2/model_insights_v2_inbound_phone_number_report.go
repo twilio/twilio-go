@@ -27,19 +27,19 @@ type InsightsV2InboundPhoneNumberReport struct {
 	// Total number of calls made with the given handle during the report period.
 	TotalCalls int `json:"total_calls,omitempty"`
 	// The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
-	CallAnswerScore     float32                                               `json:"call_answer_score,omitempty"`
-	CallStatePercentage InsightsV2InboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage,omitempty"`
+	CallAnswerScore     float32                                                `json:"call_answer_score,omitempty"`
+	CallStatePercentage *InsightsV2InboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage,omitempty"`
 	// Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
 	SilentCallsPercentage float32 `json:"silent_calls_percentage,omitempty"`
 }
 
 func (response *InsightsV2InboundPhoneNumberReport) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Handle                string                                                `json:"handle"`
-		TotalCalls            int                                                   `json:"total_calls"`
-		CallAnswerScore       interface{}                                           `json:"call_answer_score"`
-		CallStatePercentage   InsightsV2InboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage"`
-		SilentCallsPercentage interface{}                                           `json:"silent_calls_percentage"`
+		Handle                string                                                 `json:"handle"`
+		TotalCalls            int                                                    `json:"total_calls"`
+		CallAnswerScore       interface{}                                            `json:"call_answer_score"`
+		CallStatePercentage   *InsightsV2InboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage"`
+		SilentCallsPercentage interface{}                                            `json:"silent_calls_percentage"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {

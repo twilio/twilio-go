@@ -17,6 +17,6 @@ package openapi
 // ConversationsV2StartConversationStartFlowAction Hands the Conversation being started to a Studio Flow.
 type ConversationsV2StartConversationStartFlowAction struct {
 	// Action type discriminator. Accepted values: START_FLOW.
-	Type    string                                           `json:"type"`
-	Payload ConversationsV2StartConversationStartFlowPayload `json:"payload"`
+	Type    string                                            `json:"type"`
+	Payload *ConversationsV2StartConversationStartFlowPayload `json:"payload,omitempty"`
 }

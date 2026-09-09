@@ -16,7 +16,7 @@ package openapi
 
 // DataMappingSuggestionTraitItem A suggested field-to-trait mapping with its confidence score and rationale.
 type DataMappingSuggestionTraitItem struct {
-	Mapping MappingTraitItem `json:"mapping"`
+	Mapping *MappingTraitItem `json:"mapping,omitempty"`
 	// Confidence score for this suggestion. Higher values indicate a stronger match.
 	Confidence float64 `json:"confidence"`
 	// A concise explanation of why the source field was matched to this trait.

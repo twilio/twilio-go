@@ -483,7 +483,10 @@ func (c *ApiService) StreamProfileObservations(StoreId string, ProfileId string,
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfileObservations(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Observations"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileObservations(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -506,7 +509,10 @@ func (c *ApiService) StreamProfileObservationsWithMetadata(StoreId string, Profi
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfileObservations(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Observations"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileObservations(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ObservationInfo](
@@ -518,7 +524,7 @@ func (c *ApiService) StreamProfileObservationsWithMetadata(StoreId string, Profi
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfileObservations(response *ListProfileObservationsResponse, params *ListProfileObservationsParams, recordChannel chan ObservationInfo, errorChannel chan error) {
+func (c *ApiService) streamProfileObservations(response *ListProfileObservationsResponse, path string, params *ListProfileObservationsParams, recordChannel chan ObservationInfo, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -533,7 +539,7 @@ func (c *ApiService) streamProfileObservations(response *ListProfileObservations
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/{profileId}/Observations", response, c.getNextListProfileObservationsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfileObservationsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

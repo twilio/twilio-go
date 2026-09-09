@@ -16,6 +16,6 @@ package openapi
 
 // ListPortInRequestsResponse struct for ListPortInRequestsResponse
 type ListPortInRequestsResponse struct {
-	PortInRequests []NumbersV1PortInRequestList   `json:"port_in_requests,omitempty"`
-	Meta           NumbersV1PortInRequestListMeta `json:"meta,omitempty"`
+	PortInRequests []NumbersV1PortInRequestList    `json:"port_in_requests,omitempty"`
+	Meta           *NumbersV1PortInRequestListMeta `json:"meta,omitempty"`
 }

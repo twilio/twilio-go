@@ -239,7 +239,9 @@ func (c *ApiService) StreamOperatorVersions(Id string, params *ListOperatorVersi
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOperatorVersions(response, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Operators/{id}/Versions"
+		path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+		go c.streamOperatorVersions(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -262,7 +264,9 @@ func (c *ApiService) StreamOperatorVersionsWithMetadata(Id string, params *ListO
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamOperatorVersions(&resource, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Operators/{id}/Versions"
+		path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+		go c.streamOperatorVersions(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ListOperatorVersionsResponseItems](
@@ -274,7 +278,7 @@ func (c *ApiService) StreamOperatorVersionsWithMetadata(Id string, params *ListO
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamOperatorVersions(response *ListOperatorVersionsResponse, params *ListOperatorVersionsParams, recordChannel chan ListOperatorVersionsResponseItems, errorChannel chan error) {
+func (c *ApiService) streamOperatorVersions(response *ListOperatorVersionsResponse, path string, params *ListOperatorVersionsParams, recordChannel chan ListOperatorVersionsResponseItems, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -289,7 +293,7 @@ func (c *ApiService) streamOperatorVersions(response *ListOperatorVersionsRespon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/ControlPlane/Operators/{id}/Versions", response, c.getNextListOperatorVersionsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListOperatorVersionsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

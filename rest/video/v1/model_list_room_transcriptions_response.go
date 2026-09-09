@@ -16,6 +16,6 @@ package openapi
 
 // ListRoomTranscriptionsResponse struct for ListRoomTranscriptionsResponse
 type ListRoomTranscriptionsResponse struct {
-	Transcriptions []VideoV1RoomTranscriptions `json:"transcriptions,omitempty"`
-	Meta           ListCompositionResponseMeta `json:"meta,omitempty"`
+	Transcriptions []VideoV1RoomTranscriptions  `json:"transcriptions,omitempty"`
+	Meta           *ListCompositionResponseMeta `json:"meta,omitempty"`
 }

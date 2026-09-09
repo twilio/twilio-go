@@ -16,6 +16,6 @@ package openapi
 
 // CallSummaryCrelayTokenStats struct for CallSummaryCrelayTokenStats
 type CallSummaryCrelayTokenStats struct {
-	Total           int                        `json:"total,omitempty"`
-	TokensPerSecond CallSummaryCrelayRateStats `json:"tokens_per_second,omitempty"`
+	Total           int                         `json:"total,omitempty"`
+	TokensPerSecond *CallSummaryCrelayRateStats `json:"tokens_per_second,omitempty"`
 }

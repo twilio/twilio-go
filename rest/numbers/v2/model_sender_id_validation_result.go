@@ -22,5 +22,5 @@ type SenderIdValidationResult struct {
 	// Sender ID string
 	SenderId string `json:"sender_id"`
 	// List of failures during the validation
-	Failures []SenderIdValidationFailure `json:"failures"`
+	Failures []SenderIdValidationFailure `json:"failures,omitempty"`
 }

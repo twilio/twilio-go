@@ -16,6 +16,6 @@ package openapi
 
 // ListAuthorizationDocumentResponse struct for ListAuthorizationDocumentResponse
 type ListAuthorizationDocumentResponse struct {
-	Items []NumbersV2AuthorizationDocument      `json:"items,omitempty"`
-	Meta  ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
+	Items []NumbersV2AuthorizationDocument       `json:"items,omitempty"`
+	Meta  *ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }

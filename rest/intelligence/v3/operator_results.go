@@ -314,7 +314,8 @@ func (c *ApiService) StreamOperatorResults(params *ListOperatorResultsParams) (c
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamOperatorResults(response, params, recordChannel, errorChannel)
+		path := "/v3/OperatorResults"
+		go c.streamOperatorResults(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -337,7 +338,8 @@ func (c *ApiService) StreamOperatorResultsWithMetadata(params *ListOperatorResul
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamOperatorResults(&resource, params, recordChannel, errorChannel)
+		path := "/v3/OperatorResults"
+		go c.streamOperatorResults(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan OperatorResultsResponseV1](
@@ -349,7 +351,7 @@ func (c *ApiService) StreamOperatorResultsWithMetadata(params *ListOperatorResul
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamOperatorResults(response *ListOperatorResultsResponse, params *ListOperatorResultsParams, recordChannel chan OperatorResultsResponseV1, errorChannel chan error) {
+func (c *ApiService) streamOperatorResults(response *ListOperatorResultsResponse, path string, params *ListOperatorResultsParams, recordChannel chan OperatorResultsResponseV1, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -364,7 +366,7 @@ func (c *ApiService) streamOperatorResults(response *ListOperatorResultsResponse
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/OperatorResults", response, c.getNextListOperatorResultsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListOperatorResultsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

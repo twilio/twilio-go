@@ -17,6 +17,6 @@ package openapi
 // VoiceV2PaginatedRecordingConfigurationResponse Paginated list of Recording Configurations.
 type VoiceV2PaginatedRecordingConfigurationResponse struct {
 	// The list of Recording Configurations.
-	Content []VoiceV2Response                         `json:"content,omitempty"`
-	Meta    VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
+	Content []VoiceV2Response                          `json:"content,omitempty"`
+	Meta    *VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
 }

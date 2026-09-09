@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Conversations** | [**[]ListConversationByAccountResponseConversations**](ListConversationByAccountResponseConversations.md) |  |
-**Meta** | [**ListConversationByAccountResponseMeta**](ListConversationByAccountResponseMeta.md) |  |
+**Meta** | Pointer to [**ListConversationByAccountResponseMeta**](ListConversationByAccountResponseMeta.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

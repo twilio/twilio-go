@@ -16,6 +16,6 @@ package openapi
 
 // ListMessageInteractionResponse struct for ListMessageInteractionResponse
 type ListMessageInteractionResponse struct {
-	Interactions []ProxyV1MessageInteraction `json:"interactions,omitempty"`
-	Meta         ListInteractionResponseMeta `json:"meta,omitempty"`
+	Interactions []ProxyV1MessageInteraction  `json:"interactions,omitempty"`
+	Meta         *ListInteractionResponseMeta `json:"meta,omitempty"`
 }

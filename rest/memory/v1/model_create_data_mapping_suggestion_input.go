@@ -16,6 +16,6 @@ package openapi
 
 // CreateDataMappingSuggestionInput Request to generate suggested mappings from a set of source fields to the requested destination type.
 type CreateDataMappingSuggestionInput struct {
-	MappingFrom DataMappingFromTypes          `json:"mappingFrom"`
-	MappingTo   DataMappingSuggestionToTraits `json:"mappingTo"`
+	MappingFrom *DataMappingFromTypes          `json:"mappingFrom,omitempty"`
+	MappingTo   *DataMappingSuggestionToTraits `json:"mappingTo,omitempty"`
 }

@@ -75,7 +75,7 @@ type MessagingV1UsAppToPersonResponse struct {
 	// Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
 	Errors *[]map[string]interface{} `json:"errors,omitempty"`
 	// The URL of the privacy policy for the campaign.
-	PrivacyPolicyUrl *string `json:"privacy_policy_url"`
+	PrivacyPolicyUrl *string `json:"privacy_policy_url,omitempty"`
 	// The URL of the terms and conditions for the campaign.
-	TermsAndConditionsUrl *string `json:"terms_and_conditions_url"`
+	TermsAndConditionsUrl *string `json:"terms_and_conditions_url,omitempty"`
 }

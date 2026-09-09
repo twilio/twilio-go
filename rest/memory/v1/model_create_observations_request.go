@@ -17,5 +17,5 @@ package openapi
 // CreateObservationsRequest Request payload for creating one or more observations. Supports creation of up to 10 observations.
 type CreateObservationsRequest struct {
 	// Array of observations to create in a single batch operation.
-	Observations []ObservationCreateRequest `json:"observations"`
+	Observations []ObservationCreateRequest `json:"observations,omitempty"`
 }

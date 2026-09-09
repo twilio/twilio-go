@@ -31,6 +31,6 @@ type FetchProfileImportV0Response struct {
 	// Size of the uploaded file in bytes (1 byte to 100 MiB)
 	FileSize int `json:"fileSize,omitempty"`
 	// Mappings of CSV header columns to traits' fields
-	ColumnMappings []ColumnMappingItem                 `json:"columnMappings,omitempty"`
-	Summary        FetchProfileImportV0ResponseSummary `json:"summary,omitempty"`
+	ColumnMappings []ColumnMappingItem                  `json:"columnMappings,omitempty"`
+	Summary        *FetchProfileImportV0ResponseSummary `json:"summary,omitempty"`
 }

@@ -17,5 +17,5 @@ package openapi
 // SupportedMessageTypes struct for SupportedMessageTypes
 type SupportedMessageTypes struct {
 	// List of supported message types for opt-out configurations
-	MessageTypes []MessageTypeConfig `json:"message_types"`
+	MessageTypes []MessageTypeConfig `json:"message_types,omitempty"`
 }

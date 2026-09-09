@@ -18,5 +18,5 @@ package openapi
 type ServiceList struct {
 	// List of Memory Store IDs associated with the Twilio account.
 	Stores []string `json:"stores,omitempty"`
-	Meta   Meta     `json:"meta,omitempty"`
+	Meta   *Meta    `json:"meta,omitempty"`
 }

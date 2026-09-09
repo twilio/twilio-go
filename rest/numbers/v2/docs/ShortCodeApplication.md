@@ -15,12 +15,12 @@ Name | Type | Description | Notes
 **NotificationEmails** | **[]string** | The notification emails for the application. |[optional] 
 **IsoCountry** | **string** | The ISO country code. |[optional] 
 **State** | **string** | The state of the application. |[optional] 
-**Setup** | [**CreateShortCodeApplicationResponseSetup**](CreateShortCodeApplicationResponseSetup.md) |  |[optional] 
-**BusinessInformation** | [**CreateShortCodeApplicationResponseBusinessInformation**](CreateShortCodeApplicationResponseBusinessInformation.md) |  |[optional] 
-**UserSignUp** | [**CreateShortCodeApplicationResponseUserSignUp**](CreateShortCodeApplicationResponseUserSignUp.md) |  |[optional] 
-**ComplianceKeywords** | [**CreateShortCodeApplicationResponseComplianceKeywords**](CreateShortCodeApplicationResponseComplianceKeywords.md) |  |[optional] 
-**ContentExamples** | [**CreateShortCodeApplicationResponseContentExamples**](CreateShortCodeApplicationResponseContentExamples.md) |  |[optional] 
-**SmsCampaignDetails** | [**CreateShortCodeApplicationResponseSmsCampaignDetails**](CreateShortCodeApplicationResponseSmsCampaignDetails.md) |  |[optional] 
+**Setup** | Pointer to [**CreateShortCodeApplicationResponseSetup**](CreateShortCodeApplicationResponseSetup.md) |  |
+**BusinessInformation** | Pointer to [**CreateShortCodeApplicationResponseBusinessInformation**](CreateShortCodeApplicationResponseBusinessInformation.md) |  |
+**UserSignUp** | Pointer to [**CreateShortCodeApplicationResponseUserSignUp**](CreateShortCodeApplicationResponseUserSignUp.md) |  |
+**ComplianceKeywords** | Pointer to [**CreateShortCodeApplicationResponseComplianceKeywords**](CreateShortCodeApplicationResponseComplianceKeywords.md) |  |
+**ContentExamples** | Pointer to [**CreateShortCodeApplicationResponseContentExamples**](CreateShortCodeApplicationResponseContentExamples.md) |  |
+**SmsCampaignDetails** | Pointer to [**CreateShortCodeApplicationResponseSmsCampaignDetails**](CreateShortCodeApplicationResponseSmsCampaignDetails.md) |  |
 **DateCreated** | [**time.Time**](time.Time.md) | The date and time the application was created. |[optional] 
 **DateUpdated** | [**time.Time**](time.Time.md) | The date and time the application was last updated. |[optional] 
 **CreatedBy** | **string** | The identity of the user who created the application. |[optional] 

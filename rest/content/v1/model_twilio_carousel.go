@@ -17,5 +17,5 @@ package openapi
 // TwilioCarousel twilio/carousel templates allow you to send a single text message accompanied by a set of up to 10 carousel cards in a horizontally scrollable view
 type TwilioCarousel struct {
 	Body  string         `json:"body"`
-	Cards []CarouselCard `json:"cards"`
+	Cards []CarouselCard `json:"cards,omitempty"`
 }

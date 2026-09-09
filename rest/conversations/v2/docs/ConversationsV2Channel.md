@@ -9,6 +9,7 @@ Name | Type | Notes
 **RCS** | string | (value: `"RCS"`)
 **WHATSAPP** | string | (value: `"WHATSAPP"`)
 **CHAT** | string | (value: `"CHAT"`)
+**VIDEO** | string | (value: `"VIDEO"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

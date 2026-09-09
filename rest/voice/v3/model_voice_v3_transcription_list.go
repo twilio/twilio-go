@@ -17,6 +17,6 @@ package openapi
 // VoiceV3TranscriptionList struct for VoiceV3TranscriptionList
 type VoiceV3TranscriptionList struct {
 	// List of transcription resources
-	Transcriptions []VoiceV3Transcription                    `json:"transcriptions"`
-	Meta           VoiceV3TranscriptionTranscriptionListMeta `json:"meta"`
+	Transcriptions []VoiceV3Transcription                     `json:"transcriptions,omitempty"`
+	Meta           *VoiceV3TranscriptionTranscriptionListMeta `json:"meta,omitempty"`
 }

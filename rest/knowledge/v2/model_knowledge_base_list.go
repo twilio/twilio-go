@@ -18,5 +18,5 @@ package openapi
 type KnowledgeBaseList struct {
 	// List of Knowledge Bases associated with the Twilio account.
 	KnowledgeBases []KnowledgeBase `json:"knowledgeBases,omitempty"`
-	Meta           Meta            `json:"meta,omitempty"`
+	Meta           *Meta           `json:"meta,omitempty"`
 }

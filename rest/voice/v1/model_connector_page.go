@@ -16,6 +16,6 @@ package openapi
 
 // ConnectorPage struct for ConnectorPage
 type ConnectorPage struct {
-	Results []ConnectorDto         `json:"results"`
+	Results []ConnectorDto         `json:"results,omitempty"`
 	Meta    map[string]interface{} `json:"meta"`
 }

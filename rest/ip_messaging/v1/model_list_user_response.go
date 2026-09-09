@@ -16,6 +16,6 @@ package openapi
 
 // ListUserResponse struct for ListUserResponse
 type ListUserResponse struct {
-	Users []IpMessagingV1User     `json:"users,omitempty"`
-	Meta  ListChannelResponseMeta `json:"meta,omitempty"`
+	Users []IpMessagingV1User      `json:"users,omitempty"`
+	Meta  *ListChannelResponseMeta `json:"meta,omitempty"`
 }

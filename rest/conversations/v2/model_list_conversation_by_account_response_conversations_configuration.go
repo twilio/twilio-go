@@ -30,6 +30,6 @@ type ListConversationByAccountResponseConversationsConfiguration struct {
 	// List of Intelligence Configuration IDs configured for this Configuration.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-	MemoryExtractionEnabled bool                                 `json:"memoryExtractionEnabled,omitempty"`
-	ConversationsV1Bridge   ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
+	MemoryExtractionEnabled bool                                  `json:"memoryExtractionEnabled,omitempty"`
+	ConversationsV1Bridge   *ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
 }

@@ -19,5 +19,5 @@ type KnowledgeErrorGroup struct {
 	// The error type or reason (e.g., \"404 Not Found\", \"500 Internal Server Error\").
 	Title string `json:"title"`
 	// Array of error instances for this error title. Required when an error group is present.
-	Instances []KnowledgeErrorInstance `json:"instances"`
+	Instances []KnowledgeErrorInstance `json:"instances,omitempty"`
 }

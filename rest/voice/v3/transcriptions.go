@@ -389,7 +389,8 @@ func (c *ApiService) StreamV3Transcriptions(params *ListV3TranscriptionsParams) 
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamV3Transcriptions(response, params, recordChannel, errorChannel)
+		path := "/v3/Transcriptions"
+		go c.streamV3Transcriptions(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -412,7 +413,8 @@ func (c *ApiService) StreamV3TranscriptionsWithMetadata(params *ListV3Transcript
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamV3Transcriptions(&resource, params, recordChannel, errorChannel)
+		path := "/v3/Transcriptions"
+		go c.streamV3Transcriptions(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan VoiceV3Transcription](
@@ -424,7 +426,7 @@ func (c *ApiService) StreamV3TranscriptionsWithMetadata(params *ListV3Transcript
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamV3Transcriptions(response *VoiceV3TranscriptionList, params *ListV3TranscriptionsParams, recordChannel chan VoiceV3Transcription, errorChannel chan error) {
+func (c *ApiService) streamV3Transcriptions(response *VoiceV3TranscriptionList, path string, params *ListV3TranscriptionsParams, recordChannel chan VoiceV3Transcription, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -439,7 +441,7 @@ func (c *ApiService) streamV3Transcriptions(response *VoiceV3TranscriptionList, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/Transcriptions", response, c.getNextVoiceV3TranscriptionList)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextVoiceV3TranscriptionList)
 		if err != nil {
 			errorChannel <- err
 			break

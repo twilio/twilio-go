@@ -16,8 +16,8 @@ package openapi
 
 // InsightsV2CreatePhoneNumbersReportRequest struct for InsightsV2CreatePhoneNumbersReportRequest
 type InsightsV2CreatePhoneNumbersReportRequest struct {
-	TimeRange InsightsV2CreatePhoneNumbersReportRequestTimeRange `json:"time_range,omitempty"`
-	Filters   []PhoneNumberReportFilter                          `json:"filters,omitempty"`
+	TimeRange *InsightsV2CreatePhoneNumbersReportRequestTimeRange `json:"time_range,omitempty"`
+	Filters   []PhoneNumberReportFilter                           `json:"filters,omitempty"`
 	// The number of max available top Phone Numbers to generate.
 	Size int `json:"size,omitempty"`
 }

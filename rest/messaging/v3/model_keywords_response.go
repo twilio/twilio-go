@@ -21,5 +21,5 @@ type KeywordsResponse struct {
 	// The SID of the opt-out configuration
 	OptOutSid string `json:"opt_out_sid"`
 	// List of keyword configurations for different keyword types
-	Config []KeywordConfiguration `json:"config"`
+	Config []KeywordConfiguration `json:"config,omitempty"`
 }

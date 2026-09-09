@@ -17,8 +17,8 @@ package openapi
 // PatchConversationByIdRequest struct for PatchConversationByIdRequest
 type PatchConversationByIdRequest struct {
 	// The name of the Conversation.
-	Name string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Lifecycle status of a Conversation.
-	Status        string                                    `json:"status,omitempty"`
-	Configuration PatchConversationByIdRequestConfiguration `json:"configuration,omitempty"`
+	Status        string                                     `json:"status,omitempty"`
+	Configuration *PatchConversationByIdRequestConfiguration `json:"configuration,omitempty"`
 }

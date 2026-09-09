@@ -16,6 +16,6 @@ package openapi
 
 // ListProfileTraitsResponse struct for ListProfileTraitsResponse
 type ListProfileTraitsResponse struct {
-	Traits []FullTrait                   `json:"traits,omitempty"`
-	Meta   ListProfileTraitsResponseMeta `json:"meta,omitempty"`
+	Traits []FullTrait                    `json:"traits,omitempty"`
+	Meta   *ListProfileTraitsResponseMeta `json:"meta,omitempty"`
 }

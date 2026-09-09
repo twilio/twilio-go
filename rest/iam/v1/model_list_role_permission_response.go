@@ -16,6 +16,6 @@ package openapi
 
 // ListRolePermissionResponse struct for ListRolePermissionResponse
 type ListRolePermissionResponse struct {
-	Permissions []IamV1RolePermission   `json:"permissions,omitempty"`
-	Meta        ListGetKeysResponseMeta `json:"meta,omitempty"`
+	Permissions []IamV1RolePermission    `json:"permissions,omitempty"`
+	Meta        *ListGetKeysResponseMeta `json:"meta,omitempty"`
 }

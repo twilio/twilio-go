@@ -17,5 +17,5 @@ package openapi
 // ListCustomerProfileEntityAssignmentResponse struct for ListCustomerProfileEntityAssignmentResponse
 type ListCustomerProfileEntityAssignmentResponse struct {
 	Results []TrusthubV1CustomerProfileEntityAssignment `json:"results,omitempty"`
-	Meta    ListCustomerProfileResponseMeta             `json:"meta,omitempty"`
+	Meta    *ListCustomerProfileResponseMeta            `json:"meta,omitempty"`
 }

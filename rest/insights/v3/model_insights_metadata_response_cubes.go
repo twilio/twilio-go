@@ -21,7 +21,7 @@ type InsightsMetadataResponseCubes struct {
 	// Human-readable description of what the cube represents
 	Description string `json:"description,omitempty"`
 	// List of measures available in the cube, representing quantitative values that can be aggregated
-	Measures []InsightsMetadataResponseCubesMeasures `json:"measures"`
+	Measures []InsightsMetadataResponseCubesMeasures `json:"measures,omitempty"`
 	// List of dimensions available in the cube, representing categorical attributes for grouping data
-	Dimensions []InsightsMetadataResponseCubesDimensions `json:"dimensions"`
+	Dimensions []InsightsMetadataResponseCubesDimensions `json:"dimensions,omitempty"`
 }

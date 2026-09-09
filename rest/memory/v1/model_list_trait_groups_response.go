@@ -17,5 +17,5 @@ package openapi
 // ListTraitGroupsResponse struct for ListTraitGroupsResponse
 type ListTraitGroupsResponse struct {
 	TraitGroups []TraitGroup `json:"traitGroups,omitempty"`
-	Meta        Meta         `json:"meta,omitempty"`
+	Meta        *Meta        `json:"meta,omitempty"`
 }

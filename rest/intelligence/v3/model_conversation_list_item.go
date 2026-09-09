@@ -23,24 +23,24 @@ type ConversationListItem struct {
 	// The `id` of the Conversation attached to the Operator Result.
 	Id string `json:"id"`
 	// The ID of the account that owns the Conversation.
-	AccountId *string `json:"accountId"`
+	AccountId *string `json:"accountId,omitempty"`
 	// Display name of the Conversation.
-	Name   *string            `json:"name"`
+	Name   *string            `json:"name,omitempty"`
 	Status ConversationStatus `json:"status"`
 	// Timestamp for when the Conversation was created.
 	CreatedAt time.Time `json:"createdAt"`
 	// Timestamp for when the Conversation was last updated.
 	UpdatedAt time.Time `json:"updatedAt"`
 	// The Intelligence Configuration(s) associated with the Conversation.
-	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds"`
+	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// The `id` of the Configuration for a Conversation.
 	ConversationConfigurationId string `json:"conversationConfigurationId"`
 	// The communication channel(s) included in the Conversation.
-	Channels []Channel `json:"channels"`
+	Channels []Channel `json:"channels,omitempty"`
 	// The underlying channel resource `id`s associated with this Conversation, such as a Call ID or Message ID.
-	ChannelIds []string `json:"channelIds"`
+	ChannelIds []string `json:"channelIds,omitempty"`
 	// Metadata for Participants of the Conversation.
-	Participants []Participant `json:"participants"`
+	Participants []Participant `json:"participants,omitempty"`
 	// List of Operator Result IDs generated from this Conversation.
-	OperatorResultIds []string `json:"operatorResultIds"`
+	OperatorResultIds []string `json:"operatorResultIds,omitempty"`
 }
