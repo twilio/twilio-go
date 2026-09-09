@@ -19,5 +19,5 @@ type DataMappingToTraits struct {
 	// The destination data type, which determines where to write the data and the required configuration parameters.
 	Type string `json:"type"`
 	// The list of field to trait mappings.
-	Mappings []MappingTraitItem `json:"mappings"`
+	Mappings []MappingTraitItem `json:"mappings,omitempty"`
 }

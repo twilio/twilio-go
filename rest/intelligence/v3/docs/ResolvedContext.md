@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Memory** | [**ResolvedContextMemory**](ResolvedContextMemory.md) |  |[optional] 
+**Memory** | Pointer to [**ResolvedContextMemory**](ResolvedContextMemory.md) |  |
 **Knowledge** | Pointer to [**ResolvedContextKnowledge**](ResolvedContextKnowledge.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

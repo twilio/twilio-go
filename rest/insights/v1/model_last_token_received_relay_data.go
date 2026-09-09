@@ -19,6 +19,6 @@ type LastTokenReceivedRelayData struct {
 	// Session id of the conversation relay.
 	SessionId string `json:"session_id"`
 	// Sequence number of the event.
-	SequenceNumber    int                    `json:"sequence_number"`
-	LastTokenReceived LastTokenReceivedEvent `json:"last_token_received"`
+	SequenceNumber    int                     `json:"sequence_number"`
+	LastTokenReceived *LastTokenReceivedEvent `json:"last_token_received,omitempty"`
 }

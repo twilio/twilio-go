@@ -19,6 +19,6 @@ type LanguageChangedRelayData struct {
 	// Session id of the conversation relay.
 	SessionId string `json:"session_id"`
 	// Sequence number of the event.
-	SequenceNumber  int                  `json:"sequence_number"`
-	LanguageChanged LanguageChangedEvent `json:"language_changed"`
+	SequenceNumber  int                   `json:"sequence_number"`
+	LanguageChanged *LanguageChangedEvent `json:"language_changed,omitempty"`
 }

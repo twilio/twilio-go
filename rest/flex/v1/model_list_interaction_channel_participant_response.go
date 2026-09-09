@@ -17,5 +17,5 @@ package openapi
 // ListInteractionChannelParticipantResponse struct for ListInteractionChannelParticipantResponse
 type ListInteractionChannelParticipantResponse struct {
 	Participants []FlexV1InteractionChannelParticipant `json:"participants,omitempty"`
-	Meta         ListChannelResponseMeta               `json:"meta,omitempty"`
+	Meta         *ListChannelResponseMeta              `json:"meta,omitempty"`
 }

@@ -17,5 +17,5 @@ package openapi
 // ListKnowledgeChunksResponse struct for ListKnowledgeChunksResponse
 type ListKnowledgeChunksResponse struct {
 	Chunks []KnowledgeChunk `json:"chunks,omitempty"`
-	Meta   KnowledgeMeta    `json:"meta,omitempty"`
+	Meta   *KnowledgeMeta   `json:"meta,omitempty"`
 }

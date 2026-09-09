@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **TranscriptionEngine** | **string** | The engine used for transcription (Deepgram, Google, or auto) |[optional] 
 **SpeechModel** | **string** | The speech model used for transcription (e.g., nova-2, nova-3, chirp_2) |[optional] 
 **Language** | **string** | The language code for transcription |[optional] 
-**TranscriptionStatusCallback** | [**VoiceV3TranscriptionStatusCallback**](VoiceV3TranscriptionStatusCallback.md) |  |[optional] 
+**TranscriptionStatusCallback** | Pointer to [**VoiceV3TranscriptionStatusCallback**](VoiceV3TranscriptionStatusCallback.md) |  |
 **ConversationConfigurationId** | Pointer to **string** | Maestro conversation configuration ID |
 **ParticipantDefaults** | [**[]VoiceV3TranscriptionResolvedConfigurationParticipantDefaults**](VoiceV3TranscriptionResolvedConfigurationParticipantDefaults.md) | Default participant configurations for the transcription |[optional] 
 

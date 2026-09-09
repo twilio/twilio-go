@@ -17,6 +17,6 @@ package openapi
 // VoiceV2Request Request to create or update an account-wide default Recording configuration.
 type VoiceV2Request struct {
 	// Optional description.
-	Description   *string              `json:"description,omitempty"`
-	Configuration VoiceV2Configuration `json:"configuration"`
+	Description   *string               `json:"description,omitempty"`
+	Configuration *VoiceV2Configuration `json:"configuration,omitempty"`
 }

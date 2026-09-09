@@ -16,7 +16,7 @@ package openapi
 
 // CreateNewPasskeysFactorRequest struct for CreateNewPasskeysFactorRequest
 type CreateNewPasskeysFactorRequest struct {
-	FriendlyName string                               `json:"friendly_name"`
-	Identity     string                               `json:"identity"`
-	Config       CreateNewPasskeysFactorRequestConfig `json:"config,omitempty"`
+	FriendlyName string                                `json:"friendly_name"`
+	Identity     string                                `json:"identity"`
+	Config       *CreateNewPasskeysFactorRequestConfig `json:"config,omitempty"`
 }

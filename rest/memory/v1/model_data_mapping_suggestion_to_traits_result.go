@@ -19,5 +19,5 @@ type DataMappingSuggestionToTraitsResult struct {
 	// The destination type.
 	Type string `json:"type"`
 	// The list of AI-generated mapping suggestions with confidence scores.
-	Mappings []DataMappingSuggestionTraitItem `json:"mappings"`
+	Mappings []DataMappingSuggestionTraitItem `json:"mappings,omitempty"`
 }

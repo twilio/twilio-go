@@ -1,0 +1,12 @@
+# PatchConfigurationRequestChannelSettingsValue
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**StatusTimeouts** | Pointer to [**UpdateConfigurationRequestChannelSettingsValueStatusTimeouts**](UpdateConfigurationRequestChannelSettingsValueStatusTimeouts.md) |  |
+**CaptureRules** | [**[]UpdateConfigurationRequestChannelSettingsValueCaptureRules**](UpdateConfigurationRequestChannelSettingsValueCaptureRules.md) |  |[optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

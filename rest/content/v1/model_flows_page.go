@@ -20,5 +20,5 @@ type FlowsPage struct {
 	NextPageId string               `json:"next_page_id,omitempty"`
 	Title      string               `json:"title"`
 	Subtitle   string               `json:"subtitle,omitempty"`
-	Layout     []FlowsPageComponent `json:"layout"`
+	Layout     []FlowsPageComponent `json:"layout,omitempty"`
 }

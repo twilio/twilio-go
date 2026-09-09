@@ -17,7 +17,7 @@ package openapi
 // ConversationsV2StartConversationSendMessageAction Sends a message on the Conversation being started.
 type ConversationsV2StartConversationSendMessageAction struct {
 	// Action type discriminator. Accepted values: SEND_MESSAGE.
-	Type    string                                             `json:"type"`
-	Channel ConversationsV2SendChannel                         `json:"channel"`
-	Payload ConversationsV2StartConversationSendMessagePayload `json:"payload"`
+	Type    string                                              `json:"type"`
+	Channel ConversationsV2SendChannel                          `json:"channel"`
+	Payload *ConversationsV2StartConversationSendMessagePayload `json:"payload,omitempty"`
 }

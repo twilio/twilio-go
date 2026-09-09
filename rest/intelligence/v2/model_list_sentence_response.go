@@ -16,6 +16,6 @@ package openapi
 
 // ListSentenceResponse struct for ListSentenceResponse
 type ListSentenceResponse struct {
-	Sentences []IntelligenceV2Sentence       `json:"sentences,omitempty"`
-	Meta      ListCustomOperatorResponseMeta `json:"meta,omitempty"`
+	Sentences []IntelligenceV2Sentence        `json:"sentences,omitempty"`
+	Meta      *ListCustomOperatorResponseMeta `json:"meta,omitempty"`
 }

@@ -16,7 +16,7 @@ package openapi
 
 // CreateCommunicationInConversationRequestContent The content of the Communication.
 type CreateCommunicationInConversationRequestContent struct {
-	Type          string                            `json:"type"`
-	Text          string                            `json:"text"`
-	Transcription ContentTranscriptionTranscription `json:"transcription,omitempty"`
+	Type          string                             `json:"type"`
+	Text          string                             `json:"text"`
+	Transcription *ContentTranscriptionTranscription `json:"transcription,omitempty"`
 }

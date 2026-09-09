@@ -16,6 +16,6 @@ package openapi
 
 // NumbersV1PortingBulkUpdateStatusResponse struct for NumbersV1PortingBulkUpdateStatusResponse
 type NumbersV1PortingBulkUpdateStatusResponse struct {
-	SuccessfulUpdates []NumbersV1PortingBulkPhoneNumberUpdateDetail `json:"successful_updates"`
-	FailedUpdates     []NumbersV1PortingBulkPhoneNumberUpdateDetail `json:"failed_updates"`
+	SuccessfulUpdates []NumbersV1PortingBulkPhoneNumberUpdateDetail `json:"successful_updates,omitempty"`
+	FailedUpdates     []NumbersV1PortingBulkPhoneNumberUpdateDetail `json:"failed_updates,omitempty"`
 }

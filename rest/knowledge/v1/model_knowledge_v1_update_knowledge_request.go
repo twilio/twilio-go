@@ -21,8 +21,8 @@ type KnowledgeV1UpdateKnowledgeRequest struct {
 	// The details of the knowledge source based on the type.
 	KnowledgeSourceDetails map[string]interface{} `json:"knowledge_source_details,omitempty"`
 	// The name of the knowledge source.
-	Name   string                         `json:"name,omitempty"`
-	Policy KnowledgeV1CreatePolicyRequest `json:"policy,omitempty"`
+	Name   string                          `json:"name,omitempty"`
+	Policy *KnowledgeV1CreatePolicyRequest `json:"policy,omitempty"`
 	// The description of the knowledge source.
 	Type string `json:"type,omitempty"`
 	// The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.

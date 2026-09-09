@@ -25,17 +25,17 @@ type JSONResult struct {
 	// A unique identifier for the Operator Result. Assigned by Twilio (TTID).
 	Id string `json:"id"`
 	// The ID of the Account that created the Language Operator.
-	AccountId                 string                             `json:"accountId"`
-	IntelligenceConfiguration IntelligenceConfigurationReference `json:"intelligenceConfiguration"`
+	AccountId                 string                              `json:"accountId"`
+	IntelligenceConfiguration *IntelligenceConfigurationReference `json:"intelligenceConfiguration,omitempty"`
 	// The `id` of the Conversation attached to the Operator Result.
-	ConversationId string            `json:"conversationId"`
-	Operator       OperatorReference `json:"operator"`
+	ConversationId string             `json:"conversationId"`
+	Operator       *OperatorReference `json:"operator,omitempty"`
 	// Timestamp for when the Operator Result was created.
 	DateCreated time.Time `json:"dateCreated"`
 	// The `id`s of objects related to this Operator Result.
-	ReferenceIds     []string                            `json:"referenceIds"`
-	ExecutionDetails ExecutionDetails                    `json:"executionDetails"`
-	Metadata         OperatorResultsResponseBaseMetadata `json:"metadata"`
+	ReferenceIds     []string                             `json:"referenceIds,omitempty"`
+	ExecutionDetails *ExecutionDetails                    `json:"executionDetails,omitempty"`
+	Metadata         *OperatorResultsResponseBaseMetadata `json:"metadata,omitempty"`
 	// The actual result from executing the Language Operator with `JSON` output format. Its structure depends on the `outputSchema` defined on the Operator.
-	Result map[string]interface{} `json:"result"`
+	Result map[string]interface{} `json:"result,omitempty"`
 }

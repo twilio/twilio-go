@@ -16,6 +16,6 @@ package openapi
 
 // CallSummaryCrelayWordStats struct for CallSummaryCrelayWordStats
 type CallSummaryCrelayWordStats struct {
-	Total          int                        `json:"total,omitempty"`
-	WordsPerMinute CallSummaryCrelayRateStats `json:"words_per_minute,omitempty"`
+	Total          int                         `json:"total,omitempty"`
+	WordsPerMinute *CallSummaryCrelayRateStats `json:"words_per_minute,omitempty"`
 }

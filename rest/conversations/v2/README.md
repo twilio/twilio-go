@@ -34,6 +34,7 @@ Class | Method | HTTP request | Description
 *ControlPlaneConfigurationsApi* | [**DeleteConfiguration**](docs/ControlPlaneConfigurationsApi.md#deleteconfiguration) | **Delete** /v2/ControlPlane/Configurations/{id} | Delete Configuration
 *ControlPlaneConfigurationsApi* | [**FetchConfiguration**](docs/ControlPlaneConfigurationsApi.md#fetchconfiguration) | **Get** /v2/ControlPlane/Configurations/{id} | Fetch Configuration
 *ControlPlaneConfigurationsApi* | [**ListConfiguration**](docs/ControlPlaneConfigurationsApi.md#listconfiguration) | **Get** /v2/ControlPlane/Configurations | List Configurations
+*ControlPlaneConfigurationsApi* | [**PatchConfiguration**](docs/ControlPlaneConfigurationsApi.md#patchconfiguration) | **Patch** /v2/ControlPlane/Configurations/{id} | Patch Configuration
 *ControlPlaneConfigurationsApi* | [**UpdateConfiguration**](docs/ControlPlaneConfigurationsApi.md#updateconfiguration) | **Put** /v2/ControlPlane/Configurations/{id} | Update Configuration
 *ControlPlaneOperationsApi* | [**FetchOperationStatus**](docs/ControlPlaneOperationsApi.md#fetchoperationstatus) | **Get** /v2/ControlPlane/Operations/{id} | Get Operation Status
 *ConversationsApi* | [**CreateConversationWithConfig**](docs/ConversationsApi.md#createconversationwithconfig) | **Post** /v2/Conversations | Create a new Conversation
@@ -71,6 +72,7 @@ Class | Method | HTTP request | Description
  - [CreateParticipantInConversationRequest](docs/CreateParticipantInConversationRequest.md)
  - [ConversationsV2ParticipantType](docs/ConversationsV2ParticipantType.md)
  - [ConversationsV2StartConversationSendMessagePayload](docs/ConversationsV2StartConversationSendMessagePayload.md)
+ - [PatchConfigurationRequestChannelSettingsValue](docs/PatchConfigurationRequestChannelSettingsValue.md)
  - [ConversationsV2StartConversationConfiguration](docs/ConversationsV2StartConversationConfiguration.md)
  - [ConversationsV2ConversationGroupingType](docs/ConversationsV2ConversationGroupingType.md)
  - [ConversationsV2Channel](docs/ConversationsV2Channel.md)
@@ -108,6 +110,7 @@ Class | Method | HTTP request | Description
  - [ConversationsV2StartConversationStartFlowAction](docs/ConversationsV2StartConversationStartFlowAction.md)
  - [ConversationsV2ParticipantAddress](docs/ConversationsV2ParticipantAddress.md)
  - [ConversationsV2Address](docs/ConversationsV2Address.md)
+ - [PatchConfigurationRequest](docs/PatchConfigurationRequest.md)
  - [ListParticipantByConversationResponseMeta](docs/ListParticipantByConversationResponseMeta.md)
  - [CreateCommunicationInConversationRequestContent](docs/CreateCommunicationInConversationRequestContent.md)
  - [ListConversationByAccountResponseConversationsConfiguration](docs/ListConversationByAccountResponseConversationsConfiguration.md)
@@ -150,6 +153,7 @@ Class | Method | HTTP request | Description
  - [ConversationsV2StartConversationCallPayload](docs/ConversationsV2StartConversationCallPayload.md)
  - [ConversationsV2StatusTimeouts](docs/ConversationsV2StatusTimeouts.md)
  - [ListParticipantByConversationResponse](docs/ListParticipantByConversationResponse.md)
+ - [PatchConfigurationRequestConversationsV1Bridge](docs/PatchConfigurationRequestConversationsV1Bridge.md)
  - [ConversationsV2StartConversationCallAction](docs/ConversationsV2StartConversationCallAction.md)
  - [ConversationsV2UpdateStartConversationActionRequest](docs/ConversationsV2UpdateStartConversationActionRequest.md)
  - [ConversationsV2StartConversationParticipantSelector](docs/ConversationsV2StartConversationParticipantSelector.md)

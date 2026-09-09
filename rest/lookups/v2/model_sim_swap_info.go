@@ -16,9 +16,9 @@ package openapi
 
 // SimSwapInfo struct for SimSwapInfo
 type SimSwapInfo struct {
-	LastSimSwap       LastSimSwapInfo `json:"last_sim_swap,omitempty"`
-	CarrierName       string          `json:"carrier_name,omitempty"`
-	MobileCountryCode string          `json:"mobile_country_code,omitempty"`
-	MobileNetworkCode string          `json:"mobile_network_code,omitempty"`
-	ErrorCode         int             `json:"error_code,omitempty"`
+	LastSimSwap       *LastSimSwapInfo `json:"last_sim_swap,omitempty"`
+	CarrierName       string           `json:"carrier_name,omitempty"`
+	MobileCountryCode string           `json:"mobile_country_code,omitempty"`
+	MobileNetworkCode string           `json:"mobile_network_code,omitempty"`
+	ErrorCode         int              `json:"error_code,omitempty"`
 }

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **CreatorSid** | **string** | The unique identifier (SID) of the user who created this OAuth app. |[optional] 
 **Secret** | **string** |  |[optional] 
 **Status** | **string** |  |[optional] 
-**Policy** | [**IamV1OrganizationVendoroauthappPolicy**](IamV1OrganizationVendoroauthappPolicy.md) |  |[optional] 
+**Policy** | Pointer to [**IamV1OrganizationVendoroauthappPolicy**](IamV1OrganizationVendoroauthappPolicy.md) |  |
 **AccessTokenTtl** | **int** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

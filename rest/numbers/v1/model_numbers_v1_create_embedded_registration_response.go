@@ -35,10 +35,10 @@ type NumbersV1CreateEmbeddedRegistrationResponse struct {
 	// Callback URL for status webhooks.
 	StatusCallbackUrl *string `json:"statusCallbackUrl,omitempty"`
 	// Additional comments.
-	Comments        *string                  `json:"comments,omitempty"`
-	EmbeddedSession NumbersV1EmbeddedSession `json:"embeddedSession"`
+	Comments        *string                   `json:"comments,omitempty"`
+	EmbeddedSession *NumbersV1EmbeddedSession `json:"embeddedSession,omitempty"`
 	// Registration data echoed from the request.
-	Data map[string]interface{} `json:"data"`
+	Data map[string]interface{} `json:"data,omitempty"`
 	// Timestamp of creation.
 	DateCreated time.Time `json:"dateCreated"`
 	// Timestamp of last update.

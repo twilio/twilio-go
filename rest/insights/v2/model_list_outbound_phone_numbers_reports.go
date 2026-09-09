@@ -17,5 +17,5 @@ package openapi
 // ListOutboundPhoneNumbersReports struct for ListOutboundPhoneNumbersReports
 type ListOutboundPhoneNumbersReports struct {
 	Reports []InsightsV2OutboundPhoneNumberReport `json:"reports,omitempty"`
-	Meta    ListInboundPhoneNumbersReportsMeta    `json:"meta,omitempty"`
+	Meta    *ListInboundPhoneNumbersReportsMeta   `json:"meta,omitempty"`
 }

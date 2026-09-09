@@ -17,5 +17,5 @@ package openapi
 // ListConfiguredPluginResponse struct for ListConfiguredPluginResponse
 type ListConfiguredPluginResponse struct {
 	Plugins []FlexV1ConfiguredPlugin `json:"plugins,omitempty"`
-	Meta    ListChannelResponseMeta  `json:"meta,omitempty"`
+	Meta    *ListChannelResponseMeta `json:"meta,omitempty"`
 }

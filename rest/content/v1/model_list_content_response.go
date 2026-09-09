@@ -16,6 +16,6 @@ package openapi
 
 // ListContentResponse struct for ListContentResponse
 type ListContentResponse struct {
-	Contents []ContentV1Content      `json:"contents,omitempty"`
-	Meta     ListContentResponseMeta `json:"meta,omitempty"`
+	Contents []ContentV1Content       `json:"contents,omitempty"`
+	Meta     *ListContentResponseMeta `json:"meta,omitempty"`
 }

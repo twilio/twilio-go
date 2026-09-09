@@ -17,6 +17,6 @@ package openapi
 // ListOperatorVersionsResponse Paginated list of Operator versions.
 type ListOperatorVersionsResponse struct {
 	// List of Operator versions.
-	Items []ListOperatorVersionsResponseItems `json:"items"`
-	Meta  ListOperatorsResponseMeta           `json:"meta"`
+	Items []ListOperatorVersionsResponseItems `json:"items,omitempty"`
+	Meta  *ListOperatorsResponseMeta          `json:"meta,omitempty"`
 }

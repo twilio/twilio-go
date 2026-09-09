@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **DateUpdated** | [**time.Time**](time.Time.md) | The date and time when the country routing table was last updated. |
 **Default** | **bool** | Indicates if this is the default routing table for the country. |
 **Status** | **string** | The status of the country for the sender Id |
-**StatusOverrideInfo** | [**SenderIdCountryStatusOverrideInfo**](SenderIdCountryStatusOverrideInfo.md) |  |[optional] 
+**StatusOverrideInfo** | Pointer to [**SenderIdCountryStatusOverrideInfo**](SenderIdCountryStatusOverrideInfo.md) |  |
 **CompliantUntilDate** | Pointer to [**time.Time**](time.Time.md) | The date until which the sender ID country is compliant |
 **ComplianceStatus** | [**SenderIdComplianceStatus**](SenderIdComplianceStatus.md) |  |[optional] 
 

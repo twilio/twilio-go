@@ -94,10 +94,10 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [MessagingV1GenericSender](docs/MessagingV1GenericSender.md)
- - [MessagingV1LinkshorteningMessagingServiceDomainAssociation](docs/MessagingV1LinkshorteningMessagingServiceDomainAssociation.md)
  - [MessagingV1DomainCertV4](docs/MessagingV1DomainCertV4.md)
- - [MessagingV1ExternalCampaign](docs/MessagingV1ExternalCampaign.md)
+ - [MessagingV1LinkshorteningMessagingServiceDomainAssociation](docs/MessagingV1LinkshorteningMessagingServiceDomainAssociation.md)
  - [MessagingV1DomainDnsValidation](docs/MessagingV1DomainDnsValidation.md)
+ - [MessagingV1ExternalCampaign](docs/MessagingV1ExternalCampaign.md)
  - [MessagingV1UsAppToPersonUsecase](docs/MessagingV1UsAppToPersonUsecase.md)
  - [MessagingV1LinkshorteningMessagingService](docs/MessagingV1LinkshorteningMessagingService.md)
  - [MessagingV1TollfreeVerification](docs/MessagingV1TollfreeVerification.md)

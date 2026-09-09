@@ -325,7 +325,9 @@ func (c *ApiService) StreamParticipantByConversation(ConversationId string, para
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamParticipantByConversation(response, params, recordChannel, errorChannel)
+		path := "/v2/Conversations/{ConversationId}/Participants"
+		path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+		go c.streamParticipantByConversation(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -348,7 +350,9 @@ func (c *ApiService) StreamParticipantByConversationWithMetadata(ConversationId 
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamParticipantByConversation(&resource, params, recordChannel, errorChannel)
+		path := "/v2/Conversations/{ConversationId}/Participants"
+		path = strings.Replace(path, "{"+"ConversationId"+"}", ConversationId, -1)
+		go c.streamParticipantByConversation(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ListParticipantByConversationResponseParticipants](
@@ -360,7 +364,7 @@ func (c *ApiService) StreamParticipantByConversationWithMetadata(ConversationId 
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamParticipantByConversation(response *ListParticipantByConversationResponse, params *ListParticipantByConversationParams, recordChannel chan ListParticipantByConversationResponseParticipants, errorChannel chan error) {
+func (c *ApiService) streamParticipantByConversation(response *ListParticipantByConversationResponse, path string, params *ListParticipantByConversationParams, recordChannel chan ListParticipantByConversationResponseParticipants, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -375,7 +379,7 @@ func (c *ApiService) streamParticipantByConversation(response *ListParticipantBy
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/Conversations/{ConversationId}/Participants", response, c.getNextListParticipantByConversationResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListParticipantByConversationResponse)
 		if err != nil {
 			errorChannel <- err
 			break

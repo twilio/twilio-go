@@ -12,14 +12,14 @@ Name | Type | Description | Notes
 **NationalFormat** | **string** |  |[optional] 
 **Valid** | **bool** |  |[optional] 
 **ValidationErrors** | **[]string** |  |[optional] 
-**CallerName** | [**CallerNameInfo**](CallerNameInfo.md) |  |[optional] 
-**SimSwap** | [**SimSwapInfo**](SimSwapInfo.md) |  |[optional] 
-**CallForwarding** | [**CallForwardingInfo**](CallForwardingInfo.md) |  |[optional] 
-**LineTypeIntelligence** | [**LineTypeIntelligenceInfo**](LineTypeIntelligenceInfo.md) |  |[optional] 
-**LineStatus** | [**LineStatusInfo**](LineStatusInfo.md) |  |[optional] 
-**IdentityMatch** | [**IdentityMatchInfo**](IdentityMatchInfo.md) |  |[optional] 
-**ReassignedNumber** | [**ReassignedNumberInfo**](ReassignedNumberInfo.md) |  |[optional] 
-**SmsPumpingRisk** | [**SmsPumpingRiskInfo**](SmsPumpingRiskInfo.md) |  |[optional] 
+**CallerName** | Pointer to [**CallerNameInfo**](CallerNameInfo.md) |  |
+**SimSwap** | Pointer to [**SimSwapInfo**](SimSwapInfo.md) |  |
+**CallForwarding** | Pointer to [**CallForwardingInfo**](CallForwardingInfo.md) |  |
+**LineTypeIntelligence** | Pointer to [**LineTypeIntelligenceInfo**](LineTypeIntelligenceInfo.md) |  |
+**LineStatus** | Pointer to [**LineStatusInfo**](LineStatusInfo.md) |  |
+**IdentityMatch** | Pointer to [**IdentityMatchInfo**](IdentityMatchInfo.md) |  |
+**ReassignedNumber** | Pointer to [**ReassignedNumberInfo**](ReassignedNumberInfo.md) |  |
+**SmsPumpingRisk** | Pointer to [**SmsPumpingRiskInfo**](SmsPumpingRiskInfo.md) |  |
 **PhoneNumberQualityScore** | Pointer to **interface{}** |  |
 **PreFill** | Pointer to **interface{}** |  |
 

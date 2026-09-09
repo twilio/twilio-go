@@ -17,5 +17,5 @@ package openapi
 // LogListResponse struct for LogListResponse
 type LogListResponse struct {
 	Logs     []LogEntry `json:"Logs,omitempty"`
-	Metadata Metadata   `json:"Metadata,omitempty"`
+	Metadata *Metadata  `json:"Metadata,omitempty"`
 }

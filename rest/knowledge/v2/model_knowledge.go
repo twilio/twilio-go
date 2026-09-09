@@ -23,8 +23,8 @@ type Knowledge struct {
 	// The name of the knowledge source.
 	Name string `json:"name"`
 	// A detailed description of the knowledge source and when to use it.  This helps provide context about the content and its intended purpose.
-	Description string               `json:"description,omitempty"`
-	Source      KnowledgeSourceTypes `json:"source,omitempty"`
+	Description string                `json:"description,omitempty"`
+	Source      *KnowledgeSourceTypes `json:"source,omitempty"`
 	// The unique identifier of knowledge source.
 	Id string `json:"id"`
 	// The status of processing the knowledge source ('SCHEDULED', 'QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED').

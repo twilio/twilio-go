@@ -6,9 +6,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	messagingApi "github.com/twilio/twilio-go/rest/messaging/v2"
-	memoryApi "github.com/twilio/twilio-go/rest/memory/v1"
 	v2010Api "github.com/twilio/twilio-go/rest/api/v2010"
+	memoryApi "github.com/twilio/twilio-go/rest/memory/v1"
+	messagingApi "github.com/twilio/twilio-go/rest/messaging/v2"
 )
 
 // ─────────────────────────────────────────────────────────────────────

@@ -17,5 +17,5 @@ package openapi
 // QueryDefinitionFilters struct for QueryDefinitionFilters
 type QueryDefinitionFilters struct {
 	Op          string                              `json:"op,omitempty"`
-	Expressions []QueryDefinitionFiltersExpressions `json:"expressions"`
+	Expressions []QueryDefinitionFiltersExpressions `json:"expressions,omitempty"`
 }

@@ -17,5 +17,5 @@ package openapi
 // ListPrebuiltOperatorResponse struct for ListPrebuiltOperatorResponse
 type ListPrebuiltOperatorResponse struct {
 	Operators []IntelligenceV2PrebuiltOperator `json:"operators,omitempty"`
-	Meta      ListCustomOperatorResponseMeta   `json:"meta,omitempty"`
+	Meta      *ListCustomOperatorResponseMeta  `json:"meta,omitempty"`
 }

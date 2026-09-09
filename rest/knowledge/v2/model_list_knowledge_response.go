@@ -16,6 +16,6 @@ package openapi
 
 // ListKnowledgeResponse struct for ListKnowledgeResponse
 type ListKnowledgeResponse struct {
-	Knowledge []Knowledge   `json:"knowledge,omitempty"`
-	Meta      KnowledgeMeta `json:"meta,omitempty"`
+	Knowledge []Knowledge    `json:"knowledge,omitempty"`
+	Meta      *KnowledgeMeta `json:"meta,omitempty"`
 }

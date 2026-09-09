@@ -17,6 +17,6 @@ package openapi
 // PaginatedConfigurationResponse The response object returned when listing Intelligence Configurations.
 type PaginatedConfigurationResponse struct {
 	// The list of Intelligence Configurations owned by this account.
-	Items []IntelligenceConfiguration    `json:"items"`
-	Meta  ListConfigurationsResponseMeta `json:"meta"`
+	Items []IntelligenceConfiguration     `json:"items,omitempty"`
+	Meta  *ListConfigurationsResponseMeta `json:"meta,omitempty"`
 }

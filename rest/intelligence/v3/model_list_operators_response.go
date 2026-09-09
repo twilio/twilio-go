@@ -17,6 +17,6 @@ package openapi
 // ListOperatorsResponse struct for ListOperatorsResponse
 type ListOperatorsResponse struct {
 	// List of available Language Operators
-	Items []LanguageOperator        `json:"items"`
-	Meta  ListOperatorsResponseMeta `json:"meta"`
+	Items []LanguageOperator         `json:"items,omitempty"`
+	Meta  *ListOperatorsResponseMeta `json:"meta,omitempty"`
 }

@@ -16,6 +16,6 @@ package openapi
 
 // ListSyncStreamResponse struct for ListSyncStreamResponse
 type ListSyncStreamResponse struct {
-	Streams []SyncV1SyncStream       `json:"streams,omitempty"`
-	Meta    ListDocumentResponseMeta `json:"meta,omitempty"`
+	Streams []SyncV1SyncStream        `json:"streams,omitempty"`
+	Meta    *ListDocumentResponseMeta `json:"meta,omitempty"`
 }

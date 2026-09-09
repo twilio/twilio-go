@@ -18,5 +18,5 @@ package openapi
 type DataMappingList struct {
 	// List of DataMappings associated with the Memory Store.
 	DataMappings []DataMapping `json:"dataMappings,omitempty"`
-	Meta         Meta          `json:"meta,omitempty"`
+	Meta         *Meta         `json:"meta,omitempty"`
 }

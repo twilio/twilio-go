@@ -16,6 +16,6 @@ package openapi
 
 // ListCommunicationByConversationResponse struct for ListCommunicationByConversationResponse
 type ListCommunicationByConversationResponse struct {
-	Communications []ListCommunicationByConversationResponseCommunications `json:"communications"`
-	Meta           ListCommunicationByConversationResponseMeta             `json:"meta"`
+	Communications []ListCommunicationByConversationResponseCommunications `json:"communications,omitempty"`
+	Meta           *ListCommunicationByConversationResponseMeta            `json:"meta,omitempty"`
 }

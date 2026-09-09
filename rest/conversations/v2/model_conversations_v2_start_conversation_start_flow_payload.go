@@ -17,9 +17,9 @@ package openapi
 // ConversationsV2StartConversationStartFlowPayload Studio Flow to execute for the Conversation being started.
 type ConversationsV2StartConversationStartFlowPayload struct {
 	// Studio Flow to execute.
-	FlowId string                                              `json:"flowId"`
-	From   ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
-	To     ConversationsV2StartConversationParticipantSelector `json:"to,omitempty"`
+	FlowId string                                               `json:"flowId"`
+	From   *ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
+	To     *ConversationsV2StartConversationParticipantSelector `json:"to,omitempty"`
 	// Key/value pairs passed through to the Studio Flow execution.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 }

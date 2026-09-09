@@ -16,6 +16,6 @@ package openapi
 
 // AccountReportNetworkIssues Network-quality indicators for SDK and Twilio Gateway traffic during the report period.
 type AccountReportNetworkIssues struct {
-	Sdk           AccountReportNetworkIssuesSdk           `json:"sdk,omitempty"`
-	TwilioGateway AccountReportNetworkIssuesTwilioGateway `json:"twilio_gateway,omitempty"`
+	Sdk           *AccountReportNetworkIssuesSdk           `json:"sdk,omitempty"`
+	TwilioGateway *AccountReportNetworkIssuesTwilioGateway `json:"twilio_gateway,omitempty"`
 }

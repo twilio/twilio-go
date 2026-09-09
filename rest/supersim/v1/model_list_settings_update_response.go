@@ -16,6 +16,6 @@ package openapi
 
 // ListSettingsUpdateResponse struct for ListSettingsUpdateResponse
 type ListSettingsUpdateResponse struct {
-	SettingsUpdates []SupersimV1SettingsUpdate    `json:"settings_updates,omitempty"`
-	Meta            ListBillingPeriodResponseMeta `json:"meta,omitempty"`
+	SettingsUpdates []SupersimV1SettingsUpdate     `json:"settings_updates,omitempty"`
+	Meta            *ListBillingPeriodResponseMeta `json:"meta,omitempty"`
 }

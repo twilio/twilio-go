@@ -414,7 +414,9 @@ func (c *ApiService) StreamProfiles(StoreId string, params *ListProfilesParams) 
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfiles(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamProfiles(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -437,7 +439,9 @@ func (c *ApiService) StreamProfilesWithMetadata(StoreId string, params *ListProf
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfiles(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamProfiles(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan string](
@@ -449,7 +453,7 @@ func (c *ApiService) StreamProfilesWithMetadata(StoreId string, params *ListProf
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfiles(response *ListProfilesResponse, params *ListProfilesParams, recordChannel chan string, errorChannel chan error) {
+func (c *ApiService) streamProfiles(response *ListProfilesResponse, path string, params *ListProfilesParams, recordChannel chan string, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -464,7 +468,7 @@ func (c *ApiService) streamProfiles(response *ListProfilesResponse, params *List
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles", response, c.getNextListProfilesResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfilesResponse)
 		if err != nil {
 			errorChannel <- err
 			break

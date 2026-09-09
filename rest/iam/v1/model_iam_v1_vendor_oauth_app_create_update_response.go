@@ -27,9 +27,9 @@ type IamV1VendorOauthAppCreateUpdateResponse struct {
 	DateCreated  time.Time `json:"date_created,omitempty"`
 	CreatedBy    string    `json:"created_by,omitempty"`
 	// The unique identifier (SID) of the user who created this OAuth app.
-	CreatorSid     string                                `json:"creator_sid,omitempty"`
-	Secret         string                                `json:"secret,omitempty"`
-	Status         string                                `json:"status,omitempty"`
-	Policy         IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
-	AccessTokenTtl int                                   `json:"access_token_ttl,omitempty"`
+	CreatorSid     string                                 `json:"creator_sid,omitempty"`
+	Secret         string                                 `json:"secret,omitempty"`
+	Status         string                                 `json:"status,omitempty"`
+	Policy         *IamV1OrganizationVendoroauthappPolicy `json:"policy,omitempty"`
+	AccessTokenTtl int                                    `json:"access_token_ttl,omitempty"`
 }

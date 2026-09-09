@@ -16,6 +16,6 @@ package openapi
 
 // ListConnectionPolicyResponse struct for ListConnectionPolicyResponse
 type ListConnectionPolicyResponse struct {
-	ConnectionPolicies []VoiceV1ConnectionPolicy `json:"connection_policies,omitempty"`
-	Meta               ListByocTrunkResponseMeta `json:"meta,omitempty"`
+	ConnectionPolicies []VoiceV1ConnectionPolicy  `json:"connection_policies,omitempty"`
+	Meta               *ListByocTrunkResponseMeta `json:"meta,omitempty"`
 }

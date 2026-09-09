@@ -27,7 +27,7 @@ type CreateV3TranscriptionsRequest struct {
 	// Participants in the conversation. If omitted or partially specified, defaults from the transcription configuration will be applied.
 	Participants []VoiceV3Participant `json:"participants,omitempty"`
 	// URL to the media file to transcribe
-	MediaUrl string `json:"mediaUrl"`
+	MediaUrl string `json:"mediaUrl,omitempty"`
 	// The start time of the audio recording
 	AudioStartedAt time.Time `json:"audioStartedAt,omitempty"`
 }

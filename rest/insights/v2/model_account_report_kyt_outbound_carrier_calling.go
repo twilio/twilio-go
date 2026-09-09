@@ -33,10 +33,10 @@ type AccountReportKYTOutboundCarrierCalling struct {
 	// Percentage of long duration calls ( >= 60 seconds)
 	LongDurationCallsPercentage float32 `json:"long_duration_calls_percentage,omitempty"`
 	// Percentage of completed outbound calls to unassigned or unallocated phone numbers.
-	PotentialRobocallsPercentage float32        `json:"potential_robocalls_percentage,omitempty"`
-	BrandedCalling               BrandedCalling `json:"branded_calling,omitempty"`
-	VoiceIntegrity               VoiceIntegrity `json:"voice_integrity,omitempty"`
-	StirShaken                   StirShaken     `json:"stir_shaken,omitempty"`
+	PotentialRobocallsPercentage float32         `json:"potential_robocalls_percentage,omitempty"`
+	BrandedCalling               *BrandedCalling `json:"branded_calling,omitempty"`
+	VoiceIntegrity               *VoiceIntegrity `json:"voice_integrity,omitempty"`
+	StirShaken                   *StirShaken     `json:"stir_shaken,omitempty"`
 }
 
 func (response *AccountReportKYTOutboundCarrierCalling) UnmarshalJSON(bytes []byte) (err error) {
@@ -47,9 +47,9 @@ func (response *AccountReportKYTOutboundCarrierCalling) UnmarshalJSON(bytes []by
 		ShortDurationCallsPercentage interface{}          `json:"short_duration_calls_percentage"`
 		LongDurationCallsPercentage  interface{}          `json:"long_duration_calls_percentage"`
 		PotentialRobocallsPercentage interface{}          `json:"potential_robocalls_percentage"`
-		BrandedCalling               BrandedCalling       `json:"branded_calling"`
-		VoiceIntegrity               VoiceIntegrity       `json:"voice_integrity"`
-		StirShaken                   StirShaken           `json:"stir_shaken"`
+		BrandedCalling               *BrandedCalling      `json:"branded_calling"`
+		VoiceIntegrity               *VoiceIntegrity      `json:"voice_integrity"`
+		StirShaken                   *StirShaken          `json:"stir_shaken"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {

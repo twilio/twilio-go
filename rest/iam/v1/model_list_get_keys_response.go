@@ -16,6 +16,6 @@ package openapi
 
 // ListGetKeysResponse struct for ListGetKeysResponse
 type ListGetKeysResponse struct {
-	Keys []IamV1GetKeys          `json:"keys,omitempty"`
-	Meta ListGetKeysResponseMeta `json:"meta,omitempty"`
+	Keys []IamV1GetKeys           `json:"keys,omitempty"`
+	Meta *ListGetKeysResponseMeta `json:"meta,omitempty"`
 }

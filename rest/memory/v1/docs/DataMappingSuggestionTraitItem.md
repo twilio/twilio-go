@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Mapping** | [**MappingTraitItem**](MappingTraitItem.md) |  |
+**Mapping** | Pointer to [**MappingTraitItem**](MappingTraitItem.md) |  |
 **Confidence** | **float64** | Confidence score for this suggestion. Higher values indicate a stronger match. |
 **Rationale** | **string** | A concise explanation of why the source field was matched to this trait. |
 

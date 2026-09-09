@@ -16,8 +16,6 @@ package openapi
 
 // ConversationsV2StartConversationConfiguration Per-Conversation overrides applied on top of the Configuration named by `configurationId`.
 type ConversationsV2StartConversationConfiguration struct {
-	// A list of Conversational Intelligence configuration IDs to apply to this Conversation.
-	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// Webhook configurations for Conversation-level events on this Conversation.
 	StatusCallbacks []ConversationsV2StatusCallbackConfig `json:"statusCallbacks,omitempty"`
 }

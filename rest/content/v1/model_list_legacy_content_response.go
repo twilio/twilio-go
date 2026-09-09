@@ -17,5 +17,5 @@ package openapi
 // ListLegacyContentResponse struct for ListLegacyContentResponse
 type ListLegacyContentResponse struct {
 	Contents []ContentV1LegacyContent `json:"contents,omitempty"`
-	Meta     ListContentResponseMeta  `json:"meta,omitempty"`
+	Meta     *ListContentResponseMeta `json:"meta,omitempty"`
 }

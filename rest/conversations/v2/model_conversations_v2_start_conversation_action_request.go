@@ -17,7 +17,7 @@ package openapi
 // ConversationsV2StartConversationActionRequest The single action dispatched once the Conversation is created, selected by `type`.
 type ConversationsV2StartConversationActionRequest struct {
 	// Action type discriminator. Accepted values: SEND_MESSAGE.
-	Type    string                                      `json:"type"`
-	Channel ConversationsV2SendChannel                  `json:"channel"`
-	Payload ConversationsV2StartConversationCallPayload `json:"payload"`
+	Type    string                                       `json:"type"`
+	Channel ConversationsV2SendChannel                   `json:"channel"`
+	Payload *ConversationsV2StartConversationCallPayload `json:"payload,omitempty"`
 }

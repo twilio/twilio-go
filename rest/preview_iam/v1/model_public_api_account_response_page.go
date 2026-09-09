@@ -17,6 +17,6 @@ package openapi
 // PublicApiAccountResponsePage struct for PublicApiAccountResponsePage
 type PublicApiAccountResponsePage struct {
 	// Page content
-	Content []PublicApiAccountResponse       `json:"content,omitempty"`
-	Meta    PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
+	Content []PublicApiAccountResponse        `json:"content,omitempty"`
+	Meta    *PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
 }

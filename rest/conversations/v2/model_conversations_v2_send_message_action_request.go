@@ -17,6 +17,6 @@ package openapi
 // ConversationsV2SendMessageActionRequest struct for ConversationsV2SendMessageActionRequest
 type ConversationsV2SendMessageActionRequest struct {
 	// Action type discriminator. Accepted values: SEND_MESSAGE.
-	Type    string                            `json:"type"`
-	Payload ConversationsV2SendMessagePayload `json:"payload"`
+	Type    string                             `json:"type"`
+	Payload *ConversationsV2SendMessagePayload `json:"payload,omitempty"`
 }

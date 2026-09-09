@@ -16,11 +16,11 @@ package openapi
 
 // ExecutionDetails Details about the conditions under which the Operator executed.
 type ExecutionDetails struct {
-	Trigger        ExecutionDetailsTrigger        `json:"trigger"`
-	Communications ExecutionDetailsCommunications `json:"communications"`
+	Trigger        *ExecutionDetailsTrigger        `json:"trigger,omitempty"`
+	Communications *ExecutionDetailsCommunications `json:"communications,omitempty"`
 	// Communication channels included in the Conversation when this Operator was executed.
-	Channels []string `json:"channels"`
+	Channels []string `json:"channels,omitempty"`
 	// Metadata for the participants included in the Conversation when this Operator executed.
-	Participants    []ExecutionDetailsParticipants `json:"participants"`
-	ResolvedContext ResolvedContext                `json:"resolvedContext,omitempty"`
+	Participants    []ExecutionDetailsParticipants `json:"participants,omitempty"`
+	ResolvedContext *ResolvedContext               `json:"resolvedContext,omitempty"`
 }

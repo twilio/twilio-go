@@ -23,13 +23,13 @@ type Communication struct {
 	// Unique communication identifier.
 	Id string `json:"id"`
 	// Channel-specific ID (optional).
-	ChannelId string               `json:"channelId,omitempty"`
-	Content   CommunicationContent `json:"content"`
+	ChannelId string                `json:"channelId,omitempty"`
+	Content   *CommunicationContent `json:"content,omitempty"`
 	// When communication was created.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	// When communication was last updated.
-	UpdatedAt time.Time   `json:"updatedAt,omitempty"`
-	Author    Participant `json:"author"`
+	UpdatedAt time.Time    `json:"updatedAt,omitempty"`
+	Author    *Participant `json:"author,omitempty"`
 	// Communication recipients
-	Recipients []CommunicationRecipients `json:"recipients"`
+	Recipients []CommunicationRecipients `json:"recipients,omitempty"`
 }

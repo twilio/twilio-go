@@ -385,7 +385,9 @@ func (c *ApiService) StreamKnowledge(KbId string, params *ListKnowledgeParams) (
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamKnowledge(response, params, recordChannel, errorChannel)
+		path := "/v2/KnowledgeBases/{kbId}/Knowledge"
+		path = strings.Replace(path, "{"+"kbId"+"}", KbId, -1)
+		go c.streamKnowledge(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -408,7 +410,9 @@ func (c *ApiService) StreamKnowledgeWithMetadata(KbId string, params *ListKnowle
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamKnowledge(&resource, params, recordChannel, errorChannel)
+		path := "/v2/KnowledgeBases/{kbId}/Knowledge"
+		path = strings.Replace(path, "{"+"kbId"+"}", KbId, -1)
+		go c.streamKnowledge(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan Knowledge](
@@ -420,7 +424,7 @@ func (c *ApiService) StreamKnowledgeWithMetadata(KbId string, params *ListKnowle
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *ListKnowledgeParams, recordChannel chan Knowledge, errorChannel chan error) {
+func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, path string, params *ListKnowledgeParams, recordChannel chan Knowledge, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -435,7 +439,7 @@ func (c *ApiService) streamKnowledge(response *ListKnowledgeResponse, params *Li
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/KnowledgeBases/{kbId}/Knowledge", response, c.getNextListKnowledgeResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListKnowledgeResponse)
 		if err != nil {
 			errorChannel <- err
 			break

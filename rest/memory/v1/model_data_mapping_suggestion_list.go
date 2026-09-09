@@ -18,5 +18,5 @@ package openapi
 type DataMappingSuggestionList struct {
 	// List of suggested mappings generated for the Memory Store.
 	DataMappingSuggestions []DataMappingSuggestion `json:"dataMappingSuggestions,omitempty"`
-	Meta                   Meta                    `json:"meta,omitempty"`
+	Meta                   *Meta                   `json:"meta,omitempty"`
 }

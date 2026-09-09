@@ -17,5 +17,5 @@ package openapi
 // ListTollfreeVerificationResponse struct for ListTollfreeVerificationResponse
 type ListTollfreeVerificationResponse struct {
 	Verifications []MessagingV1TollfreeVerification `json:"verifications,omitempty"`
-	Meta          ListAlphaSenderResponseMeta       `json:"meta,omitempty"`
+	Meta          *ListAlphaSenderResponseMeta      `json:"meta,omitempty"`
 }

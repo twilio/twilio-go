@@ -17,5 +17,5 @@ package openapi
 // ExtractionResultResult The actual result from executing the Language Operator with `EXTRACTION` output format.
 type ExtractionResultResult struct {
 	// List of extracted entities from the Conversation.
-	Entities []ExtractionResultResultEntities `json:"entities"`
+	Entities []ExtractionResultResultEntities `json:"entities,omitempty"`
 }

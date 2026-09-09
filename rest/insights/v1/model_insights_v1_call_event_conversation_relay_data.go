@@ -19,13 +19,13 @@ type InsightsV1CallEventConversationRelayData struct {
 	// Session id of the conversation relay.
 	SessionId string `json:"session_id"`
 	// Sequence number of the event.
-	SequenceNumber    int                    `json:"sequence_number"`
-	TtsLatency        LatencyEvent           `json:"tts_latency"`
-	SttLatency        LatencyEvent           `json:"stt_latency"`
-	Interrupt         InterruptEvent         `json:"interrupt"`
-	LastTokenReceived LastTokenReceivedEvent `json:"last_token_received"`
-	Configurations    ConfigurationEvent     `json:"configurations"`
-	LanguageChanged   LanguageChangedEvent   `json:"language_changed"`
-	CallWrapUp        CallWrapUpEvent        `json:"call_wrap_up"`
-	Error             ErrorEvent             `json:"error"`
+	SequenceNumber    int                     `json:"sequence_number"`
+	TtsLatency        *LatencyEvent           `json:"tts_latency,omitempty"`
+	SttLatency        *LatencyEvent           `json:"stt_latency,omitempty"`
+	Interrupt         *InterruptEvent         `json:"interrupt,omitempty"`
+	LastTokenReceived *LastTokenReceivedEvent `json:"last_token_received,omitempty"`
+	Configurations    *ConfigurationEvent     `json:"configurations,omitempty"`
+	LanguageChanged   *LanguageChangedEvent   `json:"language_changed,omitempty"`
+	CallWrapUp        *CallWrapUpEvent        `json:"call_wrap_up,omitempty"`
+	Error             *ErrorEvent             `json:"error,omitempty"`
 }

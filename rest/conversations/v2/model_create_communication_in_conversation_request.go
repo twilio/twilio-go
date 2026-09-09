@@ -20,10 +20,10 @@ import (
 
 // CreateCommunicationInConversationRequest struct for CreateCommunicationInConversationRequest
 type CreateCommunicationInConversationRequest struct {
-	Author     CreateCommunicationInConversationRequestAuthor       `json:"author"`
-	Content    CreateCommunicationInConversationRequestContent      `json:"content"`
+	Author     *CreateCommunicationInConversationRequestAuthor      `json:"author,omitempty"`
+	Content    *CreateCommunicationInConversationRequestContent     `json:"content,omitempty"`
 	ChannelId  string                                               `json:"channelId,omitempty"`
-	Recipients []CreateCommunicationInConversationRequestRecipients `json:"recipients"`
+	Recipients []CreateCommunicationInConversationRequestRecipients `json:"recipients,omitempty"`
 	// Timestamp when this Communication occurred. If omitted, the server uses the current time.
 	OccurredAt time.Time `json:"occurredAt,omitempty"`
 }

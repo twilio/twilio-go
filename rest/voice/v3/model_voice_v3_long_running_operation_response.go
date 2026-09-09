@@ -21,6 +21,6 @@ type VoiceV3LongRunningOperationResponse struct {
 	// Current status of the transcription operation. PENDING: accepted but not yet started. RUNNING: currently in progress. COMPLETED: successfully completed. FAILED: failed and cannot be completed.
 	Status string `json:"status"`
 	// URL to poll for the latest operation status.
-	StatusUrl     string               `json:"statusUrl"`
-	Transcription VoiceV3Transcription `json:"transcription"`
+	StatusUrl     string                `json:"statusUrl"`
+	Transcription *VoiceV3Transcription `json:"transcription,omitempty"`
 }

@@ -17,6 +17,6 @@ package openapi
 // NumbersV2AddressList struct for NumbersV2AddressList
 type NumbersV2AddressList struct {
 	// List of address resources.
-	Addresses []NumbersV2Address         `json:"addresses,omitempty"`
-	Paging    NumbersV2AddressListPaging `json:"paging,omitempty"`
+	Addresses []NumbersV2Address          `json:"addresses,omitempty"`
+	Paging    *NumbersV2AddressListPaging `json:"paging,omitempty"`
 }

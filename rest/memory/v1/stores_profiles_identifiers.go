@@ -398,7 +398,10 @@ func (c *ApiService) StreamProfileIdentifiers(StoreId string, ProfileId string, 
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfileIdentifiers(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileIdentifiers(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -421,7 +424,10 @@ func (c *ApiService) StreamProfileIdentifiersWithMetadata(StoreId string, Profil
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfileIdentifiers(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileIdentifiers(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan IdentifierSet](
@@ -433,7 +439,7 @@ func (c *ApiService) StreamProfileIdentifiersWithMetadata(StoreId string, Profil
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfileIdentifiers(response *ListProfileIdentifiersResponse, params *ListProfileIdentifiersParams, recordChannel chan IdentifierSet, errorChannel chan error) {
+func (c *ApiService) streamProfileIdentifiers(response *ListProfileIdentifiersResponse, path string, params *ListProfileIdentifiersParams, recordChannel chan IdentifierSet, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -448,7 +454,7 @@ func (c *ApiService) streamProfileIdentifiers(response *ListProfileIdentifiersRe
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/{profileId}/Identifiers", response, c.getNextListProfileIdentifiersResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfileIdentifiersResponse)
 		if err != nil {
 			errorChannel <- err
 			break

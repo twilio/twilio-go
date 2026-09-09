@@ -20,5 +20,5 @@ type CreateParticipantInConversationRequest struct {
 	// Type of Participant in the Conversation.
 	Type      string                                                     `json:"type,omitempty"`
 	ProfileId string                                                     `json:"profileId,omitempty"`
-	Addresses []CreateConversationWithConfigRequestParticipantsAddresses `json:"addresses"`
+	Addresses []CreateConversationWithConfigRequestParticipantsAddresses `json:"addresses,omitempty"`
 }

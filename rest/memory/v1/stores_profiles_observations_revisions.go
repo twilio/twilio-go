@@ -192,7 +192,11 @@ func (c *ApiService) StreamObservationRevisions(StoreId string, ProfileId string
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamObservationRevisions(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		path = strings.Replace(path, "{"+"observationId"+"}", ObservationId, -1)
+		go c.streamObservationRevisions(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -215,7 +219,11 @@ func (c *ApiService) StreamObservationRevisionsWithMetadata(StoreId string, Prof
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamObservationRevisions(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		path = strings.Replace(path, "{"+"observationId"+"}", ObservationId, -1)
+		go c.streamObservationRevisions(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ObservationInfo](
@@ -227,7 +235,7 @@ func (c *ApiService) StreamObservationRevisionsWithMetadata(StoreId string, Prof
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamObservationRevisions(response *ListObservationRevisionsResponse, params *ListObservationRevisionsParams, recordChannel chan ObservationInfo, errorChannel chan error) {
+func (c *ApiService) streamObservationRevisions(response *ListObservationRevisionsResponse, path string, params *ListObservationRevisionsParams, recordChannel chan ObservationInfo, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -242,7 +250,7 @@ func (c *ApiService) streamObservationRevisions(response *ListObservationRevisio
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/{profileId}/Observations/{observationId}/Revisions", response, c.getNextListObservationRevisionsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListObservationRevisionsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

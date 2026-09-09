@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Memory** | [**ContextMemory**](ContextMemory.md) |  |[optional] 
-**Knowledge** | [**ContextKnowledge**](ContextKnowledge.md) |  |[optional] 
+**Memory** | Pointer to [**ContextMemory**](ContextMemory.md) |  |
+**Knowledge** | Pointer to [**ContextKnowledge**](ContextKnowledge.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

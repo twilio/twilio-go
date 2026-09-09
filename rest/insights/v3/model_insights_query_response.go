@@ -20,5 +20,5 @@ type InsightsQueryResponse struct {
 	Domain string `json:"domain,omitempty"`
 	// Array of result objects containing the query results. Each object contains properties matching the requested measures and dimensions.
 	Items []map[string]interface{} `json:"items,omitempty"`
-	Meta  PaginationMeta           `json:"meta,omitempty"`
+	Meta  *PaginationMeta          `json:"meta,omitempty"`
 }

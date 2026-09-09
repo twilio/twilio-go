@@ -16,6 +16,6 @@ package openapi
 
 // FetchTraitGroupResponse struct for FetchTraitGroupResponse
 type FetchTraitGroupResponse struct {
-	TraitGroup TraitGroup `json:"traitGroup,omitempty"`
-	Meta       Meta       `json:"meta,omitempty"`
+	TraitGroup *TraitGroup `json:"traitGroup,omitempty"`
+	Meta       *Meta       `json:"meta,omitempty"`
 }

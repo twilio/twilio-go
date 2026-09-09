@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The unique identifier for this suggestion. |
-**MappingFrom** | [**DataMappingFromTypes**](DataMappingFromTypes.md) |  |
-**MappingTo** | [**DataMappingSuggestionToTraitsResult**](DataMappingSuggestionToTraitsResult.md) |  |
+**MappingFrom** | Pointer to [**DataMappingFromTypes**](DataMappingFromTypes.md) |  |
+**MappingTo** | Pointer to [**DataMappingSuggestionToTraitsResult**](DataMappingSuggestionToTraitsResult.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | The ISO 8601 timestamp when the suggestion was created. |
 **ExpiresAt** | [**time.Time**](time.Time.md) | The ISO 8601 timestamp when the suggestion expires and is no longer retrievable. |
 

@@ -433,7 +433,10 @@ func (c *ApiService) StreamProfileConversationSummaries(StoreId string, ProfileI
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfileConversationSummaries(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileConversationSummaries(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -456,7 +459,10 @@ func (c *ApiService) StreamProfileConversationSummariesWithMetadata(StoreId stri
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfileConversationSummaries(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileConversationSummaries(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan SummaryInfo](
@@ -468,7 +474,7 @@ func (c *ApiService) StreamProfileConversationSummariesWithMetadata(StoreId stri
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfileConversationSummaries(response *ListProfileConversationSummariesResponse, params *ListProfileConversationSummariesParams, recordChannel chan SummaryInfo, errorChannel chan error) {
+func (c *ApiService) streamProfileConversationSummaries(response *ListProfileConversationSummariesResponse, path string, params *ListProfileConversationSummariesParams, recordChannel chan SummaryInfo, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -483,7 +489,7 @@ func (c *ApiService) streamProfileConversationSummaries(response *ListProfileCon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/{profileId}/ConversationSummaries", response, c.getNextListProfileConversationSummariesResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfileConversationSummariesResponse)
 		if err != nil {
 			errorChannel <- err
 			break

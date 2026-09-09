@@ -414,7 +414,8 @@ func (c *ApiService) StreamConfiguration(params *ListConfigurationParams) (chan 
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConfiguration(response, params, recordChannel, errorChannel)
+		path := "/v2/ControlPlane/Configurations"
+		go c.streamConfiguration(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -437,7 +438,8 @@ func (c *ApiService) StreamConfigurationWithMetadata(params *ListConfigurationPa
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamConfiguration(&resource, params, recordChannel, errorChannel)
+		path := "/v2/ControlPlane/Configurations"
+		go c.streamConfiguration(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan ListConfigurationResponseConfigurations](
@@ -449,7 +451,7 @@ func (c *ApiService) StreamConfigurationWithMetadata(params *ListConfigurationPa
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamConfiguration(response *ListConfigurationResponse, params *ListConfigurationParams, recordChannel chan ListConfigurationResponseConfigurations, errorChannel chan error) {
+func (c *ApiService) streamConfiguration(response *ListConfigurationResponse, path string, params *ListConfigurationParams, recordChannel chan ListConfigurationResponseConfigurations, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -464,7 +466,7 @@ func (c *ApiService) streamConfiguration(response *ListConfigurationResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v2/ControlPlane/Configurations", response, c.getNextListConfigurationResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListConfigurationResponse)
 		if err != nil {
 			errorChannel <- err
 			break
@@ -495,6 +497,103 @@ func (c *ApiService) getNextListConfigurationResponse(nextPageUrl string) (inter
 		return nil, err
 	}
 	return ps, nil
+}
+
+// Optional parameters for the method 'PatchConfiguration'
+type PatchConfigurationParams struct {
+	// Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+	// The partial configuration update.
+	PatchConfigurationRequest *PatchConfigurationRequest `json:"PatchConfigurationRequest,omitempty"`
+}
+
+func (params *PatchConfigurationParams) SetIdempotencyKey(IdempotencyKey string) *PatchConfigurationParams {
+	params.IdempotencyKey = &IdempotencyKey
+	return params
+}
+func (params *PatchConfigurationParams) SetPatchConfigurationRequest(PatchConfigurationRequest PatchConfigurationRequest) *PatchConfigurationParams {
+	params.PatchConfigurationRequest = &PatchConfigurationRequest
+	return params
+}
+
+// Partially update a Configuration. Only fields present in the request body are changed; omitted fields are left untouched. For `channelSettings`, an omitted channel key is preserved, a channel key mapped to a value replaces that channel's settings, and a channel key explicitly mapped to `null` removes it.
+func (c *ApiService) PatchConfiguration(Id string, params *PatchConfigurationParams) (*CreateConfigurationResponse, error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.PatchConfigurationRequest != nil {
+		b, err := json.Marshal(*params.PatchConfigurationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IdempotencyKey != nil {
+		headers["Idempotency-Key"] = *params.IdempotencyKey
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CreateConfigurationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// PatchConfigurationWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PatchConfigurationWithMetadata(Id string, params *PatchConfigurationParams) (*metadata.ResourceMetadata[CreateConfigurationResponse], error) {
+	path := "/v2/ControlPlane/Configurations/{id}"
+	path = strings.Replace(path, "{"+"id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.PatchConfigurationRequest != nil {
+		b, err := json.Marshal(*params.PatchConfigurationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IdempotencyKey != nil {
+		headers["Idempotency-Key"] = *params.IdempotencyKey
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CreateConfigurationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[CreateConfigurationResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
 }
 
 // Optional parameters for the method 'UpdateConfiguration'

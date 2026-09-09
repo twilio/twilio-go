@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Id** | **string** | Communication ID. |
 **ConversationId** | **string** | Conversation ID. |
 **AccountId** | **string** | Account ID. |
-**Author** | [**ConversationsV2ParticipantAddress**](ConversationsV2ParticipantAddress.md) |  |
-**Content** | [**ListCommunicationByConversationResponseCommunicationsContent**](ListCommunicationByConversationResponseCommunicationsContent.md) |  |
+**Author** | Pointer to [**ConversationsV2ParticipantAddress**](ConversationsV2ParticipantAddress.md) |  |
+**Content** | Pointer to [**ListCommunicationByConversationResponseCommunicationsContent**](ListCommunicationByConversationResponseCommunicationsContent.md) |  |
 **ChannelId** | **string** | Channel-specific reference ID. |[optional] 
 **ResourceId** | **string** | External resource identifier for this Communication (e.g. MessageSid for SMS/RCS/WhatsApp, TranscriptionSid + MessageIndex for Voice). When set, used for Communication deduplication/uniqueness within a Conversation. |[optional] 
 **Recipients** | [**[]ListCommunicationByConversationResponseCommunicationsRecipients**](ListCommunicationByConversationResponseCommunicationsRecipients.md) | Communication recipients. |

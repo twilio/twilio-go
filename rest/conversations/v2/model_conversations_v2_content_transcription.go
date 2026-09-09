@@ -19,6 +19,6 @@ type ConversationsV2ContentTranscription struct {
 	// Content type discriminator.
 	Type string `json:"type"`
 	// Transcribed text.
-	Text          string                                           `json:"text"`
-	Transcription ConversationsV2ContentTranscriptionTranscription `json:"transcription,omitempty"`
+	Text          string                                            `json:"text"`
+	Transcription *ConversationsV2ContentTranscriptionTranscription `json:"transcription,omitempty"`
 }

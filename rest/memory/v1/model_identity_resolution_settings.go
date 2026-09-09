@@ -17,9 +17,9 @@ package openapi
 // IdentityResolutionSettings struct for IdentityResolutionSettings
 type IdentityResolutionSettings struct {
 	// List of identifier types and their resolution settings.
-	IdentifierConfigs []IdentifierConfig `json:"identifierConfigs"`
+	IdentifierConfigs []IdentifierConfig `json:"identifierConfigs,omitempty"`
 	// Priority list of identifiers to locate profiles to apply new data to, or for determining if two existing profiles should merge.   Individual rules are evaluated with `OR` logic between them, meaning that satisfying any single rule will trigger a match. Each rule is a single identifier type; compound rules are not supported.  Rules are evaluated in order. - If no rule matches against existing profiles, a new profile will be created.  - If a rule matches to a single existing profile, the profile will be updated.  - If a rule matches to multiple existing profiles, those existing profiles will be merged.
-	MatchingRules []string `json:"matchingRules"`
+	MatchingRules []string `json:"matchingRules,omitempty"`
 	// The current version number of the Identity Resolution Settings. Incremented on each successful update.
 	Version int `json:"version"`
 }

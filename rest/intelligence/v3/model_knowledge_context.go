@@ -17,5 +17,5 @@ package openapi
 // KnowledgeContext Knowledge applied to this Operator execution.
 type KnowledgeContext struct {
 	// The `id`s of the Knowledge Base(s) made available to the Language Operator for use during execution.
-	Bases []string `json:"bases"`
+	Bases []string `json:"bases,omitempty"`
 }

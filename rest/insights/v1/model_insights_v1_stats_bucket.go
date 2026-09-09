@@ -16,11 +16,11 @@ package openapi
 
 // InsightsV1StatsBucket struct for InsightsV1StatsBucket
 type InsightsV1StatsBucket struct {
-	Window InsightsV1Window `json:"window,omitempty"`
+	Window *InsightsV1Window `json:"window,omitempty"`
 	// Call counts keyed by call direction/kind (dynamic keys)
-	Calls    map[string]int    `json:"calls,omitempty"`
-	Pdd      InsightsV1Metrics `json:"pdd,omitempty"`
-	Duration InsightsV1Metrics `json:"duration,omitempty"`
+	Calls    map[string]int     `json:"calls,omitempty"`
+	Pdd      *InsightsV1Metrics `json:"pdd,omitempty"`
+	Duration *InsightsV1Metrics `json:"duration,omitempty"`
 	// Count of calls per call state
 	CallStates map[string]int `json:"call_states,omitempty"`
 	// Count of calls per direction

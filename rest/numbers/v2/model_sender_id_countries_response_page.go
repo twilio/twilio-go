@@ -18,5 +18,5 @@ package openapi
 type SenderIdCountriesResponsePage struct {
 	// List of countries associated with the Sender ID.
 	Results []SenderIdCountry `json:"results,omitempty"`
-	Meta    PaginationMeta    `json:"meta,omitempty"`
+	Meta    *PaginationMeta   `json:"meta,omitempty"`
 }

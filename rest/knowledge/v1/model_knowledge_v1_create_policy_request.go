@@ -22,7 +22,7 @@ type KnowledgeV1CreatePolicyRequest struct {
 	Id string `json:"id,omitempty"`
 	// The name of the policy.
 	Name          string       `json:"name,omitempty"`
-	PolicyDetails *interface{} `json:"policy_details"`
+	PolicyDetails *interface{} `json:"policy_details,omitempty"`
 	// The description of the policy.
 	Type string `json:"type,omitempty"`
 }

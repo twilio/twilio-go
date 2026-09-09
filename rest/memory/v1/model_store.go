@@ -25,7 +25,7 @@ type Store struct {
 	// The current status of the Memory Store.  A store begins in the QUEUED state as it is scheduled for processing.  It then moves to PROVISIONING at the beginning of processing. It transitions to ACTIVE once all dependent resources are provisioned, including Conversational Intelligence capabilities.  If there is an issue provisioning resources, the store will move to the FAILED state.
 	Status string `json:"status"`
 	// The ID of the associated intelligence service that was provisioned for memory extraction.
-	IntelligenceServiceId *string `json:"intelligenceServiceId"`
+	IntelligenceServiceId *string `json:"intelligenceServiceId,omitempty"`
 	// The current version number of the Memory Store. Incremented on each successful update.
 	Version int `json:"version"`
 }

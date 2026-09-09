@@ -16,6 +16,6 @@ package openapi
 
 // ListConversationByAccountResponse struct for ListConversationByAccountResponse
 type ListConversationByAccountResponse struct {
-	Conversations []ListConversationByAccountResponseConversations `json:"conversations"`
-	Meta          ListConversationByAccountResponseMeta            `json:"meta"`
+	Conversations []ListConversationByAccountResponseConversations `json:"conversations,omitempty"`
+	Meta          *ListConversationByAccountResponseMeta           `json:"meta,omitempty"`
 }

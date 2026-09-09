@@ -16,6 +16,6 @@ package openapi
 
 // ListCallSummariesResponse struct for ListCallSummariesResponse
 type ListCallSummariesResponse struct {
-	CallSummaries []InsightsV1CallSummaries     `json:"call_summaries,omitempty"`
-	Meta          ListCallSummariesResponseMeta `json:"meta,omitempty"`
+	CallSummaries []InsightsV1CallSummaries      `json:"call_summaries,omitempty"`
+	Meta          *ListCallSummariesResponseMeta `json:"meta,omitempty"`
 }

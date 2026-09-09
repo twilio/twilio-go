@@ -16,6 +16,6 @@ package openapi
 
 // ListEventResponse struct for ListEventResponse
 type ListEventResponse struct {
-	Events []MonitorV1Event      `json:"events,omitempty"`
-	Meta   ListAlertResponseMeta `json:"meta,omitempty"`
+	Events []MonitorV1Event       `json:"events,omitempty"`
+	Meta   *ListAlertResponseMeta `json:"meta,omitempty"`
 }

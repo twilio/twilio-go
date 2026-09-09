@@ -31,8 +31,8 @@ type InsightsV2OutboundPhoneNumberReport struct {
 	// Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown`
 	CallsByDeviceType map[string]int `json:"calls_by_device_type,omitempty"`
 	// Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown`
-	AnswerRateDeviceType map[string]float32                                     `json:"answer_rate_device_type,omitempty"`
-	CallStatePercentage  InsightsV2OutboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage,omitempty"`
+	AnswerRateDeviceType map[string]float32                                      `json:"answer_rate_device_type,omitempty"`
+	CallStatePercentage  *InsightsV2OutboundPhoneNumberReportCallStatePercentage `json:"call_state_percentage,omitempty"`
 	// Percentage of blocked calls by carrier per country.
 	BlockedCallsByCarrier []CountyCarrierValue `json:"blocked_calls_by_carrier,omitempty"`
 	// Percentage of calls with silence tags over total calls. A silent tag is indicative of a connectivity issue or muted audio.
@@ -42,24 +42,24 @@ type InsightsV2OutboundPhoneNumberReport struct {
 	// Percentage of long duration calls ( >= 60 seconds)
 	LongDurationCallsPercentage float32 `json:"long_duration_calls_percentage,omitempty"`
 	// Percentage of completed outbound calls to unassigned or unallocated phone numbers.
-	PotentialRobocallsPercentage float32                                                      `json:"potential_robocalls_percentage,omitempty"`
-	AnsweringMachineDetection    InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection `json:"answering_machine_detection,omitempty"`
+	PotentialRobocallsPercentage float32                                                       `json:"potential_robocalls_percentage,omitempty"`
+	AnsweringMachineDetection    *InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection `json:"answering_machine_detection,omitempty"`
 }
 
 func (response *InsightsV2OutboundPhoneNumberReport) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		Handle                       string                                                       `json:"handle"`
-		TotalCalls                   int                                                          `json:"total_calls"`
-		CallAnswerScore              interface{}                                                  `json:"call_answer_score"`
-		CallsByDeviceType            map[string]int                                               `json:"calls_by_device_type"`
-		AnswerRateDeviceType         map[string]float32                                           `json:"answer_rate_device_type"`
-		CallStatePercentage          InsightsV2OutboundPhoneNumberReportCallStatePercentage       `json:"call_state_percentage"`
-		BlockedCallsByCarrier        []CountyCarrierValue                                         `json:"blocked_calls_by_carrier"`
-		SilentCallsPercentage        interface{}                                                  `json:"silent_calls_percentage"`
-		ShortDurationCallsPercentage interface{}                                                  `json:"short_duration_calls_percentage"`
-		LongDurationCallsPercentage  interface{}                                                  `json:"long_duration_calls_percentage"`
-		PotentialRobocallsPercentage interface{}                                                  `json:"potential_robocalls_percentage"`
-		AnsweringMachineDetection    InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection `json:"answering_machine_detection"`
+		Handle                       string                                                        `json:"handle"`
+		TotalCalls                   int                                                           `json:"total_calls"`
+		CallAnswerScore              interface{}                                                   `json:"call_answer_score"`
+		CallsByDeviceType            map[string]int                                                `json:"calls_by_device_type"`
+		AnswerRateDeviceType         map[string]float32                                            `json:"answer_rate_device_type"`
+		CallStatePercentage          *InsightsV2OutboundPhoneNumberReportCallStatePercentage       `json:"call_state_percentage"`
+		BlockedCallsByCarrier        []CountyCarrierValue                                          `json:"blocked_calls_by_carrier"`
+		SilentCallsPercentage        interface{}                                                   `json:"silent_calls_percentage"`
+		ShortDurationCallsPercentage interface{}                                                   `json:"short_duration_calls_percentage"`
+		LongDurationCallsPercentage  interface{}                                                   `json:"long_duration_calls_percentage"`
+		PotentialRobocallsPercentage interface{}                                                   `json:"potential_robocalls_percentage"`
+		AnsweringMachineDetection    *InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection `json:"answering_machine_detection"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {

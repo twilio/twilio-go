@@ -25,7 +25,7 @@ type VoiceV3CreateRequestWithMediaUrl struct {
 	// Discriminator indicating the input source type
 	InputSource string `json:"inputSource,omitempty"`
 	// URL to the media file to transcribe
-	MediaUrl string `json:"mediaUrl"`
+	MediaUrl string `json:"mediaUrl,omitempty"`
 	// The start time of the audio recording
 	AudioStartedAt time.Time `json:"audioStartedAt,omitempty"`
 	// Participants in the conversation. If omitted or partially specified, defaults from the transcription configuration will be applied.

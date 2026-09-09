@@ -17,11 +17,11 @@ package openapi
 // LookupBatchRequest struct for LookupBatchRequest
 type LookupBatchRequest struct {
 	// Unique identifier used to match request with response
-	CorrelationId    string                     `json:"correlation_id,omitempty"`
-	PhoneNumber      string                     `json:"phone_number"`
-	Fields           []string                   `json:"fields,omitempty"`
-	CountryCode      string                     `json:"country_code,omitempty"`
-	IdentityMatch    IdentityMatchParameters    `json:"identity_match,omitempty"`
-	ReassignedNumber ReassignedNumberParameters `json:"reassigned_number,omitempty"`
-	SmsPumpingRisk   RiskParameters             `json:"sms_pumping_risk,omitempty"`
+	CorrelationId    string                      `json:"correlation_id,omitempty"`
+	PhoneNumber      string                      `json:"phone_number"`
+	Fields           []string                    `json:"fields,omitempty"`
+	CountryCode      string                      `json:"country_code,omitempty"`
+	IdentityMatch    *IdentityMatchParameters    `json:"identity_match,omitempty"`
+	ReassignedNumber *ReassignedNumberParameters `json:"reassigned_number,omitempty"`
+	SmsPumpingRisk   *RiskParameters             `json:"sms_pumping_risk,omitempty"`
 }

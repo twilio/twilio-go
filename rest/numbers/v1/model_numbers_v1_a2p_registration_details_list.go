@@ -16,5 +16,5 @@ package openapi
 
 // NumbersV1A2pRegistrationDetailsList struct for NumbersV1A2pRegistrationDetailsList
 type NumbersV1A2pRegistrationDetailsList struct {
-	Data []NumbersV1A2pRegistrationDetails `json:"data"`
+	Data []NumbersV1A2pRegistrationDetails `json:"data,omitempty"`
 }

@@ -16,6 +16,6 @@ package openapi
 
 // ListConfigurationResponse struct for ListConfigurationResponse
 type ListConfigurationResponse struct {
-	Configurations []ListConfigurationResponseConfigurations `json:"configurations"`
-	Meta           ListConfigurationResponseMeta             `json:"meta"`
+	Configurations []ListConfigurationResponseConfigurations `json:"configurations,omitempty"`
+	Meta           *ListConfigurationResponseMeta            `json:"meta,omitempty"`
 }

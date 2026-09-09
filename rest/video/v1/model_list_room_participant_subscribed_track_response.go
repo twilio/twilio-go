@@ -17,5 +17,5 @@ package openapi
 // ListRoomParticipantSubscribedTrackResponse struct for ListRoomParticipantSubscribedTrackResponse
 type ListRoomParticipantSubscribedTrackResponse struct {
 	SubscribedTracks []VideoV1RoomParticipantSubscribedTrack `json:"subscribed_tracks,omitempty"`
-	Meta             ListCompositionResponseMeta             `json:"meta,omitempty"`
+	Meta             *ListCompositionResponseMeta            `json:"meta,omitempty"`
 }

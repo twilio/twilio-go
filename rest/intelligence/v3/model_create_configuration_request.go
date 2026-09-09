@@ -21,5 +21,5 @@ type CreateConfigurationRequest struct {
 	// The description of the Intelligence Configuration further explaining its purpose.
 	Description string `json:"description,omitempty"`
 	// List of Intelligence Configuration Rules that govern when and how Language Operators run. Each Rule represents a bundle of Operators, Triggers, Context, and Actions to be executed by the Intelligence Configuration on a Conversation. A maximum of five (5) Rules are allowed per Intelligence Configuration.  To create an Intelligence Configuration without any Rules configured yet, pass an empty array (`\"rules\": []`). The Configuration will not execute any Language Operators until at least one Rule has been added.
-	Rules []RuleCreationRequestPayload `json:"rules"`
+	Rules []RuleCreationRequestPayload `json:"rules,omitempty"`
 }

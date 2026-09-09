@@ -18,5 +18,5 @@ package openapi
 type TwilioListPicker struct {
 	Body   string     `json:"body"`
 	Button string     `json:"button"`
-	Items  []ListItem `json:"items"`
+	Items  []ListItem `json:"items,omitempty"`
 }

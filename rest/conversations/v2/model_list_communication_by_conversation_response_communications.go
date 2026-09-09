@@ -25,15 +25,15 @@ type ListCommunicationByConversationResponseCommunications struct {
 	// Conversation ID.
 	ConversationId string `json:"conversationId"`
 	// Account ID.
-	AccountId string                                                       `json:"accountId"`
-	Author    ConversationsV2ParticipantAddress                            `json:"author"`
-	Content   ListCommunicationByConversationResponseCommunicationsContent `json:"content"`
+	AccountId string                                                        `json:"accountId"`
+	Author    *ConversationsV2ParticipantAddress                            `json:"author,omitempty"`
+	Content   *ListCommunicationByConversationResponseCommunicationsContent `json:"content,omitempty"`
 	// Channel-specific reference ID.
 	ChannelId string `json:"channelId,omitempty"`
 	// External resource identifier for this Communication (e.g. MessageSid for SMS/RCS/WhatsApp, TranscriptionSid + MessageIndex for Voice). When set, used for Communication deduplication/uniqueness within a Conversation.
 	ResourceId string `json:"resourceId,omitempty"`
 	// Communication recipients.
-	Recipients []ListCommunicationByConversationResponseCommunicationsRecipients `json:"recipients"`
+	Recipients []ListCommunicationByConversationResponseCommunicationsRecipients `json:"recipients,omitempty"`
 	// Timestamp when this Communication was created.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	// Timestamp when this Communication was last updated.

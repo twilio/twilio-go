@@ -27,10 +27,10 @@ type AccountReport struct {
 	// The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
 	CallAnswerScore float32 `json:"call_answer_score,omitempty"`
 	// Total number of calls made during the report period.
-	TotalCalls    int                        `json:"total_calls,omitempty"`
-	CallDirection AccountReportCallDirection `json:"call_direction,omitempty"`
-	CallState     AccountReportCallState     `json:"call_state,omitempty"`
-	CallType      AccountReportCallType      `json:"call_type,omitempty"`
+	TotalCalls    int                         `json:"total_calls,omitempty"`
+	CallDirection *AccountReportCallDirection `json:"call_direction,omitempty"`
+	CallState     *AccountReportCallState     `json:"call_state,omitempty"`
+	CallType      *AccountReportCallType      `json:"call_type,omitempty"`
 	// Average length of call in seconds.
 	Aloc float32 `json:"aloc,omitempty"`
 	// Number of calls made in each Twilio Edge location. Refer to [Public Edge Locations](https://www.twilio.com/docs/global-infrastructure/edge-locations#public-edge-locations) for more detail.
@@ -42,29 +42,29 @@ type AccountReport struct {
 	// Average queue time in milliseconds.
 	AverageQueueTimeMs float32 `json:"average_queue_time_ms,omitempty"`
 	// Percentage of silent calls.
-	SilentCallsPercentage     float32                                `json:"silent_calls_percentage,omitempty"`
-	NetworkIssues             AccountReportNetworkIssues             `json:"network_issues,omitempty"`
-	KYT                       AccountReportKYT                       `json:"KYT,omitempty"`
-	AnsweringMachineDetection AccountReportAnsweringMachineDetection `json:"answering_machine_detection,omitempty"`
+	SilentCallsPercentage     float32                                 `json:"silent_calls_percentage,omitempty"`
+	NetworkIssues             *AccountReportNetworkIssues             `json:"network_issues,omitempty"`
+	KYT                       *AccountReportKYT                       `json:"KYT,omitempty"`
+	AnsweringMachineDetection *AccountReportAnsweringMachineDetection `json:"answering_machine_detection,omitempty"`
 }
 
 func (response *AccountReport) UnmarshalJSON(bytes []byte) (err error) {
 	raw := struct {
-		CallDeliverabilityScore   interface{}                            `json:"call_deliverability_score"`
-		CallAnswerScore           interface{}                            `json:"call_answer_score"`
-		TotalCalls                int                                    `json:"total_calls"`
-		CallDirection             AccountReportCallDirection             `json:"call_direction"`
-		CallState                 AccountReportCallState                 `json:"call_state"`
-		CallType                  AccountReportCallType                  `json:"call_type"`
-		Aloc                      interface{}                            `json:"aloc"`
-		TwilioEdgeLocation        map[string]int                         `json:"twilio_edge_location"`
-		CallerCountryCode         map[string]int                         `json:"caller_country_code"`
-		CalleeCountryCode         map[string]int                         `json:"callee_country_code"`
-		AverageQueueTimeMs        interface{}                            `json:"average_queue_time_ms"`
-		SilentCallsPercentage     interface{}                            `json:"silent_calls_percentage"`
-		NetworkIssues             AccountReportNetworkIssues             `json:"network_issues"`
-		KYT                       AccountReportKYT                       `json:"KYT"`
-		AnsweringMachineDetection AccountReportAnsweringMachineDetection `json:"answering_machine_detection"`
+		CallDeliverabilityScore   interface{}                             `json:"call_deliverability_score"`
+		CallAnswerScore           interface{}                             `json:"call_answer_score"`
+		TotalCalls                int                                     `json:"total_calls"`
+		CallDirection             *AccountReportCallDirection             `json:"call_direction"`
+		CallState                 *AccountReportCallState                 `json:"call_state"`
+		CallType                  *AccountReportCallType                  `json:"call_type"`
+		Aloc                      interface{}                             `json:"aloc"`
+		TwilioEdgeLocation        map[string]int                          `json:"twilio_edge_location"`
+		CallerCountryCode         map[string]int                          `json:"caller_country_code"`
+		CalleeCountryCode         map[string]int                          `json:"callee_country_code"`
+		AverageQueueTimeMs        interface{}                             `json:"average_queue_time_ms"`
+		SilentCallsPercentage     interface{}                             `json:"silent_calls_percentage"`
+		NetworkIssues             *AccountReportNetworkIssues             `json:"network_issues"`
+		KYT                       *AccountReportKYT                       `json:"KYT"`
+		AnsweringMachineDetection *AccountReportAnsweringMachineDetection `json:"answering_machine_detection"`
 	}{}
 
 	if err = json.Unmarshal(bytes, &raw); err != nil {

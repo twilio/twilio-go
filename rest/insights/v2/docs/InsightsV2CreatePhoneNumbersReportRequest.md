@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TimeRange** | [**InsightsV2CreatePhoneNumbersReportRequestTimeRange**](InsightsV2CreatePhoneNumbersReportRequestTimeRange.md) |  |[optional] 
+**TimeRange** | Pointer to [**InsightsV2CreatePhoneNumbersReportRequestTimeRange**](InsightsV2CreatePhoneNumbersReportRequestTimeRange.md) |  |
 **Filters** | [**[]PhoneNumberReportFilter**](PhoneNumberReportFilter.md) |  |[optional] 
 **Size** | **int** | The number of max available top Phone Numbers to generate. |[optional] [default to 1000]
 

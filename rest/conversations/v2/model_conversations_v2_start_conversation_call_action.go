@@ -17,6 +17,6 @@ package openapi
 // ConversationsV2StartConversationCallAction Places an outbound call on the Conversation being started.
 type ConversationsV2StartConversationCallAction struct {
 	// Action type discriminator. Accepted values: CALL.
-	Type    string                                      `json:"type"`
-	Payload ConversationsV2StartConversationCallPayload `json:"payload"`
+	Type    string                                       `json:"type"`
+	Payload *ConversationsV2StartConversationCallPayload `json:"payload,omitempty"`
 }

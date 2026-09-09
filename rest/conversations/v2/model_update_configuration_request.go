@@ -24,11 +24,11 @@ type UpdateConfigurationRequest struct {
 	ConversationGroupingType string `json:"conversationGroupingType"`
 	// The Memory Store ID for profile resolution.
 	MemoryStoreId   string                                                    `json:"memoryStoreId"`
-	ChannelSettings map[string]UpdateConfigurationRequestChannelSettingsValue `json:"channelSettings"`
+	ChannelSettings map[string]UpdateConfigurationRequestChannelSettingsValue `json:"channelSettings,omitempty"`
 	StatusCallbacks []UpdateConfigurationRequestStatusCallbacks               `json:"statusCallbacks,omitempty"`
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-	MemoryExtractionEnabled bool                                            `json:"memoryExtractionEnabled,omitempty"`
-	ConversationsV1Bridge   CreateConfigurationRequestConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
+	MemoryExtractionEnabled bool                                             `json:"memoryExtractionEnabled,omitempty"`
+	ConversationsV1Bridge   *CreateConfigurationRequestConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
 }

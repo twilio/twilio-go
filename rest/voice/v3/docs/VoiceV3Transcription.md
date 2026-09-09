@@ -14,10 +14,11 @@ Name | Type | Description | Notes
 **ConversationId** | Pointer to **string** | Maestro conversation ID, populated once the transcription has been stored in Maestro. |
 **Participants** | [**[]VoiceV3Participant**](VoiceV3Participant.md) | Array of participants in the conversation |[optional] 
 **Duration** | Pointer to **int** | Audio duration in seconds |
-**ResolvedConfiguration** | [**VoiceV3ResolvedConfiguration**](VoiceV3ResolvedConfiguration.md) |  |[optional] 
+**ResolvedConfiguration** | Pointer to [**VoiceV3ResolvedConfiguration**](VoiceV3ResolvedConfiguration.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | When this transcript was created |
 **UpdatedAt** | [**time.Time**](time.Time.md) | When this transcript was last updated |
 **Url** | **string** | The URL of this resource |
+**Links** | Pointer to **map[string]interface{}** | Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription's `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to.  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

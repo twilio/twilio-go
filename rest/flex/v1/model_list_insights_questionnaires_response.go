@@ -17,5 +17,5 @@ package openapi
 // ListInsightsQuestionnairesResponse struct for ListInsightsQuestionnairesResponse
 type ListInsightsQuestionnairesResponse struct {
 	Questionnaires []FlexV1InsightsQuestionnaires `json:"questionnaires,omitempty"`
-	Meta           ListChannelResponseMeta        `json:"meta,omitempty"`
+	Meta           *ListChannelResponseMeta       `json:"meta,omitempty"`
 }

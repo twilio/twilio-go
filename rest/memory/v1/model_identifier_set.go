@@ -19,5 +19,5 @@ type IdentifierSet struct {
 	// Identifier type defined in Identity Resolution Settings.
 	IdType string `json:"idType"`
 	// Server managed collection of stored values for the identifier type.  Identifier values are normalized according to the corresponding identifier settings and ordered chronologically.
-	Values []string `json:"values"`
+	Values []string `json:"values,omitempty"`
 }

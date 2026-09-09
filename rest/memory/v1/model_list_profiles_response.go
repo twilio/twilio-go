@@ -16,6 +16,6 @@ package openapi
 
 // ListProfilesResponse struct for ListProfilesResponse
 type ListProfilesResponse struct {
-	Profiles []string             `json:"profiles,omitempty"`
-	Meta     IdentityProfilesMeta `json:"meta,omitempty"`
+	Profiles []string              `json:"profiles,omitempty"`
+	Meta     *IdentityProfilesMeta `json:"meta,omitempty"`
 }

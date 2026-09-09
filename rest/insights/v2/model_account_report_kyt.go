@@ -16,5 +16,5 @@ package openapi
 
 // AccountReportKYT Know Your Traffic (KYT) metrics focused on outbound carrier performance and trust signals for the report period.
 type AccountReportKYT struct {
-	OutboundCarrierCalling AccountReportKYTOutboundCarrierCalling `json:"outbound_carrier_calling,omitempty"`
+	OutboundCarrierCalling *AccountReportKYTOutboundCarrierCalling `json:"outbound_carrier_calling,omitempty"`
 }

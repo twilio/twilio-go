@@ -21,8 +21,8 @@ type VoiceV3ResolvedConfiguration struct {
 	// The speech model used for transcription (e.g., nova-2, nova-3, chirp_2)
 	SpeechModel string `json:"speechModel,omitempty"`
 	// The language code for transcription
-	Language                    string                             `json:"language,omitempty"`
-	TranscriptionStatusCallback VoiceV3TranscriptionStatusCallback `json:"transcriptionStatusCallback,omitempty"`
+	Language                    string                              `json:"language,omitempty"`
+	TranscriptionStatusCallback *VoiceV3TranscriptionStatusCallback `json:"transcriptionStatusCallback,omitempty"`
 	// Maestro conversation configuration ID
 	ConversationConfigurationId *string `json:"conversationConfigurationId,omitempty"`
 	// Default participant configurations for the transcription

@@ -17,5 +17,5 @@ package openapi
 // LocaleResponse struct for LocaleResponse
 type LocaleResponse struct {
 	// List of supported languages for opt-out configurations
-	Languages []LanguageProperties `json:"languages"`
+	Languages []LanguageProperties `json:"languages,omitempty"`
 }

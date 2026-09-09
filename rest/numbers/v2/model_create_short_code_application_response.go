@@ -41,13 +41,13 @@ type CreateShortCodeApplicationResponse struct {
 	// The ISO country code.
 	IsoCountry string `json:"iso_country,omitempty"`
 	// The state of the application.
-	State               string                                                `json:"state,omitempty"`
-	Setup               CreateShortCodeApplicationResponseSetup               `json:"setup,omitempty"`
-	BusinessInformation CreateShortCodeApplicationResponseBusinessInformation `json:"business_information,omitempty"`
-	UserSignUp          CreateShortCodeApplicationResponseUserSignUp          `json:"user_sign_up,omitempty"`
-	ComplianceKeywords  CreateShortCodeApplicationResponseComplianceKeywords  `json:"compliance_keywords,omitempty"`
-	ContentExamples     CreateShortCodeApplicationResponseContentExamples     `json:"content_examples,omitempty"`
-	SmsCampaignDetails  CreateShortCodeApplicationResponseSmsCampaignDetails  `json:"sms_campaign_details,omitempty"`
+	State               string                                                 `json:"state,omitempty"`
+	Setup               *CreateShortCodeApplicationResponseSetup               `json:"setup,omitempty"`
+	BusinessInformation *CreateShortCodeApplicationResponseBusinessInformation `json:"business_information,omitempty"`
+	UserSignUp          *CreateShortCodeApplicationResponseUserSignUp          `json:"user_sign_up,omitempty"`
+	ComplianceKeywords  *CreateShortCodeApplicationResponseComplianceKeywords  `json:"compliance_keywords,omitempty"`
+	ContentExamples     *CreateShortCodeApplicationResponseContentExamples     `json:"content_examples,omitempty"`
+	SmsCampaignDetails  *CreateShortCodeApplicationResponseSmsCampaignDetails  `json:"sms_campaign_details,omitempty"`
 	// The date and time the application was created.
 	DateCreated time.Time `json:"date_created,omitempty"`
 	// The date and time the application was last updated.

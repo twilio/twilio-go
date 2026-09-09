@@ -17,5 +17,5 @@ package openapi
 // ListServiceConversationMessageResponse struct for ListServiceConversationMessageResponse
 type ListServiceConversationMessageResponse struct {
 	Messages []ConversationsV1ServiceConversationMessage `json:"messages,omitempty"`
-	Meta     ListConfigurationAddressResponseMeta        `json:"meta,omitempty"`
+	Meta     *ListConfigurationAddressResponseMeta       `json:"meta,omitempty"`
 }

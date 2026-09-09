@@ -17,5 +17,5 @@ package openapi
 // ListVerificationTemplateResponse struct for ListVerificationTemplateResponse
 type ListVerificationTemplateResponse struct {
 	Templates []VerifyV2VerificationTemplate `json:"templates,omitempty"`
-	Meta      ListBucketResponseMeta         `json:"meta,omitempty"`
+	Meta      *ListBucketResponseMeta        `json:"meta,omitempty"`
 }

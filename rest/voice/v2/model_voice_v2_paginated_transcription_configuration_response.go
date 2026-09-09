@@ -17,6 +17,6 @@ package openapi
 // VoiceV2PaginatedTranscriptionConfigurationResponse Paginated list of Transcription Configurations.
 type VoiceV2PaginatedTranscriptionConfigurationResponse struct {
 	// The list of Transcription Configurations.
-	Content []VoiceV2Response                         `json:"content,omitempty"`
-	Meta    VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
+	Content []VoiceV2Response                          `json:"content,omitempty"`
+	Meta    *VoiceV2PaginatedConfigurationResponseMeta `json:"meta,omitempty"`
 }

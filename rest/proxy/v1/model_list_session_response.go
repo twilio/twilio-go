@@ -16,6 +16,6 @@ package openapi
 
 // ListSessionResponse struct for ListSessionResponse
 type ListSessionResponse struct {
-	Sessions []ProxyV1Session            `json:"sessions,omitempty"`
-	Meta     ListInteractionResponseMeta `json:"meta,omitempty"`
+	Sessions []ProxyV1Session             `json:"sessions,omitempty"`
+	Meta     *ListInteractionResponseMeta `json:"meta,omitempty"`
 }

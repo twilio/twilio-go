@@ -208,7 +208,10 @@ func (c *ApiService) StreamProfileTraits(StoreId string, ProfileId string, param
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfileTraits(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Traits"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileTraits(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -231,7 +234,10 @@ func (c *ApiService) StreamProfileTraitsWithMetadata(StoreId string, ProfileId s
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfileTraits(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/{profileId}/Traits"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		path = strings.Replace(path, "{"+"profileId"+"}", ProfileId, -1)
+		go c.streamProfileTraits(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan FullTrait](
@@ -243,7 +249,7 @@ func (c *ApiService) StreamProfileTraitsWithMetadata(StoreId string, ProfileId s
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfileTraits(response *ListProfileTraitsResponse, params *ListProfileTraitsParams, recordChannel chan FullTrait, errorChannel chan error) {
+func (c *ApiService) streamProfileTraits(response *ListProfileTraitsResponse, path string, params *ListProfileTraitsParams, recordChannel chan FullTrait, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -258,7 +264,7 @@ func (c *ApiService) streamProfileTraits(response *ListProfileTraitsResponse, pa
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/{profileId}/Traits", response, c.getNextListProfileTraitsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfileTraitsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

@@ -16,6 +16,6 @@ package openapi
 
 // ListServiceResponse struct for ListServiceResponse
 type ListServiceResponse struct {
-	Services []IntelligenceV2Service        `json:"services,omitempty"`
-	Meta     ListCustomOperatorResponseMeta `json:"meta,omitempty"`
+	Services []IntelligenceV2Service         `json:"services,omitempty"`
+	Meta     *ListCustomOperatorResponseMeta `json:"meta,omitempty"`
 }

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **TargetPortInTimeRangeEnd** | Pointer to **string** | The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone. |
 **PortInRequestStatus** | Pointer to **string** | The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled. |
 **OrderCancellationReason** | Pointer to **string** | If the order is cancelled this field will provide further context on the cause of the cancellation. |
-**LosingCarrierInformation** | [**NumbersV1PortingLosingCarrierInformation**](NumbersV1PortingLosingCarrierInformation.md) |  |[optional] 
+**LosingCarrierInformation** | Pointer to [**NumbersV1PortingLosingCarrierInformation**](NumbersV1PortingLosingCarrierInformation.md) |  |
 **PhoneNumbers** | Pointer to [**[]NumbersV1PortingPortInPhoneNumberResult**](NumbersV1PortingPortInPhoneNumberResult.md) |  |
 **BundleSid** | Pointer to **string** | The bundle sid is an optional identifier to reference a group of regulatory documents for a port request. |
 **PortabilityAdvanceCarrier** | Pointer to **string** | A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from. |

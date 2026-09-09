@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Conversation name. |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was created. |[optional] 
 **UpdatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was last updated. |[optional] 
-**Configuration** | [**ListConversationByAccountResponseConversationsConfiguration**](ListConversationByAccountResponseConversationsConfiguration.md) |  |[optional] 
+**Configuration** | Pointer to [**ListConversationByAccountResponseConversationsConfiguration**](ListConversationByAccountResponseConversationsConfiguration.md) |  |
 **Participants** | [**[]ConversationsV2Participant**](ConversationsV2Participant.md) | Participants in this Conversation. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

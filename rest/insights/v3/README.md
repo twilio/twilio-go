@@ -37,6 +37,10 @@ Class | Method | HTTP request | Description
 *InsightsDomainsConversationsMetadataApi* | [**FetchMetadata**](docs/InsightsDomainsConversationsMetadataApi.md#fetchmetadata) | **Get** /v3/InsightsDomains/Conversations/Metadata | Retrieve domain metadata
 *InsightsDomainsConversationsQueryApi* | [**CreateQueryResults**](docs/InsightsDomainsConversationsQueryApi.md#createqueryresults) | **Post** /v3/InsightsDomains/Conversations/Query | Execute a synchronous semantic query
 *InsightsDomainsConversationsQueryApi* | [**FetchQueryResults**](docs/InsightsDomainsConversationsQueryApi.md#fetchqueryresults) | **Get** /v3/InsightsDomains/Conversations/Query | Retrieve paginated query results
+*InsightsDomainsConversationsQueryJobsApi* | [**CreateQueryJob**](docs/InsightsDomainsConversationsQueryJobsApi.md#createqueryjob) | **Post** /v3/InsightsDomains/Conversations/QueryJobs | Submit an asynchronous query
+*InsightsDomainsConversationsQueryJobsApi* | [**FetchQueryJobStatus**](docs/InsightsDomainsConversationsQueryJobsApi.md#fetchqueryjobstatus) | **Get** /v3/InsightsDomains/Conversations/QueryJobs/{operationId} | Retrieve asynchronous query status and results
+*InsightsDomainsConversationsQueryJobsApi* | [**ListQueryJobs**](docs/InsightsDomainsConversationsQueryJobsApi.md#listqueryjobs) | **Get** /v3/InsightsDomains/Conversations/QueryJobs | Retrieve a list of asynchronous queries
+*InsightsDomainsConversationsQueryJobsResultsApi* | [**FetchQueryJobResults**](docs/InsightsDomainsConversationsQueryJobsResultsApi.md#fetchqueryjobresults) | **Get** /v3/InsightsDomains/Conversations/QueryJobs/{operationId}/Results | Retrieve asynchronous query results
 
 
 ## Documentation For Models

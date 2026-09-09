@@ -17,5 +17,5 @@ package openapi
 // ListInsightsConversationsResponse struct for ListInsightsConversationsResponse
 type ListInsightsConversationsResponse struct {
 	Conversations []FlexV1InsightsConversations `json:"conversations,omitempty"`
-	Meta          ListChannelResponseMeta       `json:"meta,omitempty"`
+	Meta          *ListChannelResponseMeta      `json:"meta,omitempty"`
 }

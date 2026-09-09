@@ -24,7 +24,7 @@ import (
 type MarketplaceV1InstalledAddOnUsage struct {
 	// Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
 	TotalSubmitted float32                                                       `json:"total_submitted,omitempty"`
-	BillableItems  []MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems `json:"billable_items"`
+	BillableItems  []MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems `json:"billable_items,omitempty"`
 }
 
 func (response *MarketplaceV1InstalledAddOnUsage) UnmarshalJSON(bytes []byte) (err error) {

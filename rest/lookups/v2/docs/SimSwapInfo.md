@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastSimSwap** | [**LastSimSwapInfo**](LastSimSwapInfo.md) |  |[optional] 
+**LastSimSwap** | Pointer to [**LastSimSwapInfo**](LastSimSwapInfo.md) |  |
 **CarrierName** | **string** |  |[optional] 
 **MobileCountryCode** | **string** |  |[optional] 
 **MobileNetworkCode** | **string** |  |[optional] 

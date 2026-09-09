@@ -16,6 +16,6 @@ package openapi
 
 // InsightsV2CreateAccountReportRequest struct for InsightsV2CreateAccountReportRequest
 type InsightsV2CreateAccountReportRequest struct {
-	TimeRange InsightsV2CreateAccountReportRequestTimeRange `json:"time_range,omitempty"`
-	Filters   []ReportFilter                                `json:"filters,omitempty"`
+	TimeRange *InsightsV2CreateAccountReportRequestTimeRange `json:"time_range,omitempty"`
+	Filters   []ReportFilter                                 `json:"filters,omitempty"`
 }

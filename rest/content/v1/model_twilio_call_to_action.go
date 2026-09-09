@@ -17,5 +17,5 @@ package openapi
 // TwilioCallToAction twilio/call-to-action buttons let recipients tap to trigger actions such as launching a website or making a phone call.
 type TwilioCallToAction struct {
 	Body    string               `json:"body"`
-	Actions []CallToActionAction `json:"actions"`
+	Actions []CallToActionAction `json:"actions,omitempty"`
 }

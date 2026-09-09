@@ -17,10 +17,10 @@ package openapi
 // VoiceV2Configuration Configuration for Twilio Voice Recording Service.
 type VoiceV2Configuration struct {
 	// The configuration type discriminator. Always \"Recording\" for this resource.
-	ConfigurationType                 string                   `json:"configurationType"`
-	CompositionPolicy                 VoiceV2CompositionPolicy `json:"compositionPolicy,omitempty"`
-	CallRecordingStatusCallback       VoiceV2StatusCallback    `json:"callRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallback VoiceV2StatusCallback    `json:"conferenceRecordingStatusCallback,omitempty"`
+	ConfigurationType                 string                    `json:"configurationType"`
+	CompositionPolicy                 *VoiceV2CompositionPolicy `json:"compositionPolicy,omitempty"`
+	CallRecordingStatusCallback       *VoiceV2StatusCallback    `json:"callRecordingStatusCallback,omitempty"`
+	ConferenceRecordingStatusCallback *VoiceV2StatusCallback    `json:"conferenceRecordingStatusCallback,omitempty"`
 	// The features to apply to this recording.
 	Features *[]VoiceV2Feature `json:"features,omitempty"`
 }

@@ -18,5 +18,5 @@ package openapi
 type NumbersV1PortingBulkUpdateStatusRequest struct {
 	// The new status to set for the port in request.
 	NewStatus                 string                                                             `json:"new_status"`
-	PortInPhoneNumberRequests []NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests `json:"port_in_phone_number_requests"`
+	PortInPhoneNumberRequests []NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests `json:"port_in_phone_number_requests,omitempty"`
 }

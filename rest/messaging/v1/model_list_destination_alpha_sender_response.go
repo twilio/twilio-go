@@ -17,5 +17,5 @@ package openapi
 // ListDestinationAlphaSenderResponse struct for ListDestinationAlphaSenderResponse
 type ListDestinationAlphaSenderResponse struct {
 	AlphaSenders []MessagingV1DestinationAlphaSender `json:"alpha_senders,omitempty"`
-	Meta         ListAlphaSenderResponseMeta         `json:"meta,omitempty"`
+	Meta         *ListAlphaSenderResponseMeta        `json:"meta,omitempty"`
 }

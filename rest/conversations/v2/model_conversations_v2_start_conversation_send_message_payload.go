@@ -16,10 +16,10 @@ package openapi
 
 // ConversationsV2StartConversationSendMessagePayload Message to send on the Conversation being started.
 type ConversationsV2StartConversationSendMessagePayload struct {
-	From ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
+	From *ConversationsV2StartConversationParticipantSelector `json:"from,omitempty"`
 	// The single recipient (1:1). Defaults to the roster's only `CUSTOMER` Participant.
 	To      []ConversationsV2StartConversationParticipantSelector `json:"to,omitempty"`
-	Content ConversationsV2SendContent                            `json:"content"`
+	Content *ConversationsV2SendContent                           `json:"content,omitempty"`
 	// Channel-specific parameters forwarded as-is to the downstream sending service. Allows passing backend-specific fields without requiring API changes.
 	ChannelSettings map[string]interface{} `json:"channelSettings,omitempty"`
 }

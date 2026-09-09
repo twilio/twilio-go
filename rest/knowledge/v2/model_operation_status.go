@@ -29,9 +29,9 @@ type OperationStatus struct {
 	// URI to check operation status.
 	StatusUrl string `json:"statusUrl,omitempty"`
 	// When the operation completed or failed.
-	CompletedAt time.Time                 `json:"completedAt,omitempty"`
-	Result      OperationResultResourceId `json:"result,omitempty"`
-	Error       OperationStatusError      `json:"error,omitempty"`
+	CompletedAt time.Time                  `json:"completedAt,omitempty"`
+	Result      *OperationResultResourceId `json:"result,omitempty"`
+	Error       *OperationStatusError      `json:"error,omitempty"`
 	// URL to fetch the resulting resource.
 	ResultUrl string `json:"resultUrl,omitempty"`
 }

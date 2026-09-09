@@ -17,5 +17,5 @@ package openapi
 // ListProfileObservationsResponse struct for ListProfileObservationsResponse
 type ListProfileObservationsResponse struct {
 	Observations []ObservationInfo `json:"observations,omitempty"`
-	Meta         ObservationsMeta  `json:"meta,omitempty"`
+	Meta         *ObservationsMeta `json:"meta,omitempty"`
 }

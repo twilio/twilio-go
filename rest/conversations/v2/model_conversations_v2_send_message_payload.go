@@ -16,10 +16,10 @@ package openapi
 
 // ConversationsV2SendMessagePayload struct for ConversationsV2SendMessagePayload
 type ConversationsV2SendMessagePayload struct {
-	From ConversationsV2SendMessageParticipant `json:"from"`
+	From *ConversationsV2SendMessageParticipant `json:"from,omitempty"`
 	// The recipients of this action.
-	To      []ConversationsV2SendMessageParticipant `json:"to"`
-	Content ConversationsV2SendMessageContent       `json:"content"`
+	To      []ConversationsV2SendMessageParticipant `json:"to,omitempty"`
+	Content *ConversationsV2SendMessageContent      `json:"content,omitempty"`
 	// Channel-specific parameters forwarded as-is to the downstream sending service. Allows passing backend-specific fields without requiring API changes.
 	ChannelSettings map[string]interface{} `json:"channelSettings,omitempty"`
 }

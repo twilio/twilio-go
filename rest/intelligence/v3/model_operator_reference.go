@@ -21,5 +21,5 @@ type OperatorReference struct {
 	// Version of the Language Operator used to generate the Operator Result.
 	Version int `json:"version"`
 	// Parameter values used for Operator execution, provided by the Rule at runtime. This object contains a dictionary of parameter keys and their corresponding values.
-	Parameters map[string]interface{} `json:"parameters"`
+	Parameters map[string]interface{} `json:"parameters,omitempty"`
 }

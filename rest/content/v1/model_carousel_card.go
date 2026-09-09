@@ -19,5 +19,5 @@ type CarouselCard struct {
 	Title   string           `json:"title,omitempty"`
 	Body    string           `json:"body"`
 	Media   string           `json:"media"`
-	Actions []CarouselAction `json:"actions"`
+	Actions []CarouselAction `json:"actions,omitempty"`
 }

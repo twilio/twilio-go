@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteConfiguration**](ControlPlaneConfigurationsApi.md#DeleteConfiguration) | **Delete** /v2/ControlPlane/Configurations/{id} | Delete Configuration
 [**FetchConfiguration**](ControlPlaneConfigurationsApi.md#FetchConfiguration) | **Get** /v2/ControlPlane/Configurations/{id} | Fetch Configuration
 [**ListConfiguration**](ControlPlaneConfigurationsApi.md#ListConfiguration) | **Get** /v2/ControlPlane/Configurations | List Configurations
+[**PatchConfiguration**](ControlPlaneConfigurationsApi.md#PatchConfiguration) | **Patch** /v2/ControlPlane/Configurations/{id} | Patch Configuration
 [**UpdateConfiguration**](ControlPlaneConfigurationsApi.md#UpdateConfiguration) | **Put** /v2/ControlPlane/Configurations/{id} | Update Configuration
 
 
@@ -172,6 +173,50 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchConfiguration
+
+> CreateConfigurationResponse PatchConfiguration(ctx, Idoptional)
+
+Patch Configuration
+
+Partially update a Configuration. Only fields present in the request body are changed; omitted fields are left untouched. For `channelSettings`, an omitted channel key is preserved, a channel key mapped to a value replaces that channel's settings, and a channel key explicitly mapped to `null` removes it.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Id** | **string** | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a PatchConfigurationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**IdempotencyKey** | **string** | Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL.
+**PatchConfigurationRequest** | [**PatchConfigurationRequest**](PatchConfigurationRequest.md) | The partial configuration update.
+
+### Return type
+
+[**CreateConfigurationResponse**](CreateConfiguration202Response.md)
+
+### Authorization
+
+[basic_apikey_or_accountsid](../README.md#basic_apikey_or_accountsid)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

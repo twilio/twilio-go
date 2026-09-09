@@ -16,7 +16,7 @@ package openapi
 
 // ConversationsV2ChannelSetting Configuration settings for a specific channel type.
 type ConversationsV2ChannelSetting struct {
-	StatusTimeouts ConversationsV2StatusTimeouts `json:"statusTimeouts,omitempty"`
+	StatusTimeouts *ConversationsV2StatusTimeouts `json:"statusTimeouts,omitempty"`
 	// Array of capture rules with from/to addresses and optional metadata. Use `*` for wildcard matching in either direction.
 	CaptureRules []ConversationsV2CaptureRule `json:"captureRules,omitempty"`
 }

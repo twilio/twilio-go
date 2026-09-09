@@ -32,7 +32,7 @@ type LanguageOperator struct {
 	OutputSchema map[string]interface{} `json:"outputSchema,omitempty"`
 	// An array of example input/output pairs used to illustrate the intended behavior of the Language Operator. These examples help guide the model's understanding of expected input–output relationships and improve consistency during evaluation and testing.  **Note**: Training examples will only be exposed for Custom Operators (`author` = `SELF`). Twilio-authored Operators (`author` = `TWILIO`) will have their training examples omitted from the API.
 	TrainingExamples []OperatorTrainingExample `json:"trainingExamples,omitempty"`
-	Context          OperatorContext           `json:"context,omitempty"`
+	Context          *OperatorContext          `json:"context,omitempty"`
 	// Defines the schema of the parameters that are provided when running the operator, including required and optional values that determine the operator's behavior. The values of the parameters themselves are passed in by the attached Intelligence Configuration.
 	Parameters map[string]OperatorParameter `json:"parameters,omitempty"`
 }

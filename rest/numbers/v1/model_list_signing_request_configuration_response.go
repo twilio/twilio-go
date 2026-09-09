@@ -16,6 +16,6 @@ package openapi
 
 // ListSigningRequestConfigurationResponse struct for ListSigningRequestConfigurationResponse
 type ListSigningRequestConfigurationResponse struct {
-	Configurations []NumbersV1SigningRequestConfiguration      `json:"configurations,omitempty"`
-	Meta           ListSigningRequestConfigurationResponseMeta `json:"meta,omitempty"`
+	Configurations []NumbersV1SigningRequestConfiguration       `json:"configurations,omitempty"`
+	Meta           *ListSigningRequestConfigurationResponseMeta `json:"meta,omitempty"`
 }

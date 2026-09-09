@@ -16,7 +16,7 @@ package openapi
 
 // StirShaken Metrics related to STIR/SHAKEN attestation A, B, and C for the report period.
 type StirShaken struct {
-	CallCount  StirShakenCallCount  `json:"call_count,omitempty"`
-	Percentage StirShakenPercentage `json:"percentage,omitempty"`
-	AnswerRate StirShakenAnswerRate `json:"answer_rate,omitempty"`
+	CallCount  *StirShakenCallCount  `json:"call_count,omitempty"`
+	Percentage *StirShakenPercentage `json:"percentage,omitempty"`
+	AnswerRate *StirShakenAnswerRate `json:"answer_rate,omitempty"`
 }

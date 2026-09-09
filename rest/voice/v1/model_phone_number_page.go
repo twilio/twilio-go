@@ -16,6 +16,6 @@ package openapi
 
 // PhoneNumberPage struct for PhoneNumberPage
 type PhoneNumberPage struct {
-	Results []GetPhoneNumber       `json:"results"`
+	Results []GetPhoneNumber       `json:"results,omitempty"`
 	Meta    map[string]interface{} `json:"meta"`
 }

@@ -337,7 +337,9 @@ func (c *ApiService) StreamProfileImportsV2(StoreId string, params *ListProfileI
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamProfileImportsV2(response, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/Imports"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamProfileImportsV2(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -360,7 +362,9 @@ func (c *ApiService) StreamProfileImportsV2WithMetadata(StoreId string, params *
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamProfileImportsV2(&resource, params, recordChannel, errorChannel)
+		path := "/v1/Stores/{storeId}/Profiles/Imports"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamProfileImportsV2(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan string](
@@ -372,7 +376,7 @@ func (c *ApiService) StreamProfileImportsV2WithMetadata(StoreId string, params *
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamProfileImportsV2(response *ListProfileImportsV0Response, params *ListProfileImportsV2Params, recordChannel chan string, errorChannel chan error) {
+func (c *ApiService) streamProfileImportsV2(response *ListProfileImportsV0Response, path string, params *ListProfileImportsV2Params, recordChannel chan string, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -387,7 +391,7 @@ func (c *ApiService) streamProfileImportsV2(response *ListProfileImportsV0Respon
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/Stores/{storeId}/Profiles/Imports", response, c.getNextListProfileImportsV0Response)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListProfileImportsV0Response)
 		if err != nil {
 			errorChannel <- err
 			break

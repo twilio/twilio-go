@@ -16,6 +16,6 @@ package openapi
 
 // ListDependentHostedNumberOrderResponse struct for ListDependentHostedNumberOrderResponse
 type ListDependentHostedNumberOrderResponse struct {
-	Items []NumbersV2DependentHostedNumberOrder `json:"items,omitempty"`
-	Meta  ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
+	Items []NumbersV2DependentHostedNumberOrder  `json:"items,omitempty"`
+	Meta  *ListAuthorizationDocumentResponseMeta `json:"meta,omitempty"`
 }

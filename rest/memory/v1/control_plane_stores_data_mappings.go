@@ -407,7 +407,9 @@ func (c *ApiService) StreamDataMappings(StoreId string, params *ListDataMappings
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamDataMappings(response, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores/{storeId}/DataMappings"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamDataMappings(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -430,7 +432,9 @@ func (c *ApiService) StreamDataMappingsWithMetadata(StoreId string, params *List
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamDataMappings(&resource, params, recordChannel, errorChannel)
+		path := "/v1/ControlPlane/Stores/{storeId}/DataMappings"
+		path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
+		go c.streamDataMappings(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan DataMapping](
@@ -442,7 +446,7 @@ func (c *ApiService) StreamDataMappingsWithMetadata(StoreId string, params *List
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamDataMappings(response *DataMappingList, params *ListDataMappingsParams, recordChannel chan DataMapping, errorChannel chan error) {
+func (c *ApiService) streamDataMappings(response *DataMappingList, path string, params *ListDataMappingsParams, recordChannel chan DataMapping, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -457,7 +461,7 @@ func (c *ApiService) streamDataMappings(response *DataMappingList, params *ListD
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v1/ControlPlane/Stores/{storeId}/DataMappings", response, c.getNextDataMappingList)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextDataMappingList)
 		if err != nil {
 			errorChannel <- err
 			break

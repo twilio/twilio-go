@@ -17,5 +17,5 @@ package openapi
 // ListInteractionChannelResponse struct for ListInteractionChannelResponse
 type ListInteractionChannelResponse struct {
 	Channels []FlexV1InteractionChannel `json:"channels,omitempty"`
-	Meta     ListChannelResponseMeta    `json:"meta,omitempty"`
+	Meta     *ListChannelResponseMeta   `json:"meta,omitempty"`
 }

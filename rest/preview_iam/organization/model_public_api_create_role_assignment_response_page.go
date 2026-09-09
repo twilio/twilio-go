@@ -18,5 +18,5 @@ package openapi
 type PublicApiCreateRoleAssignmentResponsePage struct {
 	// Page content
 	Content []PublicApiRoleAssignmentResponse `json:"content,omitempty"`
-	Meta    PublicApiAccountResponsePageMeta  `json:"meta,omitempty"`
+	Meta    *PublicApiAccountResponsePageMeta `json:"meta,omitempty"`
 }

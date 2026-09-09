@@ -17,5 +17,5 @@ package openapi
 // CreateSummariesRequest Request payload for creating one or more conversation summaries. Supports creation of up to 10 summaries.
 type CreateSummariesRequest struct {
 	// Array of summaries to create in a single batch operation.
-	Summaries []SummaryCore `json:"summaries"`
+	Summaries []SummaryCore `json:"summaries,omitempty"`
 }

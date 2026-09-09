@@ -23,6 +23,6 @@ type VerifyPasskeysFactorRequest struct {
 	// A string that indicates the mechanism by which the WebAuthn implementation is attached to the authenticator at the time the associated  `navigator.credentials.create()` or `navigator.credentials.get()` call completes.
 	AuthenticatorAttachment string `json:"authenticatorAttachment,omitempty"`
 	// The valid credential types supported by the API. The values of this enumeration are used for versioning the `AuthenticatorAssertion` and `AuthenticatorAttestation` structures according to the type of the authenticator.
-	Type     string                              `json:"type,omitempty"`
-	Response VerifyPasskeysFactorRequestResponse `json:"response"`
+	Type     string                               `json:"type,omitempty"`
+	Response *VerifyPasskeysFactorRequestResponse `json:"response,omitempty"`
 }

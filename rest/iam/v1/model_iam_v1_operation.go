@@ -30,11 +30,11 @@ type IamV1Operation struct {
 	// The date that this Operation was created, given in RFC 2822 format.
 	DateCreated time.Time `json:"dateCreated,omitempty"`
 	// The date that the Operation was completed, if applicable.
-	DateCompleted time.Time          `json:"dateCompleted,omitempty"`
-	Meta          IamV1OperationMeta `json:"meta,omitempty"`
+	DateCompleted time.Time           `json:"dateCompleted,omitempty"`
+	Meta          *IamV1OperationMeta `json:"meta,omitempty"`
 	// A polymorphic input object. Fields vary depending on the operation.
 	Input map[string]interface{} `json:"input,omitempty"`
 	// A polymorphic result object. Fields vary depending on the operation. Common fields include:   - `resourceId`: string
 	Result map[string]interface{} `json:"result,omitempty"`
-	Error  IamV1OperationError    `json:"error,omitempty"`
+	Error  *IamV1OperationError   `json:"error,omitempty"`
 }

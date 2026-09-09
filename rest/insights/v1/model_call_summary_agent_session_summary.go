@@ -16,15 +16,15 @@ package openapi
 
 // CallSummaryAgentSessionSummary struct for CallSummaryAgentSessionSummary
 type CallSummaryAgentSessionSummary struct {
-	SessionId            string                         `json:"session_id,omitempty"`
-	TtsLatencyMs         CallSummaryCrelayRateStats     `json:"tts_latency_ms,omitempty"`
-	SttLatencyMs         CallSummaryCrelayRateStats     `json:"stt_latency_ms,omitempty"`
-	NetworkLatencyMs     CallSummaryCrelayRateStats     `json:"network_latency_ms,omitempty"`
-	TimeToFirstAudioMs   CallSummaryCrelayRateStats     `json:"time_to_first_audio_ms,omitempty"`
-	ApplicationLatencyMs CallSummaryCrelayRateStats     `json:"application_latency_ms,omitempty"`
-	Tokens               CallSummaryCrelayTokenStats    `json:"tokens,omitempty"`
-	Words                CallSummaryCrelayWordStats     `json:"words,omitempty"`
-	Turns                int                            `json:"turns,omitempty"`
-	Interruptions        CallSummaryCrelayInterruptions `json:"interruptions,omitempty"`
-	SessionState         CallSummaryCrelaySessionState  `json:"session_state,omitempty"`
+	SessionId            string                          `json:"session_id,omitempty"`
+	TtsLatencyMs         *CallSummaryCrelayRateStats     `json:"tts_latency_ms,omitempty"`
+	SttLatencyMs         *CallSummaryCrelayRateStats     `json:"stt_latency_ms,omitempty"`
+	NetworkLatencyMs     *CallSummaryCrelayRateStats     `json:"network_latency_ms,omitempty"`
+	TimeToFirstAudioMs   *CallSummaryCrelayRateStats     `json:"time_to_first_audio_ms,omitempty"`
+	ApplicationLatencyMs *CallSummaryCrelayRateStats     `json:"application_latency_ms,omitempty"`
+	Tokens               *CallSummaryCrelayTokenStats    `json:"tokens,omitempty"`
+	Words                *CallSummaryCrelayWordStats     `json:"words,omitempty"`
+	Turns                int                             `json:"turns,omitempty"`
+	Interruptions        *CallSummaryCrelayInterruptions `json:"interruptions,omitempty"`
+	SessionState         CallSummaryCrelaySessionState   `json:"session_state,omitempty"`
 }

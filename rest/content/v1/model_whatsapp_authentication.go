@@ -24,7 +24,7 @@ import (
 type WhatsappAuthentication struct {
 	AddSecurityRecommendation bool                   `json:"add_security_recommendation,omitempty"`
 	CodeExpirationMinutes     float32                `json:"code_expiration_minutes,omitempty"`
-	Actions                   []AuthenticationAction `json:"actions"`
+	Actions                   []AuthenticationAction `json:"actions,omitempty"`
 }
 
 func (response *WhatsappAuthentication) UnmarshalJSON(bytes []byte) (err error) {

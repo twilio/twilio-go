@@ -361,7 +361,8 @@ func (c *ApiService) StreamConfigurations(params *ListConfigurationsParams) (cha
 		close(recordChannel)
 		close(errorChannel)
 	} else {
-		go c.streamConfigurations(response, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Configurations"
+		go c.streamConfigurations(response, path, params, recordChannel, errorChannel)
 	}
 
 	return recordChannel, errorChannel
@@ -384,7 +385,8 @@ func (c *ApiService) StreamConfigurationsWithMetadata(params *ListConfigurations
 		close(errorChannel)
 	} else {
 		resource := response.GetResource()
-		go c.streamConfigurations(&resource, params, recordChannel, errorChannel)
+		path := "/v3/ControlPlane/Configurations"
+		go c.streamConfigurations(&resource, path, params, recordChannel, errorChannel)
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[chan IntelligenceConfiguration](
@@ -396,7 +398,7 @@ func (c *ApiService) StreamConfigurationsWithMetadata(params *ListConfigurations
 	return metadataWrapper, errorChannel
 }
 
-func (c *ApiService) streamConfigurations(response *ListConfigurationsResponse, params *ListConfigurationsParams, recordChannel chan IntelligenceConfiguration, errorChannel chan error) {
+func (c *ApiService) streamConfigurations(response *ListConfigurationsResponse, path string, params *ListConfigurationsParams, recordChannel chan IntelligenceConfiguration, errorChannel chan error) {
 	curRecord := 1
 
 	for response != nil {
@@ -411,7 +413,7 @@ func (c *ApiService) streamConfigurations(response *ListConfigurationsResponse, 
 			}
 		}
 
-		record, err := client.GetNext(c.baseURL+"/v3/ControlPlane/Configurations", response, c.getNextListConfigurationsResponse)
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextListConfigurationsResponse)
 		if err != nil {
 			errorChannel <- err
 			break

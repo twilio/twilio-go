@@ -21,9 +21,9 @@ import (
 // DataMappingSuggestion A suggested mapping of source fields to the requested destination type.
 type DataMappingSuggestion struct {
 	// The unique identifier for this suggestion.
-	Id          string                              `json:"id"`
-	MappingFrom DataMappingFromTypes                `json:"mappingFrom"`
-	MappingTo   DataMappingSuggestionToTraitsResult `json:"mappingTo"`
+	Id          string                               `json:"id"`
+	MappingFrom *DataMappingFromTypes                `json:"mappingFrom,omitempty"`
+	MappingTo   *DataMappingSuggestionToTraitsResult `json:"mappingTo,omitempty"`
 	// The ISO 8601 timestamp when the suggestion was created.
 	CreatedAt time.Time `json:"createdAt"`
 	// The ISO 8601 timestamp when the suggestion expires and is no longer retrievable.

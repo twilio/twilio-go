@@ -16,5 +16,5 @@ package openapi
 
 // OperatorResultsResponseBaseMetadata struct for OperatorResultsResponseBaseMetadata
 type OperatorResultsResponseBaseMetadata struct {
-	System SystemMetaData `json:"system"`
+	System *SystemMetaData `json:"system,omitempty"`
 }

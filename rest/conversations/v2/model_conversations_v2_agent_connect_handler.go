@@ -14,12 +14,12 @@
 
 package openapi
 
-// ConversationsV2AgentConnectHandler Connects the answered call to an AI agent over ConversationRelay. The agent's identity comes from the sending Participant's `agentConnectConnectionId`; this carries session settings only.
+// ConversationsV2AgentConnectHandler Connects the answered call to an AI agent over ConversationRelay.
 type ConversationsV2AgentConnectHandler struct {
 	// Handler type. Accepted values: AGENT_CONNECT.
-	Type     string                     `json:"type"`
-	Greeting ConversationsV2SendContent `json:"greeting,omitempty"`
-	// Relay endpoint for the answered call. When set, this full URL is used instead of the configured default.
-	RelayUrl string                       `json:"relayUrl,omitempty"`
-	Relay    ConversationsV2RelaySettings `json:"relay,omitempty"`
+	Type     string                      `json:"type"`
+	Greeting *ConversationsV2SendContent `json:"greeting,omitempty"`
+	// Relay endpoint the answered call connects to. This is what addresses the agent, so it is supplied whole.
+	RelayUrl string                        `json:"relayUrl"`
+	Relay    *ConversationsV2RelaySettings `json:"relay,omitempty"`
 }

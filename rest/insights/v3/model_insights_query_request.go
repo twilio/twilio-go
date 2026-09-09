@@ -17,6 +17,6 @@ package openapi
 // InsightsQueryRequest struct for InsightsQueryRequest
 type InsightsQueryRequest struct {
 	// The business domain to execute the query against
-	Domain string          `json:"domain,omitempty"`
-	Query  QueryDefinition `json:"query"`
+	Domain string           `json:"domain,omitempty"`
+	Query  *QueryDefinition `json:"query,omitempty"`
 }

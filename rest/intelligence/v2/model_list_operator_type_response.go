@@ -16,6 +16,6 @@ package openapi
 
 // ListOperatorTypeResponse struct for ListOperatorTypeResponse
 type ListOperatorTypeResponse struct {
-	OperatorTypes []IntelligenceV2OperatorType   `json:"operator_types,omitempty"`
-	Meta          ListCustomOperatorResponseMeta `json:"meta,omitempty"`
+	OperatorTypes []IntelligenceV2OperatorType    `json:"operator_types,omitempty"`
+	Meta          *ListCustomOperatorResponseMeta `json:"meta,omitempty"`
 }

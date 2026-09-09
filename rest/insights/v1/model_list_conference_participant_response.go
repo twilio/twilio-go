@@ -17,5 +17,5 @@ package openapi
 // ListConferenceParticipantResponse struct for ListConferenceParticipantResponse
 type ListConferenceParticipantResponse struct {
 	Participants []InsightsV1ConferenceParticipant `json:"participants,omitempty"`
-	Meta         ListCallSummariesResponseMeta     `json:"meta,omitempty"`
+	Meta         *ListCallSummariesResponseMeta    `json:"meta,omitempty"`
 }

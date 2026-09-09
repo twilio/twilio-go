@@ -19,9 +19,9 @@ type InsightsV2CreateReportResponse struct {
 	// The unique SID identifier of the Account.
 	AccountSid string `json:"account_sid,omitempty"`
 	// The report identifier as Voice Insights Report TTID.
-	ReportId    string         `json:"report_id,omitempty"`
-	Status      ReportStatus   `json:"status,omitempty"`
-	RequestMeta ReportMetadata `json:"request_meta,omitempty"`
+	ReportId    string          `json:"report_id,omitempty"`
+	Status      ReportStatus    `json:"status,omitempty"`
+	RequestMeta *ReportMetadata `json:"request_meta,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

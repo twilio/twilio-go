@@ -22,5 +22,5 @@ type ContentCreateRequest struct {
 	Variables map[string]string `json:"variables,omitempty"`
 	// Language code for the content
 	Language string `json:"language"`
-	Types    Types  `json:"types"`
+	Types    *Types `json:"types,omitempty"`
 }

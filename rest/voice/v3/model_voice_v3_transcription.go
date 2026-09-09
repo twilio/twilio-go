@@ -39,12 +39,14 @@ type VoiceV3Transcription struct {
 	// Array of participants in the conversation
 	Participants []VoiceV3Participant `json:"participants,omitempty"`
 	// Audio duration in seconds
-	Duration              *int                         `json:"duration,omitempty"`
-	ResolvedConfiguration VoiceV3ResolvedConfiguration `json:"resolvedConfiguration,omitempty"`
+	Duration              *int                          `json:"duration,omitempty"`
+	ResolvedConfiguration *VoiceV3ResolvedConfiguration `json:"resolvedConfiguration,omitempty"`
 	// When this transcript was created
 	CreatedAt time.Time `json:"createdAt"`
 	// When this transcript was last updated
 	UpdatedAt time.Time `json:"updatedAt"`
 	// The URL of this resource
 	Url string `json:"url"`
+	// Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription's `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to.
+	Links *map[string]interface{} `json:"links,omitempty"`
 }

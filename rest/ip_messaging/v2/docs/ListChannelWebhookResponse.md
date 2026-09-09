@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Webhooks** | [**[]IpMessagingV2ChannelWebhook**](IpMessagingV2ChannelWebhook.md) |  |[optional] 
-**Meta** | [**ListBindingResponseMeta**](ListBindingResponseMeta.md) |  |[optional] 
+**Meta** | Pointer to [**ListBindingResponseMeta**](ListBindingResponseMeta.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
