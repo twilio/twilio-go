@@ -48,6 +48,23 @@ func TestVoice_SayVerbWithParams(t *testing.T) {
 	assert.Contains(t, resp, `language="en"`)
 }
 
+func TestVoice_PromptVerbWithParams(t *testing.T) {
+	prompt := twiml.VoicePrompt{
+		Attempt:               "1",
+		CardType:              "visa",
+		ErrorType:             "invalid-card-number",
+		For_:                  "security-code",
+		RequireMatchingInputs: "false",
+	}
+	verbs := []twiml.Element{prompt}
+	resp, _ := twiml.Messages(verbs)
+	assert.Contains(t, resp, `attempt="1"`)
+	assert.Contains(t, resp, `cardType="visa"`)
+	assert.Contains(t, resp, `errorType="invalid-card-number"`)
+	assert.Contains(t, resp, `for="security-code"`)
+	assert.Contains(t, resp, `requireMatchingInputs="false"`)
+}
+
 func TestVoice_SayVerbWithOptionalAttributes(t *testing.T) {
 	optAttrs := map[string]string{"PlaybackURL": "https://demo.twilio.com"}
 	say := twiml.VoiceSay{
