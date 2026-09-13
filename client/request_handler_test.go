@@ -52,6 +52,19 @@ func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
 	assert.Equal(t, "https://prism_twilio:4010", assertAndGetURL(t, requestHandler, "https://prism_twilio:4010"))
 }
 
+func TestRequestHandler_BuildUrlSetHost(t *testing.T) {
+	requestHandler := NewRequestHandler("user", "pass")
+	requestHandler.Host = "localhost:4010"
+	assert.Equal(t, "https://localhost:4010/2010-04-01/Accounts/AC.json",
+		assertAndGetURL(t, requestHandler, "https://api.twilio.com/2010-04-01/Accounts/AC.json"))
+
+	// Host wins over Edge/Region.
+	requestHandler.Edge = "edge"
+	requestHandler.Region = "region"
+	assert.Equal(t, "https://localhost:4010/v2/PhoneNumbers/+15551230000",
+		assertAndGetURL(t, requestHandler, "https://lookups.twilio.com/v2/PhoneNumbers/+15551230000"))
+}
+
 func TestRequestHandler_BuildUrlInvalidCTLCharacter(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
 	rawURL := "https://api.twilio.com/ServiceId\n"
