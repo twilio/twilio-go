@@ -304,3 +304,20 @@ func (c *RestClient) SetEdge(edge string) {
 func (c *RestClient) SetRegion(region string) {
 	c.RequestHandler.Region = region
 }
+
+// SetAutoRetry enables or disables automatic retry with exponential backoff on 429 responses.
+func (c *RestClient) SetAutoRetry(autoRetry bool) {
+	c.RequestHandler.Client.SetAutoRetry(autoRetry)
+}
+
+// SetMaxRetryDelay sets the maximum retry delay in milliseconds for 429 responses.
+// Defaults to 3000ms if not set.
+func (c *RestClient) SetMaxRetryDelay(maxRetryDelay int) {
+	c.RequestHandler.Client.SetMaxRetryDelay(maxRetryDelay)
+}
+
+// SetMaxRetries sets the maximum number of request retries for 429 responses.
+// Defaults to 3 if not set.
+func (c *RestClient) SetMaxRetries(maxRetries int) {
+	c.RequestHandler.Client.SetMaxRetries(maxRetries)
+}
