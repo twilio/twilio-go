@@ -1,2 +1,28 @@
+if git diff --cached --name-only | grep -qE '^go\.(mod|sum)$'; then
+  # External consumers resolve modules purely from module paths / go.sum entries, so
+  # an internal host or a `replace` directive (which consumers ignore) breaks the
+  # published module even though it builds fine here (enforced in CI by go-lockfile-hygiene).
+  # There's no single safe rewrite target for a module path, so block and let a human fix it.
+  DENY='code\.hq\.twilio\.com|[a-z0-9.-]+\.twilio\.com|twilio\.jfrog\.io|github\.com/twilio-internal/|github\.com/sendgrid-ops/|github\.com/segmentio-internal/'
+  BAD=""
+
+  if [ -f go.mod ] && grep -qE '^[[:space:]]*replace[[:space:]]' go.mod; then
+    BAD="${BAD}go.mod: contains a replace directive (consumers ignore it)"$'\n'
+  fi
+
+  for f in go.mod go.sum; do
+    [ -f "$f" ] || continue
+    for p in $(grep -oE '[a-zA-Z0-9._-]+(/[a-zA-Z0-9._-]+)+' "$f" | sort -u); do
+      echo "$p" | grep -qE "^($DENY)" && BAD="${BAD}${f}: ${p}"$'\n'
+    done
+  done
+
+  if [ -n "$BAD" ]; then
+    echo "pre-commit: internal module paths / replace directives found - external consumers cannot resolve them (see go-lockfile-hygiene CI check):"
+    printf '%s' "$BAD"
+    exit 1
+  fi
+fi
+
 make golint
 make test
