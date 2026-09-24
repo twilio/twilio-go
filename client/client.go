@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -48,6 +49,9 @@ type Client struct {
 	accountSid          string
 	UserAgentExtensions []string
 	oAuth               OAuth
+	// MaxRetries is the maximum number of times to retry a request when a 429
+	// (Too Many Requests) response is received. A value of 0 disables retries.
+	MaxRetries int
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -88,6 +92,34 @@ const (
 	escapee               = '\\'
 )
 
+// retryAfterDuration returns the duration to wait before the next retry attempt.
+// It respects the Retry-After response header when present (both seconds and
+// HTTP-date formats are supported); otherwise it uses exponential backoff
+// starting at 500 ms and doubling with each attempt, capped at 64 s.
+func retryAfterDuration(res *http.Response, attempt int) time.Duration {
+	const maxBackoff = 64 * time.Second
+	retryAfter := res.Header.Get("Retry-After")
+	if retryAfter != "" {
+		// Try numeric seconds first.
+		if seconds, err := strconv.ParseFloat(retryAfter, 64); err == nil {
+			return time.Duration(seconds * float64(time.Second))
+		}
+		// Fall back to HTTP-date format (RFC 7231).
+		if t, err := http.ParseTime(retryAfter); err == nil {
+			if d := time.Until(t); d > 0 {
+				return d
+			}
+			return 0
+		}
+	}
+	// Exponential backoff: 500ms, 1000ms, 2000ms, … capped at maxBackoff.
+	backoff := time.Duration(500*(1<<uint(attempt))) * time.Millisecond
+	if backoff > maxBackoff {
+		backoff = maxBackoff
+	}
+	return backoff
+}
+
 func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	client := c.HTTPClient
 
@@ -98,6 +130,26 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+
+	// Retry on 429 Too Many Requests up to MaxRetries times.
+	for attempt := 0; attempt < c.MaxRetries && res.StatusCode == http.StatusTooManyRequests; attempt++ {
+		waitDuration := retryAfterDuration(res, attempt)
+		res.Body.Close()
+		time.Sleep(waitDuration)
+
+		if req.GetBody != nil {
+			newBody, bodyErr := req.GetBody()
+			if bodyErr != nil {
+				return nil, bodyErr
+			}
+			req.Body = newBody
+		}
+
+		res, err = client.Do(req)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Note that 3XX response codes are allowed for fetches
@@ -188,15 +240,25 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		if err != nil {
 			return nil, err
 		}
+		req.GetBody = func() (io.ReadCloser, error) {
+			return io.NopCloser(bytes.NewBuffer(body)), nil
+		}
 	} else {
 		// Here the HTTP POST methods which do not have json content type are processed
 		// All the values will be added in data and encoded (all body, query, path parameters)
+		var encodedData string
 		if method == http.MethodPost || method == http.MethodPut || method == http.MethodPatch {
-			valueReader = strings.NewReader(data.Encode())
+			encodedData = data.Encode()
+			valueReader = strings.NewReader(encodedData)
 		}
 		req, err = http.NewRequestWithContext(context.Background(), method, u.String(), valueReader)
 		if err != nil {
 			return nil, err
+		}
+		if method == http.MethodPost || method == http.MethodPut || method == http.MethodPatch {
+			req.GetBody = func() (io.ReadCloser, error) {
+				return io.NopCloser(strings.NewReader(encodedData)), nil
+			}
 		}
 
 	}
