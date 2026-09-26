@@ -62,7 +62,7 @@ jobs:
     if: |
       always() &&
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.ref_type == 'tag' && needs.test.result == 'success'))
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-x64
     timeout-minutes: 20
     strategy:
       matrix:
