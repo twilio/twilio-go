@@ -203,6 +203,28 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 
 A Twilio client constructed without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
 
+### Enable Auto-Retry with Exponential Backoff
+
+`twilio-go` supports automatic retry with exponential backoff when API requests receive an [Error 429 response](https://support.twilio.com/hc/en-us/articles/360044308153-Twilio-API-response-Error-429-Too-Many-Requests-). This retry with exponential backoff feature is disabled by default. To enable this feature, instantiate the Twilio client and call `SetAutoRetry(true)`.
+
+You may customize the retry behavior with the following methods:
+
+- **`SetMaxRetries(int)`**: Set the maximum number of retry attempts (default: `3`)
+- **`SetMaxRetryDelay(int)`**: Set the maximum retry delay in milliseconds (default: `3000`)
+
+```go
+package main
+
+import (
+	"github.com/twilio/twilio-go"
+)
+
+func main() {
+	client := twilio.NewRestClient()
+	client.SetAutoRetry(true)
+}
+```
+
 ### Buy a phone number
 
 ```go

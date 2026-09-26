@@ -100,3 +100,39 @@ func (mr *MockBaseClientMockRecorder) OAuth() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetOauth", reflect.TypeOf((*MockBaseClient)(nil).OAuth))
 }
+
+// SetAutoRetry mocks base method.
+func (m *MockBaseClient) SetAutoRetry(autoRetry bool) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetAutoRetry", autoRetry)
+}
+
+// SetAutoRetry indicates an expected call of SetAutoRetry.
+func (mr *MockBaseClientMockRecorder) SetAutoRetry(autoRetry interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetAutoRetry", reflect.TypeOf((*MockBaseClient)(nil).SetAutoRetry), autoRetry)
+}
+
+// SetMaxRetryDelay mocks base method.
+func (m *MockBaseClient) SetMaxRetryDelay(maxRetryDelay int) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetMaxRetryDelay", maxRetryDelay)
+}
+
+// SetMaxRetryDelay indicates an expected call of SetMaxRetryDelay.
+func (mr *MockBaseClientMockRecorder) SetMaxRetryDelay(maxRetryDelay interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetMaxRetryDelay", reflect.TypeOf((*MockBaseClient)(nil).SetMaxRetryDelay), maxRetryDelay)
+}
+
+// SetMaxRetries mocks base method.
+func (m *MockBaseClient) SetMaxRetries(maxRetries int) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetMaxRetries", maxRetries)
+}
+
+// SetMaxRetries indicates an expected call of SetMaxRetries.
+func (mr *MockBaseClientMockRecorder) SetMaxRetries(maxRetries interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetMaxRetries", reflect.TypeOf((*MockBaseClient)(nil).SetMaxRetries), maxRetries)
+}

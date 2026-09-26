@@ -13,4 +13,7 @@ type BaseClient interface {
 		headers map[string]interface{}, body ...byte) (*http.Response, error)
 	SetOauth(auth OAuth)
 	OAuth() OAuth
+	SetAutoRetry(autoRetry bool)
+	SetMaxRetryDelay(maxRetryDelay int)
+	SetMaxRetries(maxRetries int)
 }

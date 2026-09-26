@@ -6,6 +6,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"math"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,6 +27,7 @@ var delimitingRegex *regexp.Regexp
 func init() {
 	alphanumericRegex = regexp.MustCompile(`^[a-zA-Z0-9]*$`)
 	delimitingRegex = regexp.MustCompile(`\.\d+`)
+	rand.Seed(time.Now().UnixNano())
 }
 
 // Credentials store user authentication credentials.
@@ -48,6 +51,12 @@ type Client struct {
 	accountSid          string
 	UserAgentExtensions []string
 	oAuth               OAuth
+	// AutoRetry enables automatic retry with exponential backoff on 429 responses
+	AutoRetry bool
+	// MaxRetryDelay is the maximum retry delay in milliseconds for 429 responses
+	MaxRetryDelay int
+	// MaxRetries is the maximum number of request retries for 429 responses
+	MaxRetries int
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -81,14 +90,21 @@ func extractContentTypeHeader(headers map[string]interface{}) (cType string) {
 }
 
 const (
-	urlEncodedContentType = "application/x-www-form-urlencoded"
-	jsonContentType       = "application/json"
-	keepZeros             = true
-	delimiter             = '.'
-	escapee               = '\\'
+	urlEncodedContentType            = "application/x-www-form-urlencoded"
+	jsonContentType                  = "application/json"
+	keepZeros                        = true
+	delimiter                        = '.'
+	escapee                          = '\\'
+	defaultInitialRetryIntervalMillis = 100
+	defaultMaxRetryDelay              = 3000
+	defaultMaxRetries                 = 3
 )
 
 func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
+	return c.doWithErrAndRetry(req, 0)
+}
+
+func (c *Client) doWithErrAndRetry(req *http.Request, retryCount int) (*http.Response, error) {
 	client := c.HTTPClient
 
 	if client == nil {
@@ -98,6 +114,36 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	res, err := client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+
+	// Handle 429 responses with retry if AutoRetry is enabled
+	if res.StatusCode == http.StatusTooManyRequests && c.AutoRetry {
+		maxRetries := c.MaxRetries
+		if maxRetries == 0 {
+			maxRetries = defaultMaxRetries
+		}
+
+		if retryCount < maxRetries {
+			res.Body.Close()
+
+			// Calculate exponential backoff delay with full jitter
+			maxRetryDelay := c.MaxRetryDelay
+			if maxRetryDelay == 0 {
+				maxRetryDelay = defaultMaxRetryDelay
+			}
+
+			baseDelay := math.Min(
+				float64(maxRetryDelay),
+				float64(defaultInitialRetryIntervalMillis)*math.Pow(2, float64(retryCount+1)),
+			)
+			// Full jitter: random delay between 0 and baseDelay
+			delay := time.Duration(rand.Float64()*baseDelay) * time.Millisecond
+
+			time.Sleep(delay)
+
+			// Retry the request
+			return c.doWithErrAndRetry(req, retryCount+1)
+		}
 	}
 
 	// Note that 3XX response codes are allowed for fetches
@@ -253,4 +299,21 @@ func (c *Client) SetOauth(oauth OAuth) {
 
 func (c *Client) OAuth() OAuth {
 	return c.oAuth
+}
+
+// SetAutoRetry enables or disables automatic retry with exponential backoff on 429 responses.
+func (c *Client) SetAutoRetry(autoRetry bool) {
+	c.AutoRetry = autoRetry
+}
+
+// SetMaxRetryDelay sets the maximum retry delay in milliseconds for 429 responses.
+// Defaults to 3000ms if not set.
+func (c *Client) SetMaxRetryDelay(maxRetryDelay int) {
+	c.MaxRetryDelay = maxRetryDelay
+}
+
+// SetMaxRetries sets the maximum number of request retries for 429 responses.
+// Defaults to 3 if not set.
+func (c *Client) SetMaxRetries(maxRetries int) {
+	c.MaxRetries = maxRetries
 }
