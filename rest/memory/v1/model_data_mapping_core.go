@@ -14,7 +14,7 @@
 
 package openapi
 
-// DataMappingCore Writable fields of a data mapping. Used directly as the PATCH request body (all fields optional). Composed into CreateDataMappingInput via allOf.
+// DataMappingCore Writable fields of a data mapping. Every field is optional here; the PATCH request body wraps this schema and requires at least one. Composed into CreateDataMappingInput via allOf.
 type DataMappingCore struct {
 	// Name of the data mapping.
 	DisplayName string `json:"displayName,omitempty"`

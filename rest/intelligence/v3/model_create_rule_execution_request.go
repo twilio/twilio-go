@@ -21,5 +21,6 @@ type CreateRuleExecutionRequest struct {
 	// The rule identifier to execute within the selected Intelligence Configuration.
 	RuleId string `json:"ruleId"`
 	// The Conversation identifier to execute the Rule against.
-	ConversationId string `json:"conversationId"`
+	ConversationId string        `json:"conversationId"`
+	Rule           *RuleOverride `json:"rule,omitempty"`
 }

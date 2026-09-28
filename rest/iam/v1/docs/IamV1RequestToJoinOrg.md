@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NotificationSid** | **string** |  |[optional] 
+**UserSid** | **string** | SID of the requesting user |[optional] 
 **Email** | **string** | Email address of the requesting user |[optional] 
 **FirstName** | **string** | First name of the requesting user |[optional] 
 **LastName** | **string** | Last name of the requesting user |[optional] 

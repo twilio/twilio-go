@@ -31,6 +31,8 @@ type IamV1RequestToJoinOrgSelf struct {
 	Roles []IamV1RequestToJoinOrgRoles `json:"roles,omitempty"`
 	// Date the join request was created
 	DateCreated time.Time `json:"dateCreated,omitempty"`
+	// Date the join request expires, if applicable
+	ExpirationDate time.Time `json:"expirationDate,omitempty"`
 	// Display status of the join request (e.g. Active, Expired, Declined, Accepted), derived by the downstream service from the underlying notification's state and expiry. Does not map 1:1 to the notification's internal status.
 	Status string `json:"status,omitempty"`
 }

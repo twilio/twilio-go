@@ -14,7 +14,7 @@
 
 package openapi
 
-// TraitExtractionStrategyCore Mutable fields of a Trait Extraction Strategy. Used directly as the PATCH request body (all fields optional). Composed into CreateTraitExtractionStrategyInput via allOf. `displayName` and `storeId` are deliberately absent because they are immutable after creation: re-pointing a strategy at a different Memory Store would orphan every definition it holds.
+// TraitExtractionStrategyCore Mutable fields of a Trait Extraction Strategy. Every field is optional here; the PATCH request body wraps this schema and requires at least one. Composed into CreateTraitExtractionStrategyInput via allOf. `displayName` and `storeId` are deliberately absent because they are immutable after creation: re-pointing a strategy at a different Memory Store would orphan every definition it holds.
 type TraitExtractionStrategyCore struct {
 	// A human readable description of this strategy. May be empty.
 	Description string `json:"description,omitempty"`

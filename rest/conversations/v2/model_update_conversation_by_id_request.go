@@ -20,4 +20,6 @@ type UpdateConversationByIdRequest struct {
 	Name string `json:"name,omitempty"`
 	// Lifecycle status of a Conversation.
 	Status string `json:"status"`
+	// Customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+	Metadata map[string]string `json:"metadata,omitempty"`
 }

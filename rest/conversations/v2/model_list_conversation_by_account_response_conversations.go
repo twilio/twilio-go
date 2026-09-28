@@ -34,6 +34,10 @@ type ListConversationByAccountResponseConversations struct {
 	// Timestamp when this Conversation was last updated.
 	UpdatedAt     time.Time                                                    `json:"updatedAt,omitempty"`
 	Configuration *ListConversationByAccountResponseConversationsConfiguration `json:"configuration,omitempty"`
+	// Customer-managed key-value pairs. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+	Metadata map[string]string `json:"metadata,omitempty"`
 	// Participants in this Conversation.
 	Participants []ConversationsV2Participant `json:"participants,omitempty"`
+	// The Action created for the request's `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status.
+	ActionId string `json:"actionId,omitempty"`
 }
