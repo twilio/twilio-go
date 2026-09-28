@@ -17,7 +17,7 @@ package openapi
 // IamV1OrganizationUpdateRequest struct for IamV1OrganizationUpdateRequest
 type IamV1OrganizationUpdateRequest struct {
 	// Organization friendly name
-	FriendlyName string `json:"friendlyName"`
+	FriendlyName string `json:"friendlyName,omitempty"`
 	// User sign-up type for Organization domains
-	DomainSignupType string `json:"domainSignupType"`
+	DomainSignupType string `json:"domainSignupType,omitempty"`
 }

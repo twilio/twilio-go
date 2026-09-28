@@ -53,7 +53,7 @@ Class | Method | HTTP request | Description
 *OperatorResultsApi* | [**DeleteOperatorResult**](docs/OperatorResultsApi.md#deleteoperatorresult) | **Delete** /v3/OperatorResults/{operatorResultId} | Delete an OperatorResult
 *OperatorResultsApi* | [**FetchOperatorResult**](docs/OperatorResultsApi.md#fetchoperatorresult) | **Get** /v3/OperatorResults/{operatorResultId} | Retrieve an OperatorResult
 *OperatorResultsApi* | [**ListOperatorResults**](docs/OperatorResultsApi.md#listoperatorresults) | **Get** /v3/OperatorResults | Retrieve a list of OperatorResults
-*RuleExecutionsApi* | [**CreateRuleExecution**](docs/RuleExecutionsApi.md#createruleexecution) | **Post** /v3/RuleExecutions | Manually queue a rule execution
+*RuleExecutionsApi* | [**CreateRuleExecution**](docs/RuleExecutionsApi.md#createruleexecution) | **Post** /v3/RuleExecutions | On-demand Rule execution
 
 
 ## Documentation For Models
@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
  - [IntelligenceConfiguration](docs/IntelligenceConfiguration.md)
  - [Rule](docs/Rule.md)
  - [OperatorAuthorEnum](docs/OperatorAuthorEnum.md)
+ - [OperatorOverride](docs/OperatorOverride.md)
  - [ResolvedContextMemory](docs/ResolvedContextMemory.md)
  - [Operator](docs/Operator.md)
  - [OperatorParameter](docs/OperatorParameter.md)
@@ -104,6 +105,7 @@ Class | Method | HTTP request | Description
  - [UpdateConfigurationRequest](docs/UpdateConfigurationRequest.md)
  - [OperatorResultContext](docs/OperatorResultContext.md)
  - [PaginatedConfigurationResponse](docs/PaginatedConfigurationResponse.md)
+ - [RuleOverride](docs/RuleOverride.md)
  - [OperatorResultsResponseBaseMetadata](docs/OperatorResultsResponseBaseMetadata.md)
  - [ResolvedContextKnowledge](docs/ResolvedContextKnowledge.md)
  - [ResolvedContextKnowledgeSources](docs/ResolvedContextKnowledgeSources.md)

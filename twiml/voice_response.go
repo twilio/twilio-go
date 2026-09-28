@@ -277,6 +277,8 @@ type VoiceStream struct {
 	// track: Track to be streamed to remote service
 	// status_callback: Status Callback URL
 	// status_callback_method: Status Callback URL method
+	// audio_format: Required Audio Format
+	// sample_rate: Sample Rate for HD Codec
 	// OptionalAttributes: additional attributes
 	Name                 string
 	ConnectorName        string
@@ -284,6 +286,8 @@ type VoiceStream struct {
 	Track                string
 	StatusCallback       string
 	StatusCallbackMethod string
+	AudioFormat          string
+	SampleRate           string
 	InnerElements        []Element
 	OptionalAttributes   map[string]string
 }
@@ -304,6 +308,8 @@ func (m VoiceStream) GetAttr() (map[string]string, map[string]string) {
 		"Track":                m.Track,
 		"StatusCallback":       m.StatusCallback,
 		"StatusCallbackMethod": m.StatusCallbackMethod,
+		"AudioFormat":          m.AudioFormat,
+		"SampleRate":           m.SampleRate,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

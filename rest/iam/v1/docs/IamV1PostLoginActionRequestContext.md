@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IpAddress** | **string** | The IP address the login request originated from |[optional] 
+**IpAddress** | **string** | The IP address the login request originated from |
 **UserAgent** | **string** | The User-Agent header from the login request |[optional] 
 **RequestId** | **string** | Whitney's request identifier for the login attempt |[optional] 
 

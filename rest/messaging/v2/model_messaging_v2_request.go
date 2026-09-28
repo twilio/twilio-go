@@ -16,18 +16,8 @@ package openapi
 
 // MessagingV2Request struct for MessagingV2Request
 type MessagingV2Request struct {
-	// Base64-encoded MD5 hash of the image
-	ImageContentMd5 string `json:"imageContentMd5"`
-	// MIME type of the image (e.g., image/png, image/jpeg)
-	ImageContentType string `json:"imageContentType"`
-	// Type of image (logo, hero, etc.)
-	ImageKind string `json:"imageKind"`
-	// Name of the image file
-	ImageName string `json:"imageName"`
-	// Size of the image in bytes
-	ImageSizeBytes int `json:"imageSizeBytes"`
-	// Height of the image in pixels
-	ImageHeight int `json:"imageHeight,omitempty"`
-	// Width of the image in pixels
-	ImageWidth int `json:"imageWidth,omitempty"`
+	// Whether this account is an ISV (independent software vendor) or a direct customer. Only settable by a parent account.
+	AccountType string `json:"accountType"`
+	// Whether this account has accepted the WhatsApp terms of service. Only settable by a parent account, and only to true.
+	HasAcceptedTos bool `json:"hasAcceptedTos"`
 }
