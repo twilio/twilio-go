@@ -1,14 +1,11 @@
 package client
 
 import (
-	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
-	"net/url"
+	"strings"
 	"testing"
-
-	"github.com/golang/mock/gomock"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -64,55 +61,37 @@ func TestPageUtil_GetNextPageUrl(t *testing.T) {
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
 }
 
-func getTestClient(t *testing.T) *MockBaseClient {
-	mockCtrl := gomock.NewController(t)
-	testClient := NewMockBaseClient(mockCtrl)
-	testClient.EXPECT().AccountSid().DoAndReturn(func() string {
-		return "AC222222222222222222222222222222"
-	}).AnyTimes()
-
-	testClient.EXPECT().SendRequest(
-		gomock.Any(),
-		gomock.Any(),
-		gomock.Any(),
-		gomock.Any()).
-		DoAndReturn(func(method string, rawURL string, data url.Values,
-			headers map[string]interface{}, body ...interface{}) (*http.Response, error) {
-			response := map[string]interface{}{
-				"end":            4,
-				"first_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0",
-				"messages": []map[string]interface{}{
-					{
-						"direction": "outbound-api",
-						"from":      "4444444444",
-						"to":        "9999999999",
-						"body":      "Message 0",
-						"status":    "delivered",
-					},
-					{
-						"direction": "outbound-api",
-						"from":      "4444444444",
-						"to":        "9999999999",
-						"body":      "Message 1",
-						"status":    "delivered",
-					},
-				},
-				"uri":           "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0&PageToken=dummy",
-				"page_size":     5,
-				"start":         0,
-				"next_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=1&PageToken=PASMXX",
-				"page":          0,
+// testPageResponse returns a canned Messages list-page payload as an
+// *http.Response, standing in for a real API call. It is page 0 of 2, so
+// next_page_uri points at page 1.
+func testPageResponse() *http.Response {
+	const body = `{
+		"end": 4,
+		"first_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0",
+		"messages": [
+			{
+				"direction": "outbound-api",
+				"from": "4444444444",
+				"to": "9999999999",
+				"body": "Message 0",
+				"status": "delivered"
+			},
+			{
+				"direction": "outbound-api",
+				"from": "4444444444",
+				"to": "9999999999",
+				"body": "Message 1",
+				"status": "delivered"
 			}
+		],
+		"uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0&PageToken=dummy",
+		"page_size": 5,
+		"start": 0,
+		"next_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=1&PageToken=PASMXX",
+		"page": 0
+	}`
 
-			resp, _ := json.Marshal(response)
-
-			return &http.Response{
-				Body: io.NopCloser(bytes.NewReader(resp)),
-			}, nil
-		},
-		)
-
-	return testClient
+	return &http.Response{Body: io.NopCloser(strings.NewReader(body))}
 }
 
 type testResponse struct {
@@ -145,9 +124,8 @@ func getSomething(nextPageUrl string) (interface{}, error) {
 }
 
 func TestPageUtil_GetNext(t *testing.T) {
-	testClient := getTestClient(t)
 	baseUrl := "https://api.twilio.com"
-	response, _ := testClient.SendRequest("get", "", nil, nil) //nolint:bodyclose
+	response := testPageResponse() //nolint:bodyclose
 	ps := &testResponse{}
 	_ = json.NewDecoder(response.Body).Decode(ps)
 
