@@ -31,13 +31,14 @@ All URIs are relative to *https://routes.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v3/PhoneNumbers/{phoneNumber} | Fetch the Inbound Processing Region assigned to a phone number.
-*PhoneNumbersApi* | [**UpdatePhoneNumber**](docs/PhoneNumbersApi.md#updatephonenumber) | **Post** /v3/PhoneNumbers/{phoneNumber} | Assign an Inbound Processing Region to a phone number.
+*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v3/PhoneNumbers/{phoneNumber} | Fetch the Processing Region assigned to a phone number.
+*PhoneNumbersApi* | [**UpdatePhoneNumber**](docs/PhoneNumbersApi.md#updatephonenumber) | **Post** /v3/PhoneNumbers/{phoneNumber} | Assign an Processing Region to a phone number.
 
 
 ## Documentation For Models
 
  - [RoutesV3RegionalPhoneNumberLongCode](docs/RoutesV3RegionalPhoneNumberLongCode.md)
+ - [RoutesV3ShortCode](docs/RoutesV3ShortCode.md)
  - [RoutesV3RegionalPhoneNumberShortCode](docs/RoutesV3RegionalPhoneNumberShortCode.md)
  - [RoutesV3RegionalPhoneNumberItem](docs/RoutesV3RegionalPhoneNumberItem.md)
  - [RoutesV3PhoneNumber](docs/RoutesV3PhoneNumber.md)

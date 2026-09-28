@@ -21,4 +21,6 @@ type PatchConversationByIdRequest struct {
 	// Lifecycle status of a Conversation.
 	Status        string                                     `json:"status,omitempty"`
 	Configuration *PatchConversationByIdRequestConfiguration `json:"configuration,omitempty"`
+	// Merge patch for customer-managed metadata (max 8 entries after merge). Provided keys are added or updated; keys set to null are removed; keys not mentioned are preserved.
+	Metadata map[string]string `json:"metadata,omitempty"`
 }

@@ -27,12 +27,8 @@ type IamV1PostLoginActionRequest struct {
 	// Whitney's identifier for this action invocation
 	ActionId string `json:"action_id,omitempty"`
 	// Unix timestamp (seconds) of the login event
-	Timestamp int64                             `json:"timestamp,omitempty"`
-	Oauth     *IamV1PostLoginActionOAuthContext `json:"oauth,omitempty"`
-	// The authentication context class reference the login satisfied
-	Acr string `json:"acr,omitempty"`
-	// The authentication factors the user completed, as RFC 8176 authentication method reference values (e.g. pwd, otp, mfa)
-	CompletedFactors []string                            `json:"completed_factors,omitempty"`
-	UserContext      *IamV1PostLoginActionUserContext    `json:"user_context,omitempty"`
-	RequestContext   *IamV1PostLoginActionRequestContext `json:"request_context,omitempty"`
+	Timestamp             int64                                      `json:"timestamp,omitempty"`
+	Oauth                 *IamV1PostLoginActionOAuthContext          `json:"oauth,omitempty"`
+	AuthenticationContext *IamV1PostLoginActionAuthenticationContext `json:"authentication_context,omitempty"`
+	RequestContext        *IamV1PostLoginActionRequestContext        `json:"request_context,omitempty"`
 }

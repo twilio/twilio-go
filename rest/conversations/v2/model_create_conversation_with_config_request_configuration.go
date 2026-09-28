@@ -18,4 +18,6 @@ package openapi
 type CreateConversationWithConfigRequestConfiguration struct {
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
+	// The Workflows to associate with this Conversation. Overrides the Configuration's own.
+	Workflows []ConversationWorkflow `json:"workflows,omitempty"`
 }

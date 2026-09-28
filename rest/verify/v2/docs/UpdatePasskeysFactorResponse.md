@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Status** | **string** | The Status of this Factor. One of `unverified` or `verified`. |[optional] 
 **FactorType** | **string** | The Type of this Factor. Currently `push` and `totp` are supported. |[optional] 
 **Config** | Pointer to **interface{}** | An object that contains configurations specific to a `factor_type`. |
-**Metadata** | Pointer to **interface{}** | Custom metadata associated with the factor. |
+**Metadata** | Pointer to **interface{}** | Metadata associated with the factor. For `passkeys` factors, it contains the `aaguid` of the authenticator once the factor is verified, and `date_last_approved` (ISO 8601) once the factor has been used to approve a challenge. |
 **Url** | Pointer to **string** | The URL of this resource. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

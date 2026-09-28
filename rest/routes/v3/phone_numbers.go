@@ -22,7 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-// Fetch the Inbound Processing Region assigned to a phone number.
+// Fetch the Processing Region assigned to a phone number.
 func (c *ApiService) FetchPhoneNumber(PhoneNumber string) (*RoutesV3PhoneNumber, error) {
 	path := "/v3/PhoneNumbers/{phoneNumber}"
 	path = strings.Replace(path, "{"+"phoneNumber"+"}", PhoneNumber, -1)
@@ -101,7 +101,7 @@ func (params *UpdatePhoneNumberParams) SetFriendlyName(FriendlyName string) *Upd
 	return params
 }
 
-// Assign an Inbound Processing Region to a phone number.
+// Assign an Processing Region to a phone number.
 func (c *ApiService) UpdatePhoneNumber(PhoneNumber string, params *UpdatePhoneNumberParams) (*RoutesV3PhoneNumber, error) {
 	path := "/v3/PhoneNumbers/{phoneNumber}"
 	path = strings.Replace(path, "{"+"phoneNumber"+"}", PhoneNumber, -1)

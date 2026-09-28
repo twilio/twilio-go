@@ -23,4 +23,6 @@ type CreateConversationWithConfigRequest struct {
 	Configuration *CreateConversationWithConfigRequestConfiguration `json:"configuration,omitempty"`
 	// Optional list of Participants to create with the Conversation.
 	Participants []CreateConversationWithConfigRequestParticipants `json:"participants,omitempty"`
+	// Optional customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+	Metadata map[string]string `json:"metadata,omitempty"`
 }

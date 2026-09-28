@@ -34,6 +34,9 @@ All URIs are relative to *https://insights.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*ControlPlaneConversationInsightsCustomFieldMappingsApi* | [**CreateCustomFieldMapping**](docs/ControlPlaneConversationInsightsCustomFieldMappingsApi.md#createcustomfieldmapping) | **Post** /v3/ControlPlane/ConversationInsights/CustomFieldMappings | Register a custom measure field mapping
+*ControlPlaneConversationInsightsCustomFieldMappingsApi* | [**FetchCustomFieldMappings**](docs/ControlPlaneConversationInsightsCustomFieldMappingsApi.md#fetchcustomfieldmappings) | **Get** /v3/ControlPlane/ConversationInsights/CustomFieldMappings | Fetch custom measure field mappings for an account
+*ControlPlaneConversationInsightsCustomFieldMappingsCapacityApi* | [**FetchCustomFieldMappingCapacity**](docs/ControlPlaneConversationInsightsCustomFieldMappingsCapacityApi.md#fetchcustomfieldmappingcapacity) | **Get** /v3/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity | Get custom field mapping capacity for an account
 *InsightsDomainsConversationsMetadataApi* | [**FetchMetadata**](docs/InsightsDomainsConversationsMetadataApi.md#fetchmetadata) | **Get** /v3/InsightsDomains/Conversations/Metadata | Retrieve domain metadata
 *InsightsDomainsConversationsQueryApi* | [**CreateQueryResults**](docs/InsightsDomainsConversationsQueryApi.md#createqueryresults) | **Post** /v3/InsightsDomains/Conversations/Query | Execute a synchronous semantic query
 *InsightsDomainsConversationsQueryApi* | [**FetchQueryResults**](docs/InsightsDomainsConversationsQueryApi.md#fetchqueryresults) | **Get** /v3/InsightsDomains/Conversations/Query | Retrieve paginated query results
@@ -48,18 +51,27 @@ Class | Method | HTTP request | Description
  - [InsightsMetadataResponseCubesDimensions](docs/InsightsMetadataResponseCubesDimensions.md)
  - [InsightsQueryResponse](docs/InsightsQueryResponse.md)
  - [QueryJobListResponse](docs/QueryJobListResponse.md)
- - [InsightsQueryRequest](docs/InsightsQueryRequest.md)
- - [InsightsMetadataResponseCubes](docs/InsightsMetadataResponseCubes.md)
+ - [CustomFieldMappingRequest](docs/CustomFieldMappingRequest.md)
  - [QueryDefinitionFiltersExpressions](docs/QueryDefinitionFiltersExpressions.md)
+ - [SourceType](docs/SourceType.md)
+ - [CustomFieldMappingsList](docs/CustomFieldMappingsList.md)
  - [QueryDefinitionFilters](docs/QueryDefinitionFilters.md)
- - [OperationError](docs/OperationError.md)
+ - [EntityMetadataBase](docs/EntityMetadataBase.md)
  - [QueryDefinition](docs/QueryDefinition.md)
  - [InsightsMetadataResponseCubesMeasures](docs/InsightsMetadataResponseCubesMeasures.md)
  - [QueryJobSubmitResponse](docs/QueryJobSubmitResponse.md)
  - [LongRunningOperationStatus](docs/LongRunningOperationStatus.md)
  - [PaginationMeta](docs/PaginationMeta.md)
- - [QueryDefinitionOrderBy](docs/QueryDefinitionOrderBy.md)
+ - [MappingCategory](docs/MappingCategory.md)
  - [InsightsMetadataResponse](docs/InsightsMetadataResponse.md)
+ - [CustomFieldMappingResponse](docs/CustomFieldMappingResponse.md)
+ - [IntelligenceOperatorEntityMetadata](docs/IntelligenceOperatorEntityMetadata.md)
+ - [InsightsQueryRequest](docs/InsightsQueryRequest.md)
+ - [InsightsMetadataResponseCubes](docs/InsightsMetadataResponseCubes.md)
+ - [CustomFieldCapacity](docs/CustomFieldCapacity.md)
+ - [OperationError](docs/OperationError.md)
+ - [QueryDefinitionOrderBy](docs/QueryDefinitionOrderBy.md)
+ - [CategoryCapacity](docs/CategoryCapacity.md)
  - [QueryJobStatusResponse](docs/QueryJobStatusResponse.md)
 
 

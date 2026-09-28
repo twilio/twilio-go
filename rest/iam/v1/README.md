@@ -109,6 +109,7 @@ Class | Method | HTTP request | Description
  - [IamV1RequestToJoinOrgRoles](docs/IamV1RequestToJoinOrgRoles.md)
  - [IamV1ImportUsersRun](docs/IamV1ImportUsersRun.md)
  - [IamV1RequestToJoinOrgSelf](docs/IamV1RequestToJoinOrgSelf.md)
+ - [IamV1PostLoginActionAuthenticationContext](docs/IamV1PostLoginActionAuthenticationContext.md)
  - [IamV1Vendoroauthapp](docs/IamV1Vendoroauthapp.md)
  - [IamV1UserInvitation](docs/IamV1UserInvitation.md)
  - [IamV1AcceptRequestToJoinOrgResponse](docs/IamV1AcceptRequestToJoinOrgResponse.md)
@@ -128,7 +129,7 @@ Class | Method | HTTP request | Description
  - [IamV1GetKeys](docs/IamV1GetKeys.md)
  - [IamV1VendorOauthAppCreateRequest](docs/IamV1VendorOauthAppCreateRequest.md)
  - [ListGetKeysResponse](docs/ListGetKeysResponse.md)
- - [IamV1PostLoginActionUserContext](docs/IamV1PostLoginActionUserContext.md)
+ - [IamV1PostLoginActionMethod](docs/IamV1PostLoginActionMethod.md)
 
 
 ## Documentation For Authorization

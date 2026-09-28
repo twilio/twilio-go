@@ -12,7 +12,9 @@ Name | Type | Description | Notes
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was created. |[optional] 
 **UpdatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was last updated. |[optional] 
 **Configuration** | Pointer to [**ListConversationByAccountResponseConversationsConfiguration**](ListConversationByAccountResponseConversationsConfiguration.md) |  |
+**Metadata** | **map[string]string** | Customer-managed key-value pairs. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters. |[optional] 
 **Participants** | [**[]ConversationsV2Participant**](ConversationsV2Participant.md) | Participants in this Conversation. |[optional] 
+**ActionId** | **string** | The Action created for the request's `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status.  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
