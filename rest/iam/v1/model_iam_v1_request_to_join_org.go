@@ -21,6 +21,8 @@ import (
 // IamV1RequestToJoinOrg struct for IamV1RequestToJoinOrg
 type IamV1RequestToJoinOrg struct {
 	NotificationSid string `json:"notificationSid,omitempty"`
+	// SID of the requesting user
+	UserSid string `json:"userSid,omitempty"`
 	// Email address of the requesting user
 	Email string `json:"email,omitempty"`
 	// First name of the requesting user

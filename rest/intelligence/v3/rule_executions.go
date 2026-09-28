@@ -32,7 +32,7 @@ func (params *CreateRuleExecutionParams) SetCreateRuleExecutionRequest(CreateRul
 	return params
 }
 
-// Resolves the given configuration, rule, and conversation, derives the memoryStoreId from the conversation's configuration. Then executes the rule on the conversation.
+// Resolves the given configuration, rule, and conversation, derives the memoryStoreId from the conversation's configuration. Then executes the rule on the conversation. Optionally, `rule.operators[]` can be provided to override specific operator parameters for this execution only; the stored rule configuration is not modified.
 func (c *ApiService) CreateRuleExecution(params *CreateRuleExecutionParams) error {
 	path := "/v3/RuleExecutions"
 

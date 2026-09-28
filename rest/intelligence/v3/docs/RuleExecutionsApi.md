@@ -4,7 +4,7 @@ All URIs are relative to *https://intelligence.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRuleExecution**](RuleExecutionsApi.md#CreateRuleExecution) | **Post** /v3/RuleExecutions | Manually queue a rule execution
+[**CreateRuleExecution**](RuleExecutionsApi.md#CreateRuleExecution) | **Post** /v3/RuleExecutions | On-demand Rule execution
 
 
 
@@ -12,9 +12,9 @@ Method | HTTP request | Description
 
 > CreateRuleExecution(ctx, optional)
 
-Manually queue a rule execution
+On-demand Rule execution
 
-Resolves the given configuration, rule, and conversation, derives the memoryStoreId from the conversation's configuration. Then executes the rule on the conversation. 
+Resolves the given configuration, rule, and conversation, derives the memoryStoreId from the conversation's configuration. Then executes the rule on the conversation. Optionally, `rule.operators[]` can be provided to override specific operator parameters for this execution only; the stored rule configuration is not modified. 
 
 ### Path Parameters
 
