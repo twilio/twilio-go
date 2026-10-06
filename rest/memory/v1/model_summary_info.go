@@ -20,7 +20,7 @@ import (
 
 // SummaryInfo A summary memory derived from conversations.
 type SummaryInfo struct {
-	// The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+	// The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
 	Source string `json:"source,omitempty"`
 	// The main content of the summary.
 	Content string `json:"content"`

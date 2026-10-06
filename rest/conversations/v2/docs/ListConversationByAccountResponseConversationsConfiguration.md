@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **ChannelSettings** | **map[string]interface{}** | Channel-specific parameters forwarded as-is to the downstream sending service. Allows passing backend-specific fields without requiring API changes.  |[optional] 
 **StatusCallbacks** | [**[]ConversationsV2StatusCallbackConfig**](ConversationsV2StatusCallbackConfig.md) | List of default webhook configurations applied to Conversations under this Configuration. |[optional] 
 **IntelligenceConfigurationIds** | **[]string** | List of Intelligence Configuration IDs configured for this Configuration. |[optional] 
+**TraitExtractionStrategyIds** | **[]string** | A list of Trait Extraction Strategy IDs. |[optional] 
+**ObservationExtractionStrategyIds** | **[]string** | A list of Observation Extraction Strategy IDs. |[optional] 
 **MemoryExtractionEnabled** | **bool** | Whether memory extraction is enabled for conversations under this configuration. Defaults to false. |[optional] [default to false]
 **ConversationsV1Bridge** | Pointer to [**ConversationsV2ConversationsV1Bridge**](ConversationsV2ConversationsV1Bridge.md) |  |
 

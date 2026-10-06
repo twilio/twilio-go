@@ -14,10 +14,12 @@
 
 package openapi
 
-// NumbersV1VoiceVerificationCheck struct for NumbersV1VoiceVerificationCheck
-type NumbersV1VoiceVerificationCheck struct {
-	// The phone number that was verified in E.164 format.
-	To string `json:"to,omitempty"`
-	// The Caller ID SID created upon successful verification.
-	CallerIdSid *string `json:"callerIdSid,omitempty"`
+// NumbersV1SmsVerificationCheckRequest struct for NumbersV1SmsVerificationCheckRequest
+type NumbersV1SmsVerificationCheckRequest struct {
+	// The phone number being verified in E.164 format.
+	To string `json:"to"`
+	// The 6 character verification code to check.
+	VerificationCode string `json:"verification_code"`
+	// A human-readable name for the caller ID.
+	FriendlyName string `json:"friendly_name,omitempty"`
 }

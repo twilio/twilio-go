@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Content** | **string** | The main content of the observation. |[optional] 
 **OccurredAt** | [**time.Time**](time.Time.md) | The timestamp when the observation originally occurred. |[optional] 
-**Source** | **string** | The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters. |[optional] 
+**Source** | **string** | The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes. |[optional] 
 **ConversationIds** | **[]string** | Array of conversation IDs associated with this observation. |[optional] 
 **Id** | **string** | A unique identifier for the observation using Twilio Type ID (TTID) format. |
 **CreatedAt** | [**time.Time**](time.Time.md) | The timestamp when the observation was created. |

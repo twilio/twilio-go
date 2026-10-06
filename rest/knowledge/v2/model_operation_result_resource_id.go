@@ -16,7 +16,7 @@ package openapi
 
 // OperationResultResourceId struct for OperationResultResourceId
 type OperationResultResourceId struct {
-	Type string `json:"type"`
 	// The identifier of the created or affected resource.
-	Id string `json:"id"`
+	Id   string `json:"id"`
+	Type string `json:"type"`
 }

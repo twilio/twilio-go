@@ -20,4 +20,6 @@ type Auth0TokenResponse struct {
 	IdToken     string `json:"idToken"`
 	AuthContext string `json:"authContext"`
 	IsPurgatory bool   `json:"isPurgatory"`
+	// The post-signup redirect URL from the signed state, present only when it matched the 1Console return allowlist.
+	ReturnTo *string `json:"returnTo,omitempty"`
 }

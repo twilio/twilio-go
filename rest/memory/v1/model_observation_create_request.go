@@ -24,7 +24,7 @@ type ObservationCreateRequest struct {
 	Content string `json:"content"`
 	// The timestamp when the observation originally occurred.
 	OccurredAt time.Time `json:"occurredAt"`
-	// The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+	// The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
 	Source string `json:"source"`
 	// Array of conversation IDs associated with this observation.
 	ConversationIds []string `json:"conversationIds,omitempty"`

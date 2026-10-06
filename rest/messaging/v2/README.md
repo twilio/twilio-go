@@ -46,6 +46,7 @@ Class | Method | HTTP request | Description
  - [MessagingV2Webhook](docs/MessagingV2Webhook.md)
  - [MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers](docs/MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers.md)
  - [MessagingV2ChannelsSenderProfileGenericResponseEmails](docs/MessagingV2ChannelsSenderProfileGenericResponseEmails.md)
+ - [MessagingV2ChannelsSenderUpdateResponse](docs/MessagingV2ChannelsSenderUpdateResponse.md)
  - [MessagingV2RcsCompliancePatchUpdateResponse](docs/MessagingV2RcsCompliancePatchUpdateResponse.md)
  - [ListChannelsSenderResponse](docs/ListChannelsSenderResponse.md)
  - [MessagingV2Response](docs/MessagingV2Response.md)

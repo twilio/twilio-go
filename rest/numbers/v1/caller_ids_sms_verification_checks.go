@@ -21,15 +21,35 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-func (c *ApiService) CreateSmsVerificationCheck() (*NumbersV1SmsVerificationCheck, error) {
+// Optional parameters for the method 'CreateSmsVerificationCheck'
+type CreateSmsVerificationCheckParams struct {
+	//
+	NumbersV1SmsVerificationCheckRequest *NumbersV1SmsVerificationCheckRequest `json:"NumbersV1SmsVerificationCheckRequest,omitempty"`
+}
+
+func (params *CreateSmsVerificationCheckParams) SetNumbersV1SmsVerificationCheckRequest(NumbersV1SmsVerificationCheckRequest NumbersV1SmsVerificationCheckRequest) *CreateSmsVerificationCheckParams {
+	params.NumbersV1SmsVerificationCheckRequest = &NumbersV1SmsVerificationCheckRequest
+	return params
+}
+
+func (c *ApiService) CreateSmsVerificationCheck(params *CreateSmsVerificationCheckParams) (*NumbersV1SmsVerificationCheck, error) {
 	path := "/v1/CallerIds/SmsVerificationChecks"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1SmsVerificationCheckRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1SmsVerificationCheckRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,15 +65,24 @@ func (c *ApiService) CreateSmsVerificationCheck() (*NumbersV1SmsVerificationChec
 }
 
 // CreateSmsVerificationCheckWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateSmsVerificationCheckWithMetadata() (*metadata.ResourceMetadata[NumbersV1SmsVerificationCheck], error) {
+func (c *ApiService) CreateSmsVerificationCheckWithMetadata(params *CreateSmsVerificationCheckParams) (*metadata.ResourceMetadata[NumbersV1SmsVerificationCheck], error) {
 	path := "/v1/CallerIds/SmsVerificationChecks"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1SmsVerificationCheckRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1SmsVerificationCheckRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
