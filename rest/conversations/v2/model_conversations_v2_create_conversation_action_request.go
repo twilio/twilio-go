@@ -14,9 +14,10 @@
 
 package openapi
 
-// ConversationsV2UpdateStartConversationActionRequest Reports the outcome of an outbound call back to its Action.
-type ConversationsV2UpdateStartConversationActionRequest struct {
-	CallStatus ConversationsV2CallStatus `json:"callStatus"`
-	// The Call SID of the outbound call.
-	CallId string `json:"callId,omitempty"`
+// ConversationsV2CreateConversationActionRequest The single action dispatched once the Conversation is created, selected by `type`.
+type ConversationsV2CreateConversationActionRequest struct {
+	// Action type discriminator. Accepted values: SEND_MESSAGE.
+	Type    string                                            `json:"type"`
+	Channel ConversationsV2SendChannel                        `json:"channel"`
+	Payload *ConversationsV2StartConversationStartFlowPayload `json:"payload,omitempty"`
 }

@@ -20,9 +20,11 @@ import (
 
 // CreateCommunicationInConversationRequest struct for CreateCommunicationInConversationRequest
 type CreateCommunicationInConversationRequest struct {
-	Author     *CreateCommunicationInConversationRequestAuthor      `json:"author,omitempty"`
-	Content    *CreateCommunicationInConversationRequestContent     `json:"content,omitempty"`
-	ChannelId  string                                               `json:"channelId,omitempty"`
+	Author    *CreateCommunicationInConversationRequestAuthor  `json:"author,omitempty"`
+	Content   *CreateCommunicationInConversationRequestContent `json:"content,omitempty"`
+	ChannelId string                                           `json:"channelId,omitempty"`
+	// External resource identifier for this Communication (e.g. MessageSid for SMS/RCS/WhatsApp, TranscriptionSid + MessageIndex for Voice). If a Communication with the same resourceId already exists in the Conversation, it is updated instead of a new one being created.
+	ResourceId string                                               `json:"resourceId,omitempty"`
 	Recipients []CreateCommunicationInConversationRequestRecipients `json:"recipients,omitempty"`
 	// Timestamp when this Communication occurred. If omitted, the server uses the current time.
 	OccurredAt time.Time `json:"occurredAt,omitempty"`

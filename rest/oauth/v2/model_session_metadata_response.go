@@ -19,4 +19,6 @@ type SessionMetadataResponse struct {
 	IsHipaaUser            bool `json:"isHipaaUser"`
 	SessionIdleTimeout     int  `json:"sessionIdleTimeout"`
 	IsVerificationRequired bool `json:"isVerificationRequired"`
+	// Identity provider that authenticated this session: auth0 or whitney.
+	AuthProvider string `json:"authProvider,omitempty"`
 }

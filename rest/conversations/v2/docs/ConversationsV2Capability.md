@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique Capability identifier. |
 **Name** | **string** | Human-readable Capability name. |
-**Domain** | **string** | Domain that owns the Capability. |
+**DomainId** | **string** | Identifier of the domain that owns the Capability. |
 **Description** | **string** | Human-readable description of the Capability. |[optional] 
 **Status** | **string** | Lifecycle status of the Capability. |
 **Visibility** | **string** | Whether the Capability is available publicly or only to internal consumers. |

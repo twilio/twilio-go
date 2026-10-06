@@ -21,15 +21,35 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-func (c *ApiService) CreateVoiceVerification() (*NumbersV1VoiceVerification, error) {
+// Optional parameters for the method 'CreateVoiceVerification'
+type CreateVoiceVerificationParams struct {
+	//
+	NumbersV1VoiceVerificationRequest *NumbersV1VoiceVerificationRequest `json:"NumbersV1VoiceVerificationRequest,omitempty"`
+}
+
+func (params *CreateVoiceVerificationParams) SetNumbersV1VoiceVerificationRequest(NumbersV1VoiceVerificationRequest NumbersV1VoiceVerificationRequest) *CreateVoiceVerificationParams {
+	params.NumbersV1VoiceVerificationRequest = &NumbersV1VoiceVerificationRequest
+	return params
+}
+
+func (c *ApiService) CreateVoiceVerification(params *CreateVoiceVerificationParams) (*NumbersV1VoiceVerification, error) {
 	path := "/v1/CallerIds/VoiceVerifications"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1VoiceVerificationRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1VoiceVerificationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,15 +65,24 @@ func (c *ApiService) CreateVoiceVerification() (*NumbersV1VoiceVerification, err
 }
 
 // CreateVoiceVerificationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateVoiceVerificationWithMetadata() (*metadata.ResourceMetadata[NumbersV1VoiceVerification], error) {
+func (c *ApiService) CreateVoiceVerificationWithMetadata(params *CreateVoiceVerificationParams) (*metadata.ResourceMetadata[NumbersV1VoiceVerification], error) {
 	path := "/v1/CallerIds/VoiceVerifications"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1VoiceVerificationRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1VoiceVerificationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

@@ -18,6 +18,10 @@ package openapi
 type CreateConversationWithConfigRequestConfiguration struct {
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
+	// A list of Trait Extraction Strategy IDs.
+	TraitExtractionStrategyIds []string `json:"traitExtractionStrategyIds,omitempty"`
+	// A list of Observation Extraction Strategy IDs.
+	ObservationExtractionStrategyIds []string `json:"observationExtractionStrategyIds,omitempty"`
 	// The Workflows to associate with this Conversation. Overrides the Configuration's own.
 	Workflows []ConversationWorkflow `json:"workflows,omitempty"`
 }

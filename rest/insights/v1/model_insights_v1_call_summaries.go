@@ -50,7 +50,7 @@ type InsightsV1CallSummaries struct {
 	SdkEdge *interface{} `json:"sdk_edge,omitempty"`
 	// `object` Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
 	SipEdge *interface{} `json:"sip_edge,omitempty"`
-	// Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+	// [Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags) that Voice Insights analysis applies to calls. They indicate a condition that may influence the subjective experience of call audio quality.
 	Tags *[]string `json:"tags,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`

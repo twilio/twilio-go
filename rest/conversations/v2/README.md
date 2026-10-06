@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
  - [CreateConfigurationRequestChannelSettingsValueCaptureRules](docs/CreateConfigurationRequestChannelSettingsValueCaptureRules.md)
  - [CreateParticipantInConversationRequest](docs/CreateParticipantInConversationRequest.md)
  - [ConversationsV2ParticipantType](docs/ConversationsV2ParticipantType.md)
+ - [ConversationsV2CreateConversationActionRequest](docs/ConversationsV2CreateConversationActionRequest.md)
  - [ConversationsV2StartConversationSendMessagePayload](docs/ConversationsV2StartConversationSendMessagePayload.md)
  - [PatchConfigurationRequestChannelSettingsValue](docs/PatchConfigurationRequestChannelSettingsValue.md)
  - [ConversationsV2CapabilityList](docs/ConversationsV2CapabilityList.md)
@@ -80,7 +81,6 @@ Class | Method | HTTP request | Description
  - [ConversationsV2Channel](docs/ConversationsV2Channel.md)
  - [CreateConfigurationRequestChannelSettingsValue](docs/CreateConfigurationRequestChannelSettingsValue.md)
  - [ConversationsV2OperationAccepted](docs/ConversationsV2OperationAccepted.md)
- - [ConversationsV2CallStatus](docs/ConversationsV2CallStatus.md)
  - [ConversationsV2SendMessageActionRequest](docs/ConversationsV2SendMessageActionRequest.md)
  - [ListConversationByAccountResponseConversations](docs/ListConversationByAccountResponseConversations.md)
  - [ContentTranscriptionTranscription](docs/ContentTranscriptionTranscription.md)
@@ -160,7 +160,6 @@ Class | Method | HTTP request | Description
  - [ListParticipantByConversationResponse](docs/ListParticipantByConversationResponse.md)
  - [PatchConfigurationRequestConversationsV1Bridge](docs/PatchConfigurationRequestConversationsV1Bridge.md)
  - [ConversationsV2StartConversationCallAction](docs/ConversationsV2StartConversationCallAction.md)
- - [ConversationsV2UpdateStartConversationActionRequest](docs/ConversationsV2UpdateStartConversationActionRequest.md)
  - [ConversationsV2StartConversationParticipantSelector](docs/ConversationsV2StartConversationParticipantSelector.md)
  - [ConversationsV2StartConversationParticipant](docs/ConversationsV2StartConversationParticipant.md)
 
