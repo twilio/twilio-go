@@ -29,6 +29,10 @@ type ListConversationByAccountResponseConversationsConfiguration struct {
 	StatusCallbacks []ConversationsV2StatusCallbackConfig `json:"statusCallbacks,omitempty"`
 	// List of Intelligence Configuration IDs configured for this Configuration.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
+	// A list of Trait Extraction Strategy IDs.
+	TraitExtractionStrategyIds []string `json:"traitExtractionStrategyIds,omitempty"`
+	// A list of Observation Extraction Strategy IDs.
+	ObservationExtractionStrategyIds []string `json:"observationExtractionStrategyIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
 	MemoryExtractionEnabled bool                                  `json:"memoryExtractionEnabled,omitempty"`
 	ConversationsV1Bridge   *ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`

@@ -33,6 +33,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v3/PhoneNumbers/{phoneNumber} | Fetch the Processing Region assigned to a phone number.
 *PhoneNumbersApi* | [**UpdatePhoneNumber**](docs/PhoneNumbersApi.md#updatephonenumber) | **Post** /v3/PhoneNumbers/{phoneNumber} | Assign an Processing Region to a phone number.
+*ShortCodesApi* | [**FetchShortCode**](docs/ShortCodesApi.md#fetchshortcode) | **Get** /v3/ShortCodes/{isoCountryCode}/{shortCode} | Fetch the Processing Region assigned to a short code.
+*ShortCodesApi* | [**UpdateShortCode**](docs/ShortCodesApi.md#updateshortcode) | **Post** /v3/ShortCodes/{isoCountryCode}/{shortCode} | Assign an Processing Region to a short code.
 
 
 ## Documentation For Models

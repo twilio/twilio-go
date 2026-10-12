@@ -29,4 +29,8 @@ type IamV1ManagedUser struct {
 	Status string `json:"status,omitempty"`
 	// Whether the user has SSO enabled
 	Sso bool `json:"sso,omitempty"`
+	// Whether the user's email domain is verified by the organization
+	EmailDomainVerified bool `json:"emailDomainVerified,omitempty"`
+	// Whether the user has a social login connection, for example Google
+	HasSocialConnection bool `json:"hasSocialConnection,omitempty"`
 }

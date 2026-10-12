@@ -14,7 +14,7 @@
 
 package openapi
 
-// CustomFieldCapacity Custom field mapping slot capacity for the account. Only the `measure` category is supported for now; it is an empty object when custom measures are not applicable for the account.
+// CustomFieldCapacity Custom field mapping slot capacity for the account, by category. Only the `measure` category is supported for now; the object is empty when custom measures are not available for the account.
 type CustomFieldCapacity struct {
 	Measure *CategoryCapacity `json:"measure,omitempty"`
 }

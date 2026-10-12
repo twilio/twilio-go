@@ -23,7 +23,7 @@ type ConversationsV2StartConversationAction struct {
 	// Unique identifier for this Action.
 	Id     string                      `json:"id"`
 	Status ConversationsV2ActionStatus `json:"status"`
-	// Named identifiers, populated as the asynchronous work completes and varying by action type: - conversationId: The created Conversation - channelId: The downstream channel identifier, for SEND_MESSAGE - executionSid: The Studio Flow execution started for the Conversation, for START_FLOW - callId: The Call SID of the outbound call, for CALL and for START_FLOW once its Flow reports back  Absent from the 202 response (returned as an empty map).
+	// Named identifiers, populated as the asynchronous work completes and varying by action type: - conversationId: The created Conversation - channelId: The downstream channel identifier, for SEND_MESSAGE - executionSid: The Studio Flow execution started for the Conversation, for START_FLOW - callId: The Call SID of the outbound call, for CALL  Absent from the 202 response (returned as an empty map).
 	Related map[string]string `json:"related,omitempty"`
 	// Timestamp when the Action was created.
 	CreatedAt time.Time `json:"createdAt"`

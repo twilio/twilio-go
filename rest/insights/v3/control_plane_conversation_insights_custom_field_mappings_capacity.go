@@ -23,7 +23,7 @@ import (
 
 // Returns the account's custom measure slot capacity — slots consumed and remaining. Only the `measure` category is supported for now.
 func (c *ApiService) FetchCustomFieldMappingCapacity() (*CustomFieldCapacity, error) {
-	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity"
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
@@ -47,7 +47,7 @@ func (c *ApiService) FetchCustomFieldMappingCapacity() (*CustomFieldCapacity, er
 
 // FetchCustomFieldMappingCapacityWithMetadata returns response with metadata like status code and response headers
 func (c *ApiService) FetchCustomFieldMappingCapacityWithMetadata() (*metadata.ResourceMetadata[CustomFieldCapacity], error) {
-	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity"
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity"
 
 	data := url.Values{}
 	headers := map[string]interface{}{

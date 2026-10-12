@@ -22,12 +22,12 @@ import (
 type CreateConversationActionResponse struct {
 	// Unique identifier for this Action.
 	Id string `json:"id"`
-	// The type of action. Accepted values: SEND_MESSAGE.
+	// The type of action: action-send-message or action-start-flow.
 	Type   string                      `json:"type"`
 	Status ConversationsV2ActionStatus `json:"status"`
 	// The conversation this action belongs to.
 	ConversationId string `json:"conversationId"`
-	// Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED)
+	// Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED) For START_FLOW: - executionSid: The Studio Flow execution SID (present when COMPLETED)
 	Related map[string]string `json:"related,omitempty"`
 	// Timestamp when the action was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -35,4 +35,6 @@ type CreateConversationActionResponse struct {
 	UpdatedAt time.Time `json:"updatedAt,omitempty"`
 	// Timestamp when the action reached a terminal status.
 	CompletedAt time.Time `json:"completedAt,omitempty"`
+	// Human-readable failure reason. Null unless status is FAILED.
+	FailureReason *string `json:"failureReason,omitempty"`
 }

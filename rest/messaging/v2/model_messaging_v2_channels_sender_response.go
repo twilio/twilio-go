@@ -14,6 +14,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // MessagingV2ChannelsSenderResponse struct for MessagingV2ChannelsSenderResponse
 type MessagingV2ChannelsSenderResponse struct {
 	// The SID of the sender.
@@ -26,7 +30,13 @@ type MessagingV2ChannelsSenderResponse struct {
 	Configuration *MessagingV2Configuration          `json:"configuration,omitempty"`
 	Webhook       *MessagingV2Webhook                `json:"webhook,omitempty"`
 	Profile       *MessagingV2ProfileGenericResponse `json:"profile,omitempty"`
-	Properties    *MessagingV2Properties             `json:"properties,omitempty"`
+	// WhatsApp only. The display name the most recent change applies to — awaiting Meta review, approved by Meta and awaiting re-registration, or, once `pending_display_name_status` is `COMPLETED`, the name now in effect (identical to `name`). Absent when no display name change has been made, and once a completed change stops being reported.
+	PendingDisplayName *string `json:"pending_display_name,omitempty"`
+	// WhatsApp only. The status of the most recent display name change. `PENDING_REVIEW`, `APPROVED` and `DECLINED` are reported by Meta. `PIN_MISMATCH` and `REGISTRATION_FAILED` mean Meta approved the name but it could not be applied; `EXPIRED` means Meta's 14-day window to apply an approved name elapsed. In all three cases, re-submit the same `profile.name` to retry. `COMPLETED` means the name was approved and applied — `name` now returns it. A `COMPLETED` change is reported for 14 days after it completes and is absent afterwards, so treat its presence as \"recently completed\" rather than a permanent flag; use `pending_display_name_status_date` to tell how recent. Absent when no display name change has been made.
+	PendingDisplayNameStatus *string `json:"pending_display_name_status,omitempty"`
+	// WhatsApp only. The date and time in UTC when `pending_display_name_status` last changed, specified in ISO 8601 format. Absent whenever `pending_display_name_status` is absent, so the three `pending_display_name*` fields are always present or absent together.
+	PendingDisplayNameStatusDate *time.Time             `json:"pending_display_name_status_date,omitempty"`
+	Properties                   *MessagingV2Properties `json:"properties,omitempty"`
 	// The reasons why the sender is offline.
 	OfflineReasons *[]MessagingV2Items               `json:"offline_reasons,omitempty"`
 	Compliance     *MessagingV2RcsComplianceResponse `json:"compliance,omitempty"`

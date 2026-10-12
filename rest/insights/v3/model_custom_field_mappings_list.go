@@ -14,7 +14,8 @@
 
 package openapi
 
-// CustomFieldMappingsList All custom field mappings registered for an account.
+// CustomFieldMappingsList A page of custom field mappings registered for the account. The mappings are under `items`, and `meta.key` is `items`.
 type CustomFieldMappingsList struct {
-	Mappings []CustomFieldMappingResponse `json:"mappings,omitempty"`
+	Items []CustomFieldMappingResponse `json:"items,omitempty"`
+	Meta  *PaginationMeta              `json:"meta,omitempty"`
 }

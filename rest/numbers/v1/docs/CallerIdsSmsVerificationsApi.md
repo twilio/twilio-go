@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateSmsVerification
 
-> NumbersV1SmsVerification CreateSmsVerification(ctx, )
+> NumbersV1SmsVerification CreateSmsVerification(ctx, optional)
 
 Initiate SMS verification for a caller ID
 
@@ -23,6 +23,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSmsVerificationParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**NumbersV1SmsVerificationRequest** | [**NumbersV1SmsVerificationRequest**](NumbersV1SmsVerificationRequest.md) | 
+
 ### Return type
 
 [**NumbersV1SmsVerification**](NumbersV1SmsVerification.md)
@@ -33,7 +37,7 @@ Other parameters are passed through a pointer to a CreateSmsVerificationParams s
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

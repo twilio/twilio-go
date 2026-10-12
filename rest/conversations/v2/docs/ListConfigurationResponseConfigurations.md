@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **ChannelSettings** | [**map[string]ConversationsV2ChannelSetting**](ConversationsV2ChannelSetting.md) | Channel-specific configuration settings by channel type. Keys should be valid channel types (`VOICE`, `SMS`, `RCS`, `WHATSAPP`, `CHAT`). |[optional] 
 **StatusCallbacks** | [**[]ConversationsV2StatusCallbackConfig**](ConversationsV2StatusCallbackConfig.md) | List of default webhook configurations applied to Conversations under this Configuration. |[optional] 
 **IntelligenceConfigurationIds** | **[]string** | A list of Conversational Intelligence configuration IDs. |[optional] 
+**TraitExtractionStrategyIds** | **[]string** | A list of Trait Extraction Strategy IDs. |[optional] 
+**ObservationExtractionStrategyIds** | **[]string** | A list of Observation Extraction Strategy IDs. |[optional] 
 **MemoryExtractionEnabled** | **bool** | Whether memory extraction is enabled for conversations under this configuration. Defaults to false. |[optional] [default to false]
 **ConversationsV1Bridge** | Pointer to [**ConversationsV2ConversationsV1Bridge**](ConversationsV2ConversationsV1Bridge.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Configuration was created. |[optional] [readonly] 

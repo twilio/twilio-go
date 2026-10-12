@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Human-readable Capability name. |
-**Domain** | **string** | Domain that owns the Capability. |
+**DomainId** | **string** | Identifier of the domain that owns the Capability. |
 **Description** | **string** | Human-readable description of the Capability. |[optional] 
 **Visibility** | **string** | Whether the Capability is available publicly or only to internal consumers. |[optional] [default to "PUBLIC"]
 **PolicyRef** | **string** | Identifier for a pre-registered Cedar policy supported by the Capabilities API. |

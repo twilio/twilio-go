@@ -14,10 +14,10 @@
 
 package openapi
 
-// CategoryCapacity Slots consumed and remaining for the measure category. Empty when not applicable for the account.
+// CategoryCapacity Slots consumed and remaining for the measure category. By default an account can register up to 3 custom measures, so `consumed + remaining` is the account's limit. Registering a new mapping when `remaining` is `0` returns `403`.
 type CategoryCapacity struct {
 	// Number of custom field mapping slots already registered.
-	Consumed int `json:"consumed,omitempty"`
+	Consumed int `json:"consumed"`
 	// Number of custom field mapping slots still available.
-	Remaining int `json:"remaining,omitempty"`
+	Remaining int `json:"remaining"`
 }

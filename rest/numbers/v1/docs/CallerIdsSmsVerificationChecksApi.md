@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateSmsVerificationCheck
 
-> NumbersV1SmsVerificationCheck CreateSmsVerificationCheck(ctx, )
+> NumbersV1SmsVerificationCheck CreateSmsVerificationCheck(ctx, optional)
 
 Check SMS verification code
 
@@ -23,6 +23,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateSmsVerificationCheckParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**NumbersV1SmsVerificationCheckRequest** | [**NumbersV1SmsVerificationCheckRequest**](NumbersV1SmsVerificationCheckRequest.md) | 
+
 ### Return type
 
 [**NumbersV1SmsVerificationCheck**](NumbersV1SmsVerificationCheck.md)
@@ -33,7 +37,7 @@ Other parameters are passed through a pointer to a CreateSmsVerificationCheckPar
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

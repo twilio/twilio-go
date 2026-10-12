@@ -265,7 +265,7 @@ type ListProfileObservationsParams struct {
 	PageToken *string `json:"pageToken,omitempty"`
 	// Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
 	OrderBy *string `json:"orderBy,omitempty"`
-	// Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+	// Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
 	Source *string `json:"source,omitempty"`
 	// Filter observations created after this timestamp (inclusive).
 	CreatedAfter *time.Time `json:"createdAfter,omitempty"`

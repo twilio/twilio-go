@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateVoiceVerification
 
-> NumbersV1VoiceVerification CreateVoiceVerification(ctx, )
+> NumbersV1VoiceVerification CreateVoiceVerification(ctx, optional)
 
 Initiate voice verification for a caller ID
 
@@ -23,6 +23,10 @@ This endpoint does not need any path parameter.
 Other parameters are passed through a pointer to a CreateVoiceVerificationParams struct
 
 
+Name | Type | Description
+------------- | ------------- | -------------
+**NumbersV1VoiceVerificationRequest** | [**NumbersV1VoiceVerificationRequest**](NumbersV1VoiceVerificationRequest.md) | 
+
 ### Return type
 
 [**NumbersV1VoiceVerification**](NumbersV1VoiceVerification.md)
@@ -33,7 +37,7 @@ Other parameters are passed through a pointer to a CreateVoiceVerificationParams
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

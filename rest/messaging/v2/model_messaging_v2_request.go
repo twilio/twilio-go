@@ -17,7 +17,7 @@ package openapi
 // MessagingV2Request struct for MessagingV2Request
 type MessagingV2Request struct {
 	// Whether this account is an ISV (independent software vendor) or a direct customer. Only settable by a parent account.
-	AccountType string `json:"accountType"`
-	// Whether this account has accepted the WhatsApp terms of service. Only settable by a parent account, and only to true.
-	HasAcceptedTos bool `json:"hasAcceptedTos"`
+	AccountType string `json:"account_type,omitempty"`
+	// Whether this account has accepted the WhatsApp terms of service. Only settable by a parent account.
+	HasAcceptedTos bool `json:"has_accepted_tos,omitempty"`
 }

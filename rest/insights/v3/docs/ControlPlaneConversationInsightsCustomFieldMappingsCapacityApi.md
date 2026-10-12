@@ -4,7 +4,7 @@ All URIs are relative to *https://insights.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FetchCustomFieldMappingCapacity**](ControlPlaneConversationInsightsCustomFieldMappingsCapacityApi.md#FetchCustomFieldMappingCapacity) | **Get** /v3/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity | Get custom field mapping capacity for an account
+[**FetchCustomFieldMappingCapacity**](ControlPlaneConversationInsightsCustomFieldMappingsCapacityApi.md#FetchCustomFieldMappingCapacity) | **Get** /v3/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity | Get custom field mapping capacity for an account
 
 
 

@@ -1,12 +1,11 @@
-# ConversationsV2CallStatus
+# ConversationsV2ImportStatus
 
 ## Enum
 
 Name | Type | Notes
 ------------ | ------------- | -------------
-**ANSWERED** | string | (value: `"ANSWERED"`)
-**BUSY** | string | (value: `"BUSY"`)
-**NO_ANSWER** | string | (value: `"NO_ANSWER"`)
+**PENDING** | string | (value: `"PENDING"`)
+**COMPLETED** | string | (value: `"COMPLETED"`)
 **FAILED** | string | (value: `"FAILED"`)
 **CANCELED** | string | (value: `"CANCELED"`)
 
