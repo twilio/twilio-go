@@ -138,6 +138,7 @@ Class | Method | HTTP request | Description
  - [CreateShortCodeApplicationRequestBusinessInformation](docs/CreateShortCodeApplicationRequestBusinessInformation.md)
  - [NumbersV2Address](docs/NumbersV2Address.md)
  - [ListSupportingDocumentResponse](docs/ListSupportingDocumentResponse.md)
+ - [NumbersV2CallerIdUpdateRequest](docs/NumbersV2CallerIdUpdateRequest.md)
  - [ListEndUserTypeResponse](docs/ListEndUserTypeResponse.md)
  - [CreateShortCodeApplicationResponseComplianceKeywords](docs/CreateShortCodeApplicationResponseComplianceKeywords.md)
  - [NumbersV2AddressCreate](docs/NumbersV2AddressCreate.md)

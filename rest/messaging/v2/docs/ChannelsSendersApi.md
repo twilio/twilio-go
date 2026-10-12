@@ -178,7 +178,7 @@ Name | Type | Description
 
 ## UpdateChannelsSender
 
-> MessagingV2ChannelsSenderResponse UpdateChannelsSender(ctx, Sidoptional)
+> MessagingV2ChannelsSenderUpdateResponse UpdateChannelsSender(ctx, Sidoptional)
 
 Update a sender's information, including `profile`, `webhook`, and `configuration`.
 
@@ -203,7 +203,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV2ChannelsSenderResponse**](MessagingV2ChannelsSenderResponse.md)
+[**MessagingV2ChannelsSenderUpdateResponse**](MessagingV2ChannelsSenderUpdateResponse.md)
 
 ### Authorization
 

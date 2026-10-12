@@ -14,7 +14,8 @@
 
 package openapi
 
-// EntityMetadataBase Fields common to every `entityMetadata` variant. Exists so that generated clients get a stable base type: a variant added in a later revision degrades to this rather than breaking deserialization.
-type EntityMetadataBase struct {
-	SourceType SourceType `json:"sourceType"`
+// EntityMetadataUpdate Updatable subset of `entityMetadata`. `sourceType` must equal the mapping's current `sourceType` (it cannot be changed), and the property named for that source carries the fields to update:  | `sourceType` | Update property | Updatable fields | |---|---|---| | `INTELLIGENCE_OPERATOR` | `intelligenceOperator` | `field` |
+type EntityMetadataUpdate struct {
+	SourceType           SourceType                        `json:"sourceType"`
+	IntelligenceOperator *IntelligenceOperatorSourceUpdate `json:"intelligenceOperator,omitempty"`
 }

@@ -119,7 +119,7 @@ type ListConferenceParams struct {
 	DateUpdatedAfter *string `json:"DateUpdated&gt;,omitempty"`
 	// The string that identifies the Conference resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. Starting from September 30th, 2026, the default is `in-progress`. To read completed conferences, set `Status` to `completed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

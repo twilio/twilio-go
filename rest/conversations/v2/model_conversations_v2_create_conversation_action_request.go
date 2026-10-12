@@ -14,14 +14,10 @@
 
 package openapi
 
-// ConversationsV2CallStatus Outcome of an outbound call placed by a CALL StartConversation Action.
-type ConversationsV2CallStatus string
-
-// List of conversations.v2.call_status
-const (
-	CONVERSATIONSV2CALLSTATUS_ANSWERED  ConversationsV2CallStatus = "ANSWERED"
-	CONVERSATIONSV2CALLSTATUS_BUSY      ConversationsV2CallStatus = "BUSY"
-	CONVERSATIONSV2CALLSTATUS_NO_ANSWER ConversationsV2CallStatus = "NO_ANSWER"
-	CONVERSATIONSV2CALLSTATUS_FAILED    ConversationsV2CallStatus = "FAILED"
-	CONVERSATIONSV2CALLSTATUS_CANCELED  ConversationsV2CallStatus = "CANCELED"
-)
+// ConversationsV2CreateConversationActionRequest The single action dispatched once the Conversation is created, selected by `type`.
+type ConversationsV2CreateConversationActionRequest struct {
+	// Action type discriminator. Accepted values: SEND_MESSAGE.
+	Type    string                                            `json:"type"`
+	Channel ConversationsV2SendChannel                        `json:"channel"`
+	Payload *ConversationsV2StartConversationStartFlowPayload `json:"payload,omitempty"`
+}

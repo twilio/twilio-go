@@ -14,7 +14,7 @@
 
 package openapi
 
-// MappingCategory The type of field being registered. Only `MEASURE` is supported.
+// MappingCategory The category of the custom field. Supported values: - `MEASURE`: a numeric value that can be aggregated and queried as a   measure in Conversations Insights.
 type MappingCategory string
 
 // List of MappingCategory

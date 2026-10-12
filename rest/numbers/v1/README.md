@@ -33,7 +33,6 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *CallerIdsSmsVerificationChecksApi* | [**CreateSmsVerificationCheck**](docs/CallerIdsSmsVerificationChecksApi.md#createsmsverificationcheck) | **Post** /v1/CallerIds/SmsVerificationChecks | Check SMS verification code
 *CallerIdsSmsVerificationsApi* | [**CreateSmsVerification**](docs/CallerIdsSmsVerificationsApi.md#createsmsverification) | **Post** /v1/CallerIds/SmsVerifications | Initiate SMS verification for a caller ID
-*CallerIdsVoiceVerificationChecksApi* | [**CreateVoiceVerificationCheck**](docs/CallerIdsVoiceVerificationChecksApi.md#createvoiceverificationcheck) | **Post** /v1/CallerIds/VoiceVerificationChecks | Check voice verification code
 *CallerIdsVoiceVerificationsApi* | [**CreateVoiceVerification**](docs/CallerIdsVoiceVerificationsApi.md#createvoiceverification) | **Post** /v1/CallerIds/VoiceVerifications | Initiate voice verification for a caller ID
 *HostedNumberEligibilityApi* | [**CreateEligibility**](docs/HostedNumberEligibilityApi.md#createeligibility) | **Post** /v1/HostedNumber/Eligibility | Create an eligibility check for a number that you want to host in Twilio.
 *HostedNumberEligibilityBulkApi* | [**CreateBulkEligibility**](docs/HostedNumberEligibilityBulkApi.md#createbulkeligibility) | **Post** /v1/HostedNumber/Eligibility/Bulk | Create a bulk eligibility check for a set of numbers that you want to host in Twilio.
@@ -67,6 +66,7 @@ Class | Method | HTTP request | Description
  - [NumbersV1CreateEmbeddedRegistrationRequest](docs/NumbersV1CreateEmbeddedRegistrationRequest.md)
  - [NumbersV1PortingPortInCreate](docs/NumbersV1PortingPortInCreate.md)
  - [NumbersV1AvailablePhoneNumber](docs/NumbersV1AvailablePhoneNumber.md)
+ - [NumbersV1SmsVerificationCheckRequest](docs/NumbersV1SmsVerificationCheckRequest.md)
  - [NumbersV1AvailablePhoneNumberGeography](docs/NumbersV1AvailablePhoneNumberGeography.md)
  - [NumbersV1PortingPortIn](docs/NumbersV1PortingPortIn.md)
  - [NumbersV1PortingPortInCreatePhoneNumbers](docs/NumbersV1PortingPortInCreatePhoneNumbers.md)
@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
  - [NumbersV1BulkEligibility](docs/NumbersV1BulkEligibility.md)
  - [NumbersV1Eligibility](docs/NumbersV1Eligibility.md)
  - [NumbersV1A2pRegistrationDetails](docs/NumbersV1A2pRegistrationDetails.md)
+ - [NumbersV1SmsVerificationRequest](docs/NumbersV1SmsVerificationRequest.md)
  - [ListPortInRequestsResponse](docs/ListPortInRequestsResponse.md)
  - [NumbersV1CreateEmbeddedSessionRequest](docs/NumbersV1CreateEmbeddedSessionRequest.md)
  - [NumbersV1A2pBrandCampaignComplianceRegistrationSids](docs/NumbersV1A2pBrandCampaignComplianceRegistrationSids.md)
@@ -85,9 +86,9 @@ Class | Method | HTTP request | Description
  - [NumbersV1PortingBulkUpdateStatusRequest](docs/NumbersV1PortingBulkUpdateStatusRequest.md)
  - [NumbersV1A2pRegistrationDetailsList](docs/NumbersV1A2pRegistrationDetailsList.md)
  - [ListSigningRequestConfigurationResponseMeta](docs/ListSigningRequestConfigurationResponseMeta.md)
+ - [NumbersV1VoiceVerificationRequest](docs/NumbersV1VoiceVerificationRequest.md)
  - [NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests](docs/NumbersV1PortingBulkUpdateStatusRequestPortInPhoneNumberRequests.md)
  - [ListSigningRequestConfigurationResponse](docs/ListSigningRequestConfigurationResponse.md)
- - [NumbersV1VoiceVerificationCheck](docs/NumbersV1VoiceVerificationCheck.md)
  - [NumbersV1SigningRequestConfiguration](docs/NumbersV1SigningRequestConfiguration.md)
  - [NumbersV1AvailablePhoneNumberCertifications](docs/NumbersV1AvailablePhoneNumberCertifications.md)
  - [NumbersV1PortingWebhookConfiguration](docs/NumbersV1PortingWebhookConfiguration.md)

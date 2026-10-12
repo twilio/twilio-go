@@ -14,9 +14,10 @@
 
 package openapi
 
-// ConversationsV2UpdateStartConversationActionRequest Reports the outcome of an outbound call back to its Action.
-type ConversationsV2UpdateStartConversationActionRequest struct {
-	CallStatus ConversationsV2CallStatus `json:"callStatus"`
-	// The Call SID of the outbound call.
-	CallId string `json:"callId,omitempty"`
+// ConversationsV2ImportProgress Item counts for one source.
+type ConversationsV2ImportProgress struct {
+	Completed int `json:"completed,omitempty"`
+	Skipped   int `json:"skipped,omitempty"`
+	Failed    int `json:"failed,omitempty"`
+	InFlight  int `json:"inFlight,omitempty"`
 }

@@ -82,7 +82,6 @@ Class | Method | HTTP request | Description
  - [IamV1SubaccountBatchWorkflowType](docs/IamV1SubaccountBatchWorkflowType.md)
  - [IamV1ChangeAccountOwnerRequest](docs/IamV1ChangeAccountOwnerRequest.md)
  - [IamV1SocialConnection](docs/IamV1SocialConnection.md)
- - [IamV1UserRole](docs/IamV1UserRole.md)
  - [IamV1ManagedUserWithRoleAssignmentsRoleAssignments](docs/IamV1ManagedUserWithRoleAssignmentsRoleAssignments.md)
  - [IamV1ManagedUser](docs/IamV1ManagedUser.md)
  - [IamV1RequestToJoinOrg](docs/IamV1RequestToJoinOrg.md)
@@ -111,7 +110,6 @@ Class | Method | HTTP request | Description
  - [IamV1RequestToJoinOrgSelf](docs/IamV1RequestToJoinOrgSelf.md)
  - [IamV1PostLoginActionAuthenticationContext](docs/IamV1PostLoginActionAuthenticationContext.md)
  - [IamV1Vendoroauthapp](docs/IamV1Vendoroauthapp.md)
- - [IamV1UserInvitation](docs/IamV1UserInvitation.md)
  - [IamV1AcceptRequestToJoinOrgResponse](docs/IamV1AcceptRequestToJoinOrgResponse.md)
  - [IamV1AccountSearchListMeta](docs/IamV1AccountSearchListMeta.md)
  - [IamV1EmailChangeInitiateResponse](docs/IamV1EmailChangeInitiateResponse.md)
@@ -152,6 +150,21 @@ r, err := client.Service.Operation(auth, args)
 
 
 ## access_token_bearer
+
+- **Type**: HTTP basic authentication
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAuth{
+    UserName: "username",
+    Password: "password",
+})
+r, err := client.Service.Operation(auth, args)
+```
+
+
+## m2mOauth
 
 - **Type**: HTTP basic authentication
 

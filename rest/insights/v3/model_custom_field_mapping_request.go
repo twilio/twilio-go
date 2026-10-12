@@ -14,12 +14,12 @@
 
 package openapi
 
-// CustomFieldMappingRequest Registration payload for a single custom field sourced from an upstream entity. The target account is supplied via the I-Twilio-Auth-Account header, not this body.
+// CustomFieldMappingRequest Registration payload for a single custom field. The mapping is created in the account identified by the request's credentials.
 type CustomFieldMappingRequest struct {
 	Category MappingCategory `json:"category"`
-	// Customer-facing name for the field; becomes the ClickHouse Map key and the platform field alias. Unique per account across every `sourceType` — the Map key namespace is account-global.
+	// Name of the custom field, used to reference it in Insights queries. Contains only letters, digits and `_`, and must not be empty. Must be unique within the account across every `sourceType`; registering an existing name returns `409`. Cannot be changed after registration.
 	Name string `json:"name"`
-	// Optional, free-text description of this custom field mapping. Display-only — not part of any uniqueness check.
-	Description    string                              `json:"description,omitempty"`
-	EntityMetadata *IntelligenceOperatorEntityMetadata `json:"entityMetadata,omitempty"`
+	// Optional, free-text description of this custom field mapping, up to 150 characters. Display-only — not part of any uniqueness check.
+	Description    string          `json:"description,omitempty"`
+	EntityMetadata *EntityMetadata `json:"entityMetadata,omitempty"`
 }

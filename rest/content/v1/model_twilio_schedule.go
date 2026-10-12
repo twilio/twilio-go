@@ -18,5 +18,5 @@ package openapi
 type TwilioSchedule struct {
 	Id        string `json:"id"`
 	Title     string `json:"title"`
-	TimeSlots string `json:"timeSlots"`
+	TimeSlots string `json:"time_slots"`
 }

@@ -56,6 +56,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
+ - [AccountPermission](docs/AccountPermission.md)
  - [AccountsV1MessagingGeopermissions](docs/AccountsV1MessagingGeopermissions.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
@@ -65,6 +66,8 @@ Class | Method | HTTP request | Description
  - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
  - [AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel](docs/AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
+ - [PermissionWithSidOnly](docs/PermissionWithSidOnly.md)
+ - [Permission](docs/Permission.md)
  - [AccountsV1CredentialAws](docs/AccountsV1CredentialAws.md)
  - [AccountsV1MessagingSmsPumpingProtection](docs/AccountsV1MessagingSmsPumpingProtection.md)
  - [ListCredentialAwsResponseMeta](docs/ListCredentialAwsResponseMeta.md)

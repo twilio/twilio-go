@@ -24,8 +24,8 @@ type ConversationsV2Capability struct {
 	Id string `json:"id"`
 	// Human-readable Capability name.
 	Name string `json:"name"`
-	// Domain that owns the Capability.
-	Domain string `json:"domain"`
+	// Identifier of the domain that owns the Capability.
+	DomainId string `json:"domainId"`
 	// Human-readable description of the Capability.
 	Description string `json:"description,omitempty"`
 	// Lifecycle status of the Capability.

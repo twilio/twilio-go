@@ -173,7 +173,7 @@ Name | Type | Description
 **PageSize** | **int** | The maximum number of items to return per page, maximum of 1000.
 **PageToken** | **string** | The token for the page of results to retrieve.
 **OrderBy** | **string** | Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
-**Source** | **string** | Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+**Source** | **string** | Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
 **CreatedAfter** | **time.Time** | Filter observations created after this timestamp (inclusive).
 **CreatedBefore** | **time.Time** | Filter observations created before this timestamp (exclusive).
 **ConversationId** | **string** | Filter by conversation ID. Returns only items associated with the specified conversation.

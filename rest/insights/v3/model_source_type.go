@@ -14,7 +14,7 @@
 
 package openapi
 
-// SourceType The kind of upstream entity that sources this field. The value names the entity type itself, so the identifier carried in `entityMetadata` is unambiguous without a lookup (`INTELLIGENCE_OPERATOR` carries an `operatorId`).  Adding a new upstream means adding a value here plus its own `entityMetadata` variant — the request shape is unchanged.
+// SourceType The kind of entity that supplies the custom field's value. Each value has a matching property on `entityMetadata` that carries that source's details. Supported values: - `INTELLIGENCE_OPERATOR`: the value is read from the output of a   Conversational Intelligence operator. Details go in   `entityMetadata.intelligenceOperator`.
 type SourceType string
 
 // List of SourceType

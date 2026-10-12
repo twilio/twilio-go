@@ -464,7 +464,7 @@ func (params *UpdateChannelsSenderParams) SetMessagingV2Update(MessagingV2Update
 }
 
 // (WhatsApp only) Update a Sender. You can update a sender's information, including `profile`, `webhook`, and `configuration`. To verify a phone number, set `configuration.verification_code` to the One-time Password (OTP) that you received.
-func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSenderResponse, error) {
+func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSenderParams) (*MessagingV2ChannelsSenderUpdateResponse, error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -489,7 +489,7 @@ func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSend
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV2ChannelsSenderResponse{}
+	ps := &MessagingV2ChannelsSenderUpdateResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -498,7 +498,7 @@ func (c *ApiService) UpdateChannelsSender(Sid string, params *UpdateChannelsSend
 }
 
 // UpdateChannelsSenderWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateChannelsSenderWithMetadata(Sid string, params *UpdateChannelsSenderParams) (*metadata.ResourceMetadata[MessagingV2ChannelsSenderResponse], error) {
+func (c *ApiService) UpdateChannelsSenderWithMetadata(Sid string, params *UpdateChannelsSenderParams) (*metadata.ResourceMetadata[MessagingV2ChannelsSenderUpdateResponse], error) {
 	path := "/v2/Channels/Senders/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -523,12 +523,12 @@ func (c *ApiService) UpdateChannelsSenderWithMetadata(Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV2ChannelsSenderResponse{}
+	ps := &MessagingV2ChannelsSenderUpdateResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[MessagingV2ChannelsSenderResponse](
+	metadataWrapper := metadata.NewResourceMetadata[MessagingV2ChannelsSenderUpdateResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers

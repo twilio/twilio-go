@@ -16,8 +16,11 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
+	"strings"
 
+	"github.com/twilio/twilio-go/client"
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
@@ -32,7 +35,7 @@ func (params *CreateCustomFieldMappingParams) SetCustomFieldMappingRequest(Custo
 	return params
 }
 
-// Registers a custom field for an account under a category, sourced from an upstream entity — selected via the `entityMetadata.sourceType` discriminator, which determines the required shape of `entityMetadata`. Only the `MEASURE` category is supported for now.  For sources with a resolvable field-path concept, validates that `entityMetadata.field` resolves on the entity's latest active version by calling that source's own resolution API (the Intelligence fetch-operator API for `sourceType: INTELLIGENCE_OPERATOR`), then performs an idempotent upsert keyed on (accountSid, category, name). `entityMetadata.sourceType` plus that variant's own identity field (`operatorId` for `INTELLIGENCE_OPERATOR`) must match the existing registration's owner for the upsert to succeed — a mismatch returns `409`. Enforces the per-account, per-category capacity limit.
+// Registers a custom field for the account. `entityMetadata.sourceType` selects where the field's value comes from, and the matching property on `entityMetadata` (`intelligenceOperator` for `INTELLIGENCE_OPERATOR`) carries its details. Only the `MEASURE` category is supported for now.  The request is validated before the mapping is created: - `name` contains only letters, digits and `_`, and is not already   registered for the account (otherwise `409`); - `description`, when present, is at most 150 characters; - for `INTELLIGENCE_OPERATOR`, the operator has an active version with   `outputFormat` `JSON`, and `entityMetadata.intelligenceOperator.field`   is one or two `.`-separated segments that resolve to a `number` or   `integer` property in that version's output schema (otherwise `400`); - the account has a free slot in the category; by default an account can   register up to 3 custom measures (otherwise `403`). Use   `GET /v3/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity`   to check the remaining slots.  Create-only: if a mapping with the same `name` already exists for the account, `409` is returned with the existing mapping's `id` and nothing is changed. To modify an existing mapping, use `PATCH /v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}`.
 func (c *ApiService) CreateCustomFieldMapping(params *CreateCustomFieldMappingParams) (*CustomFieldMappingResponse, error) {
 	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings"
 
@@ -104,13 +107,103 @@ func (c *ApiService) CreateCustomFieldMappingWithMetadata(params *CreateCustomFi
 	return metadataWrapper, nil
 }
 
-// Returns custom field mappings registered for the account.
-func (c *ApiService) FetchCustomFieldMappings() (*CustomFieldMappingsList, error) {
+// Returns a single custom field mapping by its `mappingId`. The `ETag` response header identifies the mapping's current version; supply it as `If-Match` on `PATCH` to guard against concurrent updates.
+func (c *ApiService) FetchCustomFieldMapping(MappingId string) (*CustomFieldMappingResponse, error) {
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}"
+	path = strings.Replace(path, "{"+"mappingId"+"}", MappingId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CustomFieldMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// FetchCustomFieldMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) FetchCustomFieldMappingWithMetadata(MappingId string) (*metadata.ResourceMetadata[CustomFieldMappingResponse], error) {
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}"
+	path = strings.Replace(path, "{"+"mappingId"+"}", MappingId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CustomFieldMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[CustomFieldMappingResponse](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
+// Optional parameters for the method 'ListCustomFieldMappings'
+type ListCustomFieldMappingsParams struct {
+	// The maximum number of resources to return
+	PageSize *int `json:"pageSize,omitempty"`
+	// Token for pagination
+	PageToken *string `json:"pageToken,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+}
+
+func (params *ListCustomFieldMappingsParams) SetPageSize(PageSize int) *ListCustomFieldMappingsParams {
+	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCustomFieldMappingsParams) SetPageToken(PageToken string) *ListCustomFieldMappingsParams {
+	params.PageToken = &PageToken
+	return params
+}
+func (params *ListCustomFieldMappingsParams) SetLimit(Limit int) *ListCustomFieldMappingsParams {
+	params.Limit = &Limit
+	return params
+}
+
+// Retrieve a single page of CustomFieldMappings records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomFieldMappings(params *ListCustomFieldMappingsParams, pageToken string) (*CustomFieldMappingsList, error) {
 	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("pageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.PageToken != nil {
+		data.Set("pageToken", *params.PageToken)
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
@@ -128,13 +221,24 @@ func (c *ApiService) FetchCustomFieldMappings() (*CustomFieldMappingsList, error
 	return ps, err
 }
 
-// FetchCustomFieldMappingsWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) FetchCustomFieldMappingsWithMetadata() (*metadata.ResourceMetadata[CustomFieldMappingsList], error) {
+// PageCustomFieldMappingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PageCustomFieldMappingsWithMetadata(params *ListCustomFieldMappingsParams, pageToken string) (*metadata.ResourceMetadata[CustomFieldMappingsList], error) {
 	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
 		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	if params != nil && params.PageSize != nil {
+		data.Set("pageSize", fmt.Sprint(*params.PageSize))
+	}
+	if params != nil && params.PageToken != nil {
+		data.Set("pageToken", *params.PageToken)
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers, c.apiVersion)
@@ -150,6 +254,243 @@ func (c *ApiService) FetchCustomFieldMappingsWithMetadata() (*metadata.ResourceM
 	}
 
 	metadataWrapper := metadata.NewResourceMetadata[CustomFieldMappingsList](
+		*ps,             // The page object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
+// Lists CustomFieldMappings records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomFieldMappings(params *ListCustomFieldMappingsParams) ([]CustomFieldMappingResponse, error) {
+	response, errors := c.StreamCustomFieldMappings(params)
+
+	records := make([]CustomFieldMappingResponse, 0)
+	for record := range response {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	return records, nil
+}
+
+// ListCustomFieldMappingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) ListCustomFieldMappingsWithMetadata(params *ListCustomFieldMappingsParams) (*metadata.ResourceMetadata[[]CustomFieldMappingResponse], error) {
+	response, errors := c.StreamCustomFieldMappingsWithMetadata(params)
+	resource := response.GetResource()
+
+	records := make([]CustomFieldMappingResponse, 0)
+	for record := range resource {
+		records = append(records, record)
+	}
+
+	if err := <-errors; err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[[]CustomFieldMappingResponse](
+		records,
+		response.GetStatusCode(), // HTTP status code
+		response.GetHeaders(),    // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
+
+// Streams CustomFieldMappings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomFieldMappings(params *ListCustomFieldMappingsParams) (chan CustomFieldMappingResponse, chan error) {
+	if params == nil {
+		params = &ListCustomFieldMappingsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan CustomFieldMappingResponse, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCustomFieldMappings(params, "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings"
+		go c.streamCustomFieldMappings(response, path, params, recordChannel, errorChannel)
+	}
+
+	return recordChannel, errorChannel
+}
+
+// StreamCustomFieldMappingsWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) StreamCustomFieldMappingsWithMetadata(params *ListCustomFieldMappingsParams) (*metadata.ResourceMetadata[chan CustomFieldMappingResponse], chan error) {
+	if params == nil {
+		params = &ListCustomFieldMappingsParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	recordChannel := make(chan CustomFieldMappingResponse, 1)
+	errorChannel := make(chan error, 1)
+
+	response, err := c.PageCustomFieldMappingsWithMetadata(params, "")
+	if err != nil {
+		errorChannel <- err
+		close(recordChannel)
+		close(errorChannel)
+	} else {
+		resource := response.GetResource()
+		path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings"
+		go c.streamCustomFieldMappings(&resource, path, params, recordChannel, errorChannel)
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[chan CustomFieldMappingResponse](
+		recordChannel,            // The stream
+		response.GetStatusCode(), // HTTP status code from page response
+		response.GetHeaders(),    // HTTP headers from page response
+	)
+
+	return metadataWrapper, errorChannel
+}
+
+func (c *ApiService) streamCustomFieldMappings(response *CustomFieldMappingsList, path string, params *ListCustomFieldMappingsParams, recordChannel chan CustomFieldMappingResponse, errorChannel chan error) {
+	curRecord := 1
+
+	for response != nil {
+		responseRecords := response.Items
+		for item := range responseRecords {
+			recordChannel <- responseRecords[item]
+			curRecord += 1
+			if params.Limit != nil && *params.Limit < curRecord {
+				close(recordChannel)
+				close(errorChannel)
+				return
+			}
+		}
+
+		record, err := client.GetNext(c.baseURL+path, response, c.getNextCustomFieldMappingsList)
+		if err != nil {
+			errorChannel <- err
+			break
+		} else if record == nil {
+			break
+		}
+
+		response = record.(*CustomFieldMappingsList)
+	}
+
+	close(recordChannel)
+	close(errorChannel)
+}
+
+func (c *ApiService) getNextCustomFieldMappingsList(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil, c.apiVersion)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CustomFieldMappingsList{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
+}
+
+// Optional parameters for the method 'PatchCustomFieldMapping'
+type PatchCustomFieldMappingParams struct {
+	// ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.
+	IfMatch *string `json:"If-Match,omitempty"`
+	//
+	CustomFieldMappingUpdateRequest *CustomFieldMappingUpdateRequest `json:"CustomFieldMappingUpdateRequest,omitempty"`
+}
+
+func (params *PatchCustomFieldMappingParams) SetIfMatch(IfMatch string) *PatchCustomFieldMappingParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *PatchCustomFieldMappingParams) SetCustomFieldMappingUpdateRequest(CustomFieldMappingUpdateRequest CustomFieldMappingUpdateRequest) *PatchCustomFieldMappingParams {
+	params.CustomFieldMappingUpdateRequest = &CustomFieldMappingUpdateRequest
+	return params
+}
+
+// Partially updates an existing custom field mapping. Only the properties present in the body are changed. The updatable properties depend on the mapping's `sourceType`; for `INTELLIGENCE_OPERATOR`, only `entityMetadata.intelligenceOperator.field` can be updated today.  The new `field` is validated the same way as at registration: it must be one or two `.`-separated segments of letters, digits and `_`, and resolve to a `number` or `integer` property in the output schema of the operator's latest active version.  The mapping's `id`, `name`, `category`, `createdAt` and owning entity never change. Sending a `field` value equal to the current one is a no-op that returns `200` without modifying the mapping, so the operation is idempotent. Supply `If-Match` with the `ETag` returned by `GET`, `POST` or a previous `PATCH` to guard against concurrent updates.  Values already ingested are not recomputed; results processed after the update use the new `field`.
+func (c *ApiService) PatchCustomFieldMapping(MappingId string, params *PatchCustomFieldMappingParams) (*CustomFieldMappingResponse, error) {
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}"
+	path = strings.Replace(path, "{"+"mappingId"+"}", MappingId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.CustomFieldMappingUpdateRequest != nil {
+		b, err := json.Marshal(*params.CustomFieldMappingUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CustomFieldMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// PatchCustomFieldMappingWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PatchCustomFieldMappingWithMetadata(MappingId string, params *PatchCustomFieldMappingParams) (*metadata.ResourceMetadata[CustomFieldMappingResponse], error) {
+	path := "/v3/ControlPlane/ConversationInsights/CustomFieldMappings/{mappingId}"
+	path = strings.Replace(path, "{"+"mappingId"+"}", MappingId, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.CustomFieldMappingUpdateRequest != nil {
+		b, err := json.Marshal(*params.CustomFieldMappingUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &CustomFieldMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[CustomFieldMappingResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers

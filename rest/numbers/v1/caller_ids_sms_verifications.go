@@ -21,15 +21,35 @@ import (
 	"github.com/twilio/twilio-go/client/metadata"
 )
 
-func (c *ApiService) CreateSmsVerification() (*NumbersV1SmsVerification, error) {
+// Optional parameters for the method 'CreateSmsVerification'
+type CreateSmsVerificationParams struct {
+	//
+	NumbersV1SmsVerificationRequest *NumbersV1SmsVerificationRequest `json:"NumbersV1SmsVerificationRequest,omitempty"`
+}
+
+func (params *CreateSmsVerificationParams) SetNumbersV1SmsVerificationRequest(NumbersV1SmsVerificationRequest NumbersV1SmsVerificationRequest) *CreateSmsVerificationParams {
+	params.NumbersV1SmsVerificationRequest = &NumbersV1SmsVerificationRequest
+	return params
+}
+
+func (c *ApiService) CreateSmsVerification(params *CreateSmsVerificationParams) (*NumbersV1SmsVerification, error) {
 	path := "/v1/CallerIds/SmsVerifications"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1SmsVerificationRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1SmsVerificationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,15 +65,24 @@ func (c *ApiService) CreateSmsVerification() (*NumbersV1SmsVerification, error) 
 }
 
 // CreateSmsVerificationWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateSmsVerificationWithMetadata() (*metadata.ResourceMetadata[NumbersV1SmsVerification], error) {
+func (c *ApiService) CreateSmsVerificationWithMetadata(params *CreateSmsVerificationParams) (*metadata.ResourceMetadata[NumbersV1SmsVerification], error) {
 	path := "/v1/CallerIds/SmsVerifications"
 
 	data := url.Values{}
 	headers := map[string]interface{}{
-		"Content-Type": "application/x-www-form-urlencoded",
+		"Content-Type": "application/json",
 	}
 
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion)
+	body := []byte{}
+	if params != nil && params.NumbersV1SmsVerificationRequest != nil {
+		b, err := json.Marshal(*params.NumbersV1SmsVerificationRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers, c.apiVersion, body...)
 	if err != nil {
 		return nil, err
 	}

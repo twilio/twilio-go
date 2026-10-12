@@ -1,10 +1,11 @@
-# EntityMetadataBase
+# EntityMetadataUpdate
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SourceType** | [**SourceType**](SourceType.md) |  |
+**IntelligenceOperator** | Pointer to [**IntelligenceOperatorSourceUpdate**](IntelligenceOperatorSourceUpdate.md) |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

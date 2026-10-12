@@ -20,15 +20,16 @@ import (
 
 // CustomFieldMappingResponse A registered custom field mapping.
 type CustomFieldMappingResponse struct {
-	// TTID for conversation insights custom field mapping
+	// The unique identifier of the custom field mapping.
 	Id       string          `json:"id,omitempty"`
 	Category MappingCategory `json:"category"`
-	Name     string          `json:"name"`
+	// Name of the custom field, unique within the account.
+	Name string `json:"name"`
 	// Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check.
-	Description    string                              `json:"description,omitempty"`
-	EntityMetadata *IntelligenceOperatorEntityMetadata `json:"entityMetadata,omitempty"`
+	Description    string          `json:"description,omitempty"`
+	EntityMetadata *EntityMetadata `json:"entityMetadata,omitempty"`
 	// When the mapping was registered.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
-	// When the mapping was last materially modified in-place. Null until the first update-in-place.
+	// When the mapping was last modified via `PATCH`. Null until the first update.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
