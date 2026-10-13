@@ -340,3 +340,127 @@ func TestClient_SendRequestWithOAuth(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }
+
+func TestClient_429RetrySuccess(t *testing.T) {
+	attempt := 0
+	retryServer := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			attempt++
+			if attempt == 1 {
+				w.WriteHeader(http.StatusTooManyRequests)
+				_, _ = w.Write([]byte(`{"status":429,"message":"Too Many Requests","code":20429,"more_info":""}`))
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write([]byte(`{"response":"ok"}`))
+		}))
+	defer retryServer.Close()
+
+	c := NewClient("user", "pass")
+	c.MaxRetries = 1
+
+	resp, err := c.SendRequest("GET", retryServer.URL, nil, nil) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Equal(t, 2, attempt)
+}
+
+func TestClient_429RetryExhausted(t *testing.T) {
+	attempts := 0
+	retryServer := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			attempts++
+			w.WriteHeader(http.StatusTooManyRequests)
+			_, _ = w.Write([]byte(`{"status":429,"message":"Too Many Requests","code":20429,"more_info":""}`))
+		}))
+	defer retryServer.Close()
+
+	c := NewClient("user", "pass")
+	c.MaxRetries = 2
+
+	resp, err := c.SendRequest("GET", retryServer.URL, nil, nil) //nolint:bodyclose
+	twilioError := err.(*twilio.TwilioRestError)
+	assert.Nil(t, resp)
+	assert.Equal(t, 429, twilioError.Status)
+	// 1 initial attempt + 2 retries
+	assert.Equal(t, 3, attempts)
+}
+
+func TestClient_429NoRetryByDefault(t *testing.T) {
+	attempts := 0
+	retryServer := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			attempts++
+			w.WriteHeader(http.StatusTooManyRequests)
+			_, _ = w.Write([]byte(`{"status":429,"message":"Too Many Requests","code":20429,"more_info":""}`))
+		}))
+	defer retryServer.Close()
+
+	c := NewClient("user", "pass")
+	// MaxRetries is 0 by default
+
+	resp, err := c.SendRequest("GET", retryServer.URL, nil, nil) //nolint:bodyclose
+	assert.Error(t, err)
+	assert.Nil(t, resp)
+	// No retries - only the initial attempt
+	assert.Equal(t, 1, attempts)
+}
+
+func TestClient_429RetryWithRetryAfterHeader(t *testing.T) {
+	attempt := 0
+	retryServer := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			attempt++
+			if attempt == 1 {
+				w.Header().Set("Retry-After", "0")
+				w.WriteHeader(http.StatusTooManyRequests)
+				_, _ = w.Write([]byte(`{"status":429,"message":"Too Many Requests","code":20429,"more_info":""}`))
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write([]byte(`{"response":"ok"}`))
+		}))
+	defer retryServer.Close()
+
+	c := NewClient("user", "pass")
+	c.MaxRetries = 1
+
+	resp, err := c.SendRequest("GET", retryServer.URL, nil, nil) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Equal(t, 2, attempt)
+}
+
+func TestClient_429RetryPostRequest(t *testing.T) {
+	attempt := 0
+	receivedBody := ""
+	retryServer := httptest.NewServer(http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			attempt++
+			_ = r.ParseForm()
+			receivedBody = r.FormValue("foo")
+			if attempt == 1 {
+				w.WriteHeader(http.StatusTooManyRequests)
+				_, _ = w.Write([]byte(`{"status":429,"message":"Too Many Requests","code":20429,"more_info":""}`))
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write([]byte(`{"response":"ok"}`))
+		}))
+	defer retryServer.Close()
+
+	c := NewClient("user", "pass")
+	c.MaxRetries = 1
+
+	data := url.Values{}
+	data.Set("foo", "bar")
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+
+	resp, err := c.SendRequest("POST", retryServer.URL, data, headers) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Equal(t, 2, attempt)
+	assert.Equal(t, "bar", receivedBody)
+}
