@@ -568,6 +568,8 @@ func main() {
 
 - [Learn how to create your own custom HTTP client](./advanced-examples/custom-http-client.md)
 
+The default HTTP client refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943). A custom `http.Client` doesn't get this check; build your application with Go 1.27.3 or 1.26.10 or later, which distrust the same certificates for every client.
+
 ## Build Access Tokens
 
 This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
