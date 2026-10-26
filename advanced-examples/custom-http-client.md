@@ -102,6 +102,10 @@ HTTPS_PROXY=https://127.0.0.1:8888
 HTTP_PROXY=http://127.0.0.1:8888
 ```
 
+### Distrusted intermediate certificates
+
+The default client refuses TLS connections whose certificate chain contains one of eight intermediate certificates with compromised keys (CVE-2026-111943, golang/go#82345). A custom `http.Client`, like the one above, doesn't get this check. To get the same protection, build your application with Go 1.27.3 or 1.26.10 or later, whose `crypto/x509` distrusts these certificates for every client.
+
 ## What else can this technique be used for?
 
 Now that you know how to inject your own `Client` into the Twilio API request pipeline, you could use this technique to add custom HTTP headers and authorization to the requests (perhaps as required by an upstream proxy server). You could do so by overriding the `SendRequest` method, and adding any desired pre-processing to your requests and responses, like so:
