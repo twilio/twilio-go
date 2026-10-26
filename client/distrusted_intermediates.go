@@ -27,7 +27,7 @@ var distrustedSPKIHashes = map[string]struct{}{
 	"92c063d67e8f14db71d288e11266ffdaf69cbf115f7bab14f3bc2f68d25e0e30": {},
 }
 
-var errDistrustedIntermediate = errors.New("certificate chain contains a distrusted intermediate certificate")
+var errDistrustedIntermediate = errors.New("Certificate chain which you are using contains a distrusted intermediate certificate")
 
 func containsDistrustedSPKIHash(chain []*x509.Certificate) bool {
 	for _, c := range chain {
