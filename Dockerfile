@@ -1,4 +1,4 @@
-FROM golang:1.19
+FROM golang:1.26.10
 
 RUN mkdir /twilio
 WORKDIR /twilio
