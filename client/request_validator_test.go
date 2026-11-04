@@ -1,6 +1,12 @@
 package client
 
 import (
+	"bytes"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"log"
+	"os"
 	"strings"
 	"testing"
 
@@ -91,5 +97,74 @@ func TestRequestValidator_ValidateBody(t *testing.T) {
 		theURL := "https://mycompany.com/myapp.php?bodySHA256=" + bodyHash
 		signatureForURL := "y77kIzt2vzLz71DgmJGsen2scGs="
 		assert.True(t, validator.ValidateBody(theURL, jsonBody, signatureForURL))
+	})
+}
+
+func sha256Signature(data string) string {
+	h := hmac.New(sha256.New, []byte("12345"))
+	h.Write([]byte(data))
+	return base64.StdEncoding.EncodeToString(h.Sum(nil))
+}
+
+func TestRequestValidator_ValidateWithAlgorithm(t *testing.T) {
+	// Signed string: the URL, then every param name and value sorted by name.
+	signed := testURL + "CallSidCA1234567890ABCDE" + "Caller+14158675309" + "Digits1234" + "From+14158675309" +
+		"ReasonParticipant" + "ReasonConferenceEndedtest" + "To+18005551212"
+	sha256Sig := sha256Signature(signed)
+
+	t.Run("matches an independently computed HMAC-SHA256 signature", func(t *testing.T) {
+		assert.True(t, validator.ValidateWithAlgorithm(testURL, params, sha256Sig, HmacSha256))
+		assert.True(t, validator.ValidateWithAlgorithm(testURL, params, sha256Sig, "hmac_sha256"))
+	})
+
+	t.Run("SHA1 and SHA256 signatures are not interchangeable", func(t *testing.T) {
+		assert.False(t, validator.Validate(testURL, params, sha256Sig))
+		assert.False(t, validator.ValidateWithAlgorithm(testURL, params, signature, HmacSha256))
+	})
+
+	t.Run("defaults to HMAC-SHA1 when the algorithm is empty", func(t *testing.T) {
+		assert.True(t, validator.ValidateWithAlgorithm(testURL, params, signature, ""))
+		assert.True(t, validator.ValidateWithAlgorithm(testURL, params, signature, HmacSha1))
+	})
+
+	t.Run("returns false and logs for an unsupported algorithm", func(t *testing.T) {
+		var buf bytes.Buffer
+		log.SetOutput(&buf)
+		defer log.SetOutput(os.Stderr)
+
+		assert.False(t, validator.ValidateWithAlgorithm(testURL, params, signature, "HMAC_SHA512"))
+		assert.Contains(t, buf.String(), "HMAC_SHA512")
+	})
+
+	t.Run("validates a json body signed with HMAC-SHA256", func(t *testing.T) {
+		theURL := testURL + "&bodySHA256=" + bodyHash
+		sig := sha256Signature(theURL)
+		assert.True(t, validator.ValidateBodyWithAlgorithm(theURL, jsonBody, sig, HmacSha256))
+		assert.False(t, validator.ValidateBodyWithAlgorithm(theURL, []byte("{}"), sig, HmacSha256))
+		assert.False(t, validator.ValidateBody(theURL, jsonBody, sig))
+	})
+
+	t.Run("validates a form body signed with HMAC-SHA256", func(t *testing.T) {
+		sig := sha256Signature(testURL + "booleantrue" + "propertyvalue")
+		assert.True(t, validator.ValidateBodyWithAlgorithm(testURL, formBody, sig, HmacSha256))
+	})
+}
+
+func TestGetSignatureAlgorithm(t *testing.T) {
+	t.Run("reads the algorithm from the settings header", func(t *testing.T) {
+		assert.Equal(t, HmacSha256, GetSignatureAlgorithm("key=webhooks_sharedkey_1,algorithm=HMAC_SHA256"))
+		assert.Equal(t, HmacSha1, GetSignatureAlgorithm("algorithm=HMAC_SHA1,key=k"))
+		assert.Equal(t, HmacSha256, GetSignatureAlgorithm(" key=k , algorithm = HMAC_SHA256 "))
+	})
+
+	t.Run("defaults to HMAC-SHA1 when missing, empty or without algorithm", func(t *testing.T) {
+		for _, header := range []string{"", "key=k", "key=k,algorithm="} {
+			assert.Equal(t, HmacSha1, GetSignatureAlgorithm(header))
+		}
+	})
+
+	t.Run("exposes the header names", func(t *testing.T) {
+		assert.Equal(t, "X-Twilio-Signature", SignatureHeader)
+		assert.Equal(t, "X-Twilio-Webhooks-Signature-Settings", SignatureSettingsHeader)
 	})
 }
