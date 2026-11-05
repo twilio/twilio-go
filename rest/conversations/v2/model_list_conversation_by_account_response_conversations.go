@@ -24,8 +24,8 @@ type ListConversationByAccountResponseConversations struct {
 	Id string `json:"id"`
 	// Account ID.
 	AccountId string `json:"accountId"`
-	// Configuration ID.
-	ConfigurationId string                            `json:"configurationId"`
+	// Configuration ID. Null when the Conversation was created with an inline configuration.
+	ConfigurationId *string                           `json:"configurationId,omitempty"`
 	Status          ConversationsV2ConversationStatus `json:"status,omitempty"`
 	// Conversation name.
 	Name *string `json:"name,omitempty"`

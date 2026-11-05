@@ -17,9 +17,9 @@ package openapi
 // TrusthubV1A2pEmbeddedSession struct for TrusthubV1A2pEmbeddedSession
 type TrusthubV1A2pEmbeddedSession struct {
 	// The unique A2P Brand or Campaign Registration identifier, formatted as `tri1.us1.account.AC.../registration.BU...`.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	// The Persona inquiry ID used to start the embedded compliance session.
-	SessionId *string `json:"sessionId,omitempty"`
+	SessionId string `json:"sessionId"`
 	// The Persona session token for embedding the compliance UI. Expires in 24 hours.
-	SessionToken *string `json:"sessionToken,omitempty"`
+	SessionToken string `json:"sessionToken"`
 }

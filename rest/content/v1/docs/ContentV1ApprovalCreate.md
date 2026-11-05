@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **RejectionReason** | Pointer to **string** |  |
 **AllowCategoryChange** | Pointer to **bool** |  |
 **SendTtlSeconds** | Pointer to **int** | Time-to-live in seconds for attempting to send a message with this Content |
+**BidAmount** | Pointer to **int** | Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only set for MARKETING templates onboarded to Max Pricing. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

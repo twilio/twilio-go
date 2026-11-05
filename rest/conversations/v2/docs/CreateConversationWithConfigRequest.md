@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConfigurationId** | **string** | The ID of an existing configuration. |
+**ConfigurationId** | **string** | The ID of an existing configuration. Omit it to define the configuration inline in `configuration`. |[optional] 
 **Name** | **string** | The name of the conversation. |[optional] 
 **Configuration** | Pointer to [**CreateConversationWithConfigRequestConfiguration**](CreateConversationWithConfigRequestConfiguration.md) |  |
 **Participants** | [**[]CreateConversationWithConfigRequestParticipants**](CreateConversationWithConfigRequestParticipants.md) | Optional list of Participants to create with the Conversation. |[optional] 

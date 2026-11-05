@@ -61,6 +61,8 @@ type ApiV2010Call struct {
 	CallerName *string `json:"caller_name,omitempty"`
 	// The wait time in milliseconds before the call is placed.
 	QueueTime *string `json:"queue_time,omitempty"`
+	// The STIR/SHAKEN verification status of the call, for example `TN-Validation-Passed-A`. Empty if the incoming call had no STIR/SHAKEN information.
+	StirVerstat *string `json:"stir_verstat,omitempty"`
 	// The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
 	TrunkSid *string `json:"trunk_sid,omitempty"`
 	// The URI of this resource, relative to `https://api.twilio.com`.

@@ -36,27 +36,11 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [OptOutMessagesEntity](docs/OptOutMessagesEntity.md)
- - [KeywordItem](docs/KeywordItem.md)
- - [RcsTypingIndicatorRequest](docs/RcsTypingIndicatorRequest.md)
- - [MessageTypesResponse](docs/MessageTypesResponse.md)
- - [OptOutDefaultKeywordMessageResponse](docs/OptOutDefaultKeywordMessageResponse.md)
- - [CreateV3TypingIndicatorResponse](docs/CreateV3TypingIndicatorResponse.md)
- - [MessagesResponse](docs/MessagesResponse.md)
- - [OptOutKeywordsEntity](docs/OptOutKeywordsEntity.md)
- - [KeywordTypeConfig](docs/KeywordTypeConfig.md)
- - [OptOutDefaultKeywordMessageResponseDefaultKeywords](docs/OptOutDefaultKeywordMessageResponseDefaultKeywords.md)
- - [KeywordsResponse](docs/KeywordsResponse.md)
- - [SupportedMessageTypes](docs/SupportedMessageTypes.md)
  - [WhatsAppTypingIndicatorRequest](docs/WhatsAppTypingIndicatorRequest.md)
+ - [RcsTypingIndicatorRequest](docs/RcsTypingIndicatorRequest.md)
  - [AppleTypingIndicatorRequest](docs/AppleTypingIndicatorRequest.md)
- - [LocaleResponse](docs/LocaleResponse.md)
- - [MessageProperties](docs/MessageProperties.md)
+ - [CreateV3TypingIndicatorResponse](docs/CreateV3TypingIndicatorResponse.md)
  - [TypingIndicatorRequest](docs/TypingIndicatorRequest.md)
- - [KeywordConfiguration](docs/KeywordConfiguration.md)
- - [OptOutConfig](docs/OptOutConfig.md)
- - [LanguageProperties](docs/LanguageProperties.md)
- - [MessageTypeConfig](docs/MessageTypeConfig.md)
 
 
 ## Documentation For Authorization

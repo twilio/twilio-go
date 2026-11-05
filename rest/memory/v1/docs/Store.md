@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Status** | **string** | The current status of the Memory Store.  A store begins in the QUEUED state as it is scheduled for processing.  It then moves to PROVISIONING at the beginning of processing. It transitions to ACTIVE once all dependent resources are provisioned, including Conversational Intelligence capabilities.  If there is an issue provisioning resources, the store will move to the FAILED state. |
 **IntelligenceServiceId** | Pointer to **string** | The ID of the associated intelligence service that was provisioned for memory extraction. |
 **Version** | **int** | The current version number of the Memory Store. Incremented on each successful update. |
+**DataAsOf** | [**time.Time**](time.Time.md) | The time up to which data sent to this Memory Store has been processed by downstream systems. Equals the time the Memory Store was created when no data has been processed yet. Omitted when no value is available. Represents a high water mark for ingested data. |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

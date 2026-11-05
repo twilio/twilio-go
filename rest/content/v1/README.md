@@ -39,6 +39,7 @@ Class | Method | HTTP request | Description
 *ContentAndApprovalsApi* | [**ListContentAndApprovals**](docs/ContentAndApprovalsApi.md#listcontentandapprovals) | **Get** /v1/ContentAndApprovals | List Content Approvals
 *ContentApprovalRequestsApi* | [**FetchApprovalFetch**](docs/ContentApprovalRequestsApi.md#fetchapprovalfetch) | **Get** /v1/Content/{Sid}/ApprovalRequests | Fetch Approval Status
 *ContentApprovalRequestsWhatsappApi* | [**CreateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#createapprovalcreate) | **Post** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | Create Content Approval Request
+*ContentApprovalRequestsWhatsappApi* | [**UpdateApprovalCreate**](docs/ContentApprovalRequestsWhatsappApi.md#updateapprovalcreate) | **Patch** /v1/Content/{ContentSid}/ApprovalRequests/whatsapp | Update Content Approval Request
 *LegacyContentApi* | [**ListLegacyContent**](docs/LegacyContentApi.md#listlegacycontent) | **Get** /v1/LegacyContent | List Legacy Contents
 
 
@@ -51,6 +52,7 @@ Class | Method | HTTP request | Description
  - [CallToActionActionType](docs/CallToActionActionType.md)
  - [QuickReplyActionType](docs/QuickReplyActionType.md)
  - [ContentV1ApprovalFetch](docs/ContentV1ApprovalFetch.md)
+ - [ContentApprovalUpdateRequest](docs/ContentApprovalUpdateRequest.md)
  - [CarouselActionType](docs/CarouselActionType.md)
  - [QuickReplyAction](docs/QuickReplyAction.md)
  - [CardActionType](docs/CardActionType.md)

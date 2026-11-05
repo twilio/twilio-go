@@ -37,9 +37,18 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [HostedNumberOrderEnumVerificationType](docs/HostedNumberOrderEnumVerificationType.md)
- - [NumbersV3HostedNumbersHostedNumberOrderCapabilities](docs/NumbersV3HostedNumbersHostedNumberOrderCapabilities.md)
+ - [NumbersV3NumbersSendersEnablementSummaryErrors](docs/NumbersV3NumbersSendersEnablementSummaryErrors.md)
+ - [NumbersV3NumbersSendersOperationPayload](docs/NumbersV3NumbersSendersOperationPayload.md)
  - [NumbersV3HostedNumberOrder](docs/NumbersV3HostedNumberOrder.md)
+ - [NumbersV3NumbersSendersOperationError](docs/NumbersV3NumbersSendersOperationError.md)
  - [HostedNumberOrderEnumStatus](docs/HostedNumberOrderEnumStatus.md)
+ - [NumbersV3NumbersSendersOperationResult](docs/NumbersV3NumbersSendersOperationResult.md)
+ - [NumbersV3HostedNumbersHostedNumberOrderCapabilities](docs/NumbersV3HostedNumbersHostedNumberOrderCapabilities.md)
+ - [NumbersV3NumbersSendersOperationErrorErrors](docs/NumbersV3NumbersSendersOperationErrorErrors.md)
+ - [NumbersV3Operation](docs/NumbersV3Operation.md)
+ - [InlineObject](docs/InlineObject.md)
+ - [NumbersV3EnablementSummary](docs/NumbersV3EnablementSummary.md)
+ - [InlineObjectErrors](docs/InlineObjectErrors.md)
 
 
 ## Documentation For Authorization

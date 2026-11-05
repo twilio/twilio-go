@@ -17,9 +17,9 @@ package openapi
 // IamV1PostLoginActionRequestContext Request metadata for the Whitney auth_flow.checkpoint event, carried through for future blocklist/status-check use
 type IamV1PostLoginActionRequestContext struct {
 	// The IP address the login request originated from
-	IpAddress string `json:"ip_address"`
+	IpAddress string `json:"ipAddress"`
 	// The User-Agent header from the login request
-	UserAgent string `json:"user_agent,omitempty"`
+	UserAgent string `json:"userAgent,omitempty"`
 	// Whitney's request identifier for the login attempt
-	RequestId string `json:"request_id,omitempty"`
+	RequestId string `json:"requestId,omitempty"`
 }

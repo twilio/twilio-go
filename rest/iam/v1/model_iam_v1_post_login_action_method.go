@@ -14,14 +14,18 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // IamV1PostLoginActionMethod One factor the session completed, in completion order
 type IamV1PostLoginActionMethod struct {
 	// The credential type, e.g. password, email, oauth
 	Name string `json:"name,omitempty"`
-	// The contact value the factor resolved, from the user's verified factor directory. Omitted together with identifier_type when the factor resolved none, e.g. a passkey login
+	// The contact value the factor resolved, from the user's verified factor directory. Omitted together with identifierType when the factor resolved none, e.g. a passkey login
 	Identifier string `json:"identifier,omitempty"`
 	// The kind of identifier, e.g. email or phone
-	IdentifierType string `json:"identifier_type,omitempty"`
-	// Unix timestamp (seconds) the factor completed at
-	CompletedAt int64 `json:"completed_at,omitempty"`
+	IdentifierType string `json:"identifierType,omitempty"`
+	// RFC 3339 timestamp the factor completed at
+	CompletedAt time.Time `json:"completedAt,omitempty"`
 }

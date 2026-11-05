@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## UpdateProfilesBulk
 
-> UpdateProfilesBulkResponse UpdateProfilesBulk(ctx, StoreIdoptional)
+> BulkOperationCreatedResponse UpdateProfilesBulk(ctx, StoreIdoptional)
 
 Bulk Upsert Profiles
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**UpdateProfilesBulkResponse**](UpdateProfilesBulk202Response.md)
+[**BulkOperationCreatedResponse**](BulkOperationCreatedResponse.md)
 
 ### Authorization
 

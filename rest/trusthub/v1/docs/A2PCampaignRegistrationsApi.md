@@ -4,7 +4,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateA2pCampaignRegistration**](A2PCampaignRegistrationsApi.md#CreateA2pCampaignRegistration) | **Post** /v1/A2PCampaignRegistrations | Create a new A2P Campaign Registration and initialize an embedded compliance session.
+[**CreateA2pCampaignRegistration**](A2PCampaignRegistrationsApi.md#CreateA2pCampaignRegistration) | **Post** /v1/A2PCampaignRegistrations | Create an A2P Campaign Registration
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > TrusthubV1A2pEmbeddedSession CreateA2pCampaignRegistration(ctx, optional)
 
-Create a new A2P Campaign Registration and initialize an embedded compliance session.
+Create an A2P Campaign Registration
 
 Create a new A2P Campaign Registration and initialize an embedded compliance session.
 

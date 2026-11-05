@@ -16,13 +16,13 @@ package openapi
 
 // TrusthubV1A2pCampaignRegistrationRequest struct for TrusthubV1A2pCampaignRegistrationRequest
 type TrusthubV1A2pCampaignRegistrationRequest struct {
-	// The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`.
+	// The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. This field keeps the legacy Sid name because it carries a legacy Twilio SID (BN prefix) from messaging.twilio.com.
 	A2pBrandRegistrationSid string `json:"a2pBrandRegistrationSid"`
-	// The SID of the Messaging Service.
+	// The SID of the Messaging Service. This field keeps the legacy Sid name because it carries a legacy Twilio SID (MG prefix) from messaging.twilio.com.
 	MessagingServiceSid string `json:"messagingServiceSid,omitempty"`
 	// Theme ID for styling the inquiry form.
 	ThemeSetId string `json:"themeSetId,omitempty"`
-	// The categories of the messaging use case.
+	// The categories of the messaging use case. The value is validated by the service; see the Twilio docs for accepted values.
 	UseCaseCategories []string `json:"useCaseCategories,omitempty"`
 	// A description of the messaging use case.
 	UseCaseDescription string `json:"useCaseDescription,omitempty"`
@@ -36,7 +36,7 @@ type TrusthubV1A2pCampaignRegistrationRequest struct {
 	UseCaseSampleMessage4 string `json:"useCaseSampleMessage4,omitempty"`
 	// A fifth sample message for the use case.
 	UseCaseSampleMessage5 string `json:"useCaseSampleMessage5,omitempty"`
-	// The opt-in methods for the use case.
+	// The opt-in methods for the use case. The value is validated by the service; see the Twilio docs for accepted values.
 	UseCaseOptInTypes []string `json:"useCaseOptInTypes,omitempty"`
 	// A description of the opt-in process.
 	UseCaseOptInDescription string `json:"useCaseOptInDescription,omitempty"`

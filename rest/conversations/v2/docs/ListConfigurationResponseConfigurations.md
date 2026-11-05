@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **TraitExtractionStrategyIds** | **[]string** | A list of Trait Extraction Strategy IDs. |[optional] 
 **ObservationExtractionStrategyIds** | **[]string** | A list of Observation Extraction Strategy IDs. |[optional] 
 **MemoryExtractionEnabled** | **bool** | Whether memory extraction is enabled for conversations under this configuration. Defaults to false. |[optional] [default to false]
+**RedactionConfigurationId** | **string** | The ID of the redaction configuration applied to communications in this configuration's conversations. |[optional] 
 **ConversationsV1Bridge** | Pointer to [**ConversationsV2ConversationsV1Bridge**](ConversationsV2ConversationsV1Bridge.md) |  |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Configuration was created. |[optional] [readonly] 
 **UpdatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Configuration was last updated. |[optional] [readonly] 

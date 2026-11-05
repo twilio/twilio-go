@@ -4,7 +4,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateA2pCampaignRegistrationEmbeddedSession**](A2PCampaignRegistrationsEmbeddedSessionsApi.md#CreateA2pCampaignRegistrationEmbeddedSession) | **Post** /v1/A2PCampaignRegistrations/{Id}/EmbeddedSessions | Resume an A2P Campaign Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
+[**CreateA2pCampaignRegistrationEmbeddedSession**](A2PCampaignRegistrationsEmbeddedSessionsApi.md#CreateA2pCampaignRegistrationEmbeddedSession) | **Post** /v1/A2PCampaignRegistrations/{Id}/EmbeddedSessions | Resume an A2P Campaign Registration embedded session
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > TrusthubV1A2pEmbeddedSession CreateA2pCampaignRegistrationEmbeddedSession(ctx, Id)
 
-Resume an A2P Campaign Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
+Resume an A2P Campaign Registration embedded session
 
 Resume an A2P Campaign Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
 
@@ -22,7 +22,7 @@ Resume an A2P Campaign Registration embedded compliance session. Returns the exi
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier for the A2P Campaign Registration. This can be either an A2P Campaign Registration ID (formatted `tri1.us1.account.AC.../registration.BU...`) returned from the Initialize Campaign endpoint, or a Messaging Service SID (`MG...`) for campaigns created outside the embeddable.
+**Id** | **string** | The unique identifier for the A2P Campaign Registration. This is the A2P Campaign Registration ID (formatted `tri1.us1.account.AC.../registration.BU...`) returned in the `id` field when the campaign registration was created. For a campaign in FAILED status, use the Messaging Service SID (`MG...`) of the campaign instead.
 
 ### Other Parameters
 

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateProfilesImportV2
 
-> CreateProfilesImportV1Response CreateProfilesImportV2(ctx, StoreIdoptional)
+> ProfileImportCreatedResponse CreateProfilesImportV2(ctx, StoreIdoptional)
 
 Import Profiles
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**CreateProfilesImportV1Response**](CreateProfilesImportV2201Response.md)
+[**ProfileImportCreatedResponse**](ProfileImportCreatedResponse.md)
 
 ### Authorization
 

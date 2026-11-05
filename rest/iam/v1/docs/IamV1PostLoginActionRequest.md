@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **AccountSid** | **string** | The Twilio account SID associated with the login |[optional] 
 **NodeId** | **string** | The Whitney auth flow node identifier for this action |[optional] 
 **ActionId** | **string** | Whitney's identifier for this action invocation |[optional] 
-**Timestamp** | **int64** | Unix timestamp (seconds) of the login event |[optional] 
+**SentAt** | [**time.Time**](time.Time.md) | RFC 3339 timestamp the webhook was sent at |[optional] 
 **Oauth** | Pointer to [**IamV1PostLoginActionOAuthContext**](IamV1PostLoginActionOAuthContext.md) |  |
+**UserContext** | Pointer to [**IamV1PostLoginActionUserContext**](IamV1PostLoginActionUserContext.md) |  |
 **AuthenticationContext** | Pointer to [**IamV1PostLoginActionAuthenticationContext**](IamV1PostLoginActionAuthenticationContext.md) |  |
 **RequestContext** | Pointer to [**IamV1PostLoginActionRequestContext**](IamV1PostLoginActionRequestContext.md) |  |
 

@@ -9,6 +9,9 @@ Name | Type | Notes
 **QUICK_REPLY** | string | (value: `"QUICK_REPLY"`)
 **COPY_CODE** | string | (value: `"COPY_CODE"`)
 **VOICE_CALL** | string | (value: `"VOICE_CALL"`)
+**PIX** | string | (value: `"PIX"`)
+**BOLETO** | string | (value: `"BOLETO"`)
+**PAYMENT_LINK** | string | (value: `"PAYMENT_LINK"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

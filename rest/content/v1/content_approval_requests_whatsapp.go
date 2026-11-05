@@ -106,3 +106,88 @@ func (c *ApiService) CreateApprovalCreateWithMetadata(ContentSid string, params 
 
 	return metadataWrapper, nil
 }
+
+// Optional parameters for the method 'PatchApprovalCreate'
+type PatchApprovalCreateParams struct {
+	//
+	ContentApprovalUpdateRequest *ContentApprovalUpdateRequest `json:"ContentApprovalUpdateRequest,omitempty"`
+}
+
+func (params *PatchApprovalCreateParams) SetContentApprovalUpdateRequest(ContentApprovalUpdateRequest ContentApprovalUpdateRequest) *PatchApprovalCreateParams {
+	params.ContentApprovalUpdateRequest = &ContentApprovalUpdateRequest
+	return params
+}
+
+// Update the optimization spec (bid amount) of a ContentApprovalRequest for a content item
+func (c *ApiService) PatchApprovalCreate(ContentSid string, params *PatchApprovalCreateParams) (*ContentV1ApprovalCreate, error) {
+	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
+	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ContentApprovalUpdateRequest != nil {
+		b, err := json.Marshal(*params.ContentApprovalUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1ApprovalCreate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// PatchApprovalCreateWithMetadata returns response with metadata like status code and response headers
+func (c *ApiService) PatchApprovalCreateWithMetadata(ContentSid string, params *PatchApprovalCreateParams) (*metadata.ResourceMetadata[ContentV1ApprovalCreate], error) {
+	path := "/v1/Content/{ContentSid}/ApprovalRequests/whatsapp"
+	path = strings.Replace(path, "{"+"ContentSid"+"}", ContentSid, -1)
+
+	data := url.Values{}
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+
+	body := []byte{}
+	if params != nil && params.ContentApprovalUpdateRequest != nil {
+		b, err := json.Marshal(*params.ContentApprovalUpdateRequest)
+		if err != nil {
+			return nil, err
+		}
+		body = b
+	}
+
+	resp, err := c.requestHandler.Patch(c.baseURL+path, data, headers, c.apiVersion, body...)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ContentV1ApprovalCreate{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	metadataWrapper := metadata.NewResourceMetadata[ContentV1ApprovalCreate](
+		*ps,             // The resource object
+		resp.StatusCode, // HTTP status code
+		resp.Header,     // HTTP headers
+	)
+
+	return metadataWrapper, nil
+}
