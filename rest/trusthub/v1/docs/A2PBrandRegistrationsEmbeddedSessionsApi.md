@@ -4,7 +4,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateA2pBrandRegistrationEmbeddedSession**](A2PBrandRegistrationsEmbeddedSessionsApi.md#CreateA2pBrandRegistrationEmbeddedSession) | **Post** /v1/A2PBrandRegistrations/{Id}/EmbeddedSessions | Resume an A2P Brand Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
+[**CreateA2pBrandRegistrationEmbeddedSession**](A2PBrandRegistrationsEmbeddedSessionsApi.md#CreateA2pBrandRegistrationEmbeddedSession) | **Post** /v1/A2PBrandRegistrations/{Id}/EmbeddedSessions | Resume an A2P Brand Registration embedded session
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > TrusthubV1A2pEmbeddedSession CreateA2pBrandRegistrationEmbeddedSession(ctx, Id)
 
-Resume an A2P Brand Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
+Resume an A2P Brand Registration embedded session
 
 Resume an A2P Brand Registration embedded compliance session. Returns the existing active session if one is still valid, or creates a new session if the previous one has expired.
 
@@ -22,7 +22,7 @@ Resume an A2P Brand Registration embedded compliance session. Returns the existi
 Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier for the A2P Brand Registration.
+**Id** | **string** | The unique identifier for the A2P Brand Registration, as returned in the `id` field when the brand registration was created.
 
 ### Other Parameters
 

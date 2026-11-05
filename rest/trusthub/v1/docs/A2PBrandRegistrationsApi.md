@@ -4,7 +4,7 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateA2pBrandRegistration**](A2PBrandRegistrationsApi.md#CreateA2pBrandRegistration) | **Post** /v1/A2PBrandRegistrations | Create a new A2P Brand Registration and initialize an embedded compliance session.
+[**CreateA2pBrandRegistration**](A2PBrandRegistrationsApi.md#CreateA2pBrandRegistration) | **Post** /v1/A2PBrandRegistrations | Create an A2P Brand Registration
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > TrusthubV1A2pEmbeddedSession CreateA2pBrandRegistration(ctx, optional)
 
-Create a new A2P Brand Registration and initialize an embedded compliance session.
+Create an A2P Brand Registration
 
 Create a new A2P Brand Registration and initialize an embedded compliance session.
 

@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **GroupSid** | Pointer to **string** | The Group SID associated with this call. If no Group is associated with the call, the field is empty. |
 **CallerName** | Pointer to **string** | The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty. |
 **QueueTime** | Pointer to **string** | The wait time in milliseconds before the call is placed. |
+**StirVerstat** | Pointer to **string** | The STIR/SHAKEN verification status of the call, for example `TN-Validation-Passed-A`. Empty if the incoming call had no STIR/SHAKEN information. |
 **TrunkSid** | Pointer to **string** | The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated. |
 **Uri** | Pointer to **string** | The URI of this resource, relative to `https://api.twilio.com`. |
 **SubresourceUris** | Pointer to **map[string]interface{}** | A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`. |

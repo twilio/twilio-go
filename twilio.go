@@ -74,6 +74,7 @@ import (
 	VoiceV1 "github.com/twilio/twilio-go/rest/voice/v1"
 	VoiceV2 "github.com/twilio/twilio-go/rest/voice/v2"
 	VoiceV3 "github.com/twilio/twilio-go/rest/voice/v3"
+	WebhooksV1 "github.com/twilio/twilio-go/rest/webhooks/v1"
 	WirelessV1 "github.com/twilio/twilio-go/rest/wireless/v1"
 )
 
@@ -138,6 +139,7 @@ type RestClient struct {
 	VoiceV1                *VoiceV1.ApiService
 	VoiceV2                *VoiceV2.ApiService
 	VoiceV3                *VoiceV3.ApiService
+	WebhooksV1             *WebhooksV1.ApiService
 	WirelessV1             *WirelessV1.ApiService
 }
 
@@ -280,6 +282,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
 	c.VoiceV2 = VoiceV2.NewApiService(c.RequestHandler)
 	c.VoiceV3 = VoiceV3.NewApiService(c.RequestHandler)
+	c.WebhooksV1 = WebhooksV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
 
 	return c

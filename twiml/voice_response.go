@@ -2126,35 +2126,57 @@ type VoiceConversationRelay struct {
 	// deepgramSmartFormat: This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts
 	// ignoreBackchannel: This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking.
 	// events: This parameter allows you to enable event subscriptions
+	// partial_prompt_on_hangup: Whether the in-progress partial transcript should be reported as a prompt when the call hangs up
+	// eager_eot_threshold: Eager end-of-turn confidence threshold, which fires before the end-of-turn threshold. The value can be between 0.3 and 0.9
+	// asr_smart_format: Whether smart formatting should be applied to transcripts. Takes precedence over deepgramSmartFormat
+	// tts_text_normalization: Text normalization for text-to-speech. The value can be auto, on, or off. Takes precedence over elevenlabsTextNormalization
+	// tts_language_text_normalization: Whether language-specific text normalization should be applied for text-to-speech
+	// elevenlabs_language_text_normalization: Legacy alias of ttsLanguageTextNormalization
+	// include_in_prompt: Extra fields to be included in prompt messages. The value can be turn-state or prompt-segments
+	// customer_name: Customer name sent to Conversations and Conversational Intelligence. Defaults to the caller ID
+	// application_reconnect: Whether the WebSocket connection to the application should be reconnected if it drops during the call. Defaults to false
+	// echo_prompt_filtering: Whether transcripts that echo the agent's own text-to-speech should be dropped. Defaults to false
+	// turn_detection: Whether turn detection should be used to decide when the caller has finished speaking. Defaults to false
 	// OptionalAttributes: additional attributes
-	Url                          string
-	Language                     string
-	TtsLanguage                  string
-	TranscriptionLanguage        string
-	TtsProvider                  string
-	Voice                        string
-	TranscriptionProvider        string
-	SpeechModel                  string
-	ProfanityFilter              string
-	DtmfDetection                string
-	WelcomeGreeting              string
-	PartialPrompts               string
-	WelcomeGreetingInterruptible string
-	Interruptible                string
-	Preemptible                  string
-	Hints                        string
-	IntelligenceService          string
-	ReportInputDuringAgentSpeech string
-	ElevenlabsTextNormalization  string
-	InterruptSensitivity         string
-	Debug                        string
-	Backgroundnoisereduction     string
-	Speechtimeout                string
-	Deepgramsmartformat          string
-	Ignorebackchannel            string
-	Events                       string
-	InnerElements                []Element
-	OptionalAttributes           map[string]string
+	Url                                 string
+	Language                            string
+	TtsLanguage                         string
+	TranscriptionLanguage               string
+	TtsProvider                         string
+	Voice                               string
+	TranscriptionProvider               string
+	SpeechModel                         string
+	ProfanityFilter                     string
+	DtmfDetection                       string
+	WelcomeGreeting                     string
+	PartialPrompts                      string
+	WelcomeGreetingInterruptible        string
+	Interruptible                       string
+	Preemptible                         string
+	Hints                               string
+	IntelligenceService                 string
+	ReportInputDuringAgentSpeech        string
+	ElevenlabsTextNormalization         string
+	InterruptSensitivity                string
+	Debug                               string
+	Backgroundnoisereduction            string
+	Speechtimeout                       string
+	Deepgramsmartformat                 string
+	Ignorebackchannel                   string
+	Events                              string
+	PartialPromptOnHangup               string
+	EagerEotThreshold                   string
+	AsrSmartFormat                      string
+	TtsTextNormalization                string
+	TtsLanguageTextNormalization        string
+	ElevenlabsLanguageTextNormalization string
+	IncludeInPrompt                     string
+	CustomerName                        string
+	ApplicationReconnect                string
+	EchoPromptFiltering                 string
+	TurnDetection                       string
+	InnerElements                       []Element
+	OptionalAttributes                  map[string]string
 }
 
 func (m VoiceConversationRelay) GetName() string {
@@ -2167,32 +2189,43 @@ func (m VoiceConversationRelay) GetText() string {
 
 func (m VoiceConversationRelay) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"Url":                          m.Url,
-		"Language":                     m.Language,
-		"TtsLanguage":                  m.TtsLanguage,
-		"TranscriptionLanguage":        m.TranscriptionLanguage,
-		"TtsProvider":                  m.TtsProvider,
-		"Voice":                        m.Voice,
-		"TranscriptionProvider":        m.TranscriptionProvider,
-		"SpeechModel":                  m.SpeechModel,
-		"ProfanityFilter":              m.ProfanityFilter,
-		"DtmfDetection":                m.DtmfDetection,
-		"WelcomeGreeting":              m.WelcomeGreeting,
-		"PartialPrompts":               m.PartialPrompts,
-		"WelcomeGreetingInterruptible": m.WelcomeGreetingInterruptible,
-		"Interruptible":                m.Interruptible,
-		"Preemptible":                  m.Preemptible,
-		"Hints":                        m.Hints,
-		"IntelligenceService":          m.IntelligenceService,
-		"ReportInputDuringAgentSpeech": m.ReportInputDuringAgentSpeech,
-		"ElevenlabsTextNormalization":  m.ElevenlabsTextNormalization,
-		"InterruptSensitivity":         m.InterruptSensitivity,
-		"Debug":                        m.Debug,
-		"Backgroundnoisereduction":     m.Backgroundnoisereduction,
-		"Speechtimeout":                m.Speechtimeout,
-		"Deepgramsmartformat":          m.Deepgramsmartformat,
-		"Ignorebackchannel":            m.Ignorebackchannel,
-		"Events":                       m.Events,
+		"Url":                                 m.Url,
+		"Language":                            m.Language,
+		"TtsLanguage":                         m.TtsLanguage,
+		"TranscriptionLanguage":               m.TranscriptionLanguage,
+		"TtsProvider":                         m.TtsProvider,
+		"Voice":                               m.Voice,
+		"TranscriptionProvider":               m.TranscriptionProvider,
+		"SpeechModel":                         m.SpeechModel,
+		"ProfanityFilter":                     m.ProfanityFilter,
+		"DtmfDetection":                       m.DtmfDetection,
+		"WelcomeGreeting":                     m.WelcomeGreeting,
+		"PartialPrompts":                      m.PartialPrompts,
+		"WelcomeGreetingInterruptible":        m.WelcomeGreetingInterruptible,
+		"Interruptible":                       m.Interruptible,
+		"Preemptible":                         m.Preemptible,
+		"Hints":                               m.Hints,
+		"IntelligenceService":                 m.IntelligenceService,
+		"ReportInputDuringAgentSpeech":        m.ReportInputDuringAgentSpeech,
+		"ElevenlabsTextNormalization":         m.ElevenlabsTextNormalization,
+		"InterruptSensitivity":                m.InterruptSensitivity,
+		"Debug":                               m.Debug,
+		"Backgroundnoisereduction":            m.Backgroundnoisereduction,
+		"Speechtimeout":                       m.Speechtimeout,
+		"Deepgramsmartformat":                 m.Deepgramsmartformat,
+		"Ignorebackchannel":                   m.Ignorebackchannel,
+		"Events":                              m.Events,
+		"PartialPromptOnHangup":               m.PartialPromptOnHangup,
+		"EagerEotThreshold":                   m.EagerEotThreshold,
+		"AsrSmartFormat":                      m.AsrSmartFormat,
+		"TtsTextNormalization":                m.TtsTextNormalization,
+		"TtsLanguageTextNormalization":        m.TtsLanguageTextNormalization,
+		"ElevenlabsLanguageTextNormalization": m.ElevenlabsLanguageTextNormalization,
+		"IncludeInPrompt":                     m.IncludeInPrompt,
+		"CustomerName":                        m.CustomerName,
+		"ApplicationReconnect":                m.ApplicationReconnect,
+		"EchoPromptFiltering":                 m.EchoPromptFiltering,
+		"TurnDetection":                       m.TurnDetection,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
@@ -2209,14 +2242,22 @@ type VoiceLanguage struct {
 	// voice: Voice to be used for text-to-speech of this language
 	// transcription_provider: Provider to be used for transcription of this language
 	// speech_model: Speech model to be used for transcription of this language
+	// hints: Phrases to help better accuracy in speech recognition of this language
+	// asr_smart_format: Whether smart formatting should be applied to transcripts of this language
+	// tts_text_normalization: Text normalization for text-to-speech of this language. The value can be auto, on, or off
+	// tts_language_text_normalization: Whether language-specific text normalization should be applied for text-to-speech of this language
 	// OptionalAttributes: additional attributes
-	Code                  string
-	TtsProvider           string
-	Voice                 string
-	TranscriptionProvider string
-	SpeechModel           string
-	InnerElements         []Element
-	OptionalAttributes    map[string]string
+	Code                         string
+	TtsProvider                  string
+	Voice                        string
+	TranscriptionProvider        string
+	SpeechModel                  string
+	Hints                        string
+	AsrSmartFormat               string
+	TtsTextNormalization         string
+	TtsLanguageTextNormalization string
+	InnerElements                []Element
+	OptionalAttributes           map[string]string
 }
 
 func (m VoiceLanguage) GetName() string {
@@ -2229,11 +2270,15 @@ func (m VoiceLanguage) GetText() string {
 
 func (m VoiceLanguage) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"Code":                  m.Code,
-		"TtsProvider":           m.TtsProvider,
-		"Voice":                 m.Voice,
-		"TranscriptionProvider": m.TranscriptionProvider,
-		"SpeechModel":           m.SpeechModel,
+		"Code":                         m.Code,
+		"TtsProvider":                  m.TtsProvider,
+		"Voice":                        m.Voice,
+		"TranscriptionProvider":        m.TranscriptionProvider,
+		"SpeechModel":                  m.SpeechModel,
+		"Hints":                        m.Hints,
+		"AsrSmartFormat":               m.AsrSmartFormat,
+		"TtsTextNormalization":         m.TtsTextNormalization,
+		"TtsLanguageTextNormalization": m.TtsLanguageTextNormalization,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

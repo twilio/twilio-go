@@ -7,6 +7,7 @@ Name | Type | Notes
 **VOICE** | string | (value: `"VOICE"`)
 **SMS** | string | (value: `"SMS"`)
 **RCS** | string | (value: `"RCS"`)
+**EMAIL** | string | (value: `"EMAIL"`)
 **WHATSAPP** | string | (value: `"WHATSAPP"`)
 **CHAT** | string | (value: `"CHAT"`)
 **VIDEO** | string | (value: `"VIDEO"`)

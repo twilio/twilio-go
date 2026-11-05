@@ -24,4 +24,6 @@ type MessagingV2Response struct {
 	HasAcceptedTos bool `json:"has_accepted_tos,omitempty"`
 	// parent_account's declared account type, or NOT_SET_YET if never set.
 	AccountType string `json:"account_type,omitempty"`
+	// The Meta business portfolio ID (formerly Meta Business Manager ID) of this account's own WhatsApp Business Account (a subaccount's own, not its parent's): the business the WABA is operated on behalf of, falling back to the business that owns it. Returned on fetch only, and omitted when the account has no WABA yet or the lookup failed.
+	BusinessPortfolioId string `json:"business_portfolio_id,omitempty"`
 }

@@ -34,7 +34,7 @@ func (params *UpdateProfilesBulkParams) SetUpdateProfilesBulkRequest(UpdateProfi
 }
 
 // Create or update up to 1000 profiles in a single asynchronous batch. Each profile body follows the same structure as single profile creation. If a profile already exists its traits are merged (new keys added, existing keys overwritten). Large batches may take time to process; the 202 response indicates the batch has been accepted. Monitor downstream telemetry or audit logs to confirm completion.
-func (c *ApiService) UpdateProfilesBulk(StoreId string, params *UpdateProfilesBulkParams) (*UpdateProfilesBulkResponse, error) {
+func (c *ApiService) UpdateProfilesBulk(StoreId string, params *UpdateProfilesBulkParams) (*BulkOperationCreatedResponse, error) {
 	path := "/v1/Stores/{storeId}/Profiles/Bulk"
 	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
 
@@ -59,7 +59,7 @@ func (c *ApiService) UpdateProfilesBulk(StoreId string, params *UpdateProfilesBu
 
 	defer resp.Body.Close()
 
-	ps := &UpdateProfilesBulkResponse{}
+	ps := &BulkOperationCreatedResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func (c *ApiService) UpdateProfilesBulk(StoreId string, params *UpdateProfilesBu
 }
 
 // UpdateProfilesBulkWithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) UpdateProfilesBulkWithMetadata(StoreId string, params *UpdateProfilesBulkParams) (*metadata.ResourceMetadata[UpdateProfilesBulkResponse], error) {
+func (c *ApiService) UpdateProfilesBulkWithMetadata(StoreId string, params *UpdateProfilesBulkParams) (*metadata.ResourceMetadata[BulkOperationCreatedResponse], error) {
 	path := "/v1/Stores/{storeId}/Profiles/Bulk"
 	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
 
@@ -93,12 +93,12 @@ func (c *ApiService) UpdateProfilesBulkWithMetadata(StoreId string, params *Upda
 
 	defer resp.Body.Close()
 
-	ps := &UpdateProfilesBulkResponse{}
+	ps := &BulkOperationCreatedResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[UpdateProfilesBulkResponse](
+	metadataWrapper := metadata.NewResourceMetadata[BulkOperationCreatedResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers

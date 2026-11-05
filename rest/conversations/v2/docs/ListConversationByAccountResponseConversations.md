@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Conversation ID. |
 **AccountId** | **string** | Account ID. |
-**ConfigurationId** | **string** | Configuration ID. |
+**ConfigurationId** | Pointer to **string** | Configuration ID. Null when the Conversation was created with an inline configuration. |
 **Status** | [**ConversationsV2ConversationStatus**](ConversationsV2ConversationStatus.md) |  |[optional] 
 **Name** | Pointer to **string** | Conversation name. |
 **CreatedAt** | [**time.Time**](time.Time.md) | Timestamp when this Conversation was created. |[optional] 

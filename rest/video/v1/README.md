@@ -95,6 +95,7 @@ Class | Method | HTTP request | Description
  - [VideoV1Recording](docs/VideoV1Recording.md)
  - [VideoV1RoomParticipantSubscribedTrack](docs/VideoV1RoomParticipantSubscribedTrack.md)
  - [ListRoomResponse](docs/ListRoomResponse.md)
+ - [VideoV1RoomSipVideoCalls](docs/VideoV1RoomSipVideoCalls.md)
  - [ListCompositionHookResponse](docs/ListCompositionHookResponse.md)
  - [VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules](docs/VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules.md)
  - [ListCompositionResponseMeta](docs/ListCompositionResponseMeta.md)

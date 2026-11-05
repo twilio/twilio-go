@@ -24,4 +24,6 @@ type ContentV1ApprovalCreate struct {
 	AllowCategoryChange *bool   `json:"allow_category_change,omitempty"`
 	// Time-to-live in seconds for attempting to send a message with this Content
 	SendTtlSeconds *int `json:"send_ttl_seconds,omitempty"`
+	// Maximum price per 1,000 message deliveries, expressed in the WABA currency's smallest unit (cents for USD). Only set for MARKETING templates onboarded to Max Pricing.
+	BidAmount *int `json:"bid_amount,omitempty"`
 }

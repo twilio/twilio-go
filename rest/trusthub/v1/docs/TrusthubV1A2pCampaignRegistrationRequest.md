@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**A2pBrandRegistrationSid** | **string** | The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. |
-**MessagingServiceSid** | **string** | The SID of the Messaging Service. |[optional] 
+**A2pBrandRegistrationSid** | **string** | The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. This field keeps the legacy Sid name because it carries a legacy Twilio SID (BN prefix) from messaging.twilio.com. |
+**MessagingServiceSid** | **string** | The SID of the Messaging Service. This field keeps the legacy Sid name because it carries a legacy Twilio SID (MG prefix) from messaging.twilio.com. |[optional] 
 **ThemeSetId** | **string** | Theme ID for styling the inquiry form. |[optional] 
-**UseCaseCategories** | **[]string** | The categories of the messaging use case. |[optional] 
+**UseCaseCategories** | **[]string** | The categories of the messaging use case. The value is validated by the service; see the Twilio docs for accepted values. |[optional] 
 **UseCaseDescription** | **string** | A description of the messaging use case. |[optional] 
 **UseCaseSampleMessage1** | **string** | A sample message for the use case. |[optional] 
 **UseCaseSampleMessage2** | **string** | A second sample message for the use case. |[optional] 
 **UseCaseSampleMessage3** | **string** | A third sample message for the use case. |[optional] 
 **UseCaseSampleMessage4** | **string** | A fourth sample message for the use case. |[optional] 
 **UseCaseSampleMessage5** | **string** | A fifth sample message for the use case. |[optional] 
-**UseCaseOptInTypes** | **[]string** | The opt-in methods for the use case. |[optional] 
+**UseCaseOptInTypes** | **[]string** | The opt-in methods for the use case. The value is validated by the service; see the Twilio docs for accepted values. |[optional] 
 **UseCaseOptInDescription** | **string** | A description of the opt-in process. |[optional] 
 **HasEmbeddedLinks** | **bool** | Whether messages will contain embedded links. |[optional] 
 **HasEmbeddedPhone** | **bool** | Whether messages will contain embedded phone numbers. |[optional] 

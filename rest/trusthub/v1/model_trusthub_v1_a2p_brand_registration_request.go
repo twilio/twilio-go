@@ -26,21 +26,21 @@ type TrusthubV1A2pBrandRegistrationRequest struct {
 	NotificationEmail string `json:"notificationEmail"`
 	// The legal name of the business.
 	BusinessName string `json:"businessName,omitempty"`
-	// The authority with which the business is registered.
+	// The authority with which the business is registered. The value is validated by the service; see the Twilio docs for accepted values.
 	BusinessRegistrationAuthority string `json:"businessRegistrationAuthority,omitempty"`
 	// The business registration number (e.g., EIN, CBN, ACN). Maximum 21 characters.
 	BusinessRegistrationNumber string `json:"businessRegistrationNumber,omitempty"`
-	// The industry of the business.
+	// The industry of the business. The value is validated by the service; see the Twilio docs for accepted values.
 	BusinessIndustry string `json:"businessIndustry,omitempty"`
 	// The business website URL (must use https://).
 	BusinessWebsite string `json:"businessWebsite,omitempty"`
-	// The type of business entity.
+	// The type of business entity. The value is validated by the service; see the Twilio docs for accepted values.
 	BusinessType string `json:"businessType,omitempty"`
 	// The stock symbol for publicly traded companies.
 	BusinessStockSymbol string `json:"businessStockSymbol,omitempty"`
-	// The stock exchange where the business is listed.
+	// The stock exchange where the business is listed. The value is validated by the service; see the Twilio docs for accepted values.
 	BusinessStockExchange string `json:"businessStockExchange,omitempty"`
-	// Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken.
+	// Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken. The value is validated by the service; see the Twilio docs for accepted values.
 	BusinessTaxExemptStatus string `json:"businessTaxExemptStatus,omitempty"`
 	// Campaign Verify token for externally vetted brands.
 	BrandExternalVettingToken string `json:"brandExternalVettingToken,omitempty"`

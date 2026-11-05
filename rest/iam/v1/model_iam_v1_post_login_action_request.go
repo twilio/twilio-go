@@ -14,6 +14,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // IamV1PostLoginActionRequest The auth_flow.checkpoint webhook payload Whitney sends for a post-login action
 type IamV1PostLoginActionRequest struct {
 	// The version of the Whitney webhook payload contract
@@ -21,14 +25,15 @@ type IamV1PostLoginActionRequest struct {
 	// The Whitney event name (e.g. auth_flow.checkpoint)
 	Event string `json:"event,omitempty"`
 	// The Twilio account SID associated with the login
-	AccountSid string `json:"account_sid,omitempty"`
+	AccountSid string `json:"accountSid,omitempty"`
 	// The Whitney auth flow node identifier for this action
-	NodeId string `json:"node_id,omitempty"`
+	NodeId string `json:"nodeId,omitempty"`
 	// Whitney's identifier for this action invocation
-	ActionId string `json:"action_id,omitempty"`
-	// Unix timestamp (seconds) of the login event
-	Timestamp             int64                                      `json:"timestamp,omitempty"`
+	ActionId string `json:"actionId,omitempty"`
+	// RFC 3339 timestamp the webhook was sent at
+	SentAt                time.Time                                  `json:"sentAt,omitempty"`
 	Oauth                 *IamV1PostLoginActionOAuthContext          `json:"oauth,omitempty"`
-	AuthenticationContext *IamV1PostLoginActionAuthenticationContext `json:"authentication_context,omitempty"`
-	RequestContext        *IamV1PostLoginActionRequestContext        `json:"request_context,omitempty"`
+	UserContext           *IamV1PostLoginActionUserContext           `json:"userContext,omitempty"`
+	AuthenticationContext *IamV1PostLoginActionAuthenticationContext `json:"authenticationContext,omitempty"`
+	RequestContext        *IamV1PostLoginActionRequestContext        `json:"requestContext,omitempty"`
 }

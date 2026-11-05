@@ -16,8 +16,8 @@ package openapi
 
 // CreateConversationWithConfigRequest struct for CreateConversationWithConfigRequest
 type CreateConversationWithConfigRequest struct {
-	// The ID of an existing configuration.
-	ConfigurationId string `json:"configurationId"`
+	// The ID of an existing configuration. Omit it to define the configuration inline in `configuration`.
+	ConfigurationId string `json:"configurationId,omitempty"`
 	// The name of the conversation.
 	Name          string                                            `json:"name,omitempty"`
 	Configuration *CreateConversationWithConfigRequestConfiguration `json:"configuration,omitempty"`

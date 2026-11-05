@@ -40,8 +40,10 @@ type ListConfigurationResponseConfigurations struct {
 	// A list of Observation Extraction Strategy IDs.
 	ObservationExtractionStrategyIds []string `json:"observationExtractionStrategyIds,omitempty"`
 	// Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
-	MemoryExtractionEnabled bool                                  `json:"memoryExtractionEnabled,omitempty"`
-	ConversationsV1Bridge   *ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
+	MemoryExtractionEnabled bool `json:"memoryExtractionEnabled,omitempty"`
+	// The ID of the redaction configuration applied to communications in this configuration's conversations.
+	RedactionConfigurationId string                                `json:"redactionConfigurationId,omitempty"`
+	ConversationsV1Bridge    *ConversationsV2ConversationsV1Bridge `json:"conversationsV1Bridge,omitempty"`
 	// Timestamp when this Configuration was created.
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	// Timestamp when this Configuration was last updated.

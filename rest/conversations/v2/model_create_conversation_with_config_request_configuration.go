@@ -14,14 +14,24 @@
 
 package openapi
 
-// CreateConversationWithConfigRequestConfiguration Conversation configuration settings.
+// CreateConversationWithConfigRequestConfiguration Conversation configuration settings. Without `configurationId`, `conversationGroupingType` and `memoryStoreId` are required. With `configurationId`, these settings override the Configuration's own for this Conversation only.
 type CreateConversationWithConfigRequestConfiguration struct {
+	// Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+	ConversationGroupingType string `json:"conversationGroupingType,omitempty"`
+	// The memory store ID that Conversation Orchestrator uses for profile resolution.
+	MemoryStoreId string `json:"memoryStoreId,omitempty"`
+	// Status timeouts by channel type. Capture rules can only be set on a Configuration.
+	ChannelSettings map[string]CreateConversationWithConfigRequestConfigurationChannelSettingsValue `json:"channelSettings,omitempty"`
+	// Whether memory extraction is enabled for this Conversation. Without `configurationId`, defaults to false; with it, defaults to the Configuration's value.
+	MemoryExtractionEnabled bool `json:"memoryExtractionEnabled,omitempty"`
 	// A list of Conversational Intelligence configuration IDs.
 	IntelligenceConfigurationIds []string `json:"intelligenceConfigurationIds,omitempty"`
 	// A list of Trait Extraction Strategy IDs.
 	TraitExtractionStrategyIds []string `json:"traitExtractionStrategyIds,omitempty"`
 	// A list of Observation Extraction Strategy IDs.
 	ObservationExtractionStrategyIds []string `json:"observationExtractionStrategyIds,omitempty"`
+	// The webhook configurations for this Conversation. Overrides the Configuration's own.
+	StatusCallbacks []CreateConversationWithConfigRequestConfigurationStatusCallbacks `json:"statusCallbacks,omitempty"`
 	// The Workflows to associate with this Conversation. Overrides the Configuration's own.
 	Workflows []ConversationWorkflow `json:"workflows,omitempty"`
 }

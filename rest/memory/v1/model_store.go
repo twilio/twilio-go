@@ -14,6 +14,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // Store struct for Store
 type Store struct {
 	// Provides a unique and addressable name to be assigned to this Store. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
@@ -28,4 +32,6 @@ type Store struct {
 	IntelligenceServiceId *string `json:"intelligenceServiceId,omitempty"`
 	// The current version number of the Memory Store. Incremented on each successful update.
 	Version int `json:"version"`
+	// The time up to which data sent to this Memory Store has been processed by downstream systems. Equals the time the Memory Store was created when no data has been processed yet. Omitted when no value is available. Represents a high water mark for ingested data.
+	DataAsOf time.Time `json:"dataAsOf,omitempty"`
 }

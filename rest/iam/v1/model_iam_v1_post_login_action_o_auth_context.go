@@ -17,9 +17,9 @@ package openapi
 // IamV1PostLoginActionOAuthContext Details of the OAuth authorization request the user is logging in for
 type IamV1PostLoginActionOAuthContext struct {
 	// The OAuth client the user is authenticating to
-	ClientId string `json:"client_id,omitempty"`
+	ClientId string `json:"clientId,omitempty"`
 	// The space-delimited scopes requested by the client
 	Scope string `json:"scope,omitempty"`
 	// RFC 9396 authorization_details sent with the authorization request, if any
-	AuthorizationDetails string `json:"authorization_details,omitempty"`
+	AuthorizationDetails []map[string]interface{} `json:"authorizationDetails,omitempty"`
 }

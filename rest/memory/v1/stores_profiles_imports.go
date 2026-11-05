@@ -36,7 +36,7 @@ func (params *CreateProfilesImportV2Params) SetCreateProfilesImportV2Request(Cre
 }
 
 // Initiate a profile import by requesting a pre-signed upload URL and an associated `importId`. Upload your CSV to the returned URL (single PUT). Query the import status endpoint to track processing progress. This endpoint creates the import task and allocates resources for subsequent ingestion.
-func (c *ApiService) CreateProfilesImportV2(StoreId string, params *CreateProfilesImportV2Params) (*CreateProfilesImportV1Response, error) {
+func (c *ApiService) CreateProfilesImportV2(StoreId string, params *CreateProfilesImportV2Params) (*ProfileImportCreatedResponse, error) {
 	path := "/v1/Stores/{storeId}/Profiles/Imports"
 	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
 
@@ -61,7 +61,7 @@ func (c *ApiService) CreateProfilesImportV2(StoreId string, params *CreateProfil
 
 	defer resp.Body.Close()
 
-	ps := &CreateProfilesImportV1Response{}
+	ps := &ProfileImportCreatedResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (c *ApiService) CreateProfilesImportV2(StoreId string, params *CreateProfil
 }
 
 // CreateProfilesImportV2WithMetadata returns response with metadata like status code and response headers
-func (c *ApiService) CreateProfilesImportV2WithMetadata(StoreId string, params *CreateProfilesImportV2Params) (*metadata.ResourceMetadata[CreateProfilesImportV1Response], error) {
+func (c *ApiService) CreateProfilesImportV2WithMetadata(StoreId string, params *CreateProfilesImportV2Params) (*metadata.ResourceMetadata[ProfileImportCreatedResponse], error) {
 	path := "/v1/Stores/{storeId}/Profiles/Imports"
 	path = strings.Replace(path, "{"+"storeId"+"}", StoreId, -1)
 
@@ -95,12 +95,12 @@ func (c *ApiService) CreateProfilesImportV2WithMetadata(StoreId string, params *
 
 	defer resp.Body.Close()
 
-	ps := &CreateProfilesImportV1Response{}
+	ps := &ProfileImportCreatedResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
 
-	metadataWrapper := metadata.NewResourceMetadata[CreateProfilesImportV1Response](
+	metadataWrapper := metadata.NewResourceMetadata[ProfileImportCreatedResponse](
 		*ps,             // The resource object
 		resp.StatusCode, // HTTP status code
 		resp.Header,     // HTTP headers
