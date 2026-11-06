@@ -340,3 +340,23 @@ func TestClient_SendRequestWithOAuth(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }
+
+func TestClient_SendRequestPreservesQueryValues(t *testing.T) {
+	for _, value := range []string{"office.123", "192.168.1.1", "0.05", "office.123&Other=branch.456 +%"} {
+		t.Run(value, func(t *testing.T) {
+			data := url.Values{"FriendlyName": {value, "other.456"}, "Empty": {""}}
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, data, r.URL.Query())
+				w.WriteHeader(http.StatusOK)
+			}))
+			defer server.Close()
+
+			client := NewClient("user", "pass")
+			client.HTTPClient = server.Client()
+			response, err := client.SendRequest(http.MethodGet, server.URL, data, nil)
+			if assert.NoError(t, err) {
+				response.Body.Close()
+			}
+		})
+	}
+}
