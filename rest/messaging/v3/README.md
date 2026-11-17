@@ -32,6 +32,7 @@ All URIs are relative to *https://messaging.twilio.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *IndicatorsTypingApi* | [**CreateV3TypingIndicator**](docs/IndicatorsTypingApi.md#createv3typingindicator) | **Post** /v3/Indicators/Typing.json | Send a typing indicator
+*MessageCostEstimateApi* | [**FetchV3WhatsappMessageCostEstimate**](docs/MessageCostEstimateApi.md#fetchv3whatsappmessagecostestimate) | **Get** /v3/MessageCostEstimate | Fetch a WhatsApp message cost estimate
 
 
 ## Documentation For Models
@@ -40,7 +41,10 @@ Class | Method | HTTP request | Description
  - [RcsTypingIndicatorRequest](docs/RcsTypingIndicatorRequest.md)
  - [AppleTypingIndicatorRequest](docs/AppleTypingIndicatorRequest.md)
  - [CreateV3TypingIndicatorResponse](docs/CreateV3TypingIndicatorResponse.md)
+ - [MessageCostEstimateBidLevel](docs/MessageCostEstimateBidLevel.md)
+ - [MessageCostEstimateRange](docs/MessageCostEstimateRange.md)
  - [TypingIndicatorRequest](docs/TypingIndicatorRequest.md)
+ - [MessageCostEstimateResponse](docs/MessageCostEstimateResponse.md)
 
 
 ## Documentation For Authorization

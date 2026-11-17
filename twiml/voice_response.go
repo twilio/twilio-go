@@ -95,71 +95,41 @@ func (m VoiceStop) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-// VoiceTranscription
-// <Transcription> TwiML Noun
-type VoiceTranscription struct {
-	// name: Friendly name given to the Transcription
-	// track: Track to be analyze by the provider
-	// status_callback_url: Status Callback URL
-	// status_callback_method: Status Callback URL method
-	// inbound_track_label: Friendly name given to the Inbound Track
-	// outbound_track_label: Friendly name given to the Outbound Track Label
-	// partial_results: Indicates if partial results are going to be send to the customer
-	// language_code: Language Code used by the transcription engine
-	// transcription_engine: Transcription Engine to be used
-	// profanity_filter: Enable Profanity Filter
-	// speech_model: Speech Model used by the transcription engine
-	// hints: Hints to be provided to the transcription engine
-	// enable_automatic_punctuation: Enable Automatic Punctuation
-	// intelligence_service: The SID or the unique name of the Intelligence Service to be used
+// VoiceMediaFilter
+// <MediaFilter> TwiML Noun
+type VoiceMediaFilter struct {
+	// name: Friendly name given to the Media Filter
+	// filter_type: Type of filter to be applied to the media
+	// model: Model used by the media filter
+	// track: Track to be filtered
 	// OptionalAttributes: additional attributes
-	Name                       string
-	Track                      string
-	StatusCallbackUrl          string
-	StatusCallbackMethod       string
-	InboundTrackLabel          string
-	OutboundTrackLabel         string
-	PartialResults             string
-	LanguageCode               string
-	TranscriptionEngine        string
-	ProfanityFilter            string
-	SpeechModel                string
-	Hints                      string
-	EnableAutomaticPunctuation string
-	IntelligenceService        string
-	InnerElements              []Element
-	OptionalAttributes         map[string]string
+	Name               string
+	FilterType         string
+	Model              string
+	Track              string
+	InnerElements      []Element
+	OptionalAttributes map[string]string
 }
 
-func (m VoiceTranscription) GetName() string {
-	return "Transcription"
+func (m VoiceMediaFilter) GetName() string {
+	return "MediaFilter"
 }
 
-func (m VoiceTranscription) GetText() string {
+func (m VoiceMediaFilter) GetText() string {
 	return ""
 }
 
-func (m VoiceTranscription) GetAttr() (map[string]string, map[string]string) {
+func (m VoiceMediaFilter) GetAttr() (map[string]string, map[string]string) {
 	paramsAttr := map[string]string{
-		"Name":                       m.Name,
-		"Track":                      m.Track,
-		"StatusCallbackUrl":          m.StatusCallbackUrl,
-		"StatusCallbackMethod":       m.StatusCallbackMethod,
-		"InboundTrackLabel":          m.InboundTrackLabel,
-		"OutboundTrackLabel":         m.OutboundTrackLabel,
-		"PartialResults":             m.PartialResults,
-		"LanguageCode":               m.LanguageCode,
-		"TranscriptionEngine":        m.TranscriptionEngine,
-		"ProfanityFilter":            m.ProfanityFilter,
-		"SpeechModel":                m.SpeechModel,
-		"Hints":                      m.Hints,
-		"EnableAutomaticPunctuation": m.EnableAutomaticPunctuation,
-		"IntelligenceService":        m.IntelligenceService,
+		"Name":       m.Name,
+		"FilterType": m.FilterType,
+		"Model":      m.Model,
+		"Track":      m.Track,
 	}
 	return m.OptionalAttributes, paramsAttr
 }
 
-func (m VoiceTranscription) GetInnerElements() []Element {
+func (m VoiceMediaFilter) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
@@ -192,6 +162,80 @@ func (m VoiceParameter) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceParameter) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+// VoiceTranscription
+// <Transcription> TwiML Noun
+type VoiceTranscription struct {
+	// name: Friendly name given to the Transcription
+	// track: Track to be analyze by the provider
+	// status_callback_url: Status Callback URL
+	// status_callback_method: Status Callback URL method
+	// inbound_track_label: Friendly name given to the Inbound Track
+	// outbound_track_label: Friendly name given to the Outbound Track Label
+	// partial_results: Indicates if partial results are going to be send to the customer
+	// language_code: Language Code used by the transcription engine
+	// transcription_engine: Transcription Engine to be used
+	// profanity_filter: Enable Profanity Filter
+	// speech_model: Speech Model used by the transcription engine
+	// hints: Hints to be provided to the transcription engine
+	// enable_automatic_punctuation: Enable Automatic Punctuation
+	// intelligence_service: The SID or the unique name of the Intelligence Service to be used
+	// conversation_id: The ID of the Conversation
+	// conversation_configuration: The ID or the unique name of the Conversation configuration to be used
+	// OptionalAttributes: additional attributes
+	Name                       string
+	Track                      string
+	StatusCallbackUrl          string
+	StatusCallbackMethod       string
+	InboundTrackLabel          string
+	OutboundTrackLabel         string
+	PartialResults             string
+	LanguageCode               string
+	TranscriptionEngine        string
+	ProfanityFilter            string
+	SpeechModel                string
+	Hints                      string
+	EnableAutomaticPunctuation string
+	IntelligenceService        string
+	ConversationId             string
+	ConversationConfiguration  string
+	InnerElements              []Element
+	OptionalAttributes         map[string]string
+}
+
+func (m VoiceTranscription) GetName() string {
+	return "Transcription"
+}
+
+func (m VoiceTranscription) GetText() string {
+	return ""
+}
+
+func (m VoiceTranscription) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Name":                       m.Name,
+		"Track":                      m.Track,
+		"StatusCallbackUrl":          m.StatusCallbackUrl,
+		"StatusCallbackMethod":       m.StatusCallbackMethod,
+		"InboundTrackLabel":          m.InboundTrackLabel,
+		"OutboundTrackLabel":         m.OutboundTrackLabel,
+		"PartialResults":             m.PartialResults,
+		"LanguageCode":               m.LanguageCode,
+		"TranscriptionEngine":        m.TranscriptionEngine,
+		"ProfanityFilter":            m.ProfanityFilter,
+		"SpeechModel":                m.SpeechModel,
+		"Hints":                      m.Hints,
+		"EnableAutomaticPunctuation": m.EnableAutomaticPunctuation,
+		"IntelligenceService":        m.IntelligenceService,
+		"ConversationId":             m.ConversationId,
+		"ConversationConfiguration":  m.ConversationConfiguration,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceTranscription) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
@@ -2137,6 +2181,8 @@ type VoiceConversationRelay struct {
 	// application_reconnect: Whether the WebSocket connection to the application should be reconnected if it drops during the call. Defaults to false
 	// echo_prompt_filtering: Whether transcripts that echo the agent's own text-to-speech should be dropped. Defaults to false
 	// turn_detection: Whether turn detection should be used to decide when the caller has finished speaking. Defaults to false
+	// conversation_id: The ID of the Conversation
+	// conversation_configuration: The ID or the unique name of the Conversation configuration to be used
 	// OptionalAttributes: additional attributes
 	Url                                 string
 	Language                            string
@@ -2175,6 +2221,8 @@ type VoiceConversationRelay struct {
 	ApplicationReconnect                string
 	EchoPromptFiltering                 string
 	TurnDetection                       string
+	ConversationId                      string
+	ConversationConfiguration           string
 	InnerElements                       []Element
 	OptionalAttributes                  map[string]string
 }
@@ -2226,6 +2274,8 @@ func (m VoiceConversationRelay) GetAttr() (map[string]string, map[string]string)
 		"ApplicationReconnect":                m.ApplicationReconnect,
 		"EchoPromptFiltering":                 m.EchoPromptFiltering,
 		"TurnDetection":                       m.TurnDetection,
+		"ConversationId":                      m.ConversationId,
+		"ConversationConfiguration":           m.ConversationConfiguration,
 	}
 	return m.OptionalAttributes, paramsAttr
 }

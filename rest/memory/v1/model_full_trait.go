@@ -28,4 +28,6 @@ type FullTrait struct {
 	TraitGroup string `json:"traitGroup"`
 	// The time the trait was created or last updated.
 	Timestamp time.Time `json:"timestamp,omitempty"`
+	// Caller-set, descriptive, untrusted provenance metadata. Must follow the {company}/{product}/{version}/_* convention. \"twilio\" is a reserved company name, only usable by authenticated internal callers.
+	Source string `json:"source,omitempty"`
 }

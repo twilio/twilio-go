@@ -42,6 +42,7 @@ Class | Method | HTTP request | Description
  - [RoutesV3RegionalPhoneNumberLongCode](docs/RoutesV3RegionalPhoneNumberLongCode.md)
  - [RoutesV3ShortCode](docs/RoutesV3ShortCode.md)
  - [RoutesV3RegionalPhoneNumberShortCode](docs/RoutesV3RegionalPhoneNumberShortCode.md)
+ - [RoutesV3Rcs](docs/RoutesV3Rcs.md)
  - [RoutesV3RegionalPhoneNumberItem](docs/RoutesV3RegionalPhoneNumberItem.md)
  - [RoutesV3PhoneNumber](docs/RoutesV3PhoneNumber.md)
 

@@ -14,8 +14,10 @@
 
 package openapi
 
-// IamV1AgentPermissionsRequest The parts to change. A part left out keeps its setting, and at least one part is required.
+// IamV1AgentPermissionsRequest The parts to change. A part left out keeps its setting, and at least one part is required. A part the category does not have is a 400, so CLI takes account only.
 type IamV1AgentPermissionsRequest struct {
+	// The CIMD category whose agent permissions to set. Defaults to MCP.
+	Type         string                    `json:"type,omitempty"`
 	Account      *IamV1AgentPermissionPart `json:"account,omitempty"`
 	Organization *IamV1AgentPermissionPart `json:"organization,omitempty"`
 	User         *IamV1AgentPermissionPart `json:"user,omitempty"`

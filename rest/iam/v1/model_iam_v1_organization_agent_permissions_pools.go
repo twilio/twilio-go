@@ -14,7 +14,7 @@
 
 package openapi
 
-// IamV1OrganizationAgentPermissionsPools The permissions each context offers agents, for rendering a selection.
+// IamV1OrganizationAgentPermissionsPools The permissions each context offers agents of the category, for rendering a selection. A context the category does not have is empty.
 type IamV1OrganizationAgentPermissionsPools struct {
 	Account      []string `json:"account,omitempty"`
 	Organization []string `json:"organization,omitempty"`

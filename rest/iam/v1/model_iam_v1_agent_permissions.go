@@ -14,7 +14,7 @@
 
 package openapi
 
-// IamV1AgentPermissions struct for IamV1AgentPermissions
+// IamV1AgentPermissions What any agent of the category may do in the organization. A part the category does not have is null, so CLI has organization and user null.
 type IamV1AgentPermissions struct {
 	Account      *IamV1AgentPermissionPart               `json:"account,omitempty"`
 	Organization *IamV1AgentPermissionPart               `json:"organization,omitempty"`

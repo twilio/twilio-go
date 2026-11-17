@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-// IamV1Agentregistration An MCP agent (a CIMD client) an organization has registered.
+// IamV1Agentregistration A CIMD client, an MCP agent or the Twilio CLI, that an organization has registered.
 type IamV1Agentregistration struct {
 	// The agent's identity in the organization.
 	RegistrationSid string `json:"registration_sid"`
@@ -30,6 +30,8 @@ type IamV1Agentregistration struct {
 	Origin string `json:"origin"`
 	// Whether users in the organization can connect the agent.
 	Enabled bool `json:"enabled"`
+	// The CIMD category the agent is registered for, MCP or CLI. MCP for one registered before categories existed.
+	CimdCategory *string `json:"cimd_category,omitempty"`
 	// The name of the user who registered the agent, looked up when the registration is read. Null when the registration was made before the user was recorded, or the name could not be looked up. A user who has since been deleted shows as (Deleted User).
 	CreatedBy *string `json:"created_by,omitempty"`
 	// The sid of the user who registered the agent. Null when the registration was made before the user was recorded.

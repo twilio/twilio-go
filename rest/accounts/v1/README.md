@@ -34,6 +34,7 @@ Class | Method | HTTP request | Description
 *AuthTokensPromoteApi* | [**UpdateAuthTokenPromotion**](docs/AuthTokensPromoteApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 *AuthTokensSecondaryApi* | [**CreateSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | Create a new secondary Auth Token
 *AuthTokensSecondaryApi* | [**DeleteSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | Delete the secondary Auth Token from your account
+*ComplianceSignalsCheckApi* | [**CreateComplianceSignalsCheck**](docs/ComplianceSignalsCheckApi.md#createcompliancesignalscheck) | **Post** /v1/ComplianceSignals/Check | Evaluate compliance signals for a message
 *ConsentsBulkApi* | [**CreateBulkConsents**](docs/ConsentsBulkApi.md#createbulkconsents) | **Post** /v1/Consents/Bulk | 
 *ContactsBulkApi* | [**CreateBulkContacts**](docs/ContactsBulkApi.md#createbulkcontacts) | **Post** /v1/Contacts/Bulk | 
 *CredentialsAWSApi* | [**CreateCredentialAws**](docs/CredentialsAWSApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | Create a new AWS Credential
@@ -57,17 +58,24 @@ Class | Method | HTTP request | Description
 
  - [AccountsV1BulkContacts](docs/AccountsV1BulkContacts.md)
  - [AccountPermission](docs/AccountPermission.md)
+ - [AccountsV1ComplianceSignalsCheckSignalsQuietHoursLocation](docs/AccountsV1ComplianceSignalsCheckSignalsQuietHoursLocation.md)
  - [AccountsV1MessagingGeopermissions](docs/AccountsV1MessagingGeopermissions.md)
  - [ListCredentialPublicKeyResponse](docs/ListCredentialPublicKeyResponse.md)
+ - [AccountsV1ComplianceSignalsCheck](docs/AccountsV1ComplianceSignalsCheck.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
  - [AccountsV1AuthTokenPromotion](docs/AccountsV1AuthTokenPromotion.md)
  - [AccountsV1CredentialPublicKey](docs/AccountsV1CredentialPublicKey.md)
  - [AccountsV1Safelist](docs/AccountsV1Safelist.md)
+ - [AccountsV1ComplianceSignalsCheckSignalsQuietHoursSendingWindow](docs/AccountsV1ComplianceSignalsCheckSignalsQuietHoursSendingWindow.md)
  - [AccountsV1BulkConsents](docs/AccountsV1BulkConsents.md)
  - [AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel](docs/AccountsV1MessagingSmsPumpingProtectionCountrySpecificProtectionLevel.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
+ - [AccountsV1ComplianceSignalsCheckSignalsQuietHours](docs/AccountsV1ComplianceSignalsCheckSignalsQuietHours.md)
+ - [CreateComplianceSignalsCheckRequest](docs/CreateComplianceSignalsCheckRequest.md)
  - [PermissionWithSidOnly](docs/PermissionWithSidOnly.md)
+ - [AccountsV1ComplianceSignalsCheckProblem](docs/AccountsV1ComplianceSignalsCheckProblem.md)
  - [Permission](docs/Permission.md)
+ - [AccountsV1ComplianceSignalsCheckSignals](docs/AccountsV1ComplianceSignalsCheckSignals.md)
  - [AccountsV1CredentialAws](docs/AccountsV1CredentialAws.md)
  - [AccountsV1MessagingSmsPumpingProtection](docs/AccountsV1MessagingSmsPumpingProtection.md)
  - [ListCredentialAwsResponseMeta](docs/ListCredentialAwsResponseMeta.md)

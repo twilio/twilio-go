@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **ClientUrl** | **string** | The agent's CIMD document URL, as registered. |
 **Origin** | **string** | The host of the CIMD document URL. |
 **Enabled** | **bool** | Whether users in the organization can connect the agent. |
+**CimdCategory** | Pointer to **string** | The CIMD category the agent is registered for, MCP or CLI. MCP for one registered before categories existed. |
 **CreatedBy** | Pointer to **string** | The name of the user who registered the agent, looked up when the registration is read. Null when the registration was made before the user was recorded, or the name could not be looked up. A user who has since been deleted shows as (Deleted User). |
 **CreatedBySid** | Pointer to **string** | The sid of the user who registered the agent. Null when the registration was made before the user was recorded. |
 **DateCreated** | [**time.Time**](time.Time.md) |  |[optional] 
