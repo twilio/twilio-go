@@ -175,9 +175,15 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	if method == http.MethodGet || method == http.MethodDelete || contentType == jsonContentType {
 		if data != nil {
 			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
-			s := delimitingRegex.ReplaceAllString(v, "")
+			parameters := strings.Split(v, "&")
+			for i, parameter := range parameters {
+				parts := strings.SplitN(parameter, "=", 2)
+				// Remove form slice indices only from keys, preserving encoded values.
+				parts[0] = delimitingRegex.ReplaceAllString(parts[0], "")
+				parameters[i] = strings.Join(parts, "=")
+			}
 
-			u.RawQuery = s
+			u.RawQuery = strings.Join(parameters, "&")
 		}
 	}
 
