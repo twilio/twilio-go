@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Type** | **string** | The CIMD category whose agent permissions to set. Defaults to MCP. |[optional] 
 **Account** | Pointer to [**IamV1AgentPermissionPart**](IamV1AgentPermissionPart.md) |  |
 **Organization** | Pointer to [**IamV1AgentPermissionPart**](IamV1AgentPermissionPart.md) |  |
 **User** | Pointer to [**IamV1AgentPermissionPart**](IamV1AgentPermissionPart.md) |  |

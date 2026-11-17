@@ -20,4 +20,6 @@ type IamV1AgentRegistrationRequest struct {
 	ClientUrl string `json:"clientUrl"`
 	// Whether users in the organization can connect the agent. Defaults to false.
 	Enabled bool `json:"enabled,omitempty"`
+	// The CIMD category to register the agent for. A URL a category lists may be registered in that category only, and a URL no category lists only as MCP. Defaults to the category that lists the URL, else MCP. A URL is registered in one category per organization.
+	Type string `json:"type,omitempty"`
 }
