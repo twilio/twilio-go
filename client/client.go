@@ -50,13 +50,15 @@ type Client struct {
 	oAuth               OAuth
 }
 
-// default http Client should not follow redirects and return the most recent response.
+// default http Client should not follow redirects and return the most recent response. It refuses certificate
+// chains that contain a distrusted intermediate (see distrustedSPKIHashes).
 func defaultHTTPClient() *http.Client {
 	return &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
-		Timeout: time.Second * 10,
+		Timeout:   time.Second * 10,
+		Transport: distrustTransport{},
 	}
 }
 
