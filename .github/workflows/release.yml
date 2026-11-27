@@ -41,7 +41,7 @@ jobs:
 
       - uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
         with:
-          go-version: '1.25'
+          go-version: '1.26'
 
       - uses: twilio/sdk-actions/artifactory-oidc@7c951c50503e2b6b7d5561cead0adcdc7e0d17af # v1
         with:
@@ -64,7 +64,7 @@ jobs:
 
       - uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
         with:
-          go-version: '1.25'
+          go-version: '1.26'
 
       # THE POINT OF NO RETURN. The moment this ref lands, the version is public
       # and permanent — proxy.golang.org will serve it and sum.golang.org will
