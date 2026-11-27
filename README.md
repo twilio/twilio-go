@@ -203,6 +203,23 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 
 A Twilio client constructed without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
 
+### Override the request host
+
+```go
+package main
+
+import (
+	"github.com/twilio/twilio-go"
+)
+
+func main() {
+	client := twilio.NewRestClient()
+	client.SetHost("localhost:4010")
+}
+```
+
+`SetHost` replaces the request host for every product (`api.twilio.com`, `lookups.twilio.com`, ...). When set, Edge/Region splicing is skipped. Intended for [Prism](https://stoplight.io/open-source/prism) mocks, recorded-cassette tests, and self-hosted proxies. The `TWILIO_HOST` environment variable is honored when the client is constructed without an explicit override.
+
 ### Buy a phone number
 
 ```go
