@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go: ['1.25', '1.26', '1.27']
+        go: ['1.26.10', '1.27.3']
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3
 
@@ -48,7 +48,7 @@ jobs:
       - run: make test
       # golangci-lint v1.64.8 (the last v1.x release) can't decode Go 1.27's export data format;
       # skip lint on that leg until we move to golangci-lint v2.
-      - if: matrix.go != '1.27'
+      - if: ${{ !startsWith(matrix.go, '1.27') }}
         run: make golint
 
   cluster-test:
@@ -66,7 +66,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        go: [ '1.25', '1.26', '1.27' ]
+        go: [ '1.26.10', '1.27.3' ]
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@be3c94b385c4f180051c996d336f57a34c397495 # v3
